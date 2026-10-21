@@ -1,0 +1,22 @@
+---
+/**
+ * src/pages/terminos.astro
+ * Copyright (C) 2026 ConvertiLocal contributors
+ * SPDX-License-Identifier: AGPL-3.0-only
+ */
+import LegalLayout from '@/layouts/LegalLayout.astro';
+import LegalDocument from '@/components/legal/LegalDocument.astro';
+import SourceLinks from '@/components/legal/SourceLinks.astro';
+import { TERMINOS } from '@/content/legal/terminos';
+import { LEGAL_PAGES } from '@/data/site';
+
+const page = LEGAL_PAGES.terminos!;
+
+const extras = {
+  'propiedad-intelectual': SourceLinks,
+};
+---
+
+<LegalLayout page={page}>
+  <LegalDocument document={TERMINOS} extras={extras} />
+</LegalLayout>

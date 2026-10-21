@@ -1,3 +1,8 @@
+/**
+ * src/scripts/core/data/text.ts
+ * Copyright (C) 2026 ConvertiLocal contributors
+ * SPDX-License-Identifier: AGPL-3.0-only
+ */
 export type TextStats = {
   words: number;
   characters: number;

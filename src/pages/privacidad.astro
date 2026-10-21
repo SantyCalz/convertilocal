@@ -1,0 +1,17 @@
+---
+/**
+ * src/pages/privacidad.astro
+ * Copyright (C) 2026 ConvertiLocal contributors
+ * SPDX-License-Identifier: AGPL-3.0-only
+ */
+import LegalLayout from '@/layouts/LegalLayout.astro';
+import LegalDocument from '@/components/legal/LegalDocument.astro';
+import { PRIVACIDAD } from '@/content/legal/privacidad';
+import { LEGAL_PAGES } from '@/data/site';
+
+const page = LEGAL_PAGES.privacidad!;
+---
+
+<LegalLayout page={page}>
+  <LegalDocument document={PRIVACIDAD} />
+</LegalLayout>

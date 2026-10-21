@@ -1,3 +1,8 @@
+/**
+ * src/data/pdf-tools.ts
+ * Copyright (C) 2026 ConvertiLocal contributors
+ * SPDX-License-Identifier: AGPL-3.0-only
+ */
 import type { PdfTool, PdfToolConfig, PdfToolContent } from '@/types/pdf';
 import contentData from './pdf-tools.json';
 import { PDF_OPTIONS } from './pdf-options';

@@ -14,10 +14,23 @@ export default defineConfig({
   site: SITE_URL,
   output: 'static',
   compressHTML: true,
+  /**
+   * Las políticas legales se publicaron primero con nombres largos y ahora
+   * viven en rutas cortas. Las redirecciones evitan tener dos versiones del
+   * mismo documento (contenido duplicado) y conservan los enlaces anteriores.
+   */
+  redirects: {
+    '/politica-de-privacidad': '/privacidad',
+    '/terminos-y-condiciones': '/terminos',
+  },
   integrations: [
     tailwind({ applyBaseStyles: false }),
     sitemap({
-      filter: (page) => !page.includes('/demo-file-processor'),
+      // Las páginas de redirección no deben indexarse.
+      filter: (page) =>
+        !page.includes('/demo-file-processor') &&
+        !page.includes('/politica-de-privacidad') &&
+        !page.includes('/terminos-y-condiciones'),
     }),
   ],
   build: {

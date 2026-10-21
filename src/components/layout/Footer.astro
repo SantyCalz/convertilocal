@@ -1,6 +1,11 @@
 ---
+/**
+ * src/components/layout/Footer.astro
+ * Copyright (C) 2026 ConvertiLocal contributors
+ * SPDX-License-Identifier: AGPL-3.0-only
+ */
 import { FOOTER_PROJECT_LINKS, FOOTER_TOOL_LINKS } from '@/data/nav';
-import { FOOTER_LEGAL_LINKS, SITE } from '@/data/site';
+import { FOOTER_LEGAL_LINKS, SITE, SOURCE_URL } from '@/data/site';
 import Icon from '@/components/ui/Icon.astro';
 import Logo from '@/components/ui/Logo.astro';
 
@@ -27,17 +32,17 @@ const year = new Date().getFullYear();
       </div>
 
       <div class="grid grid-cols-2 gap-8 sm:grid-cols-3 md:col-span-8">
-        <div>
+        <nav aria-label="Herramientas">
           <h2 class="text-xs font-semibold uppercase tracking-[0.14em] text-slate-400">
             Herramientas
           </h2>
-          <ul class="mt-3 space-y-2.5">
+          <ul class="mt-3 space-y-1">
             {
               FOOTER_TOOL_LINKS.map((link) => (
                 <li>
                   <a
                     href={link.href}
-                    class="text-sm text-slate-600 transition-colors hover:text-brand-800"
+                    class="touch-target inline-flex items-center text-sm text-slate-600 transition-colors hover:text-brand-800"
                   >
                     {link.label}
                   </a>
@@ -45,19 +50,19 @@ const year = new Date().getFullYear();
               ))
             }
           </ul>
-        </div>
+        </nav>
 
-        <div>
+        <nav aria-label="Proyecto">
           <h2 class="text-xs font-semibold uppercase tracking-[0.14em] text-slate-400">
             Proyecto
           </h2>
-          <ul class="mt-3 space-y-2.5">
+          <ul class="mt-3 space-y-1">
             {
               FOOTER_PROJECT_LINKS.map((link) => (
                 <li>
                   <a
                     href={link.href}
-                    class="text-sm text-slate-600 transition-colors hover:text-brand-800"
+                    class="touch-target inline-flex items-center text-sm text-slate-600 transition-colors hover:text-brand-800"
                   >
                     {link.label}
                   </a>
@@ -65,18 +70,18 @@ const year = new Date().getFullYear();
               ))
             }
           </ul>
-        </div>
+        </nav>
 
-        <div class="col-span-2 sm:col-span-1">
+        <nav aria-label="Legal" class="col-span-2 sm:col-span-1">
           <h2 class="text-xs font-semibold uppercase tracking-[0.14em] text-slate-400">Legal</h2>
-          <ul class="mt-3 grid grid-cols-2 gap-x-4 gap-y-2.5 sm:grid-cols-1">
+          <ul class="mt-3 grid grid-cols-2 gap-x-4 sm:grid-cols-1">
             {
               FOOTER_LEGAL_LINKS.map((link) => (
                 <li>
                   <a
                     href={link.href}
                     title={link.title}
-                    class="text-sm text-slate-600 transition-colors hover:text-brand-800"
+                    class="touch-target inline-flex items-center text-sm text-slate-600 transition-colors hover:text-brand-800"
                   >
                     {link.label}
                   </a>
@@ -84,14 +89,32 @@ const year = new Date().getFullYear();
               ))
             }
           </ul>
-        </div>
+        </nav>
       </div>
     </div>
 
     <div
-      class="mt-10 flex flex-col gap-3 border-t border-slate-100 pt-6 text-xs text-slate-500 sm:flex-row sm:items-center sm:justify-between"
+      class="mt-10 flex flex-col gap-3 border-t border-slate-100 pt-6 text-xs text-slate-500 sm:flex-row sm:items-start sm:justify-between"
     >
-      <p>© {year} {SITE.name}. Hecho para funcionar sin conexión.</p>
+      <div class="space-y-1.5">
+        <p>© {year} {SITE.name}. Hecho para funcionar sin conexión.</p>
+        <p class="text-slate-400">
+          Código bajo{' '}
+          <a
+            href="/licencias"
+            class="underline decoration-slate-300 underline-offset-2 hover:text-slate-600"
+          >
+            AGPL-3.0
+          </a>
+          . <a
+            href={SOURCE_URL}
+            class="underline decoration-slate-300 underline-offset-2 hover:text-slate-600"
+          >
+            Código fuente
+          </a>
+          .
+        </p>
+      </div>
       <p class="flex items-center gap-1.5">
         <Icon name="lock" size={14} />
         Tus archivos nunca salen de tu dispositivo.

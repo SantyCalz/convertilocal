@@ -1,3 +1,8 @@
+/**
+ * src/types/media.ts
+ * Copyright (C) 2026 ConvertiLocal contributors
+ * SPDX-License-Identifier: AGPL-3.0-only
+ */
 import type { ProcessorOption, ProcessorOptions } from './processor';
 
 export type MediaErrorCode =

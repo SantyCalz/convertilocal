@@ -1,3 +1,8 @@
+/**
+ * src/scripts/processors/media/shared.ts
+ * Copyright (C) 2026 ConvertiLocal contributors
+ * SPDX-License-Identifier: AGPL-3.0-only
+ */
 import type { ProcessorOptions } from '@/types/processor';
 
 interface WarningOptions extends ProcessorOptions {

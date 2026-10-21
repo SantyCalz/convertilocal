@@ -1,3 +1,8 @@
+/**
+ * src/env.d.ts
+ * Copyright (C) 2026 ConvertiLocal contributors
+ * SPDX-License-Identifier: AGPL-3.0-only
+ */
 /// <reference types="astro/client" />
 
 declare module '*.wasm?url' {

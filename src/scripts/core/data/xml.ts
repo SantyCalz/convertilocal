@@ -1,3 +1,8 @@
+/**
+ * src/scripts/core/data/xml.ts
+ * Copyright (C) 2026 ConvertiLocal contributors
+ * SPDX-License-Identifier: AGPL-3.0-only
+ */
 function isElementNode(node: Node): node is Element {
   return node.nodeType === 1;
 }

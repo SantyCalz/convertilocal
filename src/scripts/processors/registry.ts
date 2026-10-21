@@ -1,3 +1,8 @@
+/**
+ * src/scripts/processors/registry.ts
+ * Copyright (C) 2026 ConvertiLocal contributors
+ * SPDX-License-Identifier: AGPL-3.0-only
+ */
 import type { Processor } from '@/types/processor';
 import { passthroughProcessor } from './passthrough';
 

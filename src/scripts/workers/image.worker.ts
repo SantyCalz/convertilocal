@@ -1,3 +1,8 @@
+/**
+ * src/scripts/workers/image.worker.ts
+ * Copyright (C) 2026 ConvertiLocal contributors
+ * SPDX-License-Identifier: AGPL-3.0-only
+ */
 import type { ImageJobRequest, ImageWorkerMessage } from '@/types/image';
 import { ImageProcessingError } from '@/types/image';
 import { cleanFile, compressFile, convertFile, resizeFile, cropFile } from '@/scripts/core/image/operations';

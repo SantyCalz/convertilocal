@@ -1,0 +1,24 @@
+---
+/**
+ * src/pages/licencias.astro
+ * Copyright (C) 2026 ConvertiLocal contributors
+ * SPDX-License-Identifier: AGPL-3.0-only
+ */
+import LegalLayout from '@/layouts/LegalLayout.astro';
+import LegalDocument from '@/components/legal/LegalDocument.astro';
+import ThirdPartyTable from '@/components/legal/ThirdPartyTable.astro';
+import SourceLinks from '@/components/legal/SourceLinks.astro';
+import { LICENCIAS } from '@/content/legal/licencias';
+import { LEGAL_PAGES } from '@/data/site';
+
+const page = LEGAL_PAGES.licencias!;
+
+const extras = {
+  'tabla-terceros': ThirdPartyTable,
+  'codigo-fuente': SourceLinks,
+};
+---
+
+<LegalLayout page={page}>
+  <LegalDocument document={LICENCIAS} extras={extras} />
+</LegalLayout>

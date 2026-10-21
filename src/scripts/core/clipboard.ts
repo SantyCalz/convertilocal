@@ -2,6 +2,11 @@
  * Extrae archivos de un evento `paste` (Ctrl/Cmd+V).
  * Cubre tanto capturas de pantalla como archivos copiados desde el explorador.
  */
+/**
+ * src/scripts/core/clipboard.ts
+ * Copyright (C) 2026 ConvertiLocal contributors
+ * SPDX-License-Identifier: AGPL-3.0-only
+ */
 export function filesFromClipboard(event: ClipboardEvent): File[] {
   const clipboard = event.clipboardData;
   if (!clipboard) return [];

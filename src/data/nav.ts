@@ -1,3 +1,8 @@
+/**
+ * src/data/nav.ts
+ * Copyright (C) 2026 ConvertiLocal contributors
+ * SPDX-License-Identifier: AGPL-3.0-only
+ */
 export const MAIN_NAV = [
   { href: '/convertir', label: 'Imágenes' },
   { href: '/pdf', label: 'PDF' },

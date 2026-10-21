@@ -1,3 +1,8 @@
+/**
+ * src/scripts/core/download.ts
+ * Copyright (C) 2026 ConvertiLocal contributors
+ * SPDX-License-Identifier: AGPL-3.0-only
+ */
 import type { ProcessorOutput } from '@/types/processor';
 
 export type DownloadOutcome = 'downloaded' | 'shared' | 'cancelled';

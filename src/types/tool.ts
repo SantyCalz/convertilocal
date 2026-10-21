@@ -1,3 +1,8 @@
+/**
+ * src/types/tool.ts
+ * Copyright (C) 2026 ConvertiLocal contributors
+ * SPDX-License-Identifier: AGPL-3.0-only
+ */
 import type { IconName } from './icon';
 
 export type CategoryId = 'imagen' | 'audio' | 'video' | 'documentos' | 'datos' | 'texto' | 'archivos';

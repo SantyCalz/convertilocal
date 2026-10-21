@@ -1,3 +1,8 @@
+/**
+ * src/scripts/core/image/limits.ts
+ * Copyright (C) 2026 ConvertiLocal contributors
+ * SPDX-License-Identifier: AGPL-3.0-only
+ */
 import { ImageProcessingError } from '@/types/image';
 
 export const MAX_FILE_BYTES = 25 * 1024 * 1024;

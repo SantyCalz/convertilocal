@@ -1,3 +1,8 @@
+/**
+ * scripts/verify-deployment.mjs
+ * Copyright (C) 2026 ConvertiLocal contributors
+ * SPDX-License-Identifier: AGPL-3.0-only
+ */
 import { existsSync, readFileSync, readdirSync, statSync } from 'node:fs';
 import { join } from 'node:path';
 
@@ -37,14 +42,23 @@ for (const required of ['index.html', 'robots.txt', 'ads.txt', 'sitemap-index.xm
 
 if (!existsSync('vercel.json')) fail('Falta vercel.json en la raíz del proyecto.');
 
-if (htmlFiles.length < 70) fail(`Se esperaban al menos 70 páginas HTML, hay ${htmlFiles.length}.`);
+if (htmlFiles.length < 75) fail(`Se esperaban al menos 75 páginas HTML, hay ${htmlFiles.length}.`);
 
 let noindexOutsideDemo = 0;
 let missingMeta = 0;
+let redirectPages = 0;
 
 for (const file of htmlFiles) {
   const html = readFileSync(file, 'utf8');
   const relative = file.replace(/^dist[\\/]/, '').replace(/\\/g, '/');
+
+  // Las páginas de redirección generadas por Astro son mínimas: llevan
+  // noindex y canonical, pero no los metadatos sociales de una página real.
+  if (/http-equiv="refresh"/i.test(html)) {
+    redirectPages += 1;
+    if (!html.includes('<link rel="canonical"')) missingMeta += 1;
+    continue;
+  }
 
   if (relative !== 'demo-file-processor/index.html' && /noindex/i.test(html)) {
     noindexOutsideDemo += 1;
@@ -125,7 +139,10 @@ if (errors.length > 0) {
   process.exit(1);
 }
 
-console.log(`\n✓ Despliegue verificado: ${htmlFiles.length} páginas HTML, metadatos OK y assets de caché configurados.`);
+console.log(
+  `\n✓ Despliegue verificado: ${htmlFiles.length} páginas HTML (${redirectPages} de redirección), ` +
+    'metadatos OK y assets de caché configurados.',
+);
 if (warnings.length > 0) {
   console.log('Avisos:');
   for (const warning of warnings) console.log(`  · ${warning}`);

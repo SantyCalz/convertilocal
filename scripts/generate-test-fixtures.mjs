@@ -1,3 +1,8 @@
+/**
+ * scripts/generate-test-fixtures.mjs
+ * Copyright (C) 2026 ConvertiLocal contributors
+ * SPDX-License-Identifier: AGPL-3.0-only
+ */
 import { spawnSync } from 'node:child_process';
 import ffmpegPath from 'ffmpeg-static';
 import { mkdirSync } from 'node:fs';

@@ -1,3 +1,8 @@
+/**
+ * src/scripts/core/pdf/sniff.ts
+ * Copyright (C) 2026 ConvertiLocal contributors
+ * SPDX-License-Identifier: AGPL-3.0-only
+ */
 const PDF_SIGNATURE = [0x25, 0x50, 0x44, 0x46, 0x2d]; // %PDF-
 
 /** true si `accept` contiene un PDF, aunque venga junto a otros formatos. */

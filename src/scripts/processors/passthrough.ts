@@ -1,3 +1,8 @@
+/**
+ * src/scripts/processors/passthrough.ts
+ * Copyright (C) 2026 ConvertiLocal contributors
+ * SPDX-License-Identifier: AGPL-3.0-only
+ */
 import type { Processor, ProcessorOutput } from '@/types/processor';
 
 function renameWithSuffix(name: string, suffix: string): string {

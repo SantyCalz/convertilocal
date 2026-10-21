@@ -1,3 +1,8 @@
+/**
+ * src/scripts/core/image/canvas.ts
+ * Copyright (C) 2026 ConvertiLocal contributors
+ * SPDX-License-Identifier: AGPL-3.0-only
+ */
 import avifWasmUrl from '@jsquash/avif/codec/enc/avif_enc.wasm?url';
 import type { OutputFormatId } from '@/types/image';
 import { ImageProcessingError } from '@/types/image';

@@ -1,3 +1,8 @@
+/**
+ * src/scripts/processors/image/exif-cleaner.ts
+ * Copyright (C) 2026 ConvertiLocal contributors
+ * SPDX-License-Identifier: AGPL-3.0-only
+ */
 import type { Processor, ProcessorOptions, ProcessorOutput } from '@/types/processor';
 import type { ImageFormatId, OutputFormatId } from '@/types/image';
 import { ImageProcessingError } from '@/types/image';

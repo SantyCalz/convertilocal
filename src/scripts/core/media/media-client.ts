@@ -1,3 +1,8 @@
+/**
+ * src/scripts/core/media/media-client.ts
+ * Copyright (C) 2026 ConvertiLocal contributors
+ * SPDX-License-Identifier: AGPL-3.0-only
+ */
 import { FFmpeg } from '@ffmpeg/ffmpeg';
 
 export type MediaOutput = {

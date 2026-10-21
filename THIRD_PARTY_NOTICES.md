@@ -13,7 +13,7 @@ ConvertiLocal incluye o carga de forma diferida los siguientes componentes. Las 
 | Códec AV1 de AOM / libavif (incluidos en @jsquash/avif) | Según build del paquete | BSD y licencias de patentes correspondientes | Codificación AVIF |
 | @imgly/background-removal | 1.7.0 | MIT | Eliminación de fondo con modelo de segmentación (carga diferida) |
 | onnxruntime-web | 1.21.0 | MIT | Inferencia del modelo de segmentación en WebAssembly |
-| Modelos IS-Net (isnet, isnet_fp16, isnet_quint8) | 1.0.0 | Apache-2.0 | Pesos del modelo de segmentación, servidos desde el propio dominio |
+| Modelos IS-Net (isnet, isnet_fp16, isnet_quint8) | https://github.com/xuebinqin/DIS | Apache-2.0 | Pesos del modelo de segmentación, servidos desde el propio dominio |
 
 ## Textos y enlaces
 

@@ -1,3 +1,8 @@
+/**
+ * src/scripts/core/file-processor.ts
+ * Copyright (C) 2026 ConvertiLocal contributors
+ * SPDX-License-Identifier: AGPL-3.0-only
+ */
 import type { ImageFormatId } from '@/types/image';
 import type { ProcessorOptions, ProcessorOutput } from '@/types/processor';
 import { filesFromClipboard, nameClipboardFile } from './clipboard';

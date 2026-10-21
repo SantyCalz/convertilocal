@@ -7,6 +7,11 @@
  *
  * Uso: node scripts/check-js-budget.mjs [--kb=50]
  */
+/**
+ * scripts/check-js-budget.mjs
+ * Copyright (C) 2026 ConvertiLocal contributors
+ * SPDX-License-Identifier: AGPL-3.0-only
+ */
 import { existsSync, readdirSync, readFileSync, statSync } from 'node:fs';
 import { dirname, join, relative, resolve } from 'node:path';
 import { gzipSync } from 'node:zlib';

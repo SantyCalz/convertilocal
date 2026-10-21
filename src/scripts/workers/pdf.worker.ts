@@ -1,3 +1,8 @@
+/**
+ * src/scripts/workers/pdf.worker.ts
+ * Copyright (C) 2026 ConvertiLocal contributors
+ * SPDX-License-Identifier: AGPL-3.0-only
+ */
 import type { PDFDocument, PDFObject, PDFRef } from 'pdf-lib';
 import { PdfProcessingError } from '@/types/pdf';
 import type { PdfJobRequest, PdfOutput, PdfRasterPage, PdfWorkerMessage } from '@/types/pdf';

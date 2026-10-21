@@ -1,3 +1,8 @@
+/**
+ * src/scripts/processors/pdf/shared.ts
+ * Copyright (C) 2026 ConvertiLocal contributors
+ * SPDX-License-Identifier: AGPL-3.0-only
+ */
 import type { PdfJobOperation, PdfRasterPage } from '@/types/pdf';
 import type { ProcessorOptions, ProcessorOutput } from '@/types/processor';
 import { runPdfJob } from '@/scripts/core/pdf/pdf-worker-client';

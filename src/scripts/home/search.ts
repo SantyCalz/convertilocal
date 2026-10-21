@@ -1,3 +1,8 @@
+/**
+ * src/scripts/home/search.ts
+ * Copyright (C) 2026 ConvertiLocal contributors
+ * SPDX-License-Identifier: AGPL-3.0-only
+ */
 import { PUBLIC_TOOLS } from '@/data/tools';
 import type { Tool } from '@/types/tool';
 

@@ -1,0 +1,39 @@
+---
+/**
+ * src/components/legal/AttributionNotice.astro
+ * Copyright (C) 2026 ConvertiLocal contributors
+ * SPDX-License-Identifier: AGPL-3.0-only
+ */
+
+interface Props {
+  /** Componente de terceros que se menciona en el aviso. */
+  component: 'ffmpeg' | 'imgly';
+  class?: string;
+}
+
+const { component, class: className = '' } = Astro.props;
+
+const CONTENT = {
+  ffmpeg: {
+    label: 'Usa FFmpeg',
+    text: 'Esta herramienta usa ffmpeg.wasm, una compilación de FFmpeg bajo licencia GPL-2.0-or-later que se ejecuta por completo en tu navegador. El código fuente correspondiente está disponible.',
+  },
+  imgly: {
+    label: 'Usa @imgly/background-removal',
+    text: 'Esta herramienta usa @imgly/background-removal, bajo licencia AGPL-3.0, con un modelo de segmentación que se descarga desde este mismo dominio. El código fuente del proyecto está disponible.',
+  },
+} as const;
+
+const content = CONTENT[component];
+---
+
+<p class:list={['text-[11px] leading-5 text-slate-400', className]}>
+  {content.label}: {content.text}
+  <a
+    href="/licencias"
+    class="underline decoration-slate-300 underline-offset-2 hover:text-slate-600"
+  >
+    Más información en /licencias
+  </a>
+  .
+</p>

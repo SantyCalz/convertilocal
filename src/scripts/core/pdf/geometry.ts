@@ -1,3 +1,8 @@
+/**
+ * src/scripts/core/pdf/geometry.ts
+ * Copyright (C) 2026 ConvertiLocal contributors
+ * SPDX-License-Identifier: AGPL-3.0-only
+ */
 export type PdfPagePosition =
   | 'top-left'
   | 'top-center'

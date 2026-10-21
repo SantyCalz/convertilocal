@@ -1,3 +1,8 @@
+/**
+ * src/scripts/core/media/audio.ts
+ * Copyright (C) 2026 ConvertiLocal contributors
+ * SPDX-License-Identifier: AGPL-3.0-only
+ */
 export async function getMediaDuration(file: File): Promise<number> {
   return new Promise<number>((resolve, reject) => {
     const url = URL.createObjectURL(file);

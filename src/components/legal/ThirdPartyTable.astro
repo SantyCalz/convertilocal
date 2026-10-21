@@ -1,0 +1,47 @@
+---
+/**
+ * src/components/legal/ThirdPartyTable.astro
+ * Copyright (C) 2026 ConvertiLocal contributors
+ * SPDX-License-Identifier: AGPL-3.0-only
+ */
+import thirdParty from '@/content/legal/third-party.json';
+---
+
+<div class="mt-4 overflow-x-auto rounded-xl border border-slate-200">
+  <table class="w-full min-w-[42rem] text-left text-xs sm:text-sm">
+    <thead class="bg-slate-50 text-slate-500">
+      <tr>
+        <th scope="col" class="px-4 py-3 font-medium">Componente</th>
+        <th scope="col" class="px-4 py-3 font-medium">Versión</th>
+        <th scope="col" class="px-4 py-3 font-medium">Licencia</th>
+        <th scope="col" class="px-4 py-3 font-medium">Se distribuye</th>
+      </tr>
+    </thead>
+    <tbody class="divide-y divide-slate-100 text-slate-600">
+      {
+        thirdParty.rows.map((row) => (
+          <tr>
+            <th scope="row" class="px-4 py-3 font-mono text-[11px] font-medium text-slate-700">
+              {row.name}
+            </th>
+            <td class="px-4 py-3">{row.version}</td>
+            <td class="px-4 py-3">{row.license}</td>
+            <td class="px-4 py-3">{row.client ? 'Sí' : 'No'}</td>
+          </tr>
+        ))
+      }
+    </tbody>
+  </table>
+</div>
+
+<p class="mt-2 text-[11px] text-slate-400">
+  {thirdParty.rows.length} dependencias directas y de desarrollo sobre {thirdParty.totalInstalled}{' '}
+  paquetes instalados. Inventario completo:{' '}
+  <a
+    href="/licencias/terceros.txt"
+    class="underline decoration-slate-300 underline-offset-2 hover:text-slate-600"
+  >
+    fichero de texto
+  </a>
+  .
+</p>

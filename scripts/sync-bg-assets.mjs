@@ -13,6 +13,11 @@
  *   node scripts/sync-bg-assets.mjs --only=a,b     # recursos concretos
  *   node scripts/sync-bg-assets.mjs --force        # vuelve a descargar todo
  */
+/**
+ * scripts/sync-bg-assets.mjs
+ * Copyright (C) 2026 ConvertiLocal contributors
+ * SPDX-License-Identifier: AGPL-3.0-only
+ */
 import {
   existsSync,
   mkdirSync,

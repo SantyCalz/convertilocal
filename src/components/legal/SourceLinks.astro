@@ -1,0 +1,36 @@
+---
+/**
+ * src/components/legal/SourceLinks.astro
+ * Copyright (C) 2026 ConvertiLocal contributors
+ * SPDX-License-Identifier: AGPL-3.0-only
+ */
+import { REPO_URL, SOURCE_URL } from '@/data/site';
+---
+
+<div class="mt-4 rounded-xl border border-slate-200 bg-slate-50/70 p-4 text-sm leading-6 text-slate-600">
+  <p>
+    <strong class="font-semibold text-slate-800">Código fuente de esta versión:</strong>
+    <a
+      href={SOURCE_URL}
+      class="break-all text-brand-700 underline decoration-brand-300 underline-offset-2 hover:text-brand-800"
+    >
+      {SOURCE_URL}
+    </a>
+  </p>
+  <p class="mt-2">
+    <a
+      href={REPO_URL}
+      class="text-brand-700 underline decoration-brand-300 underline-offset-2 hover:text-brand-800"
+    >
+      Repositorio completo
+    </a>
+    {' y '}
+    <a
+      href="/licencias/ffmpeg-fuente.txt"
+      class="text-brand-700 underline decoration-brand-300 underline-offset-2 hover:text-brand-800"
+    >
+      manifiesto del código fuente de FFmpeg
+    </a>
+    .
+  </p>
+</div>

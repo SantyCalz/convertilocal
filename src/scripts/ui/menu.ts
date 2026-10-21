@@ -1,3 +1,8 @@
+/**
+ * src/scripts/ui/menu.ts
+ * Copyright (C) 2026 ConvertiLocal contributors
+ * SPDX-License-Identifier: AGPL-3.0-only
+ */
 export function initMobileMenu(): void {
   const dialog = document.querySelector<HTMLDialogElement>('[data-mobile-menu]');
   if (!dialog) return;

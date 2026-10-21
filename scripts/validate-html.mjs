@@ -3,6 +3,11 @@
  * Requiere haber ejecutado `npm run build`.
  * Uso: node scripts/validate-html.mjs
  */
+/**
+ * scripts/validate-html.mjs
+ * Copyright (C) 2026 ConvertiLocal contributors
+ * SPDX-License-Identifier: AGPL-3.0-only
+ */
 import { existsSync, readdirSync, readFileSync, statSync } from 'node:fs';
 import { join } from 'node:path';
 

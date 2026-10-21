@@ -1,3 +1,8 @@
+/**
+ * src/data/data-tools.ts
+ * Copyright (C) 2026 ConvertiLocal contributors
+ * SPDX-License-Identifier: AGPL-3.0-only
+ */
 import type { DataTool, DataToolConfig, DataToolContent } from '@/types/data';
 import contentData from './data-tools.json';
 import { DATA_OPTIONS } from './data-options';

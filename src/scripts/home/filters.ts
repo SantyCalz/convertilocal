@@ -3,6 +3,11 @@
  * Las tarjetas de categoría y las píldoras de filtro comparten
  * `data-category-filter`; ambas actualizan su `aria-pressed`.
  */
+/**
+ * src/scripts/home/filters.ts
+ * Copyright (C) 2026 ConvertiLocal contributors
+ * SPDX-License-Identifier: AGPL-3.0-only
+ */
 export function initToolFilters(): void {
   const buttons = Array.from(
     document.querySelectorAll<HTMLButtonElement>('[data-category-filter]'),

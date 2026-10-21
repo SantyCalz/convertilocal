@@ -1,5 +1,11 @@
 ---
+/**
+ * src/pages/imagenes/eliminar-fondo.astro
+ * Copyright (C) 2026 ConvertiLocal contributors
+ * SPDX-License-Identifier: AGPL-3.0-only
+ */
 import ToolPageShell from '@/components/tools/ToolPageShell.astro';
+import AttributionNotice from '@/components/legal/AttributionNotice.astro';
 import Icon from '@/components/ui/Icon.astro';
 import type { ProcessorOption } from '@/types/processor';
 
@@ -52,6 +58,8 @@ const webApplicationSchema = { '@context': 'https://schema.org', '@type': 'WebAp
       <p>Puedes elegir entre un modelo rápido y uno más preciso según el tipo de imagen.</p>
     </div>
   </section>
+
+  <AttributionNotice component="imgly" class="mt-8" />
 
   <section class="mt-10" aria-labelledby="faq-title">
     <h2 id="faq-title" class="text-2xl font-bold tracking-tight text-slate-900">Preguntas frecuentes</h2>

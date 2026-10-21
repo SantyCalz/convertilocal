@@ -1,5 +1,11 @@
 ---
+/**
+ * src/components/tools/MediaToolPage.astro
+ * Copyright (C) 2026 ConvertiLocal contributors
+ * SPDX-License-Identifier: AGPL-3.0-only
+ */
 import ToolPageShell from '@/components/tools/ToolPageShell.astro';
+import AttributionNotice from '@/components/legal/AttributionNotice.astro';
 import Icon from '@/components/ui/Icon.astro';
 import { MEDIA_TOOLS, MEDIA_SLUGS } from '@/data/media-tools';
 import type { MediaTool } from '@/types/media';
@@ -170,6 +176,8 @@ const limitations = [
   )}
 
   <p class="mt-8 text-[11px] text-slate-400">Contenido revisado el {tool.updated}.</p>
+
+  <AttributionNotice component="ffmpeg" class="mt-2" />
 
   <Fragment slot="aside">
     <div class="mt-4 rounded-2xl border border-slate-200 bg-white p-5">

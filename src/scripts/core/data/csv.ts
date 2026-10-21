@@ -1,3 +1,8 @@
+/**
+ * src/scripts/core/data/csv.ts
+ * Copyright (C) 2026 ConvertiLocal contributors
+ * SPDX-License-Identifier: AGPL-3.0-only
+ */
 export type CsvRow = string[];
 
 export function parseCsv(text: string, delimiter = ','): CsvRow[] {

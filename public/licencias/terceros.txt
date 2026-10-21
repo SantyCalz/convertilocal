@@ -1,0 +1,53 @@
+LICENCIAS DE TERCEROS — CONVERTI LOCAL
+Generado por scripts/generate-third-party.mjs el 2026-10-21
+
+Este sitio se publica bajo la GNU Affero General Public License v3.0 unicamente (AGPL-3.0-only).
+El texto completo esta en /licencias y en la raiz del repositorio (LICENSE).
+
+El codigo fuente correspondiente de la version desplegada esta disponible en:
+  https://github.com/SantyCalz/convertilocal
+
+DEPENDENCIAS DIRECTAS
+  @astrojs/sitemap@3.7.4  MIT
+  @astrojs/tailwind@6.0.2  MIT
+  @ffmpeg/core@0.12.10  GPL-2.0-or-later  [se distribuye]
+  @ffmpeg/ffmpeg@0.12.15  MIT  [se distribuye]
+  @ffmpeg/util@0.12.2  MIT  [se distribuye]
+  @imgly/background-removal@1.7.0  AGPL-3.0-only  [se distribuye]
+  @jsquash/avif@2.1.1  Apache-2.0  [se distribuye]
+  astro@5.18.2  MIT
+  dompurify@3.4.17  (MPL-2.0 OR Apache-2.0)  [se distribuye]
+  fflate@0.8.3  MIT  [se distribuye]
+  heic2any@0.0.4  MIT  [se distribuye]
+  js-yaml@4.3.2  MIT  [se distribuye]
+  js-yaml@4.3.2  MIT  [se distribuye]
+  js-yaml@4.3.2  MIT  [se distribuye]
+  js-yaml@5.5.0  MIT  [se distribuye]
+  marked@18.1.1  MIT  [se distribuye]
+  onnxruntime-web@1.21.0  MIT  [se distribuye]
+  pdf-lib@1.17.1  MIT  [se distribuye]
+  pdfjs-dist@6.4.299  Apache-2.0  [se distribuye]
+  tailwindcss@3.4.19  MIT
+  turndown@7.2.4  MIT  [se distribuye]
+  xlsx@0.18.5  Apache-2.0  [se distribuye]
+
+DEPENDENCIAS CON COPYLEFT
+  @ffmpeg/core@0.12.10  GPL-2.0-or-later
+  @imgly/background-removal@1.7.0  AGPL-3.0-only
+  dompurify@3.4.17  (MPL-2.0 OR Apache-2.0)
+  ffmpeg-static@5.3.0  GPL-3.0-or-later
+
+TEXTOS DE LICENCIA DISPONIBLES EN /licencias/
+  agpl-3.0.txt  AGPL-3.0-only
+  gpl-2.0.txt  GPL-2.0-only
+  gpl-3.0.txt  GPL-3.0-only
+  lgpl-2.1.txt  LGPL-2.1-only
+  apache-2.0.txt  Apache-2.0
+  mit.txt  MIT
+  bsd-3-clause.txt  BSD-3-Clause
+  isc.txt  ISC
+
+AVISO DE MARCAS
+  "ConvertiLocal" y el diseno del sitio son marcas de sus titulares y no estan cubiertos por
+  ninguna de las licencias anteriores. "FFmpeg" es una marca de Fabrice Bellard. Los nombres
+  de los proyectos citados pertenecen a sus respectivos autores.

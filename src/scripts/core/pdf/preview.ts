@@ -1,3 +1,8 @@
+/**
+ * src/scripts/core/pdf/preview.ts
+ * Copyright (C) 2026 ConvertiLocal contributors
+ * SPDX-License-Identifier: AGPL-3.0-only
+ */
 import type { PDFDocumentProxy, PDFPageProxy } from 'pdfjs-dist';
 import { closePdf, openPdf, renderPageToBlob } from './pdfjs';
 

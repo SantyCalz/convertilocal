@@ -1,3 +1,8 @@
+/**
+ * src/data/site.ts
+ * Copyright (C) 2026 ConvertiLocal contributors
+ * SPDX-License-Identifier: AGPL-3.0-only
+ */
 export interface LegalPage {
   path: string;
   title: string;
@@ -6,6 +11,27 @@ export interface LegalPage {
   /** Fecha ISO de la última revisión editorial. */
   updated: string;
 }
+
+/**
+ * Trazabilidad del código fuente (AGPL-3.0 §13).
+ *
+ * Vercel inyecta `VERCEL_GIT_COMMIT_SHA` en el entorno de build. Ese SHA se
+ * usa para apuntar al commit exacto que está desplegado, de modo que quien
+ * interactúa con el sitio por red pueda obtener el código fuente
+ * correspondiente de esa misma versión.
+ */
+const COMMIT_SHA = (import.meta.env.VERCEL_GIT_COMMIT_SHA ?? '').trim();
+
+/** Repositorio público con el código fuente del sitio. */
+export const REPO_URL = (
+  import.meta.env.PUBLIC_REPO_URL ?? 'https://github.com/SantyCalz/convertilocal'
+).trim();
+
+/** Enlace al código fuente de la versión desplegada. */
+export const SOURCE_URL = COMMIT_SHA ? `${REPO_URL}/tree/${COMMIT_SHA}` : REPO_URL;
+
+/** SHA del commit desplegado, o cadena vacía fuera de Vercel. */
+export const COMMIT = COMMIT_SHA;
 
 export const SITE = {
   name: 'ConvertiLocal',
@@ -33,20 +59,25 @@ export const SITE = {
 } as const;
 
 /**
- * Datos del titular que deben completarse antes de publicar.
- * Se muestran en privacidad y aviso legal.
+ * Datos del titular que se muestran en privacidad, aviso legal y términos.
+ *
+ * El sitio lo publica una persona física que opera bajo la marca
+ * «ConvertiLocal». Los datos fiscales y el domicilio no se publican de forma
+ * openly visible; el RGPD permite identificarlos y facilitarlos bajo petición,
+ * que es lo que se indica aquí. Sustituir por los datos reales cuando se
+ * disponga de ellos.
  */
 export const LEGAL_ENTITY = {
-  name: '[Nombre legal del titular]',
-  nif: '[NIF]',
-  address: '[Domicilio fiscal completo]',
+  name: 'ConvertiLocal',
+  nif: 'Se facilita bajo petición a hola@convertilocal.com',
+  address: 'Se facilita bajo petición a hola@convertilocal.com',
   country: 'España',
-  hosting: '[Proveedor de alojamiento]',
+  hosting: 'Vercel Inc.',
 } as const;
 
 export const LEGAL_PAGES = {
   privacidad: {
-    path: '/politica-de-privacidad',
+    path: '/privacidad',
     title: 'Política de privacidad',
     shortTitle: 'Privacidad',
     description:
@@ -62,8 +93,8 @@ export const LEGAL_PAGES = {
     updated: '2026-10-21',
   },
   terminos: {
-    path: '/terminos-y-condiciones',
-    title: 'Términos y condiciones',
+    path: '/terminos',
+    title: 'Términos de uso',
     shortTitle: 'Términos',
     description:
       'Las reglas de uso de ConvertiLocal: servicio gratuito, responsabilidad del usuario y límites del servicio.',
@@ -75,6 +106,14 @@ export const LEGAL_PAGES = {
     shortTitle: 'Aviso legal',
     description:
       'Información del titular del sitio, condiciones de acceso y responsabilidad sobre los contenidos.',
+    updated: '2026-10-21',
+  },
+  licencias: {
+    path: '/licencias',
+    title: 'Licencias y atribuciones',
+    shortTitle: 'Licencias',
+    description:
+      'Licencia AGPL del sitio, componentes con copyleft, código fuente correspondiente y atribuciones.',
     updated: '2026-10-21',
   },
   contacto: {
@@ -109,6 +148,7 @@ export const LEGAL_LINKS = [
   LEGAL_PAGES.cookies,
   LEGAL_PAGES.terminos,
   LEGAL_PAGES.aviso,
+  LEGAL_PAGES.licencias,
   LEGAL_PAGES.contacto,
   LEGAL_PAGES.nosotros,
   LEGAL_PAGES.metodologia,
@@ -123,4 +163,5 @@ export const FOOTER_LEGAL_LINKS = [
   LEGAL_PAGES.cookies,
   LEGAL_PAGES.terminos,
   LEGAL_PAGES.aviso,
+  LEGAL_PAGES.licencias,
 ].map((page) => ({ href: page.path, label: page.shortTitle, title: page.title }));

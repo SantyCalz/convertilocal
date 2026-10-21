@@ -1,0 +1,278 @@
+{
+  "generated": "2026-10-21",
+  "totalInstalled": 757,
+  "rows": [
+    {
+      "name": "@astrojs/check",
+      "version": "0.9.11",
+      "license": "MIT",
+      "client": false,
+      "kind": "dev",
+      "repository": "git+https://github.com/withastro/astro.git"
+    },
+    {
+      "name": "@astrojs/sitemap",
+      "version": "3.7.4",
+      "license": "MIT",
+      "client": false,
+      "kind": "directa",
+      "repository": "git+https://github.com/withastro/astro.git"
+    },
+    {
+      "name": "@astrojs/tailwind",
+      "version": "6.0.2",
+      "license": "MIT",
+      "client": false,
+      "kind": "directa",
+      "repository": "git+https://github.com/withastro/astro.git"
+    },
+    {
+      "name": "@eslint/js",
+      "version": "9.39.5",
+      "license": "MIT",
+      "client": false,
+      "kind": "dev",
+      "repository": "https://github.com/eslint/eslint.git"
+    },
+    {
+      "name": "@ffmpeg/core",
+      "version": "0.12.10",
+      "license": "GPL-2.0-or-later",
+      "client": true,
+      "kind": "directa",
+      "repository": "git+https://github.com/ffmpegwasm/ffmpeg.wasm.git"
+    },
+    {
+      "name": "@ffmpeg/ffmpeg",
+      "version": "0.12.15",
+      "license": "MIT",
+      "client": true,
+      "kind": "directa",
+      "repository": "git+https://github.com/ffmpegwasm/ffmpeg.wasm.git"
+    },
+    {
+      "name": "@ffmpeg/util",
+      "version": "0.12.2",
+      "license": "MIT",
+      "client": true,
+      "kind": "directa",
+      "repository": "git+https://github.com/ffmpegwasm/ffmpeg.wasm.git"
+    },
+    {
+      "name": "@imgly/background-removal",
+      "version": "1.7.0",
+      "license": "AGPL-3.0-only",
+      "client": true,
+      "kind": "directa",
+      "repository": "git+https://github.com/imgly/background-removal-js.git"
+    },
+    {
+      "name": "@jsquash/avif",
+      "version": "2.1.1",
+      "license": "Apache-2.0",
+      "client": true,
+      "kind": "directa",
+      "repository": "jamsinclair/jSquash"
+    },
+    {
+      "name": "@playwright/test",
+      "version": "1.64.1",
+      "license": "Apache-2.0",
+      "client": false,
+      "kind": "dev",
+      "repository": "git+https://github.com/microsoft/playwright.git"
+    },
+    {
+      "name": "astro",
+      "version": "5.18.2",
+      "license": "MIT",
+      "client": false,
+      "kind": "directa",
+      "repository": "git+https://github.com/withastro/astro.git"
+    },
+    {
+      "name": "dompurify",
+      "version": "3.4.17",
+      "license": "(MPL-2.0 OR Apache-2.0)",
+      "client": true,
+      "kind": "directa",
+      "repository": "git://github.com/cure53/DOMPurify.git"
+    },
+    {
+      "name": "eslint",
+      "version": "9.39.5",
+      "license": "MIT",
+      "client": false,
+      "kind": "dev",
+      "repository": "eslint/eslint"
+    },
+    {
+      "name": "eslint-plugin-astro",
+      "version": "1.7.0",
+      "license": "MIT",
+      "client": false,
+      "kind": "dev",
+      "repository": "git+https://github.com/ota-meshi/eslint-plugin-astro.git"
+    },
+    {
+      "name": "fflate",
+      "version": "0.8.3",
+      "license": "MIT",
+      "client": true,
+      "kind": "directa",
+      "repository": "https://github.com/101arrowz/fflate"
+    },
+    {
+      "name": "ffmpeg-static",
+      "version": "5.3.0",
+      "license": "GPL-3.0-or-later",
+      "client": false,
+      "kind": "dev",
+      "repository": "https://github.com/eugeneware/ffmpeg-static"
+    },
+    {
+      "name": "globals",
+      "version": "14.0.0",
+      "license": "MIT",
+      "client": false,
+      "kind": "dev",
+      "repository": "sindresorhus/globals"
+    },
+    {
+      "name": "globals",
+      "version": "16.5.0",
+      "license": "MIT",
+      "client": false,
+      "kind": "dev",
+      "repository": "sindresorhus/globals"
+    },
+    {
+      "name": "heic2any",
+      "version": "0.0.4",
+      "license": "MIT",
+      "client": true,
+      "kind": "directa",
+      "repository": "git+https://github.com/alexcorvi/heic2any.git"
+    },
+    {
+      "name": "js-yaml",
+      "version": "4.3.2",
+      "license": "MIT",
+      "client": true,
+      "kind": "directa",
+      "repository": "nodeca/js-yaml"
+    },
+    {
+      "name": "js-yaml",
+      "version": "4.3.2",
+      "license": "MIT",
+      "client": true,
+      "kind": "directa",
+      "repository": "nodeca/js-yaml"
+    },
+    {
+      "name": "js-yaml",
+      "version": "4.3.2",
+      "license": "MIT",
+      "client": true,
+      "kind": "directa",
+      "repository": "nodeca/js-yaml"
+    },
+    {
+      "name": "js-yaml",
+      "version": "5.5.0",
+      "license": "MIT",
+      "client": true,
+      "kind": "directa",
+      "repository": "nodeca/js-yaml"
+    },
+    {
+      "name": "marked",
+      "version": "18.1.1",
+      "license": "MIT",
+      "client": true,
+      "kind": "directa",
+      "repository": "git+https://github.com/markedjs/marked.git"
+    },
+    {
+      "name": "onnxruntime-web",
+      "version": "1.21.0",
+      "license": "MIT",
+      "client": true,
+      "kind": "directa",
+      "repository": "https://github.com/Microsoft/onnxruntime.git"
+    },
+    {
+      "name": "pdf-lib",
+      "version": "1.17.1",
+      "license": "MIT",
+      "client": true,
+      "kind": "directa",
+      "repository": "git+https://github.com/Hopding/pdf-lib.git"
+    },
+    {
+      "name": "pdfjs-dist",
+      "version": "6.4.299",
+      "license": "Apache-2.0",
+      "client": true,
+      "kind": "directa",
+      "repository": "git+https://github.com/mozilla/pdf.js.git"
+    },
+    {
+      "name": "prettier",
+      "version": "3.9.10",
+      "license": "MIT",
+      "client": false,
+      "kind": "dev",
+      "repository": "prettier/prettier"
+    },
+    {
+      "name": "prettier-plugin-astro",
+      "version": "1.1.1",
+      "license": "MIT",
+      "client": false,
+      "kind": "dev",
+      "repository": "git+https://github.com/withastro/prettier-plugin-astro.git"
+    },
+    {
+      "name": "tailwindcss",
+      "version": "3.4.19",
+      "license": "MIT",
+      "client": false,
+      "kind": "directa",
+      "repository": "https://github.com/tailwindlabs/tailwindcss.git#v3"
+    },
+    {
+      "name": "turndown",
+      "version": "7.2.4",
+      "license": "MIT",
+      "client": true,
+      "kind": "directa",
+      "repository": "https://github.com/mixmark-io/turndown.git"
+    },
+    {
+      "name": "typescript",
+      "version": "5.9.3",
+      "license": "Apache-2.0",
+      "client": false,
+      "kind": "dev",
+      "repository": "https://github.com/microsoft/TypeScript.git"
+    },
+    {
+      "name": "typescript-eslint",
+      "version": "8.72.0",
+      "license": "MIT",
+      "client": false,
+      "kind": "dev",
+      "repository": "https://github.com/typescript-eslint/typescript-eslint.git"
+    },
+    {
+      "name": "xlsx",
+      "version": "0.18.5",
+      "license": "Apache-2.0",
+      "client": true,
+      "kind": "directa",
+      "repository": "git://github.com/SheetJS/sheetjs.git"
+    }
+  ]
+}

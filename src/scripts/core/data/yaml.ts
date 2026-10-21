@@ -1,3 +1,8 @@
+/**
+ * src/scripts/core/data/yaml.ts
+ * Copyright (C) 2026 ConvertiLocal contributors
+ * SPDX-License-Identifier: AGPL-3.0-only
+ */
 import * as yaml from 'js-yaml';
 
 export function parseYaml(text: string): unknown {

@@ -1,3 +1,8 @@
+/**
+ * src/data/tools.ts
+ * Copyright (C) 2026 ConvertiLocal contributors
+ * SPDX-License-Identifier: AGPL-3.0-only
+ */
 import type { Tool } from '@/types/tool';
 import cardsData from '@/data/conversion-cards.json';
 import { PDF_TOOLS } from '@/data/pdf-tools';

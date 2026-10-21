@@ -1,3 +1,8 @@
+/**
+ * src/scripts/core/pdf/pdf-worker-client.ts
+ * Copyright (C) 2026 ConvertiLocal contributors
+ * SPDX-License-Identifier: AGPL-3.0-only
+ */
 import type {
   PdfErrorCode,
   PdfJobOperation,

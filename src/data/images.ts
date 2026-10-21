@@ -1,3 +1,8 @@
+/**
+ * src/data/images.ts
+ * Copyright (C) 2026 ConvertiLocal contributors
+ * SPDX-License-Identifier: AGPL-3.0-only
+ */
 import formatsData from './formats.json';
 import conversionsData from './conversions.json';
 import type { ConversionEntry, ImageFormatId, ImageFormatInfo } from '@/types/image';

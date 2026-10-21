@@ -1,0 +1,81 @@
+CODIGO FUENTE CORRESPONDIENTE — FFmpeg.wasm
+=============================================
+
+Este sitio distribuye un binario de FFmpeg compilado a WebAssembly. La GPL
+exige que se acompanie del codigo fuente correspondiente. Este manifiesto indica
+exactamente cual es y como reconstruirlo.
+
+BINARIO DISTRIBUIDO
+-------------------
+  Fichero      : public/assets/wasm/ffmpeg-core.wasm
+  Version      : @ffmpeg/core 0.12.10
+  SHA-256      : 9f57947a5bd530d8f00c5b3f2cb2a3492faa7e5d823315342d6a8656d0a6b7b7
+  Licencia     : GPL-2.0-or-later
+  Variante     : GPL (--enable-gpl --enable-libx264 --enable-libx265)
+  Upstream     : git+https://github.com/ffmpegwasm/ffmpeg.wasm.git
+  Version FFmpeg: 5.1.4
+  Emulador     : Emscripten 3.1.40
+
+El binario NO ha sido modificado por este proyecto: se copia tal cual desde el
+paquete npm @ffmpeg/core 0.12.10. El hash SHA-256 permite verificarlo.
+
+CONFIGURACION DE COMPILACION
+-----------------------------
+  configuration: --target-os=none --arch=x86_32 --enable-cross-compile --disable-asm
+  --disable-stripping --disable-programs --disable-doc --disable-debug
+  --disable-runtime-cpudetect --disable-autodetect --nm=emnm --ar=emar --ranlib=emranlib
+  --cc=emcc --cxx=em++ --objcc=emcc --dep-cc=emcc --extra-cflags='-I/opt/include -O3 -msimd128'
+  --extra-cxxflags='-I/opt/include -O3 -msimd128' --disable-pthreads --disable-w32threads
+  --disable-os2threads --enable-gpl --enable-libx264 --enable-libx265 --enable-libvpx
+  --enable-libmp3lame --enable-libtheora --enable-libvorbis --enable-libopus --enable-zlib
+  --enable-libwebp --enable-libfreetype --enable-libfribidi --enable-libass --enable-libzimg
+
+CODIGO FUENTE CORRESPONDIENTE
+-----------------------------
+1) FFmpeg n5.1.4, la version con la que se compilo el binario
+   https://github.com/FFmpeg/FFmpeg/tree/n5.1.4
+   https://ffmpeg.org/releases/ffmpeg-5.1.4.tar.xz
+
+2) ffmpeg.wasm v0.12.10, con los scripts de compilacion, el Dockerfile y
+   los forks parcheados de cada libreria
+   https://github.com/ffmpegwasm/ffmpeg.wasm/tree/v0.12.10
+   Directorio relevante: build/
+
+3) Librerias de terceros compiladas dentro del binario
+   FFmpeg       n5.1.4                                 LGPL-2.1+ / GPL-2.0+ según build           https://github.com/FFmpeg/FFmpeg/tree/n5.1.4
+   x264         rama 4-cores (fork ffmpegwasm/x264)    GPL-2.0-or-later                           https://github.com/ffmpegwasm/x264
+   x265         rama 3.4 (fork ffmpegwasm/x265)        GPL-2.0-or-later                           https://github.com/ffmpegwasm/x265
+   libvpx       v1.13.1                                BSD-3-Clause                               https://github.com/ffmpegwasm/libvpx
+   libmp3lame   master (fork ffmpegwasm/lame)          LGPL-2.0-or-later                          https://github.com/ffmpegwasm/lame
+   libogg       v1.3.4                                 BSD-3-Clause                               https://github.com/ffmpegwasm/Ogg
+   libtheora    v1.1.1                                 BSD-3-Clause                               https://github.com/ffmpegwasm/theora
+   libopus      v1.3.1                                 BSD-3-Clause                               https://github.com/ffmpegwasm/opus
+   libvorbis    v1.3.3                                 BSD-3-Clause                               https://github.com/ffmpegwasm/vorbis
+   zlib         v1.2.11                                Zlib                                       https://github.com/ffmpegwasm/zlib
+   libwebp      v1.3.2                                 BSD-3-Clause                               https://github.com/ffmpegwasm/libwebp
+   freetype2    VER-2-10-4                             FTL (GPL-2.0+ con excepción de fuentes)    https://github.com/ffmpegwasm/freetype2
+   fribidi      v1.0.9                                 LGPL-2.1-or-later                          https://github.com/fribidi/fribidi
+   harfbuzz     5.2.0                                  MIT                                        https://github.com/harfbuzz/harfbuzz
+   libass       0.15.0                                 ISC                                        https://github.com/libass/libass
+   zimg         release-3.0.5                          Zlib                                       https://github.com/sekrit-twc/zimg
+   Emscripten   3.1.40                                 MIT                                        https://github.com/emscripten-core/emsdk
+
+PARA RECONSTRUIR EL BINARIO
+----------------------------
+  git clone https://github.com/ffmpegwasm/ffmpeg.wasm.git
+  cd ffmpeg.wasm && git checkout v0.12.10
+  docker build -t ffmpeg-wasm .
+  # El resultado se copia a public/assets/wasm/ffmpeg-core.{js,wasm}
+
+LICENCIAS APLICABLES
+---------------------
+  GPL-2.0 (binario ffmpeg-core.wasm) : /licencias/gpl-2.0.txt
+  LGPL-2.1                            : /licencias/lgpl-2.1.txt
+  Apache-2.0, MIT, BSD-3-Clause, ISC   : /licencias/terceros.txt
+
+FFmpeg es una marca de Fabrice Bellard. Esta distribucion no esta afiliada a
+los titulares de las marcas citadas.
+
+Este manifiesto lo genera scripts/generate-ffmpeg-source.mjs a partir del
+paquete instalado y del binario servido, para que no pueda desviarse de la
+realidad.

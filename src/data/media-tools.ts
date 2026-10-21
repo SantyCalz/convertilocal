@@ -1,3 +1,8 @@
+/**
+ * src/data/media-tools.ts
+ * Copyright (C) 2026 ConvertiLocal contributors
+ * SPDX-License-Identifier: AGPL-3.0-only
+ */
 import type { MediaTool, MediaToolConfig, MediaToolContent } from '@/types/media';
 import contentData from './media-tools.json';
 import { MEDIA_OPTIONS } from './media-options';

@@ -1,3 +1,8 @@
+/**
+ * src/scripts/core/image/ico.ts
+ * Copyright (C) 2026 ConvertiLocal contributors
+ * SPDX-License-Identifier: AGPL-3.0-only
+ */
 const PNG_SIGNATURE = [0x89, 0x50, 0x4e, 0x47, 0x0d, 0x0a, 0x1a, 0x0a];
 
 export const DEFAULT_ICO_SIZES = [16, 32, 48, 64, 128, 256];

@@ -1,4 +1,9 @@
 /** Codificador BMP sin dependencias: 24 bits, filas de abajo arriba. */
+/**
+ * src/scripts/core/image/bmp.ts
+ * Copyright (C) 2026 ConvertiLocal contributors
+ * SPDX-License-Identifier: AGPL-3.0-only
+ */
 export function encodeBmp(imageData: ImageData): Blob {
   const { width, height, data } = imageData;
   const rowSize = Math.ceil((width * 3) / 4) * 4;

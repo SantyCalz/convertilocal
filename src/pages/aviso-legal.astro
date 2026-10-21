@@ -1,4 +1,9 @@
 ---
+/**
+ * src/pages/aviso-legal.astro
+ * Copyright (C) 2026 ConvertiLocal contributors
+ * SPDX-License-Identifier: AGPL-3.0-only
+ */
 import LegalLayout from '@/layouts/LegalLayout.astro';
 import { LEGAL_ENTITY, LEGAL_PAGES, SITE } from '@/data/site';
 
@@ -34,7 +39,7 @@ const page = LEGAL_PAGES.aviso;
   <h2>3. Condiciones de acceso y uso</h2>
   <p>
     El acceso al sitio atribuye la condición de usuario e implica la aceptación de este aviso legal
-    y de los <a href="/terminos-y-condiciones">términos y condiciones</a>. El usuario se compromete
+    y de los <a href="/terminos">términos y condiciones</a>. El usuario se compromete
     a hacer un uso diligente y lícito de los contenidos y herramientas.
   </p>
 
@@ -73,13 +78,13 @@ const page = LEGAL_PAGES.aviso;
     El sitio puede mostrar publicidad de Google AdSense y otros proveedores. La publicidad se
     identificará como tal y se gestionará conforme a la
     <a href="/politica-de-cookies">política de cookies</a> y la
-    <a href="/politica-de-privacidad">política de privacidad</a>.
+    <a href="/privacidad">política de privacidad</a>.
   </p>
 
   <h2>8. Protección de datos</h2>
   <p>
     El tratamiento de datos personales se describe en la
-    <a href="/politica-de-privacidad">política de privacidad</a>. Para ejercer tus derechos puedes
+    <a href="/privacidad">política de privacidad</a>. Para ejercer tus derechos puedes
     escribir a <a href={`mailto:${SITE.email}`}>{SITE.email}</a>.
   </p>
 

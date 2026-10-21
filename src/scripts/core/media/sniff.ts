@@ -1,3 +1,8 @@
+/**
+ * src/scripts/core/media/sniff.ts
+ * Copyright (C) 2026 ConvertiLocal contributors
+ * SPDX-License-Identifier: AGPL-3.0-only
+ */
 export function isMediaAccept(accept: string): boolean {
   const rules = accept.toLowerCase().split(',').map((rule) => rule.trim());
   return rules.some((rule) =>

@@ -2,6 +2,11 @@
  * Valida la coherencia del contenido SEO de imagen antes de publicar.
  * Uso: node scripts/validate-content.mjs
  */
+/**
+ * scripts/validate-content.mjs
+ * Copyright (C) 2026 ConvertiLocal contributors
+ * SPDX-License-Identifier: AGPL-3.0-only
+ */
 import { readFileSync } from 'node:fs';
 
 const read = (path) => JSON.parse(readFileSync(path, 'utf8'));

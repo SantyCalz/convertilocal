@@ -4,6 +4,37 @@ Suite de micro-herramientas de conversión y manipulación de archivos que funci
 
 > **Estado:** Suite completa hasta Fase 5. Incluye imagen, PDF, datos/texto y audio/video, con validacion estatica, presupuesto JS y preparacion de despliegue.
 
+## Licencia
+
+Copyright (C) 2026 ConvertiLocal contributors.
+
+Este proyecto se publica bajo la **GNU Affero General Public License v3.0 únicamente**
+(`AGPL-3.0-only`). El texto íntegro y canónico de la licencia está en [`LICENSE`](LICENSE).
+
+La AGPL-3.0 obliga a ofrecer el **código fuente correspondiente** a cualquier persona que
+interactúe con el sitio a través de la red. El código de este repositorio está en
+<https://github.com/SantyCalz/convertilocal> y el enlace «Código fuente» del pie de cada página
+apunta al commit exacto que está desplegado.
+
+El proyecto incluye componentes con copyleft:
+
+| Componente | Licencia |
+| --- | --- |
+| [`@imgly/background-removal`](https://github.com/imgly/background-removal-js) | AGPL-3.0 |
+| [`@ffmpeg/core`](https://github.com/ffmpegwasm/ffmpeg.wasm) (build **GPL**) | GPL-2.0-or-later |
+
+El detalle completo de la auditoría de licencias —incluida la variante exacta del binario de
+FFmpeg y el manifiesto de código fuente correspondiente— está en
+[`docs/LICENSE_AUDIT.md`](docs/LICENSE_AUDIT.md) y en la página pública
+[`/licencias`](https://convertilocal.com/licencias).
+
+### Marca
+
+«ConvertiLocal», el nombre del dominio y el diseño gráfico son marcas de sus respectivos
+titulares y **no están cubiertos por la AGPL-3.0**. La licencia cubre el código fuente del
+proyecto; no otorga ningún derecho sobre la marca, el nombre ni los logotipos. «FFmpeg» es una
+marca de Fabrice Bellard. Google AdSense y las marcas de Google son de Google LLC.
+
 ## Stack
 
 - **Astro 5** con `output: 'static'` (SSG puro, sin SSR ni adapter).
@@ -24,10 +55,11 @@ npm run format           # Prettier
 npm run sync:bg          # assets autoalojados de @imgly/background-removal
 npm run validate:content # coherencia de formats.json, conversions.json y tarjetas
 npm run validate:html    # JSON-LD parseable y enlaces internos (requiere build)
+npm run check:legal       # LICENSE AGPL, pie legal, placeholders y hosts externos
 npm run budget           # build + presupuesto de JS inicial (50 KB gzip por página)
 npm run validate         # check + lint + contenido + budget + HTML
 npm run test:e2e         # Playwright sobre el build
-npm run deploy:check     # validate + verificación de despliegue
+npm run deploy:check     # validate + verify:deploy + check:legal
 ```
 
 ## Rutas publicadas
@@ -40,6 +72,9 @@ npm run deploy:check     # validate + verificación de despliegue
 - `/imagenes/eliminar-fondo` — eliminación de fondo con modelo IS-Net autoalojado.
 - `/imagenes/redimensionar` — ancho, alto, proporción y ajuste configurable.
 - `/imagenes/recortar` — recorte por coordenadas exactas en píxeles.
+- `/licencias` — licencias y atribuciones (AGPL, FFmpeg GPL, terceros).
+- `/terminos` — términos de uso.
+- `/privacidad` — política de privacidad.
 
 Conversiones: `jpg-a-png`, `png-a-jpg`, `webp-a-png`, `webp-a-jpg`, `jpg-a-webp`, `png-a-webp`, `heic-a-jpg`, `heic-a-png`, `avif-a-jpg`, `avif-a-png`, `jpg-a-avif`, `png-a-avif`, `bmp-a-png`, `bmp-a-jpg`, `jpg-a-bmp`, `png-a-bmp`, `png-a-ico`, `jpg-a-ico`, `webp-a-ico`, `ico-a-png`.
 
@@ -50,9 +85,11 @@ src/
 ├─ components/
 │  ├─ FileProcessor.astro      UI de carga, opciones, progreso y resultados
 │  ├─ tools/ToolPageShell.astro
+│  ├─ legal/                   LegalDocument, ThirdPartyTable, SourceLinks, avisos
 │  ├─ home/                    Hero, buscador, categorías, recientes
 │  ├─ layout/                  Header, MobileMenu, Footer
 │  └─ ui/                      Icon, Logo, Badge, Button, AdSlot…
+├─ content/legal/              Textos legales aislados (privacidad, términos, licencias)
 ├─ data/
 │  ├─ formats.json             Guía de 7 formatos
 │  ├─ conversions.json         20 páginas con contenido SEO único
@@ -67,6 +104,7 @@ src/
 │  ├─ imagenes/eliminar-fondo.astro
 │  ├─ imagenes/redimensionar.astro
 │  ├─ imagenes/recortar.astro
+│  ├─ licencias.astro, terminos.astro, privacidad.astro
 │  ├─ demo-file-processor.astro   (laboratorio interno, noindex)
 │  └─ legales y home
 ├─ scripts/
@@ -127,8 +165,9 @@ No hay backend, formularios con subida, analítica ni cuentas. El archivo se lee
 3. **AdSense:** definir `PUBLIC_ADSENSE_CLIENT`, IDs de bloque y CMP antes de activar anuncios personalizados.
 4. **OG image:** sustituir `public/assets/og-default.png` si cambia el branding.
 5. **Laboratorio:** eliminar `/demo-file-processor` y su entrada oculta del catálogo.
-6. **Licencias:** revisar `THIRD_PARTY_NOTICES.md`, en especial la LGPL de libheif incluida por `heic2any`.
-7. **QA real:** repetir las pruebas en Safari/iOS, Firefox y un Android de gama media; revisar HEIC/AVIF y descargas múltiples.
+6. **Licencias:** el proyecto ya es AGPL-3.0-only (`LICENSE` en la raíz). Revisar `docs/LICENSE_AUDIT.md` y `THIRD_PARTY_LICENSES.md`. La LGPL de libheif incluida por `heic2any` sigue pendiente de revisión legal.
+7. **Datos del titular:** `LEGAL_ENTITY` en `src/data/site.ts` publica el nombre del proyecto y remite el NIF y el domicilio a petición por correo. Sustituir por los datos reales cuando se disponga de ellos.
+8. **QA real:** repetir las pruebas en Safari/iOS, Firefox y un Android de gama media; revisar HEIC/AVIF y descargas múltiples.
 
 ## Hoja de ruta
 

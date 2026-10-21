@@ -1,3 +1,8 @@
+/**
+ * src/scripts/processors/image/remove-background.ts
+ * Copyright (C) 2026 ConvertiLocal contributors
+ * SPDX-License-Identifier: AGPL-3.0-only
+ */
 import type { Processor, ProcessorOutput } from '@/types/processor';
 import { ImageProcessingError } from '@/types/image';
 import { sniffImage } from '@/scripts/core/image/sniff';

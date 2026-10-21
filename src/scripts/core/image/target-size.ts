@@ -1,3 +1,8 @@
+/**
+ * src/scripts/core/image/target-size.ts
+ * Copyright (C) 2026 ConvertiLocal contributors
+ * SPDX-License-Identifier: AGPL-3.0-only
+ */
 import type { OutputFormatId } from '@/types/image';
 import { encodeBitmap, fitDimensions } from './canvas';
 

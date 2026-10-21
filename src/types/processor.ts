@@ -5,7 +5,11 @@
  * que las herramientas de la Fase 1 puedan cargarse de forma diferida sin
  * cambiar la UI.
  */
-
+/**
+ * src/types/processor.ts
+ * Copyright (C) 2026 ConvertiLocal contributors
+ * SPDX-License-Identifier: AGPL-3.0-only
+ */
 export type ProcessorOutput = Blob | File;
 
 export interface ProcessorOptions {

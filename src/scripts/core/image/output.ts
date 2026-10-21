@@ -1,3 +1,8 @@
+/**
+ * src/scripts/core/image/output.ts
+ * Copyright (C) 2026 ConvertiLocal contributors
+ * SPDX-License-Identifier: AGPL-3.0-only
+ */
 import type { ImageFormatId, OutputFormatId } from '@/types/image';
 import { mimeForFormat } from './sniff';
 

@@ -3,14 +3,25 @@
   "type": "module",
   "version": "0.1.0",
   "private": true,
+  "license": "AGPL-3.0-only",
+  "author": "ConvertiLocal",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SantyCalz/convertilocal.git"
+  },
+  "homepage": "https://convertilocal.com",
+  "bugs": {
+    "url": "https://github.com/SantyCalz/convertilocal/issues"
+  },
   "description": "Suite de herramientas de conversión 100% client-side. Tus archivos nunca salen de tu dispositivo.",
   "scripts": {
     "sync:pdf": "node scripts/sync-pdf-assets.mjs",
     "sync:media": "node scripts/sync-media-assets.mjs",
     "sync:bg": "node scripts/sync-bg-assets.mjs",
-    "predev": "npm run sync:pdf && npm run sync:media && npm run sync:bg",
-    "prestart": "npm run sync:pdf && npm run sync:media && npm run sync:bg",
-    "prebuild": "npm run sync:pdf && npm run sync:media && npm run sync:bg",
+    "licenses": "node scripts/generate-third-party.mjs && node scripts/generate-ffmpeg-source.mjs",
+    "predev": "npm run sync:pdf && npm run sync:media && npm run sync:bg && npm run licenses",
+    "prestart": "npm run sync:pdf && npm run sync:media && npm run sync:bg && npm run licenses",
+    "prebuild": "npm run sync:pdf && npm run sync:media && npm run sync:bg && npm run licenses",
     "dev": "astro dev",
     "start": "astro dev",
     "build": "astro build",
@@ -22,8 +33,9 @@
     "budget": "npm run build && node scripts/check-js-budget.mjs",
     "validate:content": "node scripts/validate-content.mjs",
     "validate:html": "node scripts/validate-html.mjs",
+    "check:legal": "node scripts/check-legal.mjs",
     "verify:deploy": "node scripts/verify-deployment.mjs",
-    "deploy:check": "npm run validate && npm run verify:deploy",
+    "deploy:check": "npm run validate && npm run verify:deploy && npm run check:legal",
     "test:e2e": "node scripts/generate-test-fixtures.mjs && playwright test",
     "validate": "npm run check && npm run lint && npm run validate:content && npm run budget && npm run validate:html"
   },

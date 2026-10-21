@@ -1,5 +1,9 @@
 /** Tipos compartidos por el motor de imagen, la UI y el contenido SEO. */
-
+/**
+ * src/types/image.ts
+ * Copyright (C) 2026 ConvertiLocal contributors
+ * SPDX-License-Identifier: AGPL-3.0-only
+ */
 export type ImageFormatId = 'png' | 'jpg' | 'webp' | 'avif' | 'bmp' | 'ico' | 'heic';
 export type OutputFormatId = Exclude<ImageFormatId, 'heic'>;
 

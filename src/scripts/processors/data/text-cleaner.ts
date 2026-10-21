@@ -1,3 +1,8 @@
+/**
+ * src/scripts/processors/data/text-cleaner.ts
+ * Copyright (C) 2026 ConvertiLocal contributors
+ * SPDX-License-Identifier: AGPL-3.0-only
+ */
 import type { Processor } from '@/types/processor';
 import { DataProcessingError } from '@/types/data';
 import { baseName, fileFromDataOutput, notifyDataWarning } from './shared';

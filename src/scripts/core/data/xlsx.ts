@@ -1,3 +1,8 @@
+/**
+ * src/scripts/core/data/xlsx.ts
+ * Copyright (C) 2026 ConvertiLocal contributors
+ * SPDX-License-Identifier: AGPL-3.0-only
+ */
 export type XlsxReadResult = {
   rows: string[][];
   sheetNames: string[];
