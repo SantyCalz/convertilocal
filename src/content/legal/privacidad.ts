@@ -24,10 +24,10 @@ export const PRIVACIDAD: LegalDocument = {
           type: 'facts',
           content: [
             ['Titular', 'LEGAL_ENTITY.name'],
-            ['NIF', 'LEGAL_ENTITY.nif'],
+            ['Identificación fiscal', 'LEGAL_ENTITY.taxId'],
             ['Domicilio', 'LEGAL_ENTITY.address'],
             ['País', 'LEGAL_ENTITY.country'],
-            ['Contacto', 'hola@convertilocal.com'],
+            ['Contacto', 'LEGAL_ENTITY.email'],
           ],
         },
       ],
@@ -180,7 +180,7 @@ export const PRIVACIDAD: LegalDocument = {
           type: 'paragraph',
           content:
             'Puedes ejercer los derechos de acceso, rectificación, supresión, oposición, limitación ' +
-            'y portabilidad escribiendo a hola@convertilocal.com. Responderemos en el plazo ' +
+            'y portabilidad escribiendo a LEGAL_ENTITY.email. Responderemos en el plazo ' +
             'máximo de un mes.',
         },
         {
@@ -235,7 +235,7 @@ export const PRIVACIDAD: LegalDocument = {
         {
           type: 'paragraph',
           content:
-            'Para cualquier consulta sobre esta política puedes escribir a hola@convertilocal.com.',
+            'Para cualquier consulta sobre esta política puedes escribir a LEGAL_ENTITY.email.',
         },
       ],
     },

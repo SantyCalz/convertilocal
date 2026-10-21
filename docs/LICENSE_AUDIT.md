@@ -396,3 +396,105 @@ identificador público, no un secreto.
 
 Documento generado por auditoría automatizada. No constituye asesoría legal; antes de publicar
 conviene validarlo con un profesional del sector.
+
+---
+
+## 11. Verificación posterior al despliegue (2026-10-21)
+
+Comprobación del estado real tras el primer despliegue en Vercel. Los hallazgos que **no
+coinciden con lo que se afirmaba** antes del despliegue se marcan con ⚠.
+
+### 11.1 Código fuente y repositorio
+
+| Comprobación | Resultado |
+| --- | --- |
+| `git ls-remote` anónimo | ❌ **Falla**: `Authentication failed`. El repositorio es **privado** (`isPrivate: true`). |
+| `https://github.com/SantyCalz/convertilocal` sin sesión | **HTTP 404** (GitHub no revela repositorios privados). |
+| Commit desplegado en producción | ✅ `3d0a7803d436e2da4330677b22bc78ca34deb35b` presente en `SOURCE_URL` de `/`, `/licencias`, `/terminos`, `/privacidad` y `/imagenes/eliminar-fondo`. Sin valores `undefined` ni vacíos. |
+| GitHub Release `corresponding-source-*` | ❌ **No existe**. No hay ningún release ni ninguna tag en el repositorio. |
+| Preparación del release | ✅ Creado `scripts/build-corresponding-source.mjs` y `release/corresponding-source/`. Los 14 ficheros del release están generados y sus hashes verificados. **Falta subirlos.** |
+
+> ⚠ **Hallazgo crítico:** la AGPL-3.0 §13 exige que *toda persona* que interactúe con el
+> servicio por red pueda obtener el código fuente correspondiente. Con el repositorio en
+> **privado**, el enlace «Código fuente» del pie de página lleva a un muro de inicio de sesión
+> y **la obligación no queda satisfecha**. Es un requisito de publicación, no una preferencia:
+> hace falta un repositorio público (o una copia pública tipo `git clone` anonymously) con el
+> código de la versión desplegada.
+
+### 11.2 Redirecciones
+
+| Comprobación | Resultado |
+| --- | --- |
+| `/politica-de-privacidad` en producción | Antes: **HTTP 200** con `<meta http-equiv="refresh">` (no era redirección real) |
+| `/terminos-y-condiciones` en producción | Antes: **HTTP 200** con `<meta http-equiv="refresh">` |
+| Corrección | `vercel.json` → `redirects` con `permanent: true` (**308**) y `netlify.toml` → `status = 301`. Las páginas meta-refresh de Astro se conservan como respaldo para otros alojamientos y para `astro preview`. |
+| Sitemap | ✅ Las dos rutas redireccionadas siguen **excluidas** del sitemap (`astro.config.mjs`, filtro `sitemap()`). |
+
+### 11.3 Paquete de datos del modelo (`@imgly`)
+
+| Fuente | Declara |
+| --- | --- |
+| `ThirdPartyLicenses.json` de `@imgly/background-removal` | ISNET → **MIT** |
+| Repo de origen `xuebinqin/DIS` (`LICENSE.md`) | **Apache-2.0** |
+| `README.md` de `DIS` (línea 170) | «Our code and evaluation metric use Apache License 2.0» + los datos DIS5K tienen **términos de uso propios** (`DIS5K-Dataset-Terms-of-Use.pdf`) |
+
+> ⚠ **Sí, el paquete de datos tiene un régimen de licencia propio, distinto del paquete
+> principal.** El paquete principal es AGPL-3.0; los **pesos del modelo** se distribuyen como
+> datos binarios con una declaración de licencia separada. Y hay **tres** regímenes distintos en
+> juego, no dos:
+>
+> 1. **Código y métrica** del proyecto DIS → Apache-2.0.
+> 2. **Pesos del modelo** → declarados como MIT por img.ly; el repo upstream no lleva una
+>    licencia específica para ellos (se distribuyen vía Google Drive) y no hay `LICENSE`
+>    propio dentro de los datos servidos.
+> 3. **Dataset DIS5K** → términos de uso propios, distintos de cualquier licencia OSS.
+>
+> Los bytes servidos son pesos **ONNX cuantizados** (`onnx.quantize 0.1.0`), no los `.pth`
+> originales, y **no llevan ninguna cabecera de licencia embebida** (verificado sobre el primer
+> y el último fragmento: sin texto de licencia). Tampoco se sirve ningún `LICENSE` ni
+> `NOTICE` junto a los datos.
+>
+> Se mantiene la decisión de la §7.1 —adoptar Apache-2.0 por ser la fuente primaria— y se
+> señala que la declaración MIT de img.ly no está respaldada por ningún fichero de licencia en
+> el propio paquete de datos.
+
+### 11.4 Clon limpio
+
+| Comprobación | Resultado |
+| --- | --- |
+| `git clone` + `npm ci` + `npm run build` | ✅ **Compila sin ningún archivo local.** 618 paquetes en 16 s, 75 páginas en 7,25 s. |
+| `public/assets/imgly/` en el clon | Ausente (no versionado) → `prebuild` lo descarga: **159,7 MB / 45 ficheros** presentes en `dist/`. |
+| `public/assets/pdf/` en el clon | Ausente (no versionado) → regenerado por `sync:pdf` desde `node_modules`. |
+| `public/assets/wasm/` en el clon | **Presente** (30,8 MB versionados). |
+| `check:legal` en el clon | ✅ Pasa. |
+
+### 11.5 Binarios de `sharp` / libvips
+
+✅ **No hay ninguno.** Ni en `dist/` ni en `public/`: cero ficheros `.node`, `.so` o `.dylib`,
+y cero coincidencias con `sharp`, `libvips` o `vips`. Los únicos binarios servidos son
+`assets/wasm/ffmpeg-core.wasm` (30,7 MB) y el runtime de ONNX (22,8 MB).
+
+### 11.6 Texto legal
+
+| Elemento | Antes | Ahora |
+| --- | --- | --- |
+| Campo de identificación fiscal | `NIF` | `Identificación fiscal` (`LEGAL_ENTITY.taxId`) |
+| `LEGAL_ENTITY` | `name`, `nif`, `address`, `country`, `hosting` | `name` y `email` **obligatorios**; el build **falla** si están vacíos o si el email no tiene forma válida. `taxId` y `address` descriptivos. |
+| Fuente del email | `hola@convertilocal.com` escrito a mano en 6 sitios | `LEGAL_ENTITY.email`, único. `SITE.email` referencia `LEGAL_ENTITY.email`. |
+| Afirmación sobre el RGPD | «el RGPD permite identificarlos y facilitarlos bajo petición» | **Eliminada.** No se afirma qué admite ni qué no la normativa. |
+
+Verificado: vaciar `name`, vaciar `email` o poner un email inválido hace **fallar el build**; al
+restaurar los valores, vuelve a compilar.
+
+### 11.7 Diferencias respecto al informe original
+
+| # | Lo que decía el informe | Lo que se encontró |
+| --- | --- | --- |
+| 1 | «el repositorio es público» (suposición de la tarea) | ⚠ Es **privado**. La AGPL §13 no queda satisfecha mientras tanto. |
+| 2 | «existe el Release `corresponding-source-*`» | ⚠ **No existe**. No se había creado. Preparado, pendiente de subir. |
+| 3 | Las redirecciones «301/308 reales» | Eran **meta-refresh con HTTP 200**. Corregido en `vercel.json` (308) y `netlify.toml` (301). |
+| 4 | IS-Net con licencia propia «distinta de la del paquete principal» | ⚠ Cierto, pero **más complejo** de lo indicado: hay **tres** regímenes (código Apache-2.0, pesos declarados MIT, dataset con términos propios), no dos. |
+| 5 | `LEGAL_ENTITY` con «NIF» | Ahora `Identificación fiscal`, con `name` y `email` obligatorios y validación en build. |
+| 6 | El repositorio «contiene el modelo de 126 MB» | ⚠ No lo contiene: son **159,7 MB** y **no están versionados** (se descargan en `prebuild`). El modelo de segmentación en sí son ~126 MB; el resto es el runtime de ONNX para CPU y WebGPU. |
+| 7 | «sin binarios de sharp» | ✅ Confirmado. |
+

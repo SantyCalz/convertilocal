@@ -33,6 +33,46 @@ export const SOURCE_URL = COMMIT_SHA ? `${REPO_URL}/tree/${COMMIT_SHA}` : REPO_U
 /** SHA del commit desplegado, o cadena vacía fuera de Vercel. */
 export const COMMIT = COMMIT_SHA;
 
+/**
+ * Datos del titular que se muestran en privacidad, aviso legal y términos.
+ *
+ * `name` y `email` son obligatorios: si se vacían, el build falla en lugar de
+ * publicar una página legal sin datos de contacto. El resto de campos son
+ * descriptivos y pueden ajustarse cuando se disponga de ellos.
+ */
+export const LEGAL_ENTITY = {
+  /** Nombre o denominación del titular. Obligatorio. */
+  name: 'ConvertiLocal',
+  /** Correo de contacto del titular. Obligatorio. */
+  email: 'hola@convertilocal.com',
+  /** Identificación fiscal del titular, si se desea publicarla. */
+  taxId: 'Se facilita bajo petición por correo electrónico',
+  /** Domicilio del titular, si se desea publicarlo. */
+  address: 'Se facilita bajo petición por correo electrónico',
+  country: 'España',
+  hosting: 'Vercel Inc.',
+} as const;
+
+/**
+ * El build no debe publicar páginas legales sin datos de contacto: son
+ * obligatorios para que el aviso legal y la política de privacidad identifiquen
+ * al responsable del tratamiento.
+ */
+for (const field of ['name', 'email'] as const) {
+  if (!LEGAL_ENTITY[field] || !LEGAL_ENTITY[field].trim()) {
+    throw new Error(
+      `LEGAL_ENTITY.${field} está vacío. Rellénalo en src/data/site.ts: sin datos de ` +
+        'contacto no se puede publicar una política de privacidad ni un aviso legal válidos.',
+    );
+  }
+}
+
+if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(LEGAL_ENTITY.email)) {
+  throw new Error(
+    `LEGAL_ENTITY.email no parece una dirección de correo válida: «${LEGAL_ENTITY.email}».`,
+  );
+}
+
 export const SITE = {
   name: 'ConvertiLocal',
   shortName: 'ConvertiLocal',
@@ -45,7 +85,8 @@ export const SITE = {
   locale: 'es_ES',
   lang: 'es',
   themeColor: '#047857',
-  email: 'hola@convertilocal.com',
+  /** Correo de contacto. Fuente única: `LEGAL_ENTITY.email`. */
+  email: LEGAL_ENTITY.email,
   /**
    * Si está vacío, no se carga AdSense ni se renderizan anuncios reales.
    * El valor por defecto es el ID de editor de la cuenta; definir
@@ -56,23 +97,6 @@ export const SITE = {
   adsenseSlot: (import.meta.env.PUBLIC_ADSENSE_SLOT ?? '').trim(),
   /** Permite desactivar AdSense y sus scripts sin tocar el código. */
   adsEnabled: (import.meta.env.PUBLIC_ENABLE_ADS ?? 'true').toLowerCase() === 'true',
-} as const;
-
-/**
- * Datos del titular que se muestran en privacidad, aviso legal y términos.
- *
- * El sitio lo publica una persona física que opera bajo la marca
- * «ConvertiLocal». Los datos fiscales y el domicilio no se publican de forma
- * openly visible; el RGPD permite identificarlos y facilitarlos bajo petición,
- * que es lo que se indica aquí. Sustituir por los datos reales cuando se
- * disponga de ellos.
- */
-export const LEGAL_ENTITY = {
-  name: 'ConvertiLocal',
-  nif: 'Se facilita bajo petición a hola@convertilocal.com',
-  address: 'Se facilita bajo petición a hola@convertilocal.com',
-  country: 'España',
-  hosting: 'Vercel Inc.',
 } as const;
 
 export const LEGAL_PAGES = {

@@ -24,11 +24,11 @@ export const TERMINOS: LegalDocument = {
           type: 'facts',
           content: [
             ['Titular', 'LEGAL_ENTITY.name'],
-            ['NIF', 'LEGAL_ENTITY.nif'],
+            ['Identificación fiscal', 'LEGAL_ENTITY.taxId'],
             ['Domicilio', 'LEGAL_ENTITY.address'],
             ['País', 'LEGAL_ENTITY.country'],
             ['Alojamiento', 'LEGAL_ENTITY.hosting'],
-            ['Contacto', 'hola@convertilocal.com'],
+            ['Contacto', 'LEGAL_ENTITY.email'],
           ],
         },
       ],
@@ -201,7 +201,7 @@ export const TERMINOS: LegalDocument = {
         {
           type: 'paragraph',
           content:
-            'Para cualquier duda sobre estos términos puedes escribir a hola@convertilocal.com.',
+            'Para cualquier duda sobre estos términos puedes escribir a LEGAL_ENTITY.email.',
         },
       ],
     },

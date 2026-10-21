@@ -68,3 +68,29 @@ El texto canónico está en `LICENSE` y la auditoría completa en `docs/LICENSE_
 npm run licenses   # THIRD_PARTY_LICENSES.md, public/licencias/terceros.txt, third-party.json
 npm run sync:bg    # assets de @imgly/background-removal (los descarga, no se versionan)
 ```
+
+### Requisitos que bloquean la publicación
+
+1. **El repositorio debe ser público.** La AGPL-3.0 §13 obliga a que *cualquier persona* que
+   interactúe con el sitio por red pueda obtener el código fuente de la versión desplegada. Con
+   el repositorio en privado, el enlace «Código fuente» del pie lleva a un muro de inicio de
+   sesión y la obligación **no** queda satisfecha. `REPO_URL` debe apuntar a un repositorio
+   accesible sin autenticación.
+2. **El release `corresponding-source-*` debe existir.** Es la parte de GPL-2.0: el código fuente
+   del binario `ffmpeg-core.wasm`. Se prepara con:
+
+   ```bash
+   node scripts/build-corresponding-source.mjs   # staging en release-staging/ (no versionado)
+   gh release create corresponding-source-v1.0.0 --title "…" <ficheros>
+   ```
+
+   Las instrucciones exactas están en `release/corresponding-source/README.md`. El manifiesto
+   `release/corresponding-source/LICENSES/SOURCES.json` contiene el SHA-256 de cada fichero del
+   release y se verifica al generarlo.
+
+### Redirecciones
+
+Las rutas legales antiguas (`/politica-de-privacidad`, `/terminos-y-condiciones`) se redirigen
+en `vercel.json` (308) y en `netlify.toml` (301). Las páginas meta-refresh de Astro se conservan
+como respaldo para otros alojamientos y para `astro preview`, y están **excluidas del sitemap**.
+

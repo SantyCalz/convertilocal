@@ -1,0 +1,141 @@
+{
+  "release": "corresponding-source-v1.0.0",
+  "subject": "Código fuente correspondiente de ffmpeg-core.wasm (FFmpeg 5.1.4, build GPL)",
+  "binary": {
+    "file": "public/assets/wasm/ffmpeg-core.wasm",
+    "version": "@ffmpeg/core 0.12.10",
+    "bytes": 32232419,
+    "sha256": "9f57947a5bd530d8f00c5b3f2cb2a3492faa7e5d823315342d6a8656d0a6b7b7",
+    "license": "GPL-2.0-or-later",
+    "modified": false
+  },
+  "configuration": "configuration: --target-os=none --arch=x86_32 --enable-cross-compile --disable-asm --disable-stripping --disable-programs --disable-doc --disable-debug --disable-runtime-cpudetect --disable-autodetect --nm=emnm --ar=emar --ranlib=emranlib --cc=emcc --cxx=em++ --objcc=emcc --dep-cc=emcc --extra-cflags='-I/opt/include -O3 -msimd128' --extra-cxxflags='-I/opt/include -O3 -msimd128' --disable-pthreads --disable-w32threads --disable-os2threads --enable-gpl --enable-libx264 --enable-libx265 --enable-libvpx --enable-libmp3lame --enable-libtheora --enable-libvorbis --enable-libopus --enable-zlib --enable-libwebp --enable-libfreetype --enable-libfribidi --enable-libass --enable-libzimg",
+  "files": [
+    {
+      "file": "BUILD.md",
+      "bytes": 3315,
+      "sha256": "e5656fb5d1d96df8a059ede8d604529ee0e3493d28ed785ac4ee5925db869ebc",
+      "id": "build",
+      "version": "corresponding-source-v1.0.0",
+      "license": "—",
+      "url": "—"
+    },
+    {
+      "file": "CONFIGURATION.txt",
+      "bytes": 685,
+      "sha256": "6819d86ba203192438b8e1219a124f99ac5196bec6fbdf867f428c1fd731589b",
+      "id": "configuration",
+      "version": "configuración de compilación del binario distribuido",
+      "license": "—",
+      "url": "—"
+    },
+    {
+      "file": "LICENSES/AGPL-3.0.txt",
+      "bytes": 34523,
+      "sha256": "0d96a4ff68ad6d4b6f1f30f713b18d5184912ba8dd389f86aa7710db079abcb0",
+      "id": "license/AGPL-3.0.txt",
+      "version": "AGPL-3.0.txt",
+      "license": "texto oficial de la licencia",
+      "url": "fuente oficial (gnu.org, apache.org u OSI)"
+    },
+    {
+      "file": "LICENSES/Apache-2.0.txt",
+      "bytes": 11358,
+      "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+      "id": "license/Apache-2.0.txt",
+      "version": "Apache-2.0.txt",
+      "license": "texto oficial de la licencia",
+      "url": "fuente oficial (gnu.org, apache.org u OSI)"
+    },
+    {
+      "file": "LICENSES/BSD-3-Clause.txt",
+      "bytes": 1546,
+      "sha256": "eda81a415869e67809f6a9f3fd6056062cb83a462118e07eec5e92b2e0c40ce9",
+      "id": "license/BSD-3-Clause.txt",
+      "version": "BSD-3-Clause.txt",
+      "license": "texto oficial de la licencia",
+      "url": "fuente oficial (gnu.org, apache.org u OSI)"
+    },
+    {
+      "file": "LICENSES/GPL-2.0.txt",
+      "bytes": 17984,
+      "sha256": "edaef632cbb643e4e7a221717a6c441a4c1a7c918e6e4d56debc3d8739b233f6",
+      "id": "license/GPL-2.0.txt",
+      "version": "GPL-2.0.txt",
+      "license": "texto oficial de la licencia",
+      "url": "fuente oficial (gnu.org, apache.org u OSI)"
+    },
+    {
+      "file": "LICENSES/GPL-3.0.txt",
+      "bytes": 35149,
+      "sha256": "3972dc9744f6499f0f9b2dbf76696f2ae7ad8af9b23dde66d6af86c9dfb36986",
+      "id": "license/GPL-3.0.txt",
+      "version": "GPL-3.0.txt",
+      "license": "texto oficial de la licencia",
+      "url": "fuente oficial (gnu.org, apache.org u OSI)"
+    },
+    {
+      "file": "LICENSES/ISC.txt",
+      "bytes": 746,
+      "sha256": "8da13c785af46eb3d0bf2ce4c34bdf191b8c57bf43e410e9359d5b5eab5f4b0f",
+      "id": "license/ISC.txt",
+      "version": "ISC.txt",
+      "license": "texto oficial de la licencia",
+      "url": "fuente oficial (gnu.org, apache.org u OSI)"
+    },
+    {
+      "file": "LICENSES/LGPL-2.1.txt",
+      "bytes": 26419,
+      "sha256": "20e50fe7aae3e56378ebf0417d9de904f55a0e61e4df315333e632a4d3555d95",
+      "id": "license/LGPL-2.1.txt",
+      "version": "LGPL-2.1.txt",
+      "license": "texto oficial de la licencia",
+      "url": "fuente oficial (gnu.org, apache.org u OSI)"
+    },
+    {
+      "file": "LICENSES/MIT.txt",
+      "bytes": 1136,
+      "sha256": "ee92354a87bc4a402e022fa15e10a6c713136aba84c46095dccc2b8091132806",
+      "id": "license/MIT.txt",
+      "version": "MIT.txt",
+      "license": "texto oficial de la licencia",
+      "url": "fuente oficial (gnu.org, apache.org u OSI)"
+    },
+    {
+      "file": "source/ffmpeg-n5.1.4.tar.gz",
+      "bytes": 14419343,
+      "sha256": "6ed8ba17d513955cd9a03d0d87195b8eac3d148dcb61ef30ebddf1a3cd718de8",
+      "id": "ffmpeg",
+      "version": "n5.1.4",
+      "license": "LGPL-2.1-or-later / GPL-2.0-or-later (build con --enable-gpl)",
+      "url": "https://github.com/FFmpeg/FFmpeg/archive/refs/tags/n5.1.4.tar.gz"
+    },
+    {
+      "file": "source/ffmpegwasm-v0.12.10-build-scripts.tar.gz",
+      "bytes": 1115568,
+      "sha256": "3f1c3f94143d11e3bbb322bd8a1a3189965f31162cf7e889fd3b7e21a928d1ea",
+      "id": "ffmpeg-wasm-build-scripts",
+      "version": "v0.12.10 (commit c3a763857c5e615ae8674715ad5e4f63ff469e9d)",
+      "license": "MIT (wrapper) — compila FFmpeg y sus forks bajo GPL/LGPL",
+      "url": "https://github.com/ffmpegwasm/ffmpeg.wasm/archive/refs/tags/v0.12.10.tar.gz"
+    },
+    {
+      "file": "source/x264-4-cores.tar.gz",
+      "bytes": 941411,
+      "sha256": "cc64a8972d47d835c9f7626b735bf270b81c9a8197c250e75dfe0dfdc7835b10",
+      "id": "x264",
+      "version": "rama 4-cores (fork ffmmpegwasm/x264)",
+      "license": "GPL-2.0-or-later",
+      "url": "https://github.com/ffmpegwasm/x264/archive/refs/heads/4-cores.tar.gz"
+    },
+    {
+      "file": "source/x265-3.4.tar.gz",
+      "bytes": 1530201,
+      "sha256": "abd37f4ab99570fcf2272c47239653204b0854ea5ef19df3729112aaa1f6f311",
+      "id": "x265",
+      "version": "tag 3.4 (fork ffmpegwasm/x265)",
+      "license": "GPL-2.0-or-later",
+      "url": "https://github.com/ffmpegwasm/x265/archive/refs/tags/3.4.tar.gz"
+    }
+  ]
+}

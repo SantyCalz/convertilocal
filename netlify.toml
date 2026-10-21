@@ -2,6 +2,18 @@
   command = "npm run build"
   publish = "dist"
 
+# Las políticas legales se publicaron primero con nombres largos. Redirección
+# permanente (301) en lugar de las páginas meta-refresh generadas por Astro.
+[[redirects]]
+  from = "/politica-de-privacidad"
+  to = "/privacidad"
+  status = 301
+
+[[redirects]]
+  from = "/terminos-y-condiciones"
+  to = "/terminos"
+  status = 301
+
 [[headers]]
   for = "/assets/wasm/*"
   [headers.values]

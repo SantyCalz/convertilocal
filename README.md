@@ -62,6 +62,38 @@ npm run test:e2e         # Playwright sobre el build
 npm run deploy:check     # validate + verify:deploy + check:legal
 ```
 
+### Binarios y modelos: qué está versionado y qué se descarga
+
+El repositorio no lleva dentro los ficheros pesados que se sirven al navegador.
+Un clon limpio se compila solo, porque `prebuild` los obtiene antes de compilar:
+
+| Recurso | Tamaño | ¿Versionado? | Cómo se obtiene |
+| --- | ---: | --- | --- |
+| `public/assets/wasm/ffmpeg-core.wasm` (+ `.js`) | 30,7 MB | **Sí** | Se copia de `node_modules/@ffmpeg/core` con `npm run sync:media` |
+| `public/assets/imgly/**` (modelo IS-Net + runtime ONNX) | 159,7 MB | **No** (`.gitignore`) | `npm run sync:bg` los descarga de `staticimgly.com` |
+| `public/assets/pdf/**` (PDF.js) | 3,4 MB | **No** (`.gitignore`) | `npm run sync:pdf` los copia de `node_modules/pdfjs-dist` |
+| `public/scripts/pdf.worker.min.mjs` | 1,3 MB | **No** (`.gitignore`) | `npm run sync:pdf` |
+
+```bash
+git clone https://github.com/SantyCalz/convertilocal.git
+cd convertilocal
+npm ci
+npm run build      # prebuild descarga 159,7 MB la primera vez
+```
+
+Los scripts de sincronización son **idempotentes**: `npm run sync:bg` no vuelve a
+descargar lo que ya está, y `npm run sync:bg -- --check` verifica que todos los
+fragmentos están presentes sin descargar nada. Si la red falla pero los assets ya
+están en `public/`, el build continúa con un aviso; si faltan, el build falla.
+
+El modelo de segmentación son 159,7 MB porque incluye los tres pesos (isnet,
+isnet_fp16 e isnet_quint8) y el runtime de ONNX para CPU y WebGPU. Para una
+instalación mínima basta con el modelo pequeño:
+
+```bash
+npm run sync:bg -- --only=/models/isnet_quint8
+```
+
 ## Rutas publicadas
 
 - `/` — inicio, buscador y catálogo.
