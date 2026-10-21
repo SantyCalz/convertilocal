@@ -1,0 +1,309 @@
+---
+import type { GetStaticPaths } from 'astro';
+import ToolPageShell from '@/components/tools/ToolPageShell.astro';
+import Icon from '@/components/ui/Icon.astro';
+import { PDF_TOOLS } from '@/data/pdf-tools';
+import type { PdfTool } from '@/types/pdf';
+
+export const getStaticPaths = (() =>
+  PDF_TOOLS.map((tool) => ({
+    params: { slug: tool.slug },
+    props: { tool },
+  }))) satisfies GetStaticPaths;
+
+interface Props {
+  tool: PdfTool;
+}
+
+const { tool } = Astro.props;
+const path = `/pdf/${tool.slug}`;
+const site = (Astro.site ?? new URL('https://convertilocal.com')).href.replace(/\/$/, '');
+const absolute = `${site}${path}`;
+const pageTitle = tool.title.split(' | ')[0] ?? tool.h1;
+
+const webApplicationSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'WebApplication',
+  name: tool.h1,
+  url: absolute,
+  description: tool.description,
+  applicationCategory: 'UtilitiesApplication',
+  operatingSystem: 'Any',
+  browserRequirements: 'Requiere un navegador moderno con JavaScript habilitado',
+  inLanguage: 'es',
+  isAccessibleForFree: true,
+  offers: {
+    '@type': 'Offer',
+    price: '0',
+    priceCurrency: 'EUR',
+  },
+  featureList: [
+    'Procesamiento 100% en el navegador',
+    'Sin subir el PDF a servidores',
+    'Sin registro ni marcas de agua',
+    'Vista previa antes de procesar',
+  ],
+  publisher: {
+    '@type': 'Organization',
+    name: 'ConvertiLocal',
+    url: site,
+  },
+};
+
+const breadcrumbSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Inicio', item: `${site}/` },
+    {
+      '@type': 'ListItem',
+      position: 2,
+      name: 'Herramientas PDF',
+      item: `${site}/pdf`,
+    },
+    { '@type': 'ListItem', position: 3, name: tool.h1, item: absolute },
+  ],
+};
+
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: tool.faq.map((item) => ({
+    '@type': 'Question',
+    name: item.q,
+    acceptedAnswer: { '@type': 'Answer', text: item.a },
+  })),
+};
+
+const howToSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'HowTo',
+  name: tool.h1,
+  description: tool.description,
+  totalTime: 'PT1M',
+  tool: [{ '@type': 'HowToTool', name: 'ConvertiLocal' }],
+  step: [
+    {
+      '@type': 'HowToStep',
+      position: 1,
+      name: 'Añade el archivo',
+      text: `Selecciona o arrastra un archivo compatible con ${tool.h1}. También puedes pegarlo con Ctrl/Cmd+V.`,
+    },
+    {
+      '@type': 'HowToStep',
+      position: 2,
+      name: 'Revisa la vista previa',
+      text: 'Comprueba las páginas, el orden y las opciones antes de procesar. Todo se ejecuta en tu dispositivo.',
+    },
+    {
+      '@type': 'HowToStep',
+      position: 3,
+      name: 'Descarga el resultado',
+      text: 'Pulsa el botón de procesar y descarga el archivo. Si hay varios resultados, se empaquetan en un ZIP local.',
+    },
+  ],
+};
+
+const related = tool.related
+  .map((href) => PDF_TOOLS.find((candidate) => `/pdf/${candidate.slug}` === href))
+  .filter((candidate): candidate is PdfTool => Boolean(candidate));
+
+const previewMode: 'none' | 'pdf-merge' | 'pdf-pages' | 'pdf-organize' =
+  tool.previewMode === 'none' ? 'none' : `pdf-${tool.previewMode}`;
+
+const limitations = [
+  `Máximo ${tool.maxSizeMB} MB por archivo y ${tool.maxTotalMB} MB por lote.`,
+  'PDF cifrados o protegidos con contraseña no se admiten en esta fase.',
+  'Modificar un PDF invalida las firmas digitales existentes.',
+];
+---
+
+<ToolPageShell
+  title={pageTitle}
+  description={tool.description}
+  h1={tool.h1}
+  intro={tool.intro}
+  path={path}
+  processorId={tool.processorId}
+  accept={tool.accept}
+  acceptLabel={tool.acceptLabel}
+  actionLabel={tool.actionLabel}
+  baseName={tool.baseName}
+  fixedOptions={tool.fixedOptions}
+  options={tool.options}
+  resultNote={tool.resultNote}
+  schema={[webApplicationSchema, breadcrumbSchema, faqSchema, howToSchema]}
+  breadcrumbLabel={tool.h1}
+  breadcrumbParent={{ href: '/pdf', label: 'Herramientas PDF' }}
+  multiple={tool.multiple}
+  maxSizeMB={tool.maxSizeMB}
+  maxFiles={tool.maxFiles}
+  maxTotalMB={tool.maxTotalMB}
+  previewMode={previewMode}
+>
+  <section aria-labelledby="porque-title">
+    <h2 id="porque-title" class="text-2xl font-bold tracking-tight text-slate-900">
+      Por qué resolverlo en el navegador
+    </h2>
+    <div class="mt-4 space-y-4 text-sm leading-7 text-slate-600 sm:text-base">
+      {tool.why.map((paragraph) => <p>{paragraph}</p>)}
+    </div>
+  </section>
+
+  <section class="mt-10" aria-labelledby="usos-title">
+    <h2 id="usos-title" class="text-2xl font-bold tracking-tight text-slate-900">
+      Cuándo te resultará útil
+    </h2>
+    <div class="mt-4 grid gap-3 sm:grid-cols-3">
+      {
+        tool.useCases.map((useCase) => (
+          <div class="rounded-2xl border border-slate-200 bg-white p-4">
+            <span class="flex h-8 w-8 items-center justify-center rounded-lg bg-brand-50 text-brand-700 ring-1 ring-inset ring-brand-100">
+              <Icon name="check" size={15} />
+            </span>
+            <h3 class="mt-3 text-sm font-semibold text-slate-900">{useCase.title}</h3>
+            <p class="mt-1 text-xs leading-5 text-slate-500">{useCase.body}</p>
+          </div>
+        ))
+      }
+    </div>
+  </section>
+
+  <section class="mt-10" aria-labelledby="como-title">
+    <h2 id="como-title" class="text-2xl font-bold tracking-tight text-slate-900">
+      Cómo funciona {tool.h1.toLowerCase()}
+    </h2>
+    <ol class="mt-4 space-y-3">
+      <li class="flex gap-3 rounded-2xl border border-slate-200 bg-white p-4">
+        <span class="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-brand-50 text-xs font-bold text-brand-700 ring-1 ring-brand-100">1</span>
+        <div>
+          <h3 class="text-sm font-semibold text-slate-900">Carga y comprobación local</h3>
+          <p class="mt-1 text-xs leading-5 text-slate-500">
+            El navegador comprueba la cabecera del archivo y lo abre con PDF.js. No se envía ninguna copia a un servidor.
+          </p>
+        </div>
+      </li>
+      <li class="flex gap-3 rounded-2xl border border-slate-200 bg-white p-4">
+        <span class="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-brand-50 text-xs font-bold text-brand-700 ring-1 ring-brand-100">2</span>
+        <div>
+          <h3 class="text-sm font-semibold text-slate-900">Vista previa y opciones</h3>
+          <p class="mt-1 text-xs leading-5 text-slate-500">
+            Las páginas se dibujan en un canvas para que compruebes el resultado. Los ajustes se aplican solo a la copia que vas a generar.
+          </p>
+        </div>
+      </li>
+      <li class="flex gap-3 rounded-2xl border border-slate-200 bg-white p-4">
+        <span class="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-brand-50 text-xs font-bold text-brand-700 ring-1 ring-brand-100">3</span>
+        <div>
+          <h3 class="text-sm font-semibold text-slate-900">Generación y descarga</h3>
+          <p class="mt-1 text-xs leading-5 text-slate-500">
+            pdf-lib construye el documento en memoria y el navegador lo descarga. Puedes cerrar la pestaña y no queda ninguna copia remota.
+          </p>
+        </div>
+      </li>
+    </ol>
+  </section>
+
+  <section class="mt-10" aria-labelledby="errores-title">
+    <h2 id="errores-title" class="text-2xl font-bold tracking-tight text-slate-900">
+      Tres errores que conviene evitar
+    </h2>
+    <ol class="mt-4 space-y-3">
+      {
+        tool.mistakes.map((mistake, index) => (
+          <li class="flex gap-3 rounded-2xl border border-slate-200 bg-slate-50/60 p-4">
+            <span class="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-white text-xs font-bold text-slate-500 ring-1 ring-slate-200">
+              {index + 1}
+            </span>
+            <div>
+              <h3 class="text-sm font-semibold text-slate-900">{mistake.title}</h3>
+              <p class="mt-1 text-xs leading-5 text-slate-500">{mistake.body}</p>
+            </div>
+          </li>
+        ))
+      }
+    </ol>
+  </section>
+
+  <section class="mt-10" aria-labelledby="faq-title">
+    <h2 id="faq-title" class="text-2xl font-bold tracking-tight text-slate-900">
+      Preguntas frecuentes
+    </h2>
+    <div class="mt-4 divide-y divide-slate-200 rounded-2xl border border-slate-200 bg-white">
+      {
+        tool.faq.map((item) => (
+          <details class="group p-4">
+            <summary class="flex cursor-pointer list-none items-center justify-between gap-3 text-sm font-semibold text-slate-900">
+              {item.q}
+              <Icon name="chevron-down" size={16} class="shrink-0 text-slate-400 transition-transform group-open:rotate-180" />
+            </summary>
+            <p class="mt-2 text-sm leading-6 text-slate-600">{item.a}</p>
+          </details>
+        ))
+      }
+    </div>
+  </section>
+
+  {
+    related.length > 0 && (
+      <section class="mt-10" aria-labelledby="relacionadas-title">
+        <h2 id="relacionadas-title" class="text-2xl font-bold tracking-tight text-slate-900">
+          Herramientas PDF relacionadas
+        </h2>
+        <div class="mt-4 grid gap-3 sm:grid-cols-3">
+          {related.map((item) => (
+            <a
+              href={`/pdf/${item.slug}`}
+              class="group rounded-2xl border border-slate-200 bg-white p-4 transition-all hover:-translate-y-0.5 hover:border-slate-300 hover:shadow-card"
+            >
+              <p class="text-[10px] font-semibold uppercase tracking-wide text-slate-400">PDF</p>
+              <p class="mt-1.5 text-sm font-semibold text-slate-900 group-hover:text-brand-800">
+                {item.h1}
+              </p>
+              <p class="mt-1 line-clamp-2 text-xs leading-5 text-slate-500">{item.description}</p>
+            </a>
+          ))}
+        </div>
+      </section>
+    )
+  }
+
+  <p class="mt-8 text-[11px] text-slate-400">
+    Contenido revisado el {tool.updated}. La compatibilidad y los límites dependen de la versión de tu navegador.
+  </p>
+
+  <Fragment slot="aside">
+    <div class="mt-4 rounded-2xl border border-slate-200 bg-white p-5">
+      <h2 class="text-sm font-semibold text-slate-900">Límites de esta herramienta</h2>
+      <ul class="mt-2 space-y-2 text-xs leading-5 text-slate-500">
+        {limitations.map((item) => <li>· {item}</li>)}
+      </ul>
+    </div>
+    <div class="mt-4 rounded-2xl border border-brand-200 bg-brand-50/60 p-5">
+      <h2 class="text-sm font-semibold text-brand-900">Más herramientas PDF</h2>
+      <p class="mt-1 text-xs leading-5 text-brand-800/80">
+        Unir, dividir, comprimir, convertir y organizar documentos sin subirlos.
+      </p>
+      <a
+        href="/pdf"
+        class="mt-3 inline-flex items-center gap-1.5 text-xs font-semibold text-brand-800 hover:text-brand-900"
+      >
+        Ver la colección PDF
+        <Icon name="arrow-right" size={13} />
+      </a>
+    </div>
+    <div class="mt-4 rounded-2xl border border-slate-200 bg-slate-50/70 p-5">
+      <h2 class="text-sm font-semibold text-slate-900">Privacidad verificable</h2>
+      <p class="mt-2 text-xs leading-5 text-slate-500">
+        Puedes abrir las herramientas de desarrollo del navegador y comprobar que no hay peticiones con tus archivos.
+      </p>
+      <a
+        href="/metodologia"
+        class="mt-3 inline-flex items-center gap-1.5 text-xs font-semibold text-brand-700 hover:text-brand-800"
+      >
+        Cómo lo verificamos
+        <Icon name="arrow-right" size={13} />
+      </a>
+    </div>
+  </Fragment>
+</ToolPageShell>

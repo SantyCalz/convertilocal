@@ -1,0 +1,125 @@
+---
+import LegalLayout from '@/layouts/LegalLayout.astro';
+import { LEGAL_PAGES, SITE } from '@/data/site';
+
+const page = LEGAL_PAGES.metodologia;
+
+const phases = [
+  {
+    title: 'Validación del formato',
+    text: 'Comprobamos que el navegador puede leer el origen y escribir el destino con fidelidad suficiente. Si no es viable, la herramienta no se publica.',
+  },
+  {
+    title: 'Procesador aislado',
+    text: 'La conversión se encapsula en un procesador que cumple el contrato común y se ejecuta fuera del hilo principal cuando el coste lo justifica.',
+  },
+  {
+    title: 'Pruebas con archivos reales',
+    text: 'Usamos muestras de distintos tamaños, metadatos, colores, canales y casos límite, no solo el archivo feliz de la documentación.',
+  },
+  {
+    title: 'Pruebas en dispositivos',
+    text: 'Verificamos en Android de gama media, iPhone, escritorio y ventanas estrechas desde 360 px, con teclado y con lector de pantalla.',
+  },
+  {
+    title: 'Revisión de privacidad',
+    text: 'Inspeccionamos la pestaña Red para confirmar que el archivo no se transmite y que la herramienta funciona en modo avión tras cargarse.',
+  },
+];
+
+const limits = [
+  'La memoria disponible depende del dispositivo: archivos muy grandes pueden fallar en móviles modestos.',
+  'Algunos códecs propietarios no están disponibles en todos los navegadores; en esos casos lo indicamos antes de procesar.',
+  'La velocidad depende de tu CPU. Un vídeo largo puede tardar más que en un servicio con servidores dedicados.',
+  'Las funciones offline requieren que la página y sus recursos ya se hayan cargado al menos una vez.',
+];
+---
+
+<LegalLayout page={page}>
+  <p>
+    Esta página documenta cómo construimos y probamos las herramientas de ConvertiLocal. No es una
+    promesa de marketing: es el criterio que aplicamos antes de publicar una función y la forma en
+    que puedes comprobar nuestras afirmaciones.
+  </p>
+
+  <h2>Arquitectura local-first</h2>
+  <p>
+    El sitio es estático y se sirve desde una CDN. No hay backend de conversión ni almacenamiento de
+    archivos. Las herramientas se ejecutan en el navegador con TypeScript, Web Workers,
+    OffscreenCanvas, Web Audio, <code>File.stream()</code> y bibliotecas compiladas a WebAssembly o
+    JavaScript cuando aportan una ventaja clara.
+  </p>
+  <p>
+    El contrato <code>Processor</code> es único para todas las herramientas: recibe archivos y
+    opciones, informa del progreso y devuelve blobs o archivos. Así la interfaz no depende del
+    formato y el código de conversión se carga de forma diferida.
+  </p>
+
+  <h2>Proceso de publicación</h2>
+  <ol>
+    {
+      phases.map((phase) => (
+        <li>
+          <strong>{phase.title}:</strong> {phase.text}
+        </li>
+      ))
+    }
+  </ol>
+
+  <h2>Matriz de pruebas</h2>
+  <p>Cada herramienta se prueba, como mínimo, en estos escenarios:</p>
+  <ul>
+    <li>Chrome y Edge actuales en escritorio y Android.</li>
+    <li>Firefox actual en escritorio.</li>
+    <li>Safari actual en macOS e iOS/iPadOS.</li>
+    <li>Archivos pequeños, medianos y cerca del límite que muestra la interfaz.</li>
+    <li>Nombres con acentos, espacios, emojis y extensiones en mayúsculas.</li>
+    <li>Uso con teclado, zoom al 200 % y lector de pantalla básico.</li>
+    <li>Procesado sin conexión después de cargar la página.</li>
+  </ul>
+
+  <h2>Límites que reconocemos</h2>
+  <ul>
+    {
+      limits.map((limit) => (
+        <li>{limit}</li>
+      ))
+    }
+  </ul>
+  <p>
+    Cuando una herramienta tiene una limitación relevante, la mostramos en la propia interfaz antes
+    de que pulses el botón de procesar. Preferimos una expectativa honesta a una conversión que
+    falle a mitad.
+  </p>
+
+  <h2>Cómo verificar que no subimos archivos</h2>
+  <ol>
+    <li>Abre la herramienta y carga un archivo de prueba.</li>
+    <li>Abre las herramientas de desarrollo del navegador (F12) y ve a la pestaña Red.</li>
+    <li>Pulsa procesar y observa las peticiones.</li>
+    <li>No debería aparecer ninguna petición con el contenido del archivo.</li>
+    <li>Activa el modo avión y prueba de nuevo: si la página ya está cargada, debe funcionar.</li>
+  </ol>
+  <p>
+    La publicidad y los recursos de terceros pueden generar peticiones propias, pero nunca reciben
+    tus archivos. Puedes bloquearlos y la herramienta seguirá funcionando.
+  </p>
+
+  <h2>Transparencia y correcciones</h2>
+  <p>
+    Documentamos las bibliotecas relevantes de cada herramienta cuando se publica. Si una
+    conversión produce resultados incorrectos, corregimos o retiramos la función. Los errores
+    reproducibles tienen prioridad sobre las funciones nuevas.
+  </p>
+  <p>
+    Esta metodología evolucionará con el catálogo. La fecha de actualización indica la última
+    revisión editorial.
+  </p>
+
+  <h2>Contacto técnico</h2>
+  <p>
+    Si encuentras un fallo, incluye el formato, el tamaño aproximado, el navegador y los pasos para
+    reproducirlo. Escríbenos a <a href={`mailto:${SITE.email}`}>{SITE.email}</a> o desde la
+    <a href="/contacto">página de contacto</a>.
+  </p>
+</LegalLayout>

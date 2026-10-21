@@ -1,0 +1,178 @@
+---
+import ToolPageShell from '@/components/tools/ToolPageShell.astro';
+import Icon from '@/components/ui/Icon.astro';
+import type { ProcessorOption } from '@/types/processor';
+
+const path = '/imagenes/quitar-exif-foto';
+const site = (Astro.site ?? new URL('https://convertilocal.com')).href.replace(/\/$/, '');
+const faqs = [
+  {
+    q: '¿Qué metadatos elimina exactamente?',
+    a: 'En JPG retira los bloques EXIF/XMP, IPTC y comentarios. En PNG elimina eXIf, tEXt, zTXt, iTXt y tIME. En WebP quita los chunks EXIF y XMP. Conserva los perfiles de color ICC y los datos necesarios para decodificar la imagen.',
+  },
+  {
+    q: '¿Se vuelve a comprimir la foto?',
+    a: 'No en el caso habitual. Si la orientación EXIF es 1 o no existe, los bytes de imagen se copian y solo se eliminan los bloques de metadatos. Si la orientación es 2–8 y decides corregirla, hay que decodificar y recodificar para que la foto no aparezca girada.',
+  },
+  {
+    q: '¿Se elimina la ubicación GPS?',
+    a: 'Sí. El GPS suele viajar dentro del bloque EXIF, así que desaparece junto con la fecha, el modelo de cámara, el número de serie y otros datos personales.',
+  },
+  {
+    q: '¿Puedo quitar el EXIF a un HEIC?',
+    a: 'Esta herramienta trabaja con JPG, PNG y WebP. Para HEIC, primero conviértelo a JPG o PNG; la conversión ya genera una imagen nueva sin los metadatos originales en la mayoría de casos.',
+  },
+];
+
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faqs.map((item) => ({
+    '@type': 'Question',
+    name: item.q,
+    acceptedAnswer: { '@type': 'Answer', text: item.a },
+  })),
+};
+
+const breadcrumbSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Inicio', item: `${site}/` },
+    { '@type': 'ListItem', position: 2, name: 'Convertir imágenes', item: `${site}/convertir` },
+    { '@type': 'ListItem', position: 3, name: 'Quitar EXIF de una foto', item: `${site}${path}` },
+  ],
+};
+
+const options: ProcessorOption[] = [
+  {
+    id: 'fixOrientation',
+    label: 'Corregir la orientación de la foto',
+    type: 'checkbox',
+    defaultValue: true,
+    help: 'Si la cámara guardó la foto girada mediante EXIF, se aplica la rotación y se recodifica. Si lo desactivas, la limpieza es totalmente sin pérdida pero la foto puede verse girada.',
+  },
+];
+---
+
+<ToolPageShell
+  title="Quitar EXIF y GPS de una foto online"
+  description="Elimina metadatos EXIF, GPS, fecha y cámara de tus fotos JPG, PNG o WebP sin subirlas. Limpieza local y sin recompresión en el caso habitual."
+  h1="Quitar EXIF de una foto"
+  intro="Las fotos pueden revelar dónde y cuándo se tomaron, con qué cámara y otros datos personales. Esta herramienta elimina esos metadatos en tu navegador y conserva la imagen y su perfil de color."
+  path={path}
+  processorId="image-exif-clean"
+  accept=".jpg,.jpeg,.png,.webp,image/jpeg,image/png,image/webp"
+  acceptLabel="JPG, PNG o WebP"
+  actionLabel="Limpiar metadatos"
+  baseName="foto-sin-exif"
+  options={options}
+  resultNote="Si no hay metadatos, el archivo se mantiene intacto y recibirás un aviso. Los perfiles ICC se conservan."
+  schema={[breadcrumbSchema, faqSchema]}
+  breadcrumbLabel="Quitar EXIF"
+>
+  <section aria-labelledby="que-title">
+    <h2 id="que-title" class="text-2xl font-bold tracking-tight text-slate-900">
+      Qué puede contar una foto de ti
+    </h2>
+    <div class="mt-4 space-y-4 text-sm leading-7 text-slate-600 sm:text-base">
+      <p>
+        El bloque EXIF puede incluir coordenadas GPS con precisión de metros, la fecha y hora exactas,
+        el modelo y número de serie de la cámara, el ajuste de exposición, el software de edición e
+        incluso un miniatura de la escena. Al publicar una foto en una web o enviarla por correo, esos
+        datos viajan con ella salvo que se eliminen.
+      </p>
+      <p>
+        Las redes sociales grandes suelen borrarlos al subir la imagen, pero no todas, y los archivos
+        enviados por correo, mensajería o formularios conservan lo que tenían. Limpiar la foto antes
+        de compartirla es la forma más segura de controlar qué se publica.
+      </p>
+    </div>
+  </section>
+
+  <section class="mt-10" aria-labelledby="limpieza-title">
+    <h2 id="limpieza-title" class="text-2xl font-bold tracking-tight text-slate-900">
+      Limpieza sin pérdida, con una excepción
+    </h2>
+    <div class="mt-4 grid gap-3 sm:grid-cols-2">
+      <div class="rounded-2xl border border-emerald-200 bg-emerald-50/60 p-4">
+        <h3 class="flex items-center gap-2 text-sm font-semibold text-emerald-900">
+          <Icon name="check" size={16} />
+          Sin recomprimir
+        </h3>
+        <p class="mt-1.5 text-xs leading-5 text-emerald-900/80">
+          Si la orientación es normal, se eliminan los bloques de metadatos y se copian los datos de
+          imagen tal cual. No hay pérdida de calidad ni cambio de píxeles.
+        </p>
+      </div>
+      <div class="rounded-2xl border border-amber-200 bg-amber-50/60 p-4">
+        <h3 class="flex items-center gap-2 text-sm font-semibold text-amber-900">
+          <Icon name="refresh" size={16} />
+          Si la foto estaba girada
+        </h3>
+        <p class="mt-1.5 text-xs leading-5 text-amber-900/80">
+          Algunas cámaras guardan la imagen en horizontal y usan EXIF para indicar el giro. Para no
+          perder esa orientación, la foto se decodifica, se rota y se vuelve a codificar.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="mt-10" aria-labelledby="conserva-title">
+    <h2 id="conserva-title" class="text-2xl font-bold tracking-tight text-slate-900">
+      Qué se conserva y qué se elimina
+    </h2>
+    <div class="mt-4 overflow-x-auto rounded-2xl border border-slate-200">
+      <table class="w-full min-w-[520px] text-left text-xs sm:text-sm">
+        <thead class="bg-slate-50 text-slate-500">
+          <tr>
+            <th scope="col" class="px-4 py-3 font-medium">Dato</th>
+            <th scope="col" class="px-4 py-3 font-medium">Resultado</th>
+          </tr>
+        </thead>
+        <tbody class="divide-y divide-slate-100 text-slate-600">
+          <tr><th scope="row" class="px-4 py-3 font-medium text-slate-500">GPS y ubicación</th><td class="px-4 py-3">Se elimina</td></tr>
+          <tr><th scope="row" class="px-4 py-3 font-medium text-slate-500">Fecha, cámara y número de serie</th><td class="px-4 py-3">Se elimina</td></tr>
+          <tr><th scope="row" class="px-4 py-3 font-medium text-slate-500">Autor, copyright y comentarios</th><td class="px-4 py-3">Se elimina</td></tr>
+          <tr><th scope="row" class="px-4 py-3 font-medium text-slate-500">Perfil de color ICC</th><td class="px-4 py-3">Se conserva</td></tr>
+          <tr><th scope="row" class="px-4 py-3 font-medium text-slate-500">Píxeles y dimensiones</th><td class="px-4 py-3">Se conservan (salvo recodificación por orientación)</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="mt-10" aria-labelledby="faq-title">
+    <h2 id="faq-title" class="text-2xl font-bold tracking-tight text-slate-900">Preguntas frecuentes</h2>
+    <div class="mt-4 divide-y divide-slate-200 rounded-2xl border border-slate-200 bg-white">
+      {faqs.map((item) => (
+        <details class="group p-4">
+          <summary class="flex cursor-pointer list-none items-center justify-between gap-3 text-sm font-semibold text-slate-900">
+            {item.q}
+            <Icon name="chevron-down" size={16} class="shrink-0 text-slate-400 transition-transform group-open:rotate-180" />
+          </summary>
+          <p class="mt-2 text-sm leading-6 text-slate-600">{item.a}</p>
+        </details>
+      ))}
+    </div>
+  </section>
+
+  <Fragment slot="aside">
+    <div class="mt-4 rounded-2xl border border-slate-200 bg-white p-5">
+      <h2 class="text-sm font-semibold text-slate-900">Antes de publicar una foto</h2>
+      <ul class="mt-2 space-y-2 text-xs leading-5 text-slate-500">
+        <li>· Revisa si aparece una dirección o un rostro identificable.</li>
+        <li>· Elimina el GPS si la foto es de casa o de un lugar privado.</li>
+        <li>· Borra el número de serie de la cámara si no quieres vincular tus imágenes.</li>
+        <li>· Conserva una copia original si necesitas los datos para archivo.</li>
+      </ul>
+    </div>
+    <div class="mt-4 rounded-2xl border border-brand-200 bg-brand-50/60 p-5">
+      <h2 class="text-sm font-semibold text-brand-900">Reduce también el peso</h2>
+      <p class="mt-1 text-xs leading-5 text-brand-800/80">Ajusta la foto a un límite de KB sin subirla.</p>
+      <a href="/imagenes/reducir-foto-a-kb" class="mt-2 inline-flex items-center gap-1.5 text-xs font-semibold text-brand-800 hover:text-brand-900">
+        Comprimir a KB
+        <Icon name="arrow-right" size={13} />
+      </a>
+    </div>
+  </Fragment>
+</ToolPageShell>

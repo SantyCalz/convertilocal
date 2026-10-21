@@ -1,0 +1,35 @@
+---
+interface Props {
+  class?: string;
+  showWordmark?: boolean;
+}
+
+const { class: className = '', showWordmark = true } = Astro.props;
+---
+
+<span class:list={['inline-flex items-center gap-2', className]}>
+  <span class="text-brand-700">
+    <svg class="h-8 w-8" viewBox="0 0 32 32" fill="none" aria-hidden="true">
+      <rect width="32" height="32" rx="9" fill="currentColor"></rect>
+      <path
+        d="M8.5 14.5a8 8 0 0 1 13.4-4.2l1.6 1.5M23.5 17.5a8 8 0 0 1-13.4 4.2l-1.6-1.5"
+        stroke="white"
+        stroke-width="2.2"
+        stroke-linecap="round"
+        stroke-linejoin="round"></path>
+      <path
+        d="M24 7v5h-5M8 25v-5h5"
+        stroke="white"
+        stroke-width="2.2"
+        stroke-linecap="round"
+        stroke-linejoin="round"></path>
+    </svg>
+  </span>
+  {
+    showWordmark && (
+      <span class="text-[17px] font-bold tracking-tight text-slate-900">
+        Converti<span class="text-brand-700">Local</span>
+      </span>
+    )
+  }
+</span>

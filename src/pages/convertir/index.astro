@@ -1,0 +1,264 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Badge from '@/components/ui/Badge.astro';
+import Icon from '@/components/ui/Icon.astro';
+import { CONVERSIONS, FORMATS, conversionPath, conversionsFrom, getFormat } from '@/data/images';
+import type { ImageFormatId } from '@/types/image';
+
+const sources: ImageFormatId[] = ['jpg', 'png', 'webp', 'heic', 'avif', 'bmp', 'ico'];
+const site = (Astro.site ?? new URL('https://convertilocal.com')).href.replace(/\/$/, '');
+
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: [
+    {
+      '@type': 'Question',
+      name: '¿Las imágenes se suben a un servidor?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'No. ConvertiLocal decodifica y codifica cada imagen dentro de tu navegador. El archivo no se envía a ningún servidor.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: '¿Qué conversiones de imagen están disponibles?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Hay veinte conversiones curadas entre JPG, PNG, WebP, HEIC, AVIF, BMP e ICO, además de compresión a un peso concreto y limpieza de metadatos EXIF.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: '¿Funciona sin conexión?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Una vez cargada la página, el procesamiento es local. La primera conversión de HEIC o AVIF puede descargar un decodificador, por lo que necesita conexión esa primera vez.',
+      },
+    },
+  ],
+};
+
+const breadcrumbSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Inicio', item: `${site}/` },
+    { '@type': 'ListItem', position: 2, name: 'Convertir imágenes', item: `${site}/convertir` },
+  ],
+};
+---
+
+<BaseLayout
+  title="Convertir imágenes online sin subir archivos"
+  description="Veinte conversiones de imagen (JPG, PNG, WebP, HEIC, AVIF, BMP e ICO) que se ejecutan en tu navegador. Sin subidas, registro ni marcas de agua."
+  path="/convertir"
+  schema={[breadcrumbSchema, faqSchema]}
+>
+  <section class="border-b border-slate-200 bg-white">
+    <div class="container-page py-10 sm:py-14">
+      <nav aria-label="Migas de pan" class="flex items-center gap-1.5 text-xs text-slate-400">
+        <a href="/" class="transition-colors hover:text-brand-700">Inicio</a>
+        <span aria-hidden="true">/</span>
+        <span class="text-slate-600" aria-current="page">Convertir imágenes</span>
+      </nav>
+      <p
+        class="mt-4 inline-flex items-center gap-1.5 rounded-full bg-brand-50 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-wide text-brand-700 ring-1 ring-inset ring-brand-100"
+      >
+        <Icon name="lock" size={11} />
+        0 archivos subidos
+      </p>
+      <h1 class="mt-3 max-w-3xl text-3xl font-extrabold tracking-tight text-slate-950 sm:text-5xl">
+        Convertir imágenes sin que salgan de tu dispositivo
+      </h1>
+      <p class="mt-4 max-w-2xl text-sm leading-7 text-slate-600 sm:text-base">
+        Elige una conversión, arrastra el archivo y descarga el resultado. Todo ocurre en tu
+        navegador: no hay servidor, cola de espera ni cuenta. También puedes comprimir una foto a un
+        peso concreto o eliminar sus metadatos.
+      </p>
+      <div class="mt-6 flex flex-wrap gap-3">
+        <a href="#conversiones" class="inline-flex h-11 items-center gap-2 rounded-xl bg-brand-700 px-4 text-sm font-semibold text-white shadow-sm transition-colors hover:bg-brand-800">
+          Ver las 20 conversiones
+          <Icon name="arrow-right" size={16} />
+        </a>
+        <a href="/imagenes/reducir-foto-a-kb" class="inline-flex h-11 items-center gap-2 rounded-xl px-4 text-sm font-semibold text-slate-700 ring-1 ring-inset ring-slate-300 transition-colors hover:bg-slate-50">
+          Reducir foto a KB
+        </a>
+        <a href="/imagenes/quitar-exif-foto" class="inline-flex h-11 items-center gap-2 rounded-xl px-4 text-sm font-semibold text-slate-700 ring-1 ring-inset ring-slate-300 transition-colors hover:bg-slate-50">
+          Quitar EXIF
+        </a>
+        <a href="/imagenes/eliminar-fondo" class="inline-flex h-11 items-center gap-2 rounded-xl px-4 text-sm font-semibold text-slate-700 ring-1 ring-inset ring-slate-300 transition-colors hover:bg-slate-50">
+          Eliminar fondo
+        </a>
+        <a href="/imagenes/redimensionar" class="inline-flex h-11 items-center gap-2 rounded-xl px-4 text-sm font-semibold text-slate-700 ring-1 ring-inset ring-slate-300 transition-colors hover:bg-slate-50">
+          Redimensionar
+        </a>
+        <a href="/imagenes/recortar" class="inline-flex h-11 items-center gap-2 rounded-xl px-4 text-sm font-semibold text-slate-700 ring-1 ring-inset ring-slate-300 transition-colors hover:bg-slate-50">
+          Recortar
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section id="conversiones" class="container-page scroll-mt-20 py-10 sm:py-14" aria-labelledby="conversiones-title">
+    <div class="flex flex-wrap items-end justify-between gap-3">
+      <div>
+        <p class="text-[10px] font-bold uppercase tracking-[0.16em] text-brand-700">Conversiones</p>
+        <h2 id="conversiones-title" class="mt-1 text-2xl font-bold tracking-tight text-slate-900 sm:text-3xl">
+          Veinte combinaciones, sin contenido duplicado
+        </h2>
+      </div>
+      <Badge variant="brand">{CONVERSIONS.length} disponibles</Badge>
+    </div>
+    <p class="mt-2 max-w-2xl text-sm leading-6 text-slate-500">
+      Hemos elegido solo las combinaciones con demanda real y matices propios. Cada página explica
+      qué se gana, qué se pierde y cuándo conviene usar otra ruta.
+    </p>
+
+    <div class="mt-6 space-y-8">
+      {
+        sources.map((source) => {
+          const from = getFormat(source);
+          const items = conversionsFrom(source);
+          if (items.length === 0) return null;
+          return (
+            <div>
+              <h3 class="text-xs font-semibold uppercase tracking-[0.14em] text-slate-400">
+                Desde {from.label}
+              </h3>
+              <div class="mt-3 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+                {items.map((conversion) => {
+                  const to = getFormat(conversion.to);
+                  return (
+                    <a
+                      href={conversionPath(conversion.slug)}
+                      class="group rounded-2xl border border-slate-200 bg-white p-4 transition-all hover:-translate-y-0.5 hover:border-slate-300 hover:shadow-card"
+                    >
+                      <p class="flex items-center gap-1.5 text-sm font-semibold text-slate-900 group-hover:text-brand-800">
+                        {from.label}
+                        <Icon name="arrow-right" size={13} class="text-slate-400" />
+                        {to.label}
+                      </p>
+                      <p class="mt-1.5 line-clamp-3 text-xs leading-5 text-slate-500">
+                        {conversion.description}
+                      </p>
+                    </a>
+                  );
+                })}
+              </div>
+            </div>
+          );
+        })
+      }
+    </div>
+  </section>
+
+  <section id="formatos" class="scroll-mt-20 border-y border-slate-200 bg-white py-10 sm:py-14" aria-labelledby="formatos-title">
+    <div class="container-page">
+      <p class="text-[10px] font-bold uppercase tracking-[0.16em] text-brand-700">Guía de formatos</p>
+      <h2 id="formatos-title" class="mt-1 text-2xl font-bold tracking-tight text-slate-900 sm:text-3xl">
+        Los siete formatos, explicados sin relleno
+      </h2>
+      <p class="mt-2 max-w-2xl text-sm leading-6 text-slate-500">
+        Historia, compresión, usos y errores típicos. Esta guía es la referencia que enlazan todas
+        las páginas de conversión.
+      </p>
+
+      <div class="mt-8 space-y-4">
+        {
+          FORMATS.map((format) => (
+            <article id={`formato-${format.id}`} class="scroll-mt-24 rounded-2xl border border-slate-200 bg-slate-50/50 p-5 sm:p-6">
+              <div class="flex flex-wrap items-center gap-2">
+                <h3 class="text-lg font-bold text-slate-900">{format.label}</h3>
+                <span class="rounded-full bg-white px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-slate-500 ring-1 ring-slate-200">
+                  {format.kind === 'lossless' ? 'Sin pérdida' : format.kind === 'lossy' ? 'Con pérdida' : format.kind === 'uncompressed' ? 'Sin comprimir' : 'Contenedor'}
+                </span>
+                {format.transparency && <span class="rounded-full bg-emerald-50 px-2 py-0.5 text-[10px] font-semibold text-emerald-700 ring-1 ring-emerald-100">Transparencia</span>}
+                {format.animation && <span class="rounded-full bg-sky-50 px-2 py-0.5 text-[10px] font-semibold text-sky-700 ring-1 ring-sky-100">Animación</span>}
+              </div>
+              <div class="mt-3 grid gap-5 lg:grid-cols-2">
+                <div>
+                  <h4 class="text-xs font-semibold uppercase tracking-wide text-slate-400">Historia</h4>
+                  <p class="mt-1 text-sm leading-6 text-slate-600">{format.history}</p>
+                  <h4 class="mt-4 text-xs font-semibold uppercase tracking-wide text-slate-400">Cómo comprime</h4>
+                  <p class="mt-1 text-sm leading-6 text-slate-600">{format.compression}</p>
+                  <h4 class="mt-4 text-xs font-semibold uppercase tracking-wide text-slate-400">Compatibilidad</h4>
+                  <p class="mt-1 text-sm leading-6 text-slate-600">{format.browserSupport}</p>
+                </div>
+                <div>
+                  <h4 class="text-xs font-semibold uppercase tracking-wide text-slate-400">Úsalo para</h4>
+                  <ul class="mt-1 space-y-1.5 text-sm leading-6 text-slate-600">
+                    {format.useCases.map((item) => <li>· {item}</li>)}
+                  </ul>
+                  <h4 class="mt-4 text-xs font-semibold uppercase tracking-wide text-slate-400">Evítalo si…</h4>
+                  <ul class="mt-1 space-y-1.5 text-sm leading-6 text-slate-600">
+                    {format.avoidWhen.map((item) => <li>· {item}</li>)}
+                  </ul>
+                </div>
+              </div>
+
+              <div class="mt-4 grid gap-3 sm:grid-cols-3">
+                {format.mistakes.map((mistake) => (
+                  <div class="rounded-xl border border-slate-200 bg-white p-3">
+                    <p class="text-xs font-semibold text-slate-800">{mistake.title}</p>
+                    <p class="mt-1 text-[11px] leading-5 text-slate-500">{mistake.body}</p>
+                  </div>
+                ))}
+              </div>
+
+              <details class="group mt-4 rounded-xl border border-slate-200 bg-white">
+                <summary class="flex cursor-pointer list-none items-center justify-between gap-3 p-3 text-xs font-semibold text-slate-700">
+                  Preguntas sobre {format.label}
+                  <Icon name="chevron-down" size={14} class="text-slate-400 transition-transform group-open:rotate-180" />
+                </summary>
+                <div class="divide-y divide-slate-100 border-t border-slate-100">
+                  {format.faq.map((item) => (
+                    <details class="group/faq p-3">
+                      <summary class="cursor-pointer text-xs font-medium text-slate-700">{item.q}</summary>
+                      <p class="mt-1 text-[11px] leading-5 text-slate-500">{item.a}</p>
+                    </details>
+                  ))}
+                </div>
+              </details>
+            </article>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <section class="container-page py-10 sm:py-14" aria-labelledby="privacidad-title">
+    <div class="grid gap-6 rounded-3xl bg-slate-900 p-6 text-white sm:p-10 lg:grid-cols-[minmax(0,1fr)_320px]">
+      <div>
+        <p class="flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.16em] text-brand-300">
+          <Icon name="shield" size={15} />
+          Privacidad por diseño
+        </p>
+        <h2 id="privacidad-title" class="mt-3 text-2xl font-bold tracking-tight sm:text-3xl">
+          Tu foto no viaja. Se convierte aquí.
+        </h2>
+        <p class="mt-3 max-w-2xl text-sm leading-6 text-slate-300">
+          Puedes abrir la pestaña Red de las herramientas de desarrollo y comprobar que no hay
+          peticiones con el contenido del archivo. Si ya has cargado la página, incluso puedes
+          desconectar internet y seguir convirtiendo.
+        </p>
+      </div>
+      <div class="flex flex-col justify-center gap-2 rounded-2xl bg-white/5 p-4 ring-1 ring-inset ring-white/10">
+        <p class="text-xs text-slate-300">¿Te preocupan los metadatos?</p>
+        <a href="/imagenes/quitar-exif-foto" class="inline-flex h-10 items-center justify-center gap-2 rounded-xl bg-white px-3 text-xs font-semibold text-slate-900 transition-colors hover:bg-slate-100">
+          Quitar EXIF y GPS
+          <Icon name="arrow-right" size={14} />
+        </a>
+        <p class="mt-1 text-center text-[10px] text-slate-400">JPG, PNG y WebP</p>
+      </div>
+      <div class="flex flex-col justify-center gap-2 rounded-2xl bg-white/5 p-4 ring-1 ring-inset ring-white/10">
+        <p class="text-xs text-slate-300">¿Necesitas un PNG transparente?</p>
+        <a href="/imagenes/eliminar-fondo" class="inline-flex h-10 items-center justify-center gap-2 rounded-xl bg-white px-3 text-xs font-semibold text-slate-900 transition-colors hover:bg-slate-100">
+          Eliminar el fondo
+          <Icon name="arrow-right" size={14} />
+        </a>
+        <p class="mt-1 text-center text-[10px] text-slate-400">El modelo se ejecuta en tu dispositivo</p>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

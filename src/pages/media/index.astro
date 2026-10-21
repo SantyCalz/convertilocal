@@ -1,0 +1,86 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Icon from '@/components/ui/Icon.astro';
+import { MEDIA_TOOLS, MEDIA_SLUGS } from '@/data/media-tools';
+
+const mediaTools = MEDIA_TOOLS;
+const path = '/media';
+const site = (Astro.site ?? new URL('https://convertilocal.com')).href.replace(/\/$/, '');
+const absolute = `${site}${path}`;
+
+const webApplicationSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'WebApplication',
+  name: 'Herramientas de audio y video',
+  url: absolute,
+  description: 'Convierte, corta y comprime audio y video sin subir archivos.',
+  applicationCategory: 'UtilitiesApplication',
+  operatingSystem: 'Any',
+  inLanguage: 'es',
+  isAccessibleForFree: true,
+  offers: { '@type': 'Offer', price: '0', priceCurrency: 'EUR' },
+  featureList: mediaTools.map((tool) => tool.h1),
+  publisher: { '@type': 'Organization', name: 'ConvertiLocal', url: site },
+};
+
+const breadcrumbSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Inicio', item: `${site}/` },
+    { '@type': 'ListItem', position: 2, name: 'Media', item: absolute },
+  ],
+};
+
+const faqs = [
+  { q: '¿El audio o video se sube a un servidor?', a: 'No. Todo se procesa en tu navegador.' },
+  { q: '¿Por qué tarda la primera vez?', a: 'La primera conversión descarga el motor multimedia (~30 MB), que luego queda en caché.' },
+  { q: '¿Hay límite de tamaño?', a: 'Sí, 100 MB para video y 50 MB para audio.' },
+  { q: '¿Funciona sin conexión?', a: 'Sí, una vez descargado el motor multimedia.' },
+];
+
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faqs.map((item) => ({ '@type': 'Question', name: item.q, acceptedAnswer: { '@type': 'Answer', text: item.a } })),
+};
+---
+
+<BaseLayout
+  title="Herramientas de audio y video sin subir archivos"
+  description="Convierte, corta y comprime audio y video en tu navegador. Sin subidas ni registro."
+  path={path}
+  schema={[webApplicationSchema, breadcrumbSchema, faqSchema]}
+>
+  <section class="border-b border-slate-200 bg-white">
+    <div class="container-page py-10 sm:py-14">
+      <nav aria-label="Migas de pan" class="flex flex-wrap items-center gap-1.5 text-xs text-slate-400">
+        <a href="/" class="transition-colors hover:text-brand-700">Inicio</a>
+        <span aria-hidden="true">/</span>
+        <span class="text-slate-600" aria-current="page">Media</span>
+      </nav>
+      <h1 class="mt-4 text-3xl font-extrabold tracking-tight text-slate-950 sm:text-5xl">Audio y video sin subirlos</h1>
+      <p class="mt-5 max-w-2xl text-sm leading-7 text-slate-600 sm:text-base">
+        Convierte, extrae, corta y comprime audio y video en tu dispositivo. La primera conversión descarga el motor multimedia.
+      </p>
+    </div>
+  </section>
+
+  <section class="container-page py-10 sm:py-14">
+    <div class="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+      {mediaTools.map((tool) => (
+        <a href={MEDIA_SLUGS.has(tool.slug) ? `/media/${tool.slug}` : `/convertir/${tool.slug}`} class="group flex flex-col rounded-2xl border border-slate-200 bg-white p-5 transition-all hover:-translate-y-0.5 hover:border-brand-300 hover:shadow-card">
+          <span class="flex h-10 w-10 items-center justify-center rounded-xl bg-brand-50 text-brand-700 ring-1 ring-inset ring-brand-100">
+            <Icon name="video" size={19} />
+          </span>
+          <h2 class="mt-3 text-base font-semibold text-slate-900 group-hover:text-brand-800">{tool.h1}</h2>
+          <p class="mt-1.5 flex-1 text-xs leading-5 text-slate-500">{tool.description}</p>
+          <span class="mt-3 inline-flex items-center gap-1.5 text-xs font-semibold text-brand-700">
+            Abrir herramienta
+            <Icon name="arrow-right" size={13} />
+          </span>
+        </a>
+      ))}
+    </div>
+  </section>
+</BaseLayout>

@@ -1,0 +1,80 @@
+---
+import { SITE } from '@/data/site';
+
+interface Props {
+  /**
+   * ID del bloque de anuncios de AdSense. Sin cliente + slot no se renderiza
+   * nada en producción (evita huecos vacíos).
+   */
+  slot?: string;
+  format?: string;
+  minHeightMobile?: number;
+  minHeightDesktop?: number;
+  class?: string;
+}
+
+const {
+  slot = '',
+  format = 'auto',
+  minHeightMobile = 100,
+  minHeightDesktop = 250,
+  class: className = '',
+} = Astro.props;
+
+const hasAd = SITE.adsEnabled && Boolean(SITE.adsenseClient && slot);
+const showPlaceholder = import.meta.env.DEV;
+const show = hasAd || showPlaceholder;
+---
+
+{
+  show && (
+    <div
+      class:list={['ad-slot relative w-full overflow-hidden rounded-2xl bg-white/50', className]}
+      style={`--ad-mobile:${minHeightMobile}px;--ad-desktop:${minHeightDesktop}px;contain:layout;`}
+      role="complementary"
+      aria-label="Publicidad"
+      data-ad-slot={slot || 'placeholder'}
+    >
+      {hasAd ? (
+        <>
+          <ins
+            class="adsbygoogle block"
+            style="display:block"
+            data-ad-client={SITE.adsenseClient}
+            data-ad-slot={slot}
+            data-ad-format={format}
+            data-full-width-responsive="true"
+          />
+          <script is:inline>
+            try {
+              (window.adsbygoogle = window.adsbygoogle || []).push({});
+            } catch {
+              /* AdSense no disponible (bloqueadores, offline) */
+            }
+          </script>
+        </>
+      ) : (
+        <div class="flex h-full flex-col items-center justify-center gap-1 border border-dashed border-slate-200 px-4 py-6 text-center">
+          <span class="text-[10px] font-semibold uppercase tracking-[0.18em] text-slate-400">
+            Publicidad
+          </span>
+          <span class="text-xs text-slate-400">
+            Espacio reservado {minHeightMobile}px / {minHeightDesktop}px · sin CLS
+          </span>
+        </div>
+      )}
+    </div>
+  )
+}
+
+<style>
+  .ad-slot {
+    min-height: var(--ad-mobile, 100px);
+  }
+
+  @media (min-width: 768px) {
+    .ad-slot {
+      min-height: var(--ad-desktop, 250px);
+    }
+  }
+</style>

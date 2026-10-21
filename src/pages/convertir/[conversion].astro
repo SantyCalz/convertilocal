@@ -1,0 +1,310 @@
+---
+import type { GetStaticPaths } from 'astro';
+import ToolPageShell from '@/components/tools/ToolPageShell.astro';
+import Icon from '@/components/ui/Icon.astro';
+import { CONVERSIONS, acceptForFormat, conversionPath, getFormat } from '@/data/images';
+import type { ConversionEntry } from '@/types/image';
+import type { ProcessorOption } from '@/types/processor';
+
+export const getStaticPaths = (() =>
+  CONVERSIONS.map((conversion) => ({
+    params: { conversion: conversion.slug },
+    props: { conversion },
+  }))) satisfies GetStaticPaths;
+
+interface Props {
+  conversion: ConversionEntry;
+}
+
+const { conversion } = Astro.props;
+const from = getFormat(conversion.from);
+const to = getFormat(conversion.to);
+const path = conversionPath(conversion.slug);
+const site = (Astro.site ?? new URL('https://convertilocal.com')).href.replace(/\/$/, '');
+const absolute = `${site}${path}`;
+
+const accepts =
+  conversion.from === 'heic'
+    ? ['.heic', '.heif', 'image/heic', 'image/heif']
+    : acceptForFormat(conversion.from);
+
+const options: ProcessorOption[] = [];
+
+if (['jpg', 'webp', 'avif'].includes(conversion.to)) {
+  options.push({
+    id: 'quality',
+    label: 'Calidad de salida',
+    type: 'range',
+    min: 30,
+    max: 100,
+    step: 1,
+    defaultValue: conversion.to === 'avif' ? 65 : conversion.to === 'webp' ? 85 : 90,
+    unit: '%',
+    help: 'Más calidad conserva más detalle y suele aumentar el peso.',
+  });
+}
+
+if (conversion.to === 'jpg' || conversion.to === 'bmp') {
+  options.push({
+    id: 'background',
+    label: 'Color de fondo',
+    type: 'select',
+    defaultValue: '#ffffff',
+    help: 'Se usa solo si la imagen tiene zonas transparentes.',
+    choices: [
+      { value: '#ffffff', label: 'Blanco' },
+      { value: '#000000', label: 'Negro' },
+      { value: '#f1f5f9', label: 'Gris claro' },
+    ],
+  });
+}
+
+if (conversion.to !== 'ico') {
+  options.push({
+    id: 'maxWidth',
+    label: 'Ancho máximo',
+    type: 'number',
+    min: 0,
+    max: 16384,
+    step: 100,
+    defaultValue: 0,
+    unit: 'px',
+    help: '0 mantiene el tamaño original. Nunca ampliamos la imagen.',
+  });
+}
+
+const resultNote =
+  conversion.from === 'heic'
+    ? 'La primera conversión descarga un decodificador HEIC que se ejecuta en tu dispositivo. Las siguientes fotos lo reutilizan.'
+    : conversion.to === 'avif'
+      ? 'La codificación AVIF se ejecuta en tu dispositivo y puede tardar unos segundos por imagen.'
+      : conversion.to === 'jpg' || conversion.to === 'bmp'
+        ? 'Si la imagen tiene transparencia, se rellenará con el color de fondo elegido.'
+        : 'El resultado se genera sin subir el archivo a ningún servidor.';
+
+const breadcrumbSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Inicio', item: `${site}/` },
+    { '@type': 'ListItem', position: 2, name: 'Convertir imágenes', item: `${site}/convertir` },
+    { '@type': 'ListItem', position: 3, name: conversion.h1, item: absolute },
+  ],
+};
+
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: conversion.faq.map((item) => ({
+    '@type': 'Question',
+    name: item.q,
+    acceptedAnswer: { '@type': 'Answer', text: item.a },
+  })),
+};
+
+const howToSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'HowTo',
+  name: conversion.h1,
+  description: conversion.description,
+  totalTime: 'PT1M',
+  tool: [{ '@type': 'HowToTool', name: 'ConvertiLocal' }],
+  step: [
+    {
+      '@type': 'HowToStep',
+      position: 1,
+      name: 'Añade el archivo',
+      text: `Arrastra o selecciona un archivo ${from.label}. También puedes pegarlo con Ctrl/Cmd+V.`,
+    },
+    {
+      '@type': 'HowToStep',
+      position: 2,
+      name: 'Ajusta las opciones',
+      text: 'Elige la calidad, el fondo o el tamaño máximo si lo necesitas. El formato de salida ya está fijado.',
+    },
+    {
+      '@type': 'HowToStep',
+      position: 3,
+      name: 'Descarga el resultado',
+      text: `Pulsa el botón para generar el ${to.label} y descárgalo. Si hay varios archivos, se empaquetan en un ZIP local.`,
+    },
+  ],
+};
+
+const related = conversion.related
+  .map((slug) => CONVERSIONS.find((item) => item.slug === slug))
+  .filter((item): item is ConversionEntry => Boolean(item));
+---
+
+<ToolPageShell
+  title={conversion.title.split(' | ')[0] ?? conversion.h1}
+  description={conversion.description}
+  h1={conversion.h1}
+  intro={conversion.intro}
+  path={path}
+  processorId={conversion.processorId}
+  accept={accepts.join(',')}
+  acceptLabel={conversion.from === 'jpg' ? 'JPG o JPEG' : from.label}
+  actionLabel={`Convertir a ${to.label}`}
+  baseName={conversion.slug}
+  fixedOptions={{ format: conversion.to }}
+  options={options}
+  resultNote={resultNote}
+  schema={[breadcrumbSchema, faqSchema, howToSchema]}
+  breadcrumbLabel={conversion.h1}
+>
+  <section aria-labelledby="porque-title">
+    <h2 id="porque-title" class="text-2xl font-bold tracking-tight text-slate-900">
+      Por qué convertir {from.label} a {to.label}
+    </h2>
+    <div class="mt-4 space-y-4 text-sm leading-7 text-slate-600 sm:text-base">
+      {conversion.why.map((paragraph) => <p>{paragraph}</p>)}
+    </div>
+  </section>
+
+  <section class="mt-10" aria-labelledby="usos-title">
+    <h2 id="usos-title" class="text-2xl font-bold tracking-tight text-slate-900">
+      Cuándo te resultará útil
+    </h2>
+    <div class="mt-4 grid gap-3 sm:grid-cols-3">
+      {
+        conversion.useCases.map((useCase) => (
+          <div class="rounded-2xl border border-slate-200 bg-white p-4">
+            <span class="flex h-8 w-8 items-center justify-center rounded-lg bg-brand-50 text-brand-700 ring-1 ring-inset ring-brand-100">
+              <Icon name="check" size={15} />
+            </span>
+            <h3 class="mt-3 text-sm font-semibold text-slate-900">{useCase.title}</h3>
+            <p class="mt-1 text-xs leading-5 text-slate-500">{useCase.body}</p>
+          </div>
+        ))
+      }
+    </div>
+  </section>
+
+  <section class="mt-10" aria-labelledby="errores-title">
+    <h2 id="errores-title" class="text-2xl font-bold tracking-tight text-slate-900">
+      Tres errores que conviene evitar
+    </h2>
+    <ol class="mt-4 space-y-3">
+      {
+        conversion.mistakes.map((mistake, index) => (
+          <li class="flex gap-3 rounded-2xl border border-slate-200 bg-slate-50/60 p-4">
+            <span class="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-white text-xs font-bold text-slate-500 ring-1 ring-slate-200">
+              {index + 1}
+            </span>
+            <div>
+              <h3 class="text-sm font-semibold text-slate-900">{mistake.title}</h3>
+              <p class="mt-1 text-xs leading-5 text-slate-500">{mistake.body}</p>
+            </div>
+          </li>
+        ))
+      }
+    </ol>
+  </section>
+
+  <section class="mt-10" aria-labelledby="formatos-title">
+    <h2 id="formatos-title" class="text-2xl font-bold tracking-tight text-slate-900">
+      {from.label} y {to.label}, de un vistazo
+    </h2>
+    <div class="mt-4 overflow-hidden rounded-2xl border border-slate-200">
+      <table class="w-full text-left text-xs sm:text-sm">
+        <caption class="sr-only">Comparación entre {from.label} y {to.label}</caption>
+        <thead class="bg-slate-50 text-slate-500">
+          <tr>
+            <th scope="col" class="px-4 py-3 font-medium">Característica</th>
+            <th scope="col" class="px-4 py-3 font-medium">{from.label}</th>
+            <th scope="col" class="px-4 py-3 font-medium">{to.label}</th>
+          </tr>
+        </thead>
+        <tbody class="divide-y divide-slate-100 text-slate-600">
+          <tr>
+            <th scope="row" class="px-4 py-3 font-medium text-slate-500">Compresión</th>
+            <td class="px-4 py-3">{from.kind === 'lossless' ? 'Sin pérdida' : from.kind === 'lossy' ? 'Con pérdida' : 'Sin comprimir'}</td>
+            <td class="px-4 py-3">{to.kind === 'lossless' ? 'Sin pérdida' : to.kind === 'lossy' ? 'Con pérdida' : 'Sin comprimir'}</td>
+          </tr>
+          <tr>
+            <th scope="row" class="px-4 py-3 font-medium text-slate-500">Transparencia</th>
+            <td class="px-4 py-3">{from.transparency ? 'Sí' : 'No'}</td>
+            <td class="px-4 py-3">{to.transparency ? 'Sí' : 'No'}</td>
+          </tr>
+          <tr>
+            <th scope="row" class="px-4 py-3 font-medium text-slate-500">Compatibilidad</th>
+            <td class="px-4 py-3">{from.browserSupport}</td>
+            <td class="px-4 py-3">{to.browserSupport}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="mt-3 text-xs text-slate-400">
+      ¿Quieres entender el formato a fondo? Consulta la <a href={`/convertir#formato-${from.id}`} class="font-medium text-brand-700 underline decoration-brand-300 underline-offset-2">guía de {from.label}</a>.
+    </p>
+  </section>
+
+  <section class="mt-10" aria-labelledby="faq-title">
+    <h2 id="faq-title" class="text-2xl font-bold tracking-tight text-slate-900">
+      Preguntas frecuentes
+    </h2>
+    <div class="mt-4 divide-y divide-slate-200 rounded-2xl border border-slate-200 bg-white">
+      {
+        conversion.faq.map((item) => (
+          <details class="group p-4">
+            <summary class="flex cursor-pointer list-none items-center justify-between gap-3 text-sm font-semibold text-slate-900">
+              {item.q}
+              <Icon name="chevron-down" size={16} class="shrink-0 text-slate-400 transition-transform group-open:rotate-180" />
+            </summary>
+            <p class="mt-2 text-sm leading-6 text-slate-600">{item.a}</p>
+          </details>
+        ))
+      }
+    </div>
+  </section>
+
+  <section class="mt-10" aria-labelledby="relacionadas-title">
+    <h2 id="relacionadas-title" class="text-2xl font-bold tracking-tight text-slate-900">
+      Conversiones relacionadas
+    </h2>
+    <div class="mt-4 grid gap-3 sm:grid-cols-3">
+      {
+        related.map((item) => (
+          <a
+            href={conversionPath(item.slug)}
+            class="group rounded-2xl border border-slate-200 bg-white p-4 transition-all hover:-translate-y-0.5 hover:border-slate-300 hover:shadow-card"
+          >
+            <p class="text-[10px] font-semibold uppercase tracking-wide text-slate-400">
+              {getFormat(item.from).label} → {getFormat(item.to).label}
+            </p>
+            <p class="mt-1.5 text-sm font-semibold text-slate-900 group-hover:text-brand-800">
+              {item.h1}
+            </p>
+            <p class="mt-1 line-clamp-2 text-xs leading-5 text-slate-500">{item.description}</p>
+          </a>
+        ))
+      }
+    </div>
+  </section>
+
+  <p class="mt-8 text-[11px] text-slate-400">
+    Contenido revisado el {conversion.updated}. La compatibilidad depende de la versión de tu navegador.
+  </p>
+
+  <Fragment slot="aside">
+    <div class="mt-4 rounded-2xl border border-slate-200 bg-white p-5">
+      <h2 class="text-sm font-semibold text-slate-900">Ficha de {from.label}</h2>
+      <p class="mt-2 text-xs leading-5 text-slate-500">{from.compression}</p>
+      <h3 class="mt-4 text-xs font-semibold uppercase tracking-wide text-slate-400">Evítalo si…</h3>
+      <ul class="mt-2 space-y-1.5 text-xs leading-5 text-slate-500">
+        {from.avoidWhen.slice(0, 2).map((item) => <li>· {item}</li>)}
+      </ul>
+    </div>
+    <div class="mt-4 rounded-2xl border border-brand-200 bg-brand-50/60 p-5">
+      <h2 class="text-sm font-semibold text-brand-900">Guía completa</h2>
+      <p class="mt-1 text-xs leading-5 text-brand-800/80">
+        Historia, compresión y usos de los siete formatos que tratamos.
+      </p>
+      <a href="/convertir" class="mt-3 inline-flex items-center gap-1.5 text-xs font-semibold text-brand-800 hover:text-brand-900">
+        Ver la guía
+        <Icon name="arrow-right" size={13} />
+      </a>
+    </div>
+  </Fragment>
+</ToolPageShell>

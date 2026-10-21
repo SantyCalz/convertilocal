@@ -1,0 +1,407 @@
+[
+  {
+    "id": "jpg-a-png",
+    "name": "JPG a PNG",
+    "description": "Pasa tus JPG a PNG en el navegador, sin subirlos a ningún servidor. Conserva la imagen tal cual y evita nuevas pérdidas al editarla.",
+    "accepts": [
+      ".jpg",
+      ".jpeg",
+      "image/jpeg"
+    ],
+    "outputs": [
+      ".png"
+    ],
+    "keywords": [
+      "convertir jpg a png",
+      "jpg a png online",
+      "convertidor jpg png sin subir",
+      "pasar jpg a png",
+      "jpg a png gratis"
+    ],
+    "href": "/convertir/jpg-a-png"
+  },
+  {
+    "id": "png-a-jpg",
+    "name": "PNG a JPG",
+    "description": "Convierte PNG a JPG en tu dispositivo y reduce el peso de fotos y capturas. Elige calidad y fondo sin subir nada a un servidor.",
+    "accepts": [
+      ".png",
+      "image/png"
+    ],
+    "outputs": [
+      ".jpg"
+    ],
+    "keywords": [
+      "convertir png a jpg",
+      "png a jpg online",
+      "reducir peso png",
+      "pasar png a jpeg",
+      "convertidor png jpg gratis"
+    ],
+    "href": "/convertir/png-a-jpg"
+  },
+  {
+    "id": "webp-a-png",
+    "name": "WebP a PNG",
+    "description": "Pasa imágenes WebP a PNG en tu navegador. Conserva la transparencia y obtén un archivo editable compatible con más programas.",
+    "accepts": [
+      ".webp",
+      "image/webp"
+    ],
+    "outputs": [
+      ".png"
+    ],
+    "keywords": [
+      "convertir webp a png",
+      "webp a png online",
+      "pasar webp a png",
+      "webp png transparencia",
+      "convertidor webp gratis"
+    ],
+    "href": "/convertir/webp-a-png"
+  },
+  {
+    "id": "webp-a-jpg",
+    "name": "WebP a JPG",
+    "description": "Convierte WebP a JPG en local para enviar, publicar o abrir en cualquier dispositivo. Elige la calidad y el fondo en segundos.",
+    "accepts": [
+      ".webp",
+      "image/webp"
+    ],
+    "outputs": [
+      ".jpg"
+    ],
+    "keywords": [
+      "convertir webp a jpg",
+      "webp a jpg online",
+      "pasar webp a jpeg",
+      "webp jpg sin subir",
+      "convertidor webp jpg"
+    ],
+    "href": "/convertir/webp-a-jpg"
+  },
+  {
+    "id": "jpg-a-webp",
+    "name": "JPG a WebP",
+    "description": "Convierte JPG a WebP en tu navegador y reduce el peso de tus fotos sin subirlas. Controla la calidad y compara el resultado.",
+    "accepts": [
+      ".jpg",
+      ".jpeg",
+      "image/jpeg"
+    ],
+    "outputs": [
+      ".webp"
+    ],
+    "keywords": [
+      "convertir jpg a webp",
+      "jpg a webp online",
+      "optimizar fotos webp",
+      "pasar jpg a webp",
+      "convertidor jpg webp"
+    ],
+    "href": "/convertir/jpg-a-webp"
+  },
+  {
+    "id": "png-a-webp",
+    "name": "PNG a WebP",
+    "description": "Pasa PNG a WebP en local, conserva el canal alfa y reduce el peso de logos, capturas e ilustraciones para tu web.",
+    "accepts": [
+      ".png",
+      "image/png"
+    ],
+    "outputs": [
+      ".webp"
+    ],
+    "keywords": [
+      "convertir png a webp",
+      "png a webp transparencia",
+      "pasar png a webp",
+      "optimizar png webp",
+      "convertidor png webp"
+    ],
+    "href": "/convertir/png-a-webp"
+  },
+  {
+    "id": "heic-a-jpg",
+    "name": "HEIC a JPG",
+    "description": "Convierte fotos HEIC de iPhone a JPG en tu dispositivo. Compatibles con Windows, Android, correo y formularios, sin subirlas.",
+    "accepts": [
+      ".heic",
+      "image/heic"
+    ],
+    "outputs": [
+      ".jpg"
+    ],
+    "keywords": [
+      "convertir heic a jpg",
+      "heic a jpg online",
+      "fotos iphone jpg",
+      "pasar heic a jpeg",
+      "convertidor heic gratis"
+    ],
+    "href": "/convertir/heic-a-jpg"
+  },
+  {
+    "id": "heic-a-png",
+    "name": "HEIC a PNG",
+    "description": "Pasa fotos HEIC a PNG en tu navegador para editar o archivar. Sin subir nada y con la máxima compatibilidad de edición.",
+    "accepts": [
+      ".heic",
+      "image/heic"
+    ],
+    "outputs": [
+      ".png"
+    ],
+    "keywords": [
+      "convertir heic a png",
+      "heic a png online",
+      "foto iphone png",
+      "pasar heic a png",
+      "heic png sin perdida"
+    ],
+    "href": "/convertir/heic-a-png"
+  },
+  {
+    "id": "avif-a-jpg",
+    "name": "AVIF a JPG",
+    "description": "Convierte AVIF a JPG en tu dispositivo para abrirlo en cualquier programa, enviarlo o publicarlo. Sin subir archivos.",
+    "accepts": [
+      ".avif",
+      "image/avif"
+    ],
+    "outputs": [
+      ".jpg"
+    ],
+    "keywords": [
+      "convertir avif a jpg",
+      "avif a jpg online",
+      "pasar avif a jpeg",
+      "avif compatible jpg",
+      "convertidor avif"
+    ],
+    "href": "/convertir/avif-a-jpg"
+  },
+  {
+    "id": "avif-a-png",
+    "name": "AVIF a PNG",
+    "description": "Pasa AVIF a PNG en local para editar, conservar transparencia o abrir en programas compatibles. Sin subir tus imágenes.",
+    "accepts": [
+      ".avif",
+      "image/avif"
+    ],
+    "outputs": [
+      ".png"
+    ],
+    "keywords": [
+      "convertir avif a png",
+      "avif a png online",
+      "pasar avif a png",
+      "avif png transparencia",
+      "convertidor avif png"
+    ],
+    "href": "/convertir/avif-a-png"
+  },
+  {
+    "id": "jpg-a-avif",
+    "name": "JPG a AVIF",
+    "description": "Convierte JPG a AVIF en tu navegador para reducir el peso de tus fotos. Sin subir archivos y con calidad ajustable.",
+    "accepts": [
+      ".jpg",
+      ".jpeg",
+      "image/jpeg"
+    ],
+    "outputs": [
+      ".avif"
+    ],
+    "keywords": [
+      "convertir jpg a avif",
+      "jpg a avif online",
+      "optimizar jpg avif",
+      "pasar jpg a avif",
+      "convertidor jpg avif"
+    ],
+    "href": "/convertir/jpg-a-avif"
+  },
+  {
+    "id": "png-a-avif",
+    "name": "PNG a AVIF",
+    "description": "Pasa PNG a AVIF en local y reduce el peso de logos y gráficos con transparencia. Sin subir archivos y con calidad ajustable.",
+    "accepts": [
+      ".png",
+      "image/png"
+    ],
+    "outputs": [
+      ".avif"
+    ],
+    "keywords": [
+      "convertir png a avif",
+      "png a avif transparencia",
+      "pasar png a avif",
+      "optimizar png avif",
+      "convertidor png avif"
+    ],
+    "href": "/convertir/png-a-avif"
+  },
+  {
+    "id": "bmp-a-png",
+    "name": "BMP a PNG",
+    "description": "Pasa BMP a PNG en tu navegador y reduce el peso sin perder calidad. Ideal para capturas, texturas y archivos antiguos de Windows.",
+    "accepts": [
+      ".bmp",
+      "image/bmp"
+    ],
+    "outputs": [
+      ".png"
+    ],
+    "keywords": [
+      "convertir bmp a png",
+      "bmp a png online",
+      "pasar bmp a png",
+      "bmp png sin perdida",
+      "convertidor bmp"
+    ],
+    "href": "/convertir/bmp-a-png"
+  },
+  {
+    "id": "bmp-a-jpg",
+    "name": "BMP a JPG",
+    "description": "Convierte BMP a JPG en tu dispositivo para enviar o publicar imágenes antiguas sin ocupar megabytes. Calidad ajustable.",
+    "accepts": [
+      ".bmp",
+      "image/bmp"
+    ],
+    "outputs": [
+      ".jpg"
+    ],
+    "keywords": [
+      "convertir bmp a jpg",
+      "bmp a jpg online",
+      "pasar bmp a jpeg",
+      "reducir bmp",
+      "convertidor bmp jpg"
+    ],
+    "href": "/convertir/bmp-a-jpg"
+  },
+  {
+    "id": "jpg-a-bmp",
+    "name": "JPG a BMP",
+    "description": "Genera un BMP a partir de tu JPG en local, para software antiguo o pruebas. Conversión rápida y sin subir archivos.",
+    "accepts": [
+      ".jpg",
+      ".jpeg",
+      "image/jpeg"
+    ],
+    "outputs": [
+      ".bmp"
+    ],
+    "keywords": [
+      "convertir jpg a bmp",
+      "jpg a bmp online",
+      "pasar jpg a bmp",
+      "generar bmp",
+      "convertidor jpg bmp"
+    ],
+    "href": "/convertir/jpg-a-bmp"
+  },
+  {
+    "id": "png-a-bmp",
+    "name": "PNG a BMP",
+    "description": "Pasa PNG a BMP en tu navegador para usar la imagen en programas antiguos. Conversión local, sin subidas y sin instalar nada.",
+    "accepts": [
+      ".png",
+      "image/png"
+    ],
+    "outputs": [
+      ".bmp"
+    ],
+    "keywords": [
+      "convertir png a bmp",
+      "png a bmp online",
+      "pasar png a bmp",
+      "png bmp sin perdida",
+      "convertidor png bmp"
+    ],
+    "href": "/convertir/png-a-bmp"
+  },
+  {
+    "id": "png-a-ico",
+    "name": "PNG a ICO",
+    "description": "Crea un favicon ICO multi-resolución desde tu PNG en el navegador. Conserva la transparencia y descarga el archivo listo para tu web.",
+    "accepts": [
+      ".png",
+      "image/png"
+    ],
+    "outputs": [
+      ".ico"
+    ],
+    "keywords": [
+      "convertir png a ico",
+      "png a ico online",
+      "crear favicon ico",
+      "pasar png a icono",
+      "favicon multi resolucion"
+    ],
+    "href": "/convertir/png-a-ico"
+  },
+  {
+    "id": "jpg-a-ico",
+    "name": "JPG a ICO",
+    "description": "Crea un icono ICO desde un JPG en tu navegador. Elige el fondo, conserva la nitidez y descarga un favicon listo para usar.",
+    "accepts": [
+      ".jpg",
+      ".jpeg",
+      "image/jpeg"
+    ],
+    "outputs": [
+      ".ico"
+    ],
+    "keywords": [
+      "convertir jpg a ico",
+      "jpg a ico online",
+      "crear favicon desde jpg",
+      "pasar jpg a icono",
+      "icono windows jpg"
+    ],
+    "href": "/convertir/jpg-a-ico"
+  },
+  {
+    "id": "webp-a-ico",
+    "name": "WebP a ICO",
+    "description": "Pasa un WebP a ICO multi-resolución en local. Conserva el canal alfa y crea un favicon o icono de Windows sin subir archivos.",
+    "accepts": [
+      ".webp",
+      "image/webp"
+    ],
+    "outputs": [
+      ".ico"
+    ],
+    "keywords": [
+      "convertir webp a ico",
+      "webp a ico online",
+      "favicon webp",
+      "pasar webp a icono",
+      "ico transparencia"
+    ],
+    "href": "/convertir/webp-a-ico"
+  },
+  {
+    "id": "ico-a-png",
+    "name": "ICO a PNG",
+    "description": "Extrae la imagen de un ICO a PNG en tu navegador. Conserva la transparencia y obtén una versión editable del favicon o icono.",
+    "accepts": [
+      ".ico",
+      "image/x-icon"
+    ],
+    "outputs": [
+      ".png"
+    ],
+    "keywords": [
+      "convertir ico a png",
+      "ico a png online",
+      "extraer favicon png",
+      "pasar ico a png",
+      "convertidor ico"
+    ],
+    "href": "/convertir/ico-a-png"
+  }
+]

@@ -1,0 +1,225 @@
+---
+import AdSlot from '@/components/AdSlot.astro';
+import CategoryGrid from '@/components/home/CategoryGrid.astro';
+import Hero from '@/components/home/Hero.astro';
+import RecentTools from '@/components/home/RecentTools.astro';
+import Badge from '@/components/ui/Badge.astro';
+import Icon from '@/components/ui/Icon.astro';
+import SectionHeader from '@/components/ui/SectionHeader.astro';
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import { CATEGORIES, getCategory } from '@/data/categories';
+import { AVAILABLE_TOOLS, PUBLIC_TOOLS } from '@/data/tools';
+
+const steps = [
+  {
+    icon: 'upload' as const,
+    title: 'Elige tu archivo',
+    text: 'Arrástralo, pégalo con Ctrl/Cmd+V o tócalo desde el móvil. Nada se sube mientras eliges.',
+  },
+  {
+    icon: 'lock' as const,
+    title: 'Se procesa en local',
+    text: 'La conversión usa la memoria y la CPU de tu dispositivo. No hay servidor ni cola de espera.',
+  },
+  {
+    icon: 'download' as const,
+    title: 'Descarga el resultado',
+    text: 'Guarda el archivo o compártelo. En iOS usamos el menú del sistema cuando hace falta.',
+  },
+];
+
+const formatList = (values: string[]): string =>
+  values.includes('*') ? 'Cualquier archivo' : values.join(' · ');
+---
+
+<BaseLayout>
+  <Hero />
+
+  <CategoryGrid />
+
+  <section
+    id="herramientas"
+    class="container-page scroll-mt-20 py-12 sm:py-16"
+    aria-labelledby="herramientas-title"
+  >
+    <SectionHeader
+      eyebrow="Catálogo"
+      title="Herramientas"
+      description="Convierte, comprime y limpia imágenes en tu navegador. El resto del catálogo llegará por fases."
+      id="herramientas-title"
+    >
+      <Fragment slot="actions">
+        <span
+          class="inline-flex items-center gap-2 rounded-full bg-white px-3 py-1.5 text-xs text-slate-500 ring-1 ring-inset ring-slate-200"
+        >
+          <span class="h-1.5 w-1.5 rounded-full bg-emerald-400"></span>
+          <span data-tool-count>{PUBLIC_TOOLS.length} herramientas · {AVAILABLE_TOOLS.length} disponibles</span>
+        </span>
+      </Fragment>
+    </SectionHeader>
+
+    <div
+      class="no-scrollbar mt-6 flex gap-2 overflow-x-auto pb-1"
+      role="group"
+      aria-label="Filtrar herramientas por categoría"
+    >
+      <button
+        type="button"
+        data-category-filter="todos"
+        aria-pressed="true"
+        class="shrink-0 whitespace-nowrap rounded-full bg-white px-3.5 py-2 text-xs font-medium text-slate-600 ring-1 ring-inset ring-slate-200 transition-colors hover:ring-slate-300 aria-pressed:bg-slate-900 aria-pressed:text-white aria-pressed:ring-slate-900"
+      >
+        Todas
+      </button>
+      {
+        CATEGORIES.map((category) => (
+          <button
+            type="button"
+            data-category-filter={category.id}
+            aria-pressed="false"
+            class="shrink-0 whitespace-nowrap rounded-full bg-white px-3.5 py-2 text-xs font-medium text-slate-600 ring-1 ring-inset ring-slate-200 transition-colors hover:ring-slate-300 aria-pressed:bg-slate-900 aria-pressed:text-white aria-pressed:ring-slate-900"
+          >
+            {category.name}
+          </button>
+        ))
+      }
+    </div>
+
+    <div class="mt-6 grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
+      {
+        PUBLIC_TOOLS.map((tool) => {
+          const category = getCategory(tool.category);
+          const Wrapper = tool.href ? 'a' : 'article';
+          return (
+            <Wrapper
+              href={tool.href}
+              data-tool-card
+              data-category={tool.category}
+              data-tool-id={tool.id}
+              class:list={[
+                'group flex flex-col rounded-2xl border border-slate-200 bg-white p-4 shadow-sm transition-all',
+                tool.href && 'hover:-translate-y-0.5 hover:border-slate-300 hover:shadow-card',
+              ]}
+            >
+              <div class="flex items-start gap-3">
+                <span
+                  class:list={[
+                    'flex h-10 w-10 shrink-0 items-center justify-center rounded-xl ring-1 ring-inset',
+                    category?.accent.bg ?? 'bg-slate-50',
+                    category?.accent.text ?? 'text-slate-600',
+                    category?.accent.ring ?? 'ring-slate-200',
+                  ]}
+                >
+                  <Icon name={tool.icon} size={19} />
+                </span>
+                <div class="min-w-0 flex-1">
+                  <h3 class="text-sm font-semibold text-slate-900">{tool.name}</h3>
+                  <p class="mt-1 line-clamp-2 text-xs leading-5 text-slate-500">
+                    {tool.description}
+                  </p>
+                </div>
+              </div>
+
+              <div class="mt-auto flex items-end justify-between gap-3 pt-5">
+                <span class="min-w-0 truncate text-[10px] font-medium uppercase tracking-wide text-slate-400">
+                  {formatList(tool.accepts)} → {formatList(tool.outputs)}
+                </span>
+                {tool.status === 'stable' ? (
+                  <Badge variant="success">Disponible</Badge>
+                ) : (
+                  <Badge variant="warning">Próximamente</Badge>
+                )}
+              </div>
+            </Wrapper>
+          );
+        })
+      }
+    </div>
+
+    <AdSlot class="mt-10" minHeightMobile={100} minHeightDesktop={250} />
+  </section>
+
+  <RecentTools />
+
+  <section
+    id="como-funciona"
+    class="scroll-mt-20 border-y border-slate-200 bg-white py-12 sm:py-16"
+    aria-labelledby="como-funciona-title"
+  >
+    <div class="container-page">
+      <SectionHeader
+        eyebrow="Cómo funciona"
+        title="Tres pasos. Cero subidas."
+        description="El procesado ocurre en la memoria de tu navegador. Puedes comprobarlo abriendo la pestaña Red de las herramientas de desarrollo."
+        id="como-funciona-title"
+      />
+
+      <ol class="mt-8 grid gap-4 sm:grid-cols-3">
+        {
+          steps.map((step, index) => (
+            <li class="relative rounded-2xl border border-slate-200 bg-slate-50/60 p-5">
+              <span class="flex h-10 w-10 items-center justify-center rounded-xl bg-white text-brand-700 shadow-sm ring-1 ring-slate-200">
+                <Icon name={step.icon} size={20} />
+              </span>
+              <span class="mt-4 block text-[10px] font-bold uppercase tracking-[0.16em] text-slate-400">
+                Paso {index + 1}
+              </span>
+              <h3 class="mt-1 text-base font-semibold text-slate-900">{step.title}</h3>
+              <p class="mt-1.5 text-sm leading-6 text-slate-500">{step.text}</p>
+            </li>
+          ))
+        }
+      </ol>
+    </div>
+  </section>
+
+  <section class="container-page py-12 sm:py-16">
+    <div class="relative overflow-hidden rounded-3xl bg-slate-900 px-6 py-10 sm:px-10 sm:py-12">
+      <div
+        class="pointer-events-none absolute -right-20 -top-24 h-72 w-72 rounded-full bg-brand-500/20 blur-3xl"
+      >
+      </div>
+      <div
+        class="pointer-events-none absolute -bottom-28 left-1/3 h-72 w-72 rounded-full bg-brand-400/10 blur-3xl"
+      >
+      </div>
+
+      <div class="relative max-w-2xl">
+        <p class="flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.16em] text-brand-300">
+          <Icon name="shield" size={15} />
+          Privacidad por diseño
+        </p>
+        <h2 class="mt-3 text-2xl font-bold tracking-tight text-white sm:text-3xl">
+          Tus archivos no viajan. Nunca.
+        </h2>
+        <p class="mt-3 text-sm leading-6 text-slate-300 sm:text-base">
+          No hay almacenamiento en la nube, ni cuentas, ni límites de subida. Si desconectas
+          internet, las herramientas que ya has cargado siguen funcionando.
+        </p>
+        <div class="mt-6 flex flex-wrap gap-3">
+          <a
+            href="/metodologia"
+            class="inline-flex h-11 items-center justify-center gap-2 rounded-xl bg-white px-4 text-sm font-semibold text-slate-900 transition-colors hover:bg-slate-100"
+          >
+            Cómo lo verificamos
+            <Icon name="arrow-right" size={16} />
+          </a>
+          <a
+            href="/sobre-nosotros"
+            class="inline-flex h-11 items-center justify-center rounded-xl px-4 text-sm font-semibold text-white ring-1 ring-inset ring-white/20 transition-colors hover:bg-white/10"
+          >
+            Por qué lo hacemos
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    import { initToolFilters } from '@/scripts/home/filters';
+    import { initRecentTools } from '@/scripts/home/recent';
+
+    initToolFilters();
+    initRecentTools();
+  </script>
+</BaseLayout>

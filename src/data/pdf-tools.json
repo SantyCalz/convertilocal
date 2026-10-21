@@ -1,0 +1,652 @@
+[
+  {
+    "slug": "unir-pdf",
+    "title": "Unir PDF sin subir archivos | ConvertiLocal",
+    "h1": "Unir varios PDF en uno",
+    "description": "Combina varios PDF en un solo documento desde tu navegador. Ordena los archivos, revisa la primera página y descarga el resultado sin subirlo a ningún servidor.",
+    "intro": "Selecciona los PDF que quieres combinar, comprueba el orden con las miniaturas y genera un único documento. La unión ocurre en tu dispositivo: los archivos no se envían a ConvertiLocal ni a terceros.",
+    "why": [
+      "Puedes cambiar el orden de los PDF antes de unirlos con las flechas de la vista previa.",
+      "La primera página de cada archivo se muestra como miniatura para evitar confusiones.",
+      "El PDF final se genera en memoria y se descarga directamente, sin marcas de agua ni registro."
+    ],
+    "useCases": [
+      {
+        "title": "Facturas y justificantes",
+        "body": "Reúne las facturas de un trimestre en un solo PDF para presentarlo a tu gestoría o adjuntarlo a una solicitud."
+      },
+      {
+        "title": "Contratos con anexos",
+        "body": "Une el contrato principal, los anexos y las firmas escaneadas conservando el orden que necesita cada expediente."
+      },
+      {
+        "title": "Apuntes y trabajos",
+        "body": "Combina capítulos, ejercicios resueltos y portadas de un mismo trabajo sin depender de una conexión estable."
+      }
+    ],
+    "mistakes": [
+      {
+        "title": "Unir documentos firmados",
+        "body": "Al reconstruir el PDF se invalidan las firmas digitales existentes. Si necesitas conservarlas, guarda una copia sin unir y consulta el requisito legal de tu caso."
+      },
+      {
+        "title": "No revisar el orden",
+        "body": "El orden de la lista es el orden del PDF final. Usa las miniaturas y las flechas antes de procesar; cambiar el orden después obliga a repetir la unión."
+      },
+      {
+        "title": "Juntar escaneos enormes",
+        "body": "Cada PDF puede ocupar hasta 30 MB y el lote completo hasta 100 MB. Si el resultado queda demasiado pesado, comprime el archivo final o reduce la resolución de los escaneos."
+      }
+    ],
+    "faq": [
+      {
+        "q": "¿Cuántos PDF puedo unir a la vez?",
+        "a": "Puedes añadir hasta 20 archivos y 100 MB en total. El documento resultante admite un máximo de 300 páginas."
+      },
+      {
+        "q": "¿Puedo cambiar el orden de los archivos?",
+        "a": "Sí. En la vista previa de cada PDF hay flechas para subirlo o bajarlo en la lista. El orden de la lista es el que se aplica al generar el documento."
+      },
+      {
+        "q": "¿Se pierde calidad al unir PDF?",
+        "a": "No se vuelven a comprimir las páginas ni las imágenes. Se copian las páginas seleccionadas en un documento nuevo, así que el contenido visual conserva su calidad original."
+      },
+      {
+        "q": "¿Qué pasa con marcadores y formularios?",
+        "a": "La unión conserva el contenido de las páginas, pero los marcadores, formularios interactivos y algunas anotaciones pueden no trasladarse al documento final. Es una limitación del MVP."
+      },
+      {
+        "q": "¿Funciona con PDF protegidos con contraseña?",
+        "a": "No. Los PDF cifrados o protegidos con contraseña no se pueden abrir en esta fase. Quita la protección con la aplicación que los creó antes de unirlos."
+      }
+    ],
+    "keywords": ["unir pdf", "combinar pdf", "juntar pdf", "unir documentos", "pdf online"],
+    "related": ["/pdf/dividir-pdf", "/pdf/reordenar-pdf", "/pdf/comprimir-pdf"],
+    "updated": "2026-10-21"
+  },
+  {
+    "slug": "dividir-pdf",
+    "title": "Dividir PDF por páginas o rangos | ConvertiLocal",
+    "h1": "Dividir un PDF",
+    "description": "Separa un PDF en varios archivos o extrae solo las páginas que necesitas. Elige rangos como 1-3, 5, 8-10 y descarga el resultado sin subir el documento.",
+    "intro": "Indica qué páginas quieres conservar y decide si necesitas un PDF con la selección, un archivo por rango o un PDF por página. Todo el trabajo se hace con JavaScript en tu navegador.",
+    "why": [
+      "Acepta rangos separados por comas, con números de página que empiezan en 1.",
+      "Puedes extraer una selección en un solo PDF o generar un archivo independiente por página.",
+      "Las páginas se copian sin recomprimir imágenes ni texto."
+    ],
+    "useCases": [
+      {
+        "title": "Extraer un capítulo",
+        "body": "De un libro o manual de 200 páginas, guarda solo el capítulo que necesitas compartir o imprimir."
+      },
+      {
+        "title": "Separar un escaneo por documentos",
+        "body": "Convierte un PDF con varios contratos escaneados en archivos independientes usando un rango para cada documento."
+      },
+      {
+        "title": "Enviar una sola página",
+        "body": "Extrae la página de una nómina, un certificado o una factura para adjuntarla en un trámite sin enviar el documento completo."
+      }
+    ],
+    "mistakes": [
+      {
+        "title": "Usar números de página equivocados",
+        "body": "Los rangos se refieren a la posición física dentro del PDF, no al número impreso en la página. Si el documento tiene portada, la página visible 1 puede ser la posición 2."
+      },
+      {
+        "title": "Olvidar las comas entre rangos",
+        "body": "Escribe «1-3, 5, 8-10». Un guion indica un intervalo y una coma separa grupos. Si un rango queda fuera del documento, la herramienta muestra un error antes de generar nada."
+      },
+      {
+        "title": "Intentar abrir PDF cifrados",
+        "body": "Los documentos con contraseña no se pueden procesar. Elimina la protección desde la aplicación de origen y vuelve a intentarlo."
+      }
+    ],
+    "faq": [
+      {
+        "q": "¿Cómo extraigo solo algunas páginas?",
+        "a": "Escribe los números o intervalos en el campo de páginas y elige «Un PDF con las páginas seleccionadas». Por ejemplo, «1-3, 7» genera un PDF con las páginas 1, 2, 3 y 7."
+      },
+      {
+        "q": "¿Puedo obtener un PDF por página?",
+        "a": "Sí. La opción «Un PDF por página» crea un archivo independiente por cada página seleccionada. Si hay varias, se descargan juntas en un ZIP generado en tu dispositivo."
+      },
+      {
+        "q": "¿Qué ocurre si dejo el campo vacío?",
+        "a": "Se utilizan todas las páginas. En el modo «Un PDF por rango» se genera un solo archivo con el documento completo; en «Un PDF por página» se separa cada página."
+      },
+      {
+        "q": "¿Se conservan los enlaces y el texto?",
+        "a": "El texto y el contenido visual se copian. Los enlaces internos, marcadores y formularios pueden perderse al crear el nuevo documento, igual que ocurre al unir PDF."
+      },
+      {
+        "q": "¿Cuál es el límite de páginas?",
+        "a": "El PDF de entrada puede tener hasta 300 páginas y ocupar como máximo 30 MB. Si es más grande, divídelo primero con otra copia o reduce su resolución."
+      }
+    ],
+    "keywords": ["dividir pdf", "separar pdf", "extraer páginas pdf", "cortar pdf", "pdf por páginas"],
+    "related": ["/pdf/unir-pdf", "/pdf/reordenar-pdf", "/pdf/pdf-a-jpg"],
+    "updated": "2026-10-21"
+  },
+  {
+    "slug": "rotar-pdf",
+    "title": "Rotar PDF y guardar la orientación | ConvertiLocal",
+    "h1": "Rotar páginas de un PDF",
+    "description": "Gira páginas de un PDF 90, 180 o 270 grados con vista previa. Corrige escaneos torcidos y descarga el documento con la orientación aplicada.",
+    "intro": "Abre el PDF, gira las páginas que estén mal orientadas y guarda el cambio. La vista previa muestra el resultado antes de procesar y el archivo no sale de tu dispositivo.",
+    "why": [
+      "Cada página se puede girar de forma independiente, sin afectar al resto.",
+      "Los botones de rotación funcionan con el dedo y también con teclado.",
+      "La rotación se guarda en el PDF sin volver a rasterizar el contenido."
+    ],
+    "useCases": [
+      {
+        "title": "Corregir escaneos verticales",
+        "body": "Un alimentador automático puede mezclar páginas verticales y horizontales. Gira solo las que quedaron de lado."
+      },
+      {
+        "title": "Preparar un documento para imprimir",
+        "body": "Ajusta la orientación de planos, tablas o fotografías antes de enviar el PDF a una imprenta."
+      },
+      {
+        "title": "Revisar un contrato en el móvil",
+        "body": "Deja todas las páginas en la orientación cómoda para leerlas en pantalla y guarda una copia corregida."
+      }
+    ],
+    "mistakes": [
+      {
+        "title": "Girar dos veces la misma página",
+        "body": "Cada toque suma 90 grados. Si una página ya estaba girada 90 grados en el PDF original, aplicar otra rotación puede dejarla boca abajo. Revisa la miniatura después de cada cambio."
+      },
+      {
+        "title": "Esperar que se gire el texto seleccionable",
+        "body": "La rotación cambia la orientación de la página, no reescribe el contenido. El texto sigue siendo seleccionable y conserva su calidad."
+      },
+      {
+        "title": "Rotar un PDF firmado",
+        "body": "Modificar el documento invalida las firmas digitales. Si la firma debe seguir siendo verificable, guarda el original y usa una copia para la corrección visual."
+      }
+    ],
+    "faq": [
+      {
+        "q": "¿La rotación se guarda al descargar?",
+        "a": "Sí. El PDF resultante incluye el atributo de rotación de cada página, de modo que se abre con la orientación que ves en la vista previa."
+      },
+      {
+        "q": "¿Puedo girar varias páginas a la vez?",
+        "a": "Sí. La vista previa permite girar cada página por separado. Repite la operación en las páginas que lo necesiten antes de pulsar el botón de procesar."
+      },
+      {
+        "q": "¿Se pierde calidad al rotar?",
+        "a": "No. No se redibujan las imágenes ni el texto; solo se modifica la orientación de la página. El contenido conserva su resolución original."
+      },
+      {
+        "q": "¿Puedo cambiar también el orden?",
+        "a": "La herramienta de rotar mantiene el orden original. Si además necesitas reordenar, usa la herramienta Reordenar PDF y combina allí ambas operaciones."
+      },
+      {
+        "q": "¿Cuántas páginas admite?",
+        "a": "Hasta 300 páginas y 30 MB por archivo. Para documentos más grandes, divídelos primero en partes más pequeñas."
+      }
+    ],
+    "keywords": ["rotar pdf", "girar pdf", "orientación pdf", "pdf de lado", "corregir escaneo"],
+    "related": ["/pdf/reordenar-pdf", "/pdf/dividir-pdf", "/pdf/unir-pdf"],
+    "updated": "2026-10-21"
+  },
+  {
+    "slug": "reordenar-pdf",
+    "title": "Reordenar páginas de un PDF | ConvertiLocal",
+    "h1": "Reordenar páginas de un PDF",
+    "description": "Cambia el orden de las páginas de un PDF con miniaturas, flechas o arrastre. Guarda el nuevo orden sin subir el documento a ningún servidor.",
+    "intro": "La vista previa muestra las primeras páginas del documento. Mueve cada página con las flechas o arrástrala hasta la posición correcta y guarda un PDF con el nuevo orden.",
+    "why": [
+      "Ves miniaturas reales antes de cambiar nada, no solo números de página.",
+      "Puedes mover páginas con botones táctiles o arrastrando en el escritorio.",
+      "El nuevo orden se aplica a todas las páginas, incluidas las que no caben en la vista previa."
+    ],
+    "useCases": [
+      {
+        "title": "Corregir un escaneo desordenado",
+        "body": "Si el alimentador mezcló páginas, reordénalas antes de archivar o enviar el documento."
+      },
+      {
+        "title": "Preparar una presentación",
+        "body": "Coloca la portada, el índice y los anexos en el orden de lectura que necesita tu audiencia."
+      },
+      {
+        "title": "Unir apuntes de varias sesiones",
+        "body": "Ordena las páginas de un PDF combinado para que sigan la secuencia cronológica correcta."
+      }
+    ],
+    "mistakes": [
+      {
+        "title": "Reordenar un documento firmado",
+        "body": "El reordenamiento reconstruye el PDF y puede invalidar firmas digitales, formularios y marcadores. Conserva el original si necesitas verificar una firma."
+      },
+      {
+        "title": "Mover solo las páginas visibles",
+        "body": "La cuadrícula muestra hasta 24 páginas para no cargar el navegador. Las páginas restantes conservan su posición relativa; si necesitas control total, divide el PDF en partes más pequeñas."
+      },
+      {
+        "title": "No comprobar el resultado",
+        "body": "Después de procesar, revisa la miniatura del resultado y el número de páginas. Un arrastre accidental puede cambiar el orden sin que lo notes en la lista."
+      }
+    ],
+    "faq": [
+      {
+        "q": "¿Puedo arrastrar las páginas?",
+        "a": "Sí, en un navegador de escritorio puedes arrastrar una tarjeta y soltarla sobre otra para moverla. En el móvil, usa las flechas laterales."
+      },
+      {
+        "q": "¿Se conservan los marcadores?",
+        "a": "Al reconstruir el documento para cambiar el orden, los marcadores y formularios pueden no conservarse. El contenido visual de las páginas sí se mantiene."
+      },
+      {
+        "q": "¿Puedo girar y reordenar a la vez?",
+        "a": "Sí. En esta misma vista puedes girar una página con los botones de rotación y después moverla. Ambas acciones se guardan al procesar."
+      },
+      {
+        "q": "¿Qué pasa con las páginas que no veo?",
+        "a": "Siguen formando parte del documento. La vista previa muestra las primeras 24 para ahorrar memoria, pero el nuevo orden se guarda para todas las páginas."
+      },
+      {
+        "q": "¿Hay límite de páginas?",
+        "a": "Sí, 300 páginas y 30 MB por archivo. Para documentos mayores, divídelos y reordena cada parte."
+      }
+    ],
+    "keywords": ["reordenar pdf", "ordenar páginas pdf", "mover páginas pdf", "cambiar orden pdf", "ordenar pdf"],
+    "related": ["/pdf/rotar-pdf", "/pdf/unir-pdf", "/pdf/dividir-pdf"],
+    "updated": "2026-10-21"
+  },
+  {
+    "slug": "imagen-a-pdf",
+    "title": "Convertir imágenes a PDF | ConvertiLocal",
+    "h1": "Convertir imágenes a PDF",
+    "description": "Crea un PDF con tus fotos o capturas en el orden que elijas. Elige A4, Carta o tamaño automático, ajusta márgenes y conserva la transparencia de los PNG.",
+    "intro": "Añade tus imágenes, define el tamaño de página y genera un PDF listo para compartir o imprimir. La conversión se hace en tu navegador; no se sube ninguna foto.",
+    "why": [
+      "Acepta JPG, PNG, WebP, AVIF, BMP y GIF, con orientación automática o manual.",
+      "Puedes usar A4, Carta o una página del mismo tamaño que cada imagen.",
+      "Los PNG con transparencia se incrustan como PNG para no rellenar el fondo con blanco."
+    ],
+    "useCases": [
+      {
+        "title": "Álbum de fotos",
+        "body": "Convierte una selección de fotos en un PDF que se abra igual en el móvil, el ordenador o una tablet."
+      },
+      {
+        "title": "Portafolio o dossier",
+        "body": "Presenta capturas, renders y fotografías en un único documento con márgenes uniformes."
+      },
+      {
+        "title": "Documentos escaneados con el móvil",
+        "body": "Si tu app de escaneo guarda cada página como imagen, conviértelas a PDF y únelas en un solo archivo."
+      }
+    ],
+    "mistakes": [
+      {
+        "title": "Elegir tamaño automático para fotos enormes",
+        "body": "El tamaño automático usa las dimensiones de la imagen y puede crear páginas muy grandes. Para imprimir, elige A4 o Carta y deja que la imagen se ajuste con márgenes."
+      },
+      {
+        "title": "Usar JPG para capturas con transparencia",
+        "body": "El JPEG no admite transparencia. Si la imagen es un logo o una captura con fondo transparente, conserva el PNG para que el fondo no se vuelva blanco."
+      },
+      {
+        "title": "Olvidar el orden de las imágenes",
+        "body": "Las imágenes se añaden en el orden de la lista. Revisa ese orden antes de convertir; si necesitas cambiarlo, quita y vuelve a añadir los archivos."
+      }
+    ],
+    "faq": [
+      {
+        "q": "¿Qué formatos de imagen puedo usar?",
+        "a": "JPG, PNG, WebP, AVIF, BMP y GIF. El soporte de HEIC depende del navegador; si tu equipo no puede decodificarlo, convierte primero la foto a JPG o PNG."
+      },
+      {
+        "q": "¿Se conserva la transparencia de los PNG?",
+        "a": "Sí. Los PNG se incrustan como PNG y el fondo de la página se dibuja debajo, por lo que la transparencia se mantiene."
+      },
+      {
+        "q": "¿Puedo elegir una página distinta para cada imagen?",
+        "a": "No en esta versión. Se usa el mismo tamaño y orientación para todas las páginas, salvo que elijas «Automático», que adapta cada página a su imagen."
+      },
+      {
+        "q": "¿Las fotos se recomprimen?",
+        "a": "Las imágenes se redibujan para aplicar la orientación y el tamaño de página. En JPEG se usa la calidad elegida; en PNG se conserva la compresión sin pérdida."
+      },
+      {
+        "q": "¿Cuántas imágenes admite?",
+        "a": "Hasta 20 imágenes, 25 MB por archivo y 100 MB en total. Para lotes mayores, crea varios PDF y únelos después."
+      }
+    ],
+    "keywords": ["imagen a pdf", "fotos a pdf", "jpg a pdf", "png a pdf", "convertir imágenes"],
+    "related": ["/pdf/unir-pdf", "/pdf/comprimir-pdf", "/pdf/dividir-pdf"],
+    "updated": "2026-10-21"
+  },
+  {
+    "slug": "pdf-a-jpg",
+    "title": "Convertir PDF a JPG por página | ConvertiLocal",
+    "h1": "Convertir PDF a JPG",
+    "description": "Convierte cada página de un PDF en una imagen JPG con la resolución que elijas. Descarga las imágenes por separado o en un ZIP, sin subir el documento.",
+    "intro": "Elige la resolución, convierte las páginas a JPG y descarga las imágenes. El PDF se procesa con PDF.js dentro de tu navegador y no se envía a ningún servidor.",
+    "why": [
+      "Cada página se convierte en un JPG independiente con un nombre numerado.",
+      "Puedes elegir 72, 150 o 300 ppp según el uso: pantalla, web o impresión.",
+      "Si hay varias páginas, las imágenes se agrupan en un ZIP generado localmente."
+    ],
+    "useCases": [
+      {
+        "title": "Miniaturas para una web",
+        "body": "Convierte las páginas de un catálogo o una revista en imágenes JPG para una galería o una entrada de blog."
+      },
+      {
+        "title": "Publicar en redes sociales",
+        "body": "Exporta una página concreta como JPG para compartirla como imagen sin que el destinatario tenga que abrir un PDF."
+      },
+      {
+        "title": "Presentaciones rápidas",
+        "body": "Convierte diapositivas en imágenes para insertarlas en una presentación o en un documento de texto."
+      }
+    ],
+    "mistakes": [
+      {
+        "title": "Elegir 300 ppp para todo",
+        "body": "300 ppp produce imágenes grandes y lentas de procesar. Para pantalla suele bastar con 150 ppp; usa 300 solo si vas a imprimir."
+      },
+      {
+        "title": "Esperar fondo transparente",
+        "body": "Las páginas PDF se dibujan sobre fondo blanco y el JPG no admite transparencia. Si necesitas transparencia, usa la herramienta PDF a PNG."
+      },
+      {
+        "title": "Convertir un PDF de más de 100 páginas",
+        "body": "El límite es de 100 páginas por documento. Divide el PDF en partes más pequeñas para evitar quedarte sin memoria en el móvil."
+      }
+    ],
+    "faq": [
+      {
+        "q": "¿Se convierte todo el PDF o puedo elegir páginas?",
+        "a": "Esta herramienta convierte todas las páginas del documento. Si solo necesitas algunas, usa primero Dividir PDF y después convierte el archivo resultante."
+      },
+      {
+        "q": "¿Cómo se descargan varias imágenes?",
+        "a": "Si el PDF tiene más de una página, las imágenes se empaquetan en un ZIP generado en tu dispositivo. También puedes descargar el ZIP y extraerlo con cualquier herramienta del sistema."
+      },
+      {
+        "q": "¿Qué resolución elijo?",
+        "a": "72 ppp para vistas rápidas, 150 ppp para web y presentaciones, y 300 ppp para impresión. A mayor resolución, más peso y más tiempo de proceso."
+      },
+      {
+        "q": "¿El texto seguirá siendo seleccionable?",
+        "a": "No. El resultado es una imagen JPG por página. Conserva el PDF original si necesitas copiar texto o buscar dentro del documento."
+      },
+      {
+        "q": "¿Funciona con PDF protegidos?",
+        "a": "No. Los documentos cifrados o con contraseña no se pueden abrir en esta fase. Quita la protección desde la aplicación original."
+      }
+    ],
+    "keywords": ["pdf a jpg", "pdf a imagen", "convertir pdf a jpg", "extraer imágenes pdf", "pdf a foto"],
+    "related": ["/pdf/pdf-a-png", "/pdf/dividir-pdf", "/pdf/comprimir-pdf"],
+    "updated": "2026-10-21"
+  },
+  {
+    "slug": "pdf-a-png",
+    "title": "Convertir PDF a PNG sin pérdida | ConvertiLocal",
+    "h1": "Convertir PDF a PNG",
+    "description": "Exporta las páginas de un PDF como imágenes PNG nítidas y sin pérdida. Elige la resolución y descarga cada página o un ZIP, todo en tu navegador.",
+    "intro": "Convierte las páginas de tu PDF en PNG, un formato sin pérdida que mantiene nítidos los textos, los gráficos y las líneas. El archivo no se sube a ningún servidor.",
+    "why": [
+      "PNG evita los artefactos de compresión que aparecen en JPG alrededor del texto.",
+      "Puedes elegir 72, 150 o 300 ppp según el tamaño y el destino de la imagen.",
+      "Las páginas se exportan como archivos independientes, listos para descargar."
+    ],
+    "useCases": [
+      {
+        "title": "Capturas de gráficos",
+        "body": "Extrae diagramas, planos o infografías de un PDF sin perder definición en los bordes."
+      },
+      {
+        "title": "Firmas y sellos",
+        "body": "Obtén una imagen PNG de una página con una firma o un sello para reutilizarla en otros documentos."
+      },
+      {
+        "title": "Material para edición",
+        "body": "Exporta páginas como PNG para recortarlas, anotarlas o incorporarlas a un editor de imágenes."
+      }
+    ],
+    "mistakes": [
+      {
+        "title": "Esperar archivos más ligeros que el PDF",
+        "body": "PNG es un formato sin pérdida y suele generar archivos más grandes que JPEG. Si el objetivo es reducir peso, usa JPG o comprime el PDF original."
+      },
+      {
+        "title": "Usar 300 ppp sin necesidad",
+        "body": "Una página A4 a 300 ppp ocupa muchos píxeles y puede consumir bastante memoria. Para pantalla, 150 ppp suele ser suficiente."
+      },
+      {
+        "title": "Convertir un PDF con transparencias complejas",
+        "body": "El renderizado aplana el contenido sobre fondo blanco. Las transparencias del PDF no se conservan como canal alfa en el PNG resultante."
+      }
+    ],
+    "faq": [
+      {
+        "q": "¿PNG conserva mejor la calidad que JPG?",
+        "a": "Para texto y gráficos con bordes definidos, sí. PNG usa compresión sin pérdida, mientras que JPG descarta información para reducir el tamaño. Para fotografías, JPG suele ser más eficiente."
+      },
+      {
+        "q": "¿Puedo elegir solo una página?",
+        "a": "Esta herramienta exporta todas las páginas. Si necesitas una sola, divide primero el PDF y convierte el archivo que contiene esa página."
+      },
+      {
+        "q": "¿Las imágenes tendrán fondo transparente?",
+        "a": "No. Cada página se dibuja sobre blanco para que el resultado sea legible, así que el PNG no incluye transparencia de fondo."
+      },
+      {
+        "q": "¿Cuántas páginas puedo convertir?",
+        "a": "Hasta 100 páginas y 30 MB por PDF. Si el documento es más grande, divídelo en partes y conviértelas por separado."
+      },
+      {
+        "q": "¿Se sube el PDF a un servidor?",
+        "a": "No. PDF.js y el canvas del navegador hacen todo el trabajo en tu dispositivo. Puedes comprobarlo desconectando la red después de cargar la página."
+      }
+    ],
+    "keywords": ["pdf a png", "convertir pdf a png", "pdf a imagen sin pérdida", "exportar páginas pdf", "pdf a png sin pérdida"],
+    "related": ["/pdf/pdf-a-jpg", "/pdf/dividir-pdf", "/pdf/comprimir-pdf"],
+    "updated": "2026-10-21"
+  },
+  {
+    "slug": "marca-de-agua-pdf",
+    "title": "Poner marca de agua a un PDF | ConvertiLocal",
+    "h1": "Poner marca de agua a un PDF",
+    "description": "Añade un texto de marca de agua a todas las páginas de un PDF. Ajusta opacidad, ángulo, posición y tamaño sin subir el documento a Internet.",
+    "intro": "Escribe el texto, elige cómo debe verse y aplícalo a todas las páginas. La marca de agua se dibuja sobre el PDF original y el archivo resultante se descarga desde tu navegador.",
+    "why": [
+      "Controla el texto, el tamaño, el color, la opacidad, el ángulo y la posición.",
+      "La marca se aplica a todas las páginas, incluidas las que no ves en la vista previa.",
+      "No se usa una fuente externa: se incrusta una fuente estándar del PDF para que el texto sea legible."
+    ],
+    "useCases": [
+      {
+        "title": "Borradores y documentos confidenciales",
+        "body": "Marca una copia con «BORRADOR» o «CONFIDENCIAL» antes de compartirla con un equipo o un cliente."
+      },
+      {
+        "title": "Copias para revisión",
+        "body": "Añade el nombre del destinatario o la fecha para identificar cada copia distribuida."
+      },
+      {
+        "title": "Material de muestra",
+        "body": "Protege un catálogo o un manual con una marca visible que no impida leer el contenido."
+      }
+    ],
+    "mistakes": [
+      {
+        "title": "Usar una opacidad demasiado alta",
+        "body": "Una marca al 60 % puede tapar el texto. Para documentos que deben seguir siendo legibles, prueba entre 10 % y 25 % y revisa la vista previa."
+      },
+      {
+        "title": "Creer que la marca de agua redacta información",
+        "body": "La marca es una capa visible, no una censura. El texto original sigue estando en el PDF y puede copiarse. Para ocultar datos, elimínalos del documento antes de aplicarla."
+      },
+      {
+        "title": "Aplicarla a un PDF firmado",
+        "body": "Cualquier modificación invalida las firmas digitales. Si el documento debe conservar una firma verificable, guarda una copia sin marca."
+      }
+    ],
+    "faq": [
+      {
+        "q": "¿Puedo elegir una marca distinta para cada página?",
+        "a": "No. Esta herramienta aplica el mismo texto y estilo a todas las páginas. Si necesitas variaciones, crea varios PDF y únelos después."
+      },
+      {
+        "q": "¿Se puede quitar la marca de agua después?",
+        "a": "La marca se dibuja sobre el contenido y no se puede eliminar con esta herramienta. Conserva siempre el PDF original sin marca."
+      },
+      {
+        "q": "¿Puedo usar una imagen como marca de agua?",
+        "a": "En esta fase solo se admite texto. Para una imagen, tendrías que convertirla a PDF y superponerla con una herramienta de edición."
+      },
+      {
+        "q": "¿Qué fuentes están disponibles?",
+        "a": "Se usa Helvetica, una fuente estándar del PDF. Los caracteres que no existen en esa fuente pueden no mostrarse correctamente; evita emojis y símbolos exóticos."
+      },
+      {
+        "q": "¿Funciona con PDF protegidos?",
+        "a": "No. Los documentos cifrados o con contraseña no se pueden modificar en esta fase."
+      }
+    ],
+    "keywords": ["marca de agua pdf", "poner marca de agua", "watermark pdf", "pdf confidencial", "marca de agua documento"],
+    "related": ["/pdf/numerar-paginas-pdf", "/pdf/comprimir-pdf", "/pdf/unir-pdf"],
+    "updated": "2026-10-21"
+  },
+  {
+    "slug": "numerar-paginas-pdf",
+    "title": "Numerar las páginas de un PDF | ConvertiLocal",
+    "h1": "Numerar las páginas de un PDF",
+    "description": "Añade números de página a un PDF con formato 1, 1/10, Página 1 o Página 1 de 10. Elige posición, tamaño, margen y desde qué número empezar.",
+    "intro": "Numera las páginas de un documento sin editarlo a mano. Elige el formato, la posición y el número inicial; la herramienta dibuja el número en cada página y guarda el PDF.",
+    "why": [
+      "Cuatro formatos de numeración y cinco posiciones habituales.",
+      "Puedes empezar a contar desde cualquier número y saltar la portada.",
+      "El número se dibuja con una fuente estándar del PDF, sin depender de fuentes externas."
+    ],
+    "useCases": [
+      {
+        "title": "Expedientes y documentos legales",
+        "body": "Numera un contrato o un informe para citar páginas con precisión en una revisión o una reunión."
+      },
+      {
+        "title": "Libros y manuales",
+        "body": "Añade números a un texto que se va a imprimir o encuadernar y empieza a contar después de la portada."
+      },
+      {
+        "title": "Informes de equipo",
+        "body": "Prepara un PDF con numeración uniforme antes de enviarlo a revisión o adjuntarlo a una propuesta."
+      }
+    ],
+    "mistakes": [
+      {
+        "title": "Numerar también la portada",
+        "body": "Si la portada no debe llevar número, activa «No numerar la primera página». La numeración empezará en la página siguiente con el valor que hayas elegido."
+      },
+      {
+        "title": "Colocar el número demasiado cerca del borde",
+        "body": "Los márgenes pequeños pueden quedar recortados al imprimir. Un margen de 24 pt suele ser seguro para A4 y Carta."
+      },
+      {
+        "title": "Numerar un PDF que ya tiene números",
+        "body": "La herramienta añade un número nuevo; no elimina los que ya forman parte del contenido. Si el PDF ya está numerado, usa una copia sin numeración o coloca el nuevo número en otra posición."
+      }
+    ],
+    "faq": [
+      {
+        "q": "¿Puedo empezar a contar en 5?",
+        "a": "Sí. Cambia «Empezar a contar en» al número deseado. La primera página procesada mostrará ese valor y las siguientes continuarán la secuencia."
+      },
+      {
+        "q": "¿Cómo salto la portada?",
+        "a": "Activa «No numerar la primera página». La portada se queda sin número y el contador empieza en la página 2 con el valor inicial elegido."
+      },
+      {
+        "q": "¿Qué formato es mejor para un informe?",
+        "a": "«Página 1 de 10» es el más explícito para informes y expedientes. Para libros o documentos con muchas páginas, un número simple suele ser más limpio."
+      },
+      {
+        "q": "¿Se puede cambiar el tipo de letra?",
+        "a": "En esta fase se usa Helvetica, una fuente estándar del PDF. No se cargan fuentes externas para mantener el procesamiento local y ligero."
+      },
+      {
+        "q": "¿La numeración se aplica a todas las páginas?",
+        "a": "Sí, excepto la primera si activas la opción de saltarla. El documento puede tener hasta 300 páginas y 30 MB."
+      }
+    ],
+    "keywords": ["numerar páginas pdf", "números de página pdf", "paginar pdf", "añadir numeración", "numeración pdf"],
+    "related": ["/pdf/marca-de-agua-pdf", "/pdf/rotar-pdf", "/pdf/comprimir-pdf"],
+    "updated": "2026-10-21"
+  },
+  {
+    "slug": "comprimir-pdf",
+    "title": "Comprimir PDF sin subirlo a Internet | ConvertiLocal",
+    "h1": "Comprimir un PDF",
+    "description": "Reduce el peso de un PDF con dos modos: optimización sin pérdida o rasterizado con aviso de texto. Compara el resultado y descarga desde tu navegador.",
+    "intro": "Elige entre una limpieza estructural que conserva el texto o una compresión máxima que convierte cada página en imagen. En ambos casos el PDF se procesa en tu dispositivo y puedes comparar el tamaño antes de descargar.",
+    "why": [
+      "El modo «Optimizar» elimina metadatos XMP, información no usada y objetos huérfanos sin tocar el texto.",
+      "El modo «Máxima compresión» rasteriza las páginas a JPEG y permite bajar la resolución y la calidad.",
+      "La interfaz avisa antes de convertir el texto en imagen y muestra el peso del resultado."
+    ],
+    "useCases": [
+      {
+        "title": "Adjuntos de correo",
+        "body": "Reduce un PDF que supera el límite de tu proveedor de correo sin enviarlo a una web desconocida."
+      },
+      {
+        "title": "Formularios de admisión",
+        "body": "Ajusta el peso de un expediente para que pueda subirse a un portal con límite de megabytes."
+      },
+      {
+        "title": "Archivo a largo plazo",
+        "body": "Limpia metadatos y objetos innecesarios antes de guardar una copia definitiva en tu disco."
+      }
+    ],
+    "mistakes": [
+      {
+        "title": "Usar máxima compresión en documentos de texto",
+        "body": "El rasterizado convierte cada página en una imagen: el texto deja de ser seleccionable, se pierden enlaces y formularios, y la nitidez depende de la resolución. Para contratos o apuntes, usa primero «Optimizar»."
+      },
+      {
+        "title": "Esperar que todos los PDF bajen de peso",
+        "body": "Un PDF ya optimizado o con imágenes muy comprimidas puede no reducirse e incluso aumentar ligeramente al reescribir su estructura. La herramienta compara el resultado y lo indica."
+      },
+      {
+        "title": "Comprimir un PDF firmado",
+        "body": "Cualquier reescritura invalida las firmas digitales. Conserva el original si necesitas verificar la firma."
+      }
+    ],
+    "faq": [
+      {
+        "q": "¿Qué modo debo elegir?",
+        "a": "Empieza por «Optimizar sin perder texto». Si el archivo sigue siendo demasiado grande y no necesitas buscar ni copiar texto, prueba «Máxima compresión»."
+      },
+      {
+        "q": "¿La máxima compresión conserva el texto?",
+        "a": "No. Cada página se convierte en una imagen JPEG. El texto se ve, pero no se puede seleccionar, buscar ni copiar, y los enlaces y formularios desaparecen."
+      },
+      {
+        "q": "¿Se eliminan los metadatos?",
+        "a": "En el modo Optimizar puedes activar o desactivar la eliminación de metadatos y XMP. El modo de máxima compresión genera un PDF nuevo y no arrastra los metadatos del original."
+      },
+      {
+        "q": "¿Puedo comprimir un PDF protegido con contraseña?",
+        "a": "No. Los documentos cifrados no se pueden abrir en esta fase. Quita la protección desde la aplicación que los creó."
+      },
+      {
+        "q": "¿Cuál es el límite?",
+        "a": "30 MB y 300 páginas para optimizar; 30 MB y 100 páginas para rasterizar. Los límites protegen la memoria del navegador, especialmente en móviles."
+      }
+    ],
+    "keywords": ["comprimir pdf", "reducir pdf", "optimizar pdf", "pdf más ligero", "comprimir pdf sin subir"],
+    "related": ["/pdf/unir-pdf", "/pdf/pdf-a-jpg", "/pdf/dividir-pdf"],
+    "updated": "2026-10-21"
+  }
+]

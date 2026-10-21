@@ -1,0 +1,38 @@
+# build
+dist/
+.astro/
+
+# dependencies
+node_modules/
+
+# logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# environment
+.env
+.env.*
+!.env.example
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/*
+!.vscode/extensions.json
+
+# generated PDF.js assets (npm run sync:pdf)
+public/scripts/pdf.worker.min.mjs
+public/assets/pdf/
+
+# generated background-removal assets (npm run sync:bg)
+public/assets/imgly/
+
+# misc
+*.log
+
+# artefactos sueltos de pruebas manuales
+merged.pdf
+test-results/

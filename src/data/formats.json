@@ -1,0 +1,415 @@
+[
+  {
+    "id": "png",
+    "label": "PNG",
+    "extension": ".png",
+    "mime": "image/png",
+    "aliases": ["Portable Network Graphics", "PNG-24", "PNG-8"],
+    "kind": "lossless",
+    "transparency": true,
+    "animation": false,
+    "browserSupport": "Universal en navegadores modernos y antiguos.",
+    "history": "PNG nació en 1995 como respuesta a las patentes que entonces gravaban el GIF. Un grupo de desarrolladores liderado por Thomas Boutell creó un formato abierto, sin pérdida y con canal alfa. El W3C lo publicó como recomendación en 2003 y desde entonces se ha convertido en el estándar para capturas, logotipos e imágenes que deben conservar cada píxel.",
+    "compression": "Usa DEFLATE, el mismo algoritmo de ZIP, sobre filas de píxeles filtradas. No descarta información: al descomprimir se recupera exactamente la imagen original. Por eso un PNG fotográfico puede pesar cinco o diez veces más que un JPG equivalente. Existen variantes indexadas (PNG-8) y de color real (PNG-24/32); la transparencia total requiere 32 bits.",
+    "useCases": [
+      "Logotipos, iconos e ilustraciones con bordes definidos o fondo transparente.",
+      "Capturas de pantalla y documentación técnica donde el texto debe verse nítido.",
+      "Gráficos con pocos colores, como diagramas, mapas o interfaces."
+    ],
+    "avoidWhen": [
+      "La imagen es una fotografía con miles de tonos: el ahorro frente a JPG o WebP suele ser nulo y el archivo pesa mucho más.",
+      "Necesitas animación; PNG no la admite y existen alternativas como WebP animado o GIF.",
+      "El tamaño de descarga es crítico en una galería con decenas de fotos."
+    ],
+    "mistakes": [
+      {
+        "title": "Guardar fotos en PNG «para no perder calidad»",
+        "body": "Una foto en PNG conserva más datos, pero también multiplica el peso. Si no vas a editar la imagen de nuevo, JPG o WebP ofrecen una calidad visual equivalente con archivos mucho más ligeros."
+      },
+      {
+        "title": "Aplanar la transparencia sin querer",
+        "body": "Al convertir un PNG con fondo transparente a JPG, el canal alfa desaparece y el fondo se rellena de blanco o negro. Comprueba el resultado antes de publicarlo."
+      },
+      {
+        "title": "Reducir la paleta a 8 bits en una foto",
+        "body": "PNG-8 solo admite 256 colores. En ilustraciones planas funciona bien, pero en fotos o degradados produce bandas visibles. Usa PNG-24 si necesitas suavidad tonal."
+      }
+    ],
+    "faq": [
+      {
+        "q": "¿Convertir JPG a PNG mejora la calidad?",
+        "a": "No recupera detalle que el JPG ya haya perdido. Solo evita nuevas pérdidas si vas a editar y guardar varias veces. La imagen puede además pesar bastante más."
+      },
+      {
+        "q": "¿PNG admite animación?",
+        "a": "No. El formato PNG estándar es estático. Para animaciones cortas puedes usar WebP animado, GIF o AVIF animado según el navegador."
+      },
+      {
+        "q": "¿Qué diferencia hay entre PNG-8 y PNG-24?",
+        "a": "PNG-8 usa una paleta de hasta 256 colores y suele pesar menos; PNG-24 guarda color real y PNG-32 añade transparencia parcial. Para fotos o degradados conviene PNG-24."
+      }
+    ],
+    "spec": {
+      "mime": "image/png",
+      "extension": "png",
+      "lossless": true,
+      "transparency": true,
+      "animation": false,
+      "support": "Todos los navegadores"
+    }
+  },
+  {
+    "id": "jpg",
+    "label": "JPG",
+    "extension": ".jpg",
+    "mime": "image/jpeg",
+    "aliases": ["JPEG", "JFIF", "JPG"],
+    "kind": "lossy",
+    "transparency": false,
+    "animation": false,
+    "browserSupport": "Universal; el formato fotográfico más compatible.",
+    "history": "JPEG fue desarrollado por el Joint Photographic Experts Group y estandarizado en 1992 como ISO/IEC 10918. Su objetivo era reducir fotos a una fracción de su tamaño sin que el ojo notara demasiado la diferencia. La extensión .jpg se popularizó en Windows por la limitación de tres letras, y hoy convive con .jpeg sin ninguna diferencia técnica.",
+    "compression": "Divide la imagen en bloques de 8×8 píxeles, la transforma al espacio de color YCbCr y aplica una transformada discreta del coseno. Después cuantiza los coeficientes según la calidad elegida y los comprime con Huffman. Esa cuantización es irreversible: cada guardado con pérdida acumula artefactos. La calidad 80–90 suele ser el mejor equilibrio para fotos.",
+    "useCases": [
+      "Fotografías para web, redes sociales, correo o impresión doméstica.",
+      "Imágenes que deben abrirse en cualquier dispositivo, aplicación o programa antiguo.",
+      "Galerías donde prima la compatibilidad sobre el ahorro máximo de bytes."
+    ],
+    "avoidWhen": [
+      "Necesitas fondo transparente: JPG siempre rellena el área transparente con un color sólido.",
+      "La imagen contiene texto pequeño, líneas finas o capturas de interfaz; aparecen halos y bloques.",
+      "Vas a editar y volver a guardar muchas veces: cada guardado vuelve a comprimir y degrada la imagen."
+    ],
+    "mistakes": [
+      {
+        "title": "Bajar la calidad al 30% para ahorrar espacio",
+        "body": "El archivo pesa menos, pero aparecen bloques, halos alrededor de los bordes y colores lavados. Para fotos web, calidad 75–85 suele ser suficiente; por debajo de 60 el deterioro es evidente."
+      },
+      {
+        "title": "Convertir un logotipo con transparencia a JPG",
+        "body": "El fondo transparente se vuelve blanco o negro y los bordes pueden quedar sucios. Para logotipos usa PNG o WebP con alfa."
+      },
+      {
+        "title": "Guardar el JPG una y otra vez",
+        "body": "La compresión con pérdida no es acumulativa de forma neutra: cada ciclo vuelve a cuantizar. Conserva el original o trabaja en PNG/TIFF mientras editas."
+      }
+    ],
+    "faq": [
+      {
+        "q": "¿JPG y JPEG son lo mismo?",
+        "a": "Sí. La única diferencia es la extensión del nombre, heredada de los sistemas con límite de tres caracteres. El contenido y el MIME son idénticos."
+      },
+      {
+        "q": "¿Qué calidad debo usar al guardar un JPG?",
+        "a": "Para web, entre 75 y 85 suele bastar. Para archivo o impresión, 90–95. Por encima de 95 el peso crece mucho y la mejora visual es mínima."
+      },
+      {
+        "q": "¿Se puede recuperar la calidad de un JPG recomprimido?",
+        "a": "No. La información descartada no vuelve. Convertirlo a PNG no mejora la imagen; solo evita una nueva pérdida si lo editas a partir de ahí."
+      }
+    ],
+    "spec": {
+      "mime": "image/jpeg",
+      "extension": "jpg",
+      "lossless": false,
+      "transparency": false,
+      "animation": false,
+      "support": "Todos los navegadores"
+    }
+  },
+  {
+    "id": "webp",
+    "label": "WebP",
+    "extension": ".webp",
+    "mime": "image/webp",
+    "aliases": ["WebP lossy", "WebP lossless"],
+    "kind": "lossy",
+    "transparency": true,
+    "animation": true,
+    "browserSupport": "Chrome, Edge, Firefox, Safari 14+ y navegadores móviles actuales.",
+    "history": "Google presentó WebP en 2010 como una alternativa moderna a JPG y PNG, basada en el códec de vídeo VP8. En 2011 llegó el modo sin pérdida y en 2013 la animación. Su adopción creció con Chrome, Android y las CDN, aunque tardó años en llegar a Safari. Hoy es una opción madura para publicar imágenes ligeras con transparencia.",
+    "compression": "Combina dos modos: uno con pérdida derivado de VP8, que predice bloques y usa transformadas, y otro sin pérdida que codifica píxeles vecinos. Además admite canal alfa, animación y metadatos. Frente a JPG, un WebP con pérdida suele pesar entre un 20% y un 35% menos con calidad visual similar; frente a PNG, el ahorro puede superar el 60%.",
+    "useCases": [
+      "Imágenes de sitios web que necesitan buen equilibrio entre peso y calidad.",
+      "Logos, capturas y gráficos con transparencia sin recurrir a PNG pesado.",
+      "Animaciones cortas que antes se resolvían con GIF."
+    ],
+    "avoidWhen": [
+      "La aplicación de destino no admite WebP: algunos editores antiguos, clientes de correo o CMS lo rechazan.",
+      "Necesitas máxima compatibilidad sin comprobar el navegador; JPG y PNG siguen siendo el denominador común.",
+      "Vas a imprimir o archivar a largo plazo y prefieres un formato de referencia como TIFF o PNG."
+    ],
+    "mistakes": [
+      {
+        "title": "Usar WebP con pérdida para texto o iconos",
+        "body": "Aunque admite transparencia, la compresión con pérdida puede suavizar bordes y volver borroso el texto pequeño. Para logotipos nítidos conviene WebP sin pérdida o PNG."
+      },
+      {
+        "title": "Suponer que todos los programas lo abren",
+        "body": "WebP es excelente en navegadores, pero no todos los editores, visores de escritorio o clientes de correo lo muestran. Si el archivo va fuera de la web, verifica el destino."
+      },
+      {
+        "title": "Convertir un GIF animado sin comprobar los fotogramas",
+        "body": "WebP animado puede reemplazar al GIF, pero algunos conversores solo toman el primer fotograma. Revisa la animación y el bucle antes de publicar."
+      }
+    ],
+    "faq": [
+      {
+        "q": "¿WebP es siempre más pequeño que JPG?",
+        "a": "No siempre. En muchas fotos sí, pero en imágenes muy simples o ya optimizadas la diferencia puede ser pequeña e incluso favorable a JPG. Conviene comparar el resultado concreto."
+      },
+      {
+        "q": "¿WebP admite transparencia?",
+        "a": "Sí, tanto en modo con pérdida como sin pérdida. Es una de sus ventajas frente a JPG, que no tiene canal alfa."
+      },
+      {
+        "q": "¿Safari abre WebP?",
+        "a": "Safari 14 y versiones posteriores lo admiten en macOS e iOS. Navegadores muy antiguos pueden necesitar una alternativa JPG o PNG."
+      }
+    ],
+    "spec": {
+      "mime": "image/webp",
+      "extension": "webp",
+      "lossless": false,
+      "transparency": true,
+      "animation": true,
+      "support": "Navegadores modernos"
+    }
+  },
+  {
+    "id": "avif",
+    "label": "AVIF",
+    "extension": ".avif",
+    "mime": "image/avif",
+    "aliases": ["AV1 Image File Format"],
+    "kind": "lossy",
+    "transparency": true,
+    "animation": true,
+    "browserSupport": "Chrome 85+, Firefox 93+, Safari 16.4+ y Edge moderno.",
+    "history": "AVIF es un formato de imagen basado en el códec de vídeo AV1 de la Alianza para los Medios Abiertos (AOMedia). Su especificación apareció en 2019 y la versión 1.0 se consolidó en 2021. Llegó primero a Chrome y Firefox, y Safari lo incorporó en 2023. Está pensado para sustituir a JPG y WebP en la web moderna con archivos aún más pequeños.",
+    "compression": "Usa la codificación intra-fotograma de AV1: predice bloques, aplica transformadas y entropía avanzada. Puede guardar imágenes con pérdida o sin pérdida, con canal alfa, HDR y animación. En fotografías suele superar el ahorro de WebP, pero codificar es más lento y requiere más CPU, sobre todo en móviles antiguos.",
+    "useCases": [
+      "Sitios web optimizados que pueden servir AVIF con respaldo WebP o JPG.",
+      "Fotografías y galerías donde cada kilobyte cuenta.",
+      "Imágenes con transparencia o HDR que deben pesar poco."
+    ],
+    "avoidWhen": [
+      "El público usa navegadores antiguos o aplicaciones que no admiten AVIF.",
+      "Necesitas convertir decenas de imágenes en un dispositivo de gama baja: la codificación puede tardar.",
+      "El flujo de trabajo exige un formato que abran sin problemas Photoshop, Office o clientes de correo antiguos."
+    ],
+    "mistakes": [
+      {
+        "title": "Publicar AVIF sin alternativa",
+        "body": "Aunque los navegadores modernos lo admiten, conviene ofrecer una versión WebP o JPG mediante <picture> para visitantes con software antiguo o lectores de redes sociales."
+      },
+      {
+        "title": "Elegir calidad muy baja pensando que «AVIF lo compensa»",
+        "body": "AVIF es eficiente, pero también muestra artefactos si se fuerza demasiado. Para fotos, calidad 50–65 suele ser un buen punto de partida; compara siempre el resultado."
+      },
+      {
+        "title": "Convertir imágenes con texto fino a AVIF de baja calidad",
+        "body": "Los bordes de letras y líneas pueden suavizarse. En capturas o gráficos con texto, sube la calidad o mantén PNG/WebP sin pérdida."
+      }
+    ],
+    "faq": [
+      {
+        "q": "¿AVIF es mejor que WebP?",
+        "a": "En muchos casos pesa menos con calidad comparable, pero no siempre y no en todos los contenidos. WebP tiene mayor compatibilidad histórica y codifica más rápido. Lo habitual es usar AVIF con respaldo WebP."
+      },
+      {
+        "q": "¿Por qué tarda más en convertirse?",
+        "a": "La codificación AV1 es más compleja que JPG o WebP y se ejecuta en tu dispositivo. En móviles antiguos puede tardar varios segundos por imagen; es normal."
+      },
+      {
+        "q": "¿AVIF admite transparencia?",
+        "a": "Sí, el canal alfa es parte del formato. También puede almacenar animaciones y contenido HDR."
+      }
+    ],
+    "spec": {
+      "mime": "image/avif",
+      "extension": "avif",
+      "lossless": false,
+      "transparency": true,
+      "animation": true,
+      "support": "Chrome 85+, Safari 16.4+"
+    }
+  },
+  {
+    "id": "bmp",
+    "label": "BMP",
+    "extension": ".bmp",
+    "mime": "image/bmp",
+    "aliases": ["Bitmap", "Windows Bitmap", "DIB"],
+    "kind": "uncompressed",
+    "transparency": false,
+    "animation": false,
+    "browserSupport": "Amplio en navegadores de escritorio; menos habitual en móviles.",
+    "history": "BMP nació con Windows en la década de 1980 y fue durante años el formato nativo de los mapas de bits de Microsoft. Guarda los píxeles directamente, a menudo sin comprimir, lo que lo hace sencillo de leer y escribir pero muy pesado. Aún aparece en capturas antiguas, software industrial, fondos de escritorio y herramientas que trabajan con mapas de bits sin pérdida.",
+    "compression": "La variante más común es BMP de 24 bits sin compresión: una cabecera y los píxeles en orden BGR, con filas alineadas a cuatro bytes. Existen modos con compresión RLE y distintas profundidades de color, pero muchos programas solo admiten el BMP sin comprimir. El resultado puede pesar decenas de veces más que un JPG.",
+    "useCases": [
+      "Intercambio con programas antiguos o industriales que solo aceptan BMP.",
+      "Capturas de pantalla sin pérdida en entornos Windows.",
+      "Texturas o imágenes de prueba donde prima la simplicidad del formato."
+    ],
+    "avoidWhen": [
+      "Vas a publicar en web o enviar por correo: el peso es desproporcionado.",
+      "Necesitas transparencia; el BMP clásico no tiene canal alfa.",
+      "Buscas animación o compresión eficiente."
+    ],
+    "mistakes": [
+      {
+        "title": "Subir BMP a una web",
+        "body": "Un BMP de 4000×3000 puede ocupar decenas de megabytes. Conviértelo a JPG, WebP o AVIF antes de publicarlo."
+      },
+      {
+        "title": "Esperar transparencia al convertir PNG a BMP",
+        "body": "El BMP de 24 bits rellena el fondo. Si necesitas alfa, conserva PNG o WebP."
+      },
+      {
+        "title": "Convertir BMP a JPG con calidad máxima y llamarlo «sin pérdida»",
+        "body": "JPG siempre aplica compresión con pérdida. Si necesitas una copia exacta, usa PNG o TIFF sin pérdida."
+      }
+    ],
+    "faq": [
+      {
+        "q": "¿Por qué un BMP pesa tanto?",
+        "a": "Porque normalmente guarda cada píxel sin comprimir. Una imagen de 3000×2000 a 24 bits ocupa unos 18 MB antes de la cabecera."
+      },
+      {
+        "q": "¿BMP admite transparencia?",
+        "a": "El BMP clásico de 24 bits no. Existen variantes de 32 bits con canal alfa, pero no son universales y muchos programas las ignoran."
+      },
+      {
+        "q": "¿Debo convertir BMP a PNG o a JPG?",
+        "a": "Si quieres conservar la imagen sin pérdida, PNG. Si es una foto y buscas el menor peso, JPG o WebP. Para imprimir o archivar, PNG es la opción segura."
+      }
+    ],
+    "spec": {
+      "mime": "image/bmp",
+      "extension": "bmp",
+      "lossless": true,
+      "transparency": false,
+      "animation": false,
+      "support": "Escritorio; soporte variable"
+    }
+  },
+  {
+    "id": "ico",
+    "label": "ICO",
+    "extension": ".ico",
+    "mime": "image/x-icon",
+    "aliases": ["Windows Icon", "Favicon"],
+    "kind": "container",
+    "transparency": true,
+    "animation": false,
+    "browserSupport": "Favicons en todos los navegadores; vista previa variable.",
+    "history": "ICO es el formato de iconos de Windows desde la década de 1980. Un mismo archivo puede contener varias resoluciones y profundidades de color para que el sistema elija la adecuada. Con la llegada de Windows Vista se permitió almacenar imágenes PNG dentro del contenedor, lo que facilitó iconos de 256×256 con transparencia. En la web se usa sobre todo para favicons.",
+    "compression": "No es un códec de imagen, sino un contenedor: guarda una cabecera con una tabla de entradas y, para cada tamaño, una imagen BMP o PNG. Los iconos modernos suelen incluir 16, 32, 48 y 256 píxeles en PNG. El navegador elige la resolución según el contexto, así que un ICO con varios tamaños se ve mejor que uno estirado.",
+    "useCases": [
+      "Favicon clásico de un sitio web, especialmente /favicon.ico.",
+      "Iconos de aplicaciones o accesos directos en Windows.",
+      "Archivos que deben incluir varias resoluciones en un solo contenedor."
+    ],
+    "avoidWhen": [
+      "Necesitas una fotografía o una imagen grande: ICO está pensado para iconos pequeños.",
+      "El destino es macOS, Android o Linux y no requiere compatibilidad con Windows; PNG o SVG suelen ser mejores.",
+      "Buscas animación; ICO no la admite."
+    ],
+    "mistakes": [
+      {
+        "title": "Generar un ICO con un solo tamaño",
+        "body": "Un favicon de 16×16 se ve borroso en pantallas retina y al añadir a la pantalla de inicio. Incluye al menos 16, 32, 48 y 256 píxeles."
+      },
+      {
+        "title": "Usar una foto recortada como icono",
+        "body": "En 16×16 los detalles desaparecen. Los iconos funcionan mejor con formas simples, buen contraste y transparencia."
+      },
+      {
+        "title": "Cambiar el favicon y no actualizar la caché",
+        "body": "Los navegadores guardan favicon.ico durante días. Si no ves el cambio, prueba en una ventana privada o añade una versión nueva del archivo."
+      }
+    ],
+    "faq": [
+      {
+        "q": "¿Qué tamaños debe incluir un favicon ICO?",
+        "a": "Como mínimo 16×16 y 32×32. Añadir 48×48 y 256×256 mejora la nitidez en pantallas de alta densidad y en accesos directos."
+      },
+      {
+        "q": "¿Puedo convertir un PNG a ICO con transparencia?",
+        "a": "Sí. El ICO moderno admite PNG con canal alfa. Comprueba que el fondo transparente se conserve en los tamaños pequeños."
+      },
+      {
+        "q": "¿Un ICO puede contener una foto grande?",
+        "a": "Técnicamente sí, pero no es su propósito. Para imágenes grandes usa PNG, JPG o WebP; el ICO está limitado a 256×256 por entrada en la práctica."
+      }
+    ],
+    "spec": {
+      "mime": "image/x-icon",
+      "extension": "ico",
+      "lossless": true,
+      "transparency": true,
+      "animation": false,
+      "support": "Favicons y Windows"
+    }
+  },
+  {
+    "id": "heic",
+    "label": "HEIC",
+    "extension": ".heic",
+    "mime": "image/heic",
+    "aliases": ["HEIF", "High Efficiency Image File Format"],
+    "kind": "container",
+    "transparency": true,
+    "animation": true,
+    "browserSupport": "Nativo en Apple; en Chrome, Firefox y Edge requiere decodificador adicional.",
+    "history": "HEIC es la variante de imagen de HEIF (ISO/IEC 23008-12) que Apple adoptó en 2017 con iOS 11 y macOS High Sierra. Aprovecha el códec de vídeo HEVC para reducir el peso de las fotos del iPhone. También puede guardar ráfagas, profundidad, Live Photos y metadatos de cámara, lo que lo convierte en un contenedor más complejo que un simple JPG.",
+    "compression": "Usa HEVC intra-fotograma, mucho más eficiente que JPG, y agrupa la imagen principal con miniaturas, metadatos y datos auxiliares. Un HEIC puede pesar la mitad que un JPG equivalente, pero decodificarlo exige soporte HEVC y más CPU. No todos los navegadores lo abren de forma nativa, por eso sigue siendo necesario convertirlo para compartir.",
+    "useCases": [
+      "Fotos tomadas con iPhone o iPad que se van a compartir con usuarios de Windows o Android.",
+      "Archivos que necesitan conservar metadatos de cámara y varias imágenes relacionadas.",
+      "Almacenamiento eficiente en el ecosistema Apple."
+    ],
+    "avoidWhen": [
+      "El archivo se enviará a una web, un formulario o una aplicación que solo acepta JPG o PNG.",
+      "Necesitas edición universal en programas antiguos.",
+      "El dispositivo no tiene suficiente potencia para decodificar HEVC con fluidez."
+    ],
+    "mistakes": [
+      {
+        "title": "Cambiar la extensión .heic a .jpg",
+        "body": "Renombrar no convierte el archivo. El contenido sigue siendo HEIC y muchos programas no podrán abrirlo. Hay que decodificarlo de verdad."
+      },
+      {
+        "title": "Convertir una ráfaga y quedarse solo con el primer fotograma",
+        "body": "Algunos HEIC contienen varias imágenes o una Live Photo. La conversión estándar extrae la imagen principal; revisa si necesitas los demás fotogramas."
+      },
+      {
+        "title": "Publicar HEIC directamente en la web",
+        "body": "Safari puede mostrarlo, pero Chrome, Firefox y muchos servicios no. Convierte a JPG para máxima compatibilidad o a WebP/AVIF si controlas el soporte."
+      }
+    ],
+    "faq": [
+      {
+        "q": "¿Convertir HEIC a JPG pierde calidad?",
+        "a": "Sí, JPG vuelve a comprimir con pérdida. Si necesitas una copia sin pérdida, convierte a PNG. Para compartir o publicar, JPG con calidad alta suele ser suficiente."
+      },
+      {
+        "q": "¿Por qué mi ordenador no abre un HEIC?",
+        "a": "Porque necesita un decodificador HEVC. Windows puede requerirlo aparte y muchos programas no lo incluyen. Convertirlo a JPG evita el problema."
+      },
+      {
+        "q": "¿HEIC y HEIF son lo mismo?",
+        "a": "HEIF es el contenedor y HEIC la variante que usa HEVC. En la práctica, los archivos de iPhone suelen llevar la extensión .heic."
+      }
+    ],
+    "spec": {
+      "mime": "image/heic",
+      "extension": "heic",
+      "lossless": false,
+      "transparency": true,
+      "animation": true,
+      "support": "Apple nativo; otros requieren decodificador"
+    }
+  }
+]

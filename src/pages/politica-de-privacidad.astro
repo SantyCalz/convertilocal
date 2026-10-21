@@ -1,0 +1,139 @@
+---
+import LegalLayout from '@/layouts/LegalLayout.astro';
+import { LEGAL_ENTITY, LEGAL_PAGES, SITE } from '@/data/site';
+
+const page = LEGAL_PAGES.privacidad;
+---
+
+<LegalLayout page={page}>
+  <p>
+    ConvertiLocal es una suite de herramientas que convierte y manipula archivos directamente en
+    tu navegador. Esta política explica qué datos personales tratamos, con qué finalidad y cómo
+    puedes ejercer tus derechos.
+  </p>
+
+  <div class="callout">
+    <p>
+      <strong>Lo esencial:</strong> los archivos que abres en ConvertiLocal no se suben a ningún
+      servidor. El procesado ocurre en la memoria de tu dispositivo y los archivos desaparecen al
+      cerrar o recargar la pestaña.
+    </p>
+  </div>
+
+  <h2>1. Responsable del tratamiento</h2>
+  <p>
+    El responsable del tratamiento de los datos recogidos a través de este sitio web es
+    <strong>{LEGAL_ENTITY.name}</strong>, con NIF <strong>{LEGAL_ENTITY.nif}</strong> y domicilio en
+    <strong>{LEGAL_ENTITY.address}</strong> ({LEGAL_ENTITY.country}). Puedes contactar con nosotros
+    en <a href={`mailto:${SITE.email}`}>{SITE.email}</a>.
+  </p>
+
+  <h2>2. Qué datos tratamos</h2>
+  <ul>
+    <li>
+      <strong>Archivos del usuario:</strong> no se transmiten ni se almacenan en servidores. Se
+      leen en tu navegador para ejecutar la conversión que solicites.
+    </li>
+    <li>
+      <strong>Datos técnicos de navegación:</strong> el proveedor de alojamiento puede registrar
+      direcciones IP, fecha y hora de acceso, navegador y páginas solicitadas en sus registros de
+      seguridad.
+    </li>
+    <li>
+      <strong>Datos de contacto:</strong> si nos escribes por correo, tratamos tu dirección de
+      email, nombre y el contenido del mensaje.
+    </li>
+    <li>
+      <strong>Preferencias locales:</strong> guardamos en <code>localStorage</code> las
+      herramientas usadas recientemente y tu posible decisión sobre cookies. Esta información
+      permanece en tu dispositivo.
+    </li>
+    <li>
+      <strong>Publicidad:</strong> cuando la publicidad esté activa, Google AdSense y sus socios
+      pueden tratar datos técnicos y usar cookies o identificadores conforme a tu consentimiento.
+    </li>
+  </ul>
+
+  <h2>3. Finalidades y bases legales</h2>
+  <ul>
+    <li>
+      <strong>Prestar el servicio:</strong> ejecutar las conversiones que solicitas. Base legal:
+      ejecución de la relación de servicio (art. 6.1.b RGPD).
+    </li>
+    <li>
+      <strong>Seguridad y funcionamiento:</strong> prevenir abusos, diagnosticar errores y mantener
+      la disponibilidad. Base legal: interés legítimo (art. 6.1.f RGPD).
+    </li>
+    <li>
+      <strong>Atender consultas:</strong> responder a tus mensajes. Base legal: consentimiento o
+      interés legítimo en atender la solicitud.
+    </li>
+    <li>
+      <strong>Publicidad y medición:</strong> mostrar anuncios y medir su rendimiento. Base legal:
+      consentimiento (art. 6.1.a RGPD), que podrás retirar en cualquier momento.
+    </li>
+  </ul>
+
+  <h2>4. Conservación</h2>
+  <p>
+    Los archivos no se conservan. Los datos de contacto se conservan durante el tiempo necesario
+    para responder y, después, durante los plazos legales aplicables. Las preferencias locales
+    permanecen en tu navegador hasta que las borres. Los registros del proveedor de alojamiento se
+    conservan según su política de seguridad.
+  </p>
+
+  <h2>5. Destinatarios y encargados</h2>
+  <p>
+    Podemos utilizar proveedores de alojamiento, correo electrónico y publicidad que actúan como
+    encargados del tratamiento o responsables independientes. El alojamiento actual es
+    <strong>{LEGAL_ENTITY.hosting}</strong>. Cuando la publicidad esté activa, Google puede tratar
+    datos como responsable independiente; consulta la
+    <a href="https://policies.google.com/technologies/partner-sites?hl=es" rel="noopener noreferrer" target="_blank">
+      política de privacidad de Google
+    </a>.
+  </p>
+  <p>
+    No vendemos datos personales. Algunos proveedores pueden implicar transferencias
+    internacionales amparadas por decisiones de adecuación o cláusulas contractuales tipo de la
+    Comisión Europea.
+  </p>
+
+  <h2>6. Tus derechos</h2>
+  <p>
+    Puedes solicitar el acceso, la rectificación, la supresión, la limitación, la portabilidad o la
+    oposición al tratamiento, así como retirar tu consentimiento, escribiendo a
+    <a href={`mailto:${SITE.email}`}>{SITE.email}</a>. Responderemos en el plazo máximo de un mes.
+  </p>
+  <p>
+    Si consideras que no hemos atendido correctamente tu solicitud, puedes reclamar ante la Agencia
+    Española de Protección de Datos:
+    <a href="https://www.aepd.es" rel="noopener noreferrer" target="_blank">www.aepd.es</a>.
+  </p>
+
+  <h2>7. Seguridad</h2>
+  <p>
+    Aplicamos medidas técnicas y organizativas razonables para proteger la información: conexión
+    cifrada mediante HTTPS, minimización de datos y ausencia de subida de archivos. Ningún sistema
+    es infalible, pero el diseño local-first reduce drásticamente la superficie de exposición.
+  </p>
+
+  <h2>8. Menores de edad</h2>
+  <p>
+    El servicio no está dirigido a menores de 14 años. Si eres menor, pide a tu padre, madre o tutor
+    que revise esta política antes de utilizar el sitio o contactar con nosotros.
+  </p>
+
+  <h2>9. Cambios en esta política</h2>
+  <p>
+    Podemos actualizar esta política para reflejar cambios legales o técnicos. Publicaremos la
+    nueva versión con su fecha de actualización. Si el cambio afecta al tratamiento basado en tu
+    consentimiento, te pediremos que lo renueves cuando corresponda.
+  </p>
+
+  <h2>10. Contacto</h2>
+  <p>
+    Para cualquier duda sobre privacidad, escríbenos a
+    <a href={`mailto:${SITE.email}`}>{SITE.email}</a> o utiliza la
+    <a href="/contacto">página de contacto</a>.
+  </p>
+</LegalLayout>

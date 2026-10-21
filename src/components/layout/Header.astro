@@ -1,0 +1,90 @@
+---
+import { MAIN_NAV } from '@/data/nav';
+import Icon from '@/components/ui/Icon.astro';
+import Logo from '@/components/ui/Logo.astro';
+import MobileMenu from './MobileMenu.astro';
+
+const pathname = Astro.url.pathname;
+
+function isActive(href: string): boolean {
+  if (href.startsWith('/#')) return false;
+  return pathname === href || pathname.startsWith(`${href}/`);
+}
+---
+
+<header class="sticky top-0 z-40 border-b border-slate-200/80 bg-white/90 backdrop-blur-md">
+  <div class="container-page flex h-14 items-center justify-between gap-2">
+    <a
+      href="/"
+      class="flex shrink-0 items-center gap-2 rounded-lg py-1 pr-2"
+      aria-label="ConvertiLocal, ir al inicio"
+    >
+      <Logo />
+    </a>
+
+    <nav aria-label="Navegación principal" class="hidden items-center gap-1 md:flex">
+      {
+        MAIN_NAV.map((item) => (
+          <a
+            href={item.href}
+            aria-current={isActive(item.href) ? 'page' : undefined}
+            class:list={[
+              'rounded-lg px-3 py-2 text-sm font-medium transition-colors',
+              isActive(item.href)
+                ? 'bg-brand-50 text-brand-800'
+                : 'text-slate-600 hover:bg-slate-100 hover:text-slate-900',
+            ]}
+          >
+            {item.label}
+          </a>
+        ))
+      }
+    </nav>
+
+    <div class="flex items-center gap-1.5">
+      <a
+        href="/#buscador"
+        data-search-link
+        class="hidden h-9 items-center gap-2 rounded-lg px-2.5 text-sm text-slate-500 ring-1 ring-inset ring-slate-200 transition-colors hover:bg-slate-50 hover:text-slate-900 sm:inline-flex"
+      >
+        <Icon name="search" size={16} />
+        <span class="hidden lg:inline">Buscar</span>
+        <kbd
+          class="rounded border border-slate-200 bg-slate-50 px-1.5 py-0.5 font-sans text-[10px] font-semibold text-slate-400"
+        >
+          /
+        </kbd>
+      </a>
+
+      <a
+        href="/#buscador"
+        data-search-link
+        class="inline-flex h-11 w-11 items-center justify-center rounded-lg text-slate-600 transition-colors hover:bg-slate-100 sm:hidden"
+        aria-label="Buscar herramientas"
+      >
+        <Icon name="search" size={20} />
+      </a>
+
+      <button
+        type="button"
+        data-menu-open
+        class="inline-flex h-11 w-11 items-center justify-center rounded-lg text-slate-700 transition-colors hover:bg-slate-100 md:hidden"
+        aria-label="Abrir menú"
+        aria-haspopup="dialog"
+        aria-controls="mobile-menu"
+      >
+        <Icon name="menu" size={22} />
+      </button>
+    </div>
+  </div>
+</header>
+
+<MobileMenu />
+
+<script>
+  import { initMobileMenu } from '@/scripts/ui/menu';
+  import { initShortcuts } from '@/scripts/ui/shortcuts';
+
+  initMobileMenu();
+  initShortcuts();
+</script>

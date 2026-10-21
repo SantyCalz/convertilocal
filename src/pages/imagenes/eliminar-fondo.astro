@@ -1,0 +1,70 @@
+---
+import ToolPageShell from '@/components/tools/ToolPageShell.astro';
+import Icon from '@/components/ui/Icon.astro';
+import type { ProcessorOption } from '@/types/processor';
+
+const path = '/imagenes/eliminar-fondo';
+const site = (Astro.site ?? new URL('https://convertilocal.com')).href.replace(/\/$/, '');
+const faqs = [
+  { q: '¿El fondo se elimina en el navegador?', a: 'Sí. El modelo se ejecuta en tu dispositivo y no se sube la imagen.' },
+  { q: '¿Qué formato de salida se genera?', a: 'PNG con transparencia por defecto. También puedes elegir WebP.' },
+  { q: '¿La primera vez tarda más?', a: 'Sí, porque se descarga el modelo de segmentación. Después queda en caché.' },
+  { q: '¿Funciona sin conexión?', a: 'Sí, una vez descargado el modelo.' },
+];
+
+const faqSchema = { '@context': 'https://schema.org', '@type': 'FAQPage', mainEntity: faqs.map((item) => ({ '@type': 'Question', name: item.q, acceptedAnswer: { '@type': 'Answer', text: item.a } })) };
+const breadcrumbSchema = { '@context': 'https://schema.org', '@type': 'BreadcrumbList', itemListElement: [{ '@type': 'ListItem', position: 1, name: 'Inicio', item: `${site}/` }, { '@type': 'ListItem', position: 2, name: 'Convertir imágenes', item: `${site}/convertir` }, { '@type': 'ListItem', position: 3, name: 'Eliminar fondo', item: `${site}${path}` }] };
+
+const options: ProcessorOption[] = [
+  { id: 'model', label: 'Modelo', type: 'select', defaultValue: 'small', choices: [{ value: 'small', label: 'Pequeño · rápido' }, { value: 'medium', label: 'Mediano · más precisión' }] },
+  { id: 'device', label: 'Dispositivo', type: 'select', defaultValue: 'cpu', choices: [{ value: 'cpu', label: 'CPU' }, { value: 'gpu', label: 'GPU (si está disponible)' }] },
+  { id: 'outputFormat', label: 'Formato de salida', type: 'select', defaultValue: 'png', choices: [{ value: 'png', label: 'PNG transparente' }, { value: 'webp', label: 'WebP transparente' }] },
+];
+
+const webApplicationSchema = { '@context': 'https://schema.org', '@type': 'WebApplication', name: 'Eliminar fondo de imagen', url: `${site}${path}`, description: 'Elimina el fondo de una imagen y descárgala en PNG transparente, sin subir archivos.', applicationCategory: 'UtilitiesApplication', operatingSystem: 'Any', inLanguage: 'es', isAccessibleForFree: true, offers: { '@type': 'Offer', price: '0', priceCurrency: 'EUR' } };
+---
+
+<ToolPageShell
+  title="Eliminar fondo de imagen en tu navegador"
+  description="Quita el fondo de una foto y descarga un PNG transparente. Todo se procesa en tu dispositivo."
+  h1="Eliminar fondo de imagen"
+  intro="Sube una imagen y obtén una versión con fondo transparente, lista para usar en diseños, tiendas o presentaciones."
+  path={path}
+  processorId="remove-background"
+  accept=".png,.jpg,.jpeg,.webp,.avif,.bmp,.ico,image/png,image/jpeg,image/webp,image/avif,image/bmp,image/x-icon"
+  acceptLabel="JPG, PNG, WebP, AVIF, BMP o ICO"
+  actionLabel="Eliminar fondo"
+  baseName="imagen-sin-fondo"
+  options={options}
+  resultNote="La primera ejecución descarga el modelo de segmentación. El resultado se entrega en PNG transparente."
+  schema={[webApplicationSchema, breadcrumbSchema, faqSchema]}
+  breadcrumbLabel="Eliminar fondo"
+  multiple
+  maxSizeMB={25}
+  maxFiles={20}
+  maxTotalMB={120}
+  previewMode="image-compare"
+>
+  <section aria-labelledby="porque-title">
+    <h2 id="porque-title" class="text-2xl font-bold tracking-tight text-slate-900">Por qué resolverlo en el navegador</h2>
+    <div class="mt-4 space-y-4 text-sm leading-7 text-slate-600 sm:text-base">
+      <p>El modelo de segmentación se ejecuta en tu dispositivo. La imagen no se sube a ningún servidor.</p>
+      <p>Puedes elegir entre un modelo rápido y uno más preciso según el tipo de imagen.</p>
+    </div>
+  </section>
+
+  <section class="mt-10" aria-labelledby="faq-title">
+    <h2 id="faq-title" class="text-2xl font-bold tracking-tight text-slate-900">Preguntas frecuentes</h2>
+    <div class="mt-4 divide-y divide-slate-200 rounded-2xl border border-slate-200 bg-white">
+      {faqs.map((item) => (
+        <details class="group p-4">
+          <summary class="flex cursor-pointer list-none items-center justify-between gap-3 text-sm font-semibold text-slate-900">
+            {item.q}
+            <Icon name="chevron-down" size={16} class="shrink-0 text-slate-400 transition-transform group-open:rotate-180" />
+          </summary>
+          <p class="mt-2 text-sm leading-6 text-slate-600">{item.a}</p>
+        </details>
+      ))}
+    </div>
+  </section>
+</ToolPageShell>

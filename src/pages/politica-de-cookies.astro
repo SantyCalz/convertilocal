@@ -1,0 +1,113 @@
+---
+import LegalLayout from '@/layouts/LegalLayout.astro';
+import { LEGAL_PAGES } from '@/data/site';
+
+const page = LEGAL_PAGES.cookies;
+---
+
+<LegalLayout page={page}>
+  <p>
+    Esta política explica cómo utilizamos cookies y tecnologías similares, como el almacenamiento
+    local del navegador, y cómo puedes controlarlas.
+  </p>
+
+  <div class="callout">
+    <p>
+      <strong>Resumen:</strong> ConvertiLocal no usa cookies para procesar tus archivos. El
+      almacenamiento local guarda solo tus preferencias. La publicidad de terceros, cuando esté
+      activa, requerirá tu consentimiento previo.
+    </p>
+  </div>
+
+  <h2>1. Qué son las cookies y el almacenamiento local</h2>
+  <p>
+    Una cookie es un pequeño archivo que un sitio web guarda en tu navegador. El almacenamiento
+    local (<code>localStorage</code>) funciona de forma parecida, pero no se envía automáticamente
+    con cada petición y no tiene fecha de caducidad: persiste hasta que lo borras.
+  </p>
+
+  <h2>2. Qué utilizamos actualmente</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>Tipo</th>
+        <th>Nombre</th>
+        <th>Finalidad</th>
+        <th>Duración</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Almacenamiento local</td>
+        <td><code>convertilocal:recent-tools:v1</code></td>
+        <td>Recordar las últimas herramientas usadas en este navegador.</td>
+        <td>Hasta que borres los datos del sitio.</td>
+      </tr>
+      <tr>
+        <td>Preferencias (previsto)</td>
+        <td><code>convertilocal:consent</code></td>
+        <td>Guardar tu decisión sobre cookies publicitarias.</td>
+        <td>Hasta 12 meses o hasta que la cambies.</td>
+      </tr>
+    </tbody>
+  </table>
+  <p>
+    Estas preferencias se procesan únicamente en tu dispositivo. No se envían a nuestros
+    servidores ni se asocian a tu identidad.
+  </p>
+
+  <h2>3. Publicidad de terceros</h2>
+  <p>
+    ConvertiLocal se financia con publicidad no invasiva. Cuando activemos Google AdSense, Google y
+    sus socios podrán utilizar cookies e identificadores para mostrar anuncios, limitar su
+    frecuencia y medir su rendimiento. Algunas de estas cookies pueden considerarse publicitarias o
+    de medición y requieren tu consentimiento previo conforme a la normativa europea.
+  </p>
+  <p>Entre las cookies que Google puede utilizar se incluyen, según el caso:</p>
+  <ul>
+    <li><code>__gads</code> y <code>__gpi</code>: entrega y medición de anuncios.</li>
+    <li><code>IDE</code>: personalización y limitación de frecuencia.</li>
+    <li><code>_gcl_au</code>: medición de conversiones cuando existe consentimiento.</li>
+  </ul>
+  <p>
+    La lista exacta depende de la configuración de los anuncios y de tu ubicación. Consulta la
+    <a href="https://policies.google.com/technologies/cookies?hl=es" rel="noopener noreferrer" target="_blank">
+      política de cookies de Google
+    </a>
+    para obtener información actualizada.
+  </p>
+
+  <h2>4. Consentimiento</h2>
+  <p>
+    Mientras la publicidad no esté activa, no se cargan cookies publicitarias. Antes de activarla,
+    mostraremos un banner que te permitirá aceptar, rechazar o configurar las categorías no
+    esenciales. Podrás cambiar tu decisión en cualquier momento desde el enlace de configuración de
+    cookies del pie de página.
+  </p>
+  <p>
+    El rechazo de cookies publicitarias no bloquea el uso de las herramientas: el procesado de
+    archivos seguirá funcionando igual.
+  </p>
+
+  <h2>5. Cómo controlar las cookies</h2>
+  <p>
+    Puedes borrar o bloquear cookies desde la configuración de tu navegador. Aquí tienes las guías
+    oficiales de los navegadores más habituales:
+  </p>
+  <ul>
+    <li><a href="https://support.google.com/chrome/answer/95647?hl=es" rel="noopener noreferrer" target="_blank">Google Chrome</a></li>
+    <li><a href="https://support.mozilla.org/es/kb/borrar-cookies-y-datos-de-sitios-en-firefox" rel="noopener noreferrer" target="_blank">Mozilla Firefox</a></li>
+    <li><a href="https://support.apple.com/es-es/guide/safari/sfri11471/mac" rel="noopener noreferrer" target="_blank">Safari</a></li>
+    <li><a href="https://support.microsoft.com/es-es/microsoft-edge" rel="noopener noreferrer" target="_blank">Microsoft Edge</a></li>
+  </ul>
+  <p>
+    Si borras el almacenamiento local, se perderá el historial de herramientas recientes, pero no
+    tus archivos ni ninguna cuenta, porque no existen cuentas en ConvertiLocal.
+  </p>
+
+  <h2>6. Cambios y contacto</h2>
+  <p>
+    Actualizaremos esta política si cambiamos las tecnologías que utilizamos. Para cualquier duda,
+    escríbenos desde la <a href="/contacto">página de contacto</a>.
+  </p>
+</LegalLayout>

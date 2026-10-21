@@ -1,0 +1,444 @@
+---
+import type { ProcessorOption } from '@/types/processor';
+import Icon from '@/components/ui/Icon.astro';
+import ImageCompare from '@/components/tools/ImageCompare.astro';
+
+interface Props {
+  id?: string;
+  title?: string;
+  description?: string;
+  /** Id registrado en scripts/processors/registry.ts */
+  processorId?: string;
+  /** Valor del atributo HTML `accept`. */
+  accept?: string;
+  acceptLabel?: string;
+  multiple?: boolean;
+  /** `true` equivale a `environment` (cámara trasera). */
+  capture?: boolean | 'user' | 'environment';
+  maxSizeMB?: number;
+  /** Número máximo de archivos por lote. */
+  maxFiles?: number;
+  /** Peso total máximo del lote en MB. */
+  maxTotalMB?: number;
+  options?: ProcessorOption[];
+  /** Opciones fijas que no se muestran (p. ej. el formato de salida de una página). */
+  fixedOptions?: Record<string, string | number | boolean>;
+  actionLabel?: string;
+  baseName?: string;
+  /** Nota bajo la vista previa del resultado (p. ej. «se elimina el GPS»). */
+  resultNote?: string;
+  /** Vista previa específica para herramientas PDF. */
+  previewMode?: 'none' | 'pdf-merge' | 'pdf-pages' | 'pdf-organize' | 'media' | 'image-compare';
+  class?: string;
+}
+
+const {
+  id = 'file-processor',
+  title = 'Procesa tu archivo',
+  description = 'Selecciona, arrastra o pega un archivo. No se sube a ningún servidor.',
+  processorId = '',
+  accept = '',
+  acceptLabel = 'cualquier formato compatible',
+  multiple = false,
+  capture = false,
+  maxSizeMB = 200,
+  maxFiles = 20,
+  maxTotalMB = 120,
+  options = [],
+  fixedOptions = {},
+  actionLabel = 'Procesar archivo',
+  baseName = 'convertilocal',
+  resultNote = '',
+  previewMode = 'none',
+  class: className = '',
+} = Astro.props;
+
+const captureAttr = capture === true ? 'environment' : capture || undefined;
+const hasCustomOptions = Astro.slots.has('options');
+---
+
+<section
+  id={id}
+  class:list={['overflow-clip rounded-2xl border border-slate-200 bg-white shadow-card', className]}
+  data-file-processor
+  data-processor-id={processorId}
+  data-accept={accept}
+  data-accept-label={acceptLabel}
+  data-multiple={multiple ? 'true' : 'false'}
+  data-max-size={String(maxSizeMB)}
+  data-max-files={String(maxFiles)}
+  data-max-total={String(maxTotalMB)}
+  data-action-label={actionLabel}
+  data-base-name={baseName}
+  data-preview-mode={previewMode}
+  aria-labelledby={`${id}-title`}
+>
+  <div class="border-b border-slate-100 px-4 py-4 sm:px-5">
+    <div class="flex items-start gap-3">
+      <span
+        class="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-brand-50 text-brand-700 ring-1 ring-inset ring-brand-100"
+      >
+        <Icon name="sparkles" size={20} />
+      </span>
+      <div class="min-w-0">
+        <div class="flex flex-wrap items-center gap-2">
+          <h2 id={`${id}-title`} class="text-base font-semibold text-slate-900">{title}</h2>
+          <span
+            class="inline-flex items-center gap-1 rounded-full bg-brand-50 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-brand-700 ring-1 ring-inset ring-brand-100"
+          >
+            <Icon name="lock" size={11} />
+            100% local
+          </span>
+        </div>
+        <p class="mt-1 text-xs leading-5 text-slate-500">{description}</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="p-4 sm:p-5">
+    <label
+      data-fp-dropzone
+      class="group relative flex min-h-[184px] cursor-pointer flex-col items-center justify-center rounded-2xl border-2 border-dashed border-slate-300 bg-slate-50/60 px-4 py-7 text-center transition-colors hover:border-brand-400 hover:bg-brand-50/40 focus-within:border-brand-500 focus-within:ring-2 focus-within:ring-brand-500/30 focus-within:ring-offset-2 data-[drag=true]:border-brand-500 data-[drag=true]:bg-brand-50"
+    >
+      <input
+        data-fp-input
+        type="file"
+        class="sr-only"
+        accept={accept || undefined}
+        multiple={multiple}
+        capture={captureAttr}
+      />
+
+      <span
+        class="flex h-12 w-12 items-center justify-center rounded-2xl bg-white text-brand-700 shadow-sm ring-1 ring-slate-200 transition-transform group-hover:-translate-y-0.5"
+      >
+        <Icon name="upload" size={22} />
+      </span>
+
+      <span class="mt-3 block text-sm font-semibold text-slate-900">
+        Arrastra tus archivos o <span class="text-brand-700 underline decoration-brand-300 underline-offset-2">toca para elegir</span>
+      </span>
+      <span class="mt-1 block max-w-xs text-xs leading-5 text-slate-500">
+        En el móvil puedes hacer una foto{capture ? ' o abrir la cámara' : ''}. En el ordenador, pega con <kbd
+          class="rounded border border-slate-200 bg-white px-1 py-0.5 font-sans text-[10px] font-semibold text-slate-500">Ctrl/Cmd+V</kbd
+        >.
+      </span>
+      <span class="mt-3 inline-flex flex-wrap items-center justify-center gap-x-3 gap-y-1 text-[11px] text-slate-400">
+        <span>Acepta: {acceptLabel}</span>
+        <span aria-hidden="true">·</span>
+        <span>Máx. {maxSizeMB} MB por archivo</span>
+        {multiple && <span aria-hidden="true">·</span>}
+        {multiple && <span>Hasta {maxFiles} archivos</span>}
+      </span>
+    </label>
+
+    <div data-fp-files hidden class="mt-4">
+      <div class="flex items-center justify-between gap-3">
+        <p class="text-xs font-medium text-slate-500" data-fp-count>0 archivos</p>
+        <button
+          type="button"
+          data-fp-clear
+          class="text-xs font-medium text-slate-400 transition-colors hover:text-red-600"
+        >
+          Quitar todos
+        </button>
+      </div>
+      <ul data-fp-file-list class="mt-1 divide-y divide-slate-100"></ul>
+    </div>
+
+    <div data-fp-pdf-preview hidden></div>
+    <div data-fp-media-preview hidden></div>
+
+    {
+      hasCustomOptions ? (
+        <slot name="options" />
+      ) : (
+        options.length > 0 && (
+          <fieldset class="mt-5">
+            <legend class="text-sm font-semibold text-slate-900">Opciones</legend>
+            <div class="mt-3 grid gap-4 sm:grid-cols-2">
+              {options.map((option) => (
+                <div
+                  data-fp-field
+                  data-fp-when-id={option.showWhen?.id}
+                  data-fp-when-value={option.showWhen ? String(option.showWhen.equals) : undefined}
+                  class:list={[
+                    option.type === 'checkbox' && 'sm:col-span-2',
+                    option.type !== 'select' && option.type !== 'checkbox' && 'sm:col-span-1',
+                  ]}
+                >
+                  {option.type === 'select' ? (
+                    <>
+                      <label
+                        for={`${id}-${option.id}`}
+                        class="mb-1.5 block text-xs font-medium text-slate-600"
+                      >
+                        {option.label}
+                      </label>
+                      <select
+                        id={`${id}-${option.id}`}
+                        data-fp-option={option.id}
+                        data-option-type="select"
+                        class="h-11 w-full rounded-xl border border-slate-300 bg-white px-3 text-sm text-slate-800 shadow-sm focus:border-brand-500 focus:outline-none focus:ring-2 focus:ring-brand-500/30"
+                      >
+                        {option.choices?.map((choice) => (
+                          <option
+                            value={choice.value}
+                            selected={String(choice.value) === String(option.defaultValue)}
+                          >
+                            {choice.label}
+                          </option>
+                        ))}
+                      </select>
+                    </>
+                  ) : option.type === 'text' ? (
+                    <>
+                      <label
+                        for={`${id}-${option.id}`}
+                        class="mb-1.5 block text-xs font-medium text-slate-600"
+                      >
+                        {option.label}
+                      </label>
+                      <input
+                        id={`${id}-${option.id}`}
+                        type="text"
+                        data-fp-option={option.id}
+                        data-option-type="text"
+                        value={String(option.defaultValue)}
+                        placeholder={option.placeholder}
+                        class="h-11 w-full rounded-xl border border-slate-300 bg-white px-3 text-sm text-slate-800 shadow-sm placeholder:text-slate-400 focus:border-brand-500 focus:outline-none focus:ring-2 focus:ring-brand-500/30"
+                      />
+                    </>
+                  ) : option.type === 'number' ? (
+                    <>
+                      <label
+                        for={`${id}-${option.id}`}
+                        class="mb-1.5 block text-xs font-medium text-slate-600"
+                      >
+                        {option.label}
+                      </label>
+                      <div class="relative">
+                        <input
+                          id={`${id}-${option.id}`}
+                          type="number"
+                          data-fp-option={option.id}
+                          data-option-type="number"
+                          value={String(option.defaultValue)}
+                          min={option.min}
+                          max={option.max}
+                          step={option.step ?? 1}
+                          inputmode="numeric"
+                          class:list={[
+                            'h-11 w-full rounded-xl border border-slate-300 bg-white px-3 text-sm text-slate-800 shadow-sm placeholder:text-slate-400 focus:border-brand-500 focus:outline-none focus:ring-2 focus:ring-brand-500/30',
+                            option.unit && 'pr-12',
+                          ]}
+                        />
+                        {option.unit && (
+                          <span class="pointer-events-none absolute inset-y-0 right-3 flex items-center text-xs font-medium text-slate-400">
+                            {option.unit}
+                          </span>
+                        )}
+                      </div>
+                    </>
+                  ) : option.type === 'checkbox' ? (
+                    <label class="flex items-start gap-3 rounded-xl border border-slate-200 bg-slate-50/60 p-3">
+                      <input
+                        id={`${id}-${option.id}`}
+                        type="checkbox"
+                        data-fp-option={option.id}
+                        data-option-type="checkbox"
+                        checked={option.defaultValue === true}
+                        class="mt-0.5 h-4 w-4 rounded border-slate-300 text-brand-700 focus:ring-brand-500"
+                      />
+                      <span>
+                        <span class="block text-sm font-medium text-slate-800">{option.label}</span>
+                        {option.help && (
+                          <span class="mt-0.5 block text-xs text-slate-500">{option.help}</span>
+                        )}
+                      </span>
+                    </label>
+                  ) : (
+                    <>
+                      <div class="mb-1.5 flex items-center justify-between gap-3">
+                        <label
+                          for={`${id}-${option.id}`}
+                          class="text-xs font-medium text-slate-600"
+                        >
+                          {option.label}
+                        </label>
+                        <output
+                          data-fp-range-output
+                          data-fp-range-unit={option.unit ?? ''}
+                          for={`${id}-${option.id}`}
+                          class="text-xs font-semibold text-brand-700"
+                        >
+                          {option.defaultValue}{option.unit ?? ''}
+                        </output>
+                      </div>
+                      <input
+                        id={`${id}-${option.id}`}
+                        type="range"
+                        data-fp-option={option.id}
+                        data-option-type="range"
+                        min={option.min ?? 0}
+                        max={option.max ?? 100}
+                        step={option.step ?? 1}
+                        value={String(option.defaultValue)}
+                        class="h-11 w-full cursor-pointer accent-brand-700"
+                      />
+                    </>
+                  )}
+                  {option.help && option.type !== 'checkbox' && (
+                    <p class="mt-1 text-[11px] leading-4 text-slate-400">{option.help}</p>
+                  )}
+                </div>
+              ))}
+            </div>
+          </fieldset>
+        )
+      )
+    }
+
+    {Object.entries(fixedOptions).map(([key, value]) => (
+      <input
+        type="hidden"
+        data-fp-option={key}
+        data-option-type="hidden"
+        value={String(value)}
+      />
+    ))}
+
+    {previewMode === 'pdf-organize' && (
+      <>
+        <input type="hidden" data-fp-option="pageOrder" data-option-type="hidden" value="" />
+        <input type="hidden" data-fp-option="pageRotations" data-option-type="hidden" value="" />
+      </>
+    )}
+
+    <div
+      data-fp-status-box
+      data-state="idle"
+      class="fp-status mt-4 flex items-start gap-2.5 rounded-xl bg-slate-50 px-3 py-2.5 text-xs leading-5 text-slate-600"
+    >
+      <span class="fp-status-dot mt-1.5 h-2 w-2 shrink-0 rounded-full bg-slate-400"></span>
+      <p data-fp-status role="status" aria-live="polite">
+        Añade un archivo para empezar. Todo se procesa en tu dispositivo.
+      </p>
+    </div>
+
+    <div data-fp-progress-wrap hidden class="mt-3">
+      <div class="flex items-center justify-between text-[11px] font-medium text-slate-500">
+        <span>Procesando en local</span>
+        <span data-fp-progress-label>0%</span>
+      </div>
+      <div
+        data-fp-progress
+        class="mt-1.5 h-1.5 overflow-hidden rounded-full bg-slate-200"
+        role="progressbar"
+        aria-valuemin="0"
+        aria-valuemax="100"
+        aria-valuenow="0"
+        aria-label="Progreso del procesado"
+      >
+        <div
+          data-fp-progress-bar
+          class="h-full w-0 rounded-full bg-brand-600 transition-[width] duration-200 ease-out"
+        ></div>
+      </div>
+    </div>
+
+    <div data-fp-results hidden class="mt-5 border-t border-slate-100 pt-4">
+      <div class="flex flex-wrap items-center justify-between gap-2">
+        <p class="text-sm font-semibold text-slate-900">Resultado</p>
+        <span
+          data-fp-savings
+          hidden
+          class="inline-flex items-center rounded-full bg-emerald-50 px-2 py-0.5 text-[11px] font-semibold text-emerald-700 ring-1 ring-inset ring-emerald-100"
+        ></span>
+      </div>
+      <div data-fp-preview class="mt-3 grid gap-3 sm:grid-cols-2"></div>
+      {previewMode === 'image-compare' && <ImageCompare />}
+      <p data-fp-extra hidden class="mt-2 text-[11px] text-slate-500"></p>
+      {resultNote && <p class="mt-3 text-[11px] leading-5 text-slate-500">{resultNote}</p>}
+    </div>
+
+    <div
+      data-fp-actionbar
+      class="sticky bottom-0 z-20 -mx-4 mt-4 border-t border-slate-200 bg-white/95 px-4 pb-[max(0.75rem,env(safe-area-inset-bottom))] pt-3 backdrop-blur-sm sm:-mx-5 md:static md:mx-0 md:border-0 md:bg-transparent md:p-0 md:backdrop-blur-none"
+    >
+      <div class="flex gap-2">
+        <button
+          type="button"
+          data-fp-action
+          disabled
+          class="inline-flex h-12 flex-1 items-center justify-center rounded-xl bg-brand-700 px-4 text-sm font-semibold text-white shadow-sm transition-colors hover:bg-brand-800 disabled:cursor-not-allowed disabled:bg-slate-200 disabled:text-slate-500"
+        >
+          {actionLabel}
+        </button>
+        <button
+          type="button"
+          data-fp-reset
+          hidden
+          class="inline-flex h-12 shrink-0 items-center justify-center rounded-xl px-3 text-sm font-medium text-slate-600 ring-1 ring-inset ring-slate-300 transition-colors hover:bg-slate-50"
+        >
+          Reiniciar
+        </button>
+      </div>
+      <p class="mt-2 hidden text-center text-[11px] text-slate-400 md:block">
+        El archivo se procesa en tu dispositivo y se borra de la memoria al cerrar la pestaña.
+      </p>
+    </div>
+  </div>
+</section>
+
+<style>
+  .fp-status[data-state='ready'] {
+    background-color: #f8fafc;
+    color: #334155;
+  }
+
+  .fp-status[data-state='working'] {
+    background-color: #eff6ff;
+    color: #1d4ed8;
+  }
+
+  .fp-status[data-state='success'] {
+    background-color: #ecfdf5;
+    color: #047857;
+  }
+
+  .fp-status[data-state='error'] {
+    background-color: #fef2f2;
+    color: #b91c1c;
+  }
+
+  .fp-status[data-state='working'] .fp-status-dot {
+    background-color: #3b82f6;
+    animation: fp-pulse 1.2s ease-in-out infinite;
+  }
+
+  .fp-status[data-state='success'] .fp-status-dot {
+    background-color: #059669;
+  }
+
+  .fp-status[data-state='error'] .fp-status-dot {
+    background-color: #dc2626;
+  }
+
+  @keyframes fp-pulse {
+    0%,
+    100% {
+      opacity: 1;
+    }
+
+    50% {
+      opacity: 0.35;
+    }
+  }
+</style>
+
+<script>
+  import { initFileProcessors } from '@/scripts/core/file-processor';
+
+  initFileProcessors();
+</script>

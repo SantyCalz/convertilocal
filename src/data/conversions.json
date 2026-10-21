@@ -1,0 +1,662 @@
+[
+  {
+    "slug": "jpg-a-png",
+    "from": "jpg",
+    "to": "png",
+    "processorId": "image-convert",
+    "title": "Convertir JPG a PNG online, sin subir tus fotos | ConvertiLocal",
+    "h1": "Convertir JPG a PNG",
+    "description": "Pasa tus JPG a PNG en el navegador, sin subirlos a ningún servidor. Conserva la imagen tal cual y evita nuevas pérdidas al editarla.",
+    "intro": "JPG y PNG responden a necesidades distintas. Al convertir un JPG a PNG no recuperas el detalle que ya se perdió, pero obtienes un archivo sin pérdida adicional para seguir editando, recortar o componer sin degradar la imagen en cada guardado.",
+    "why": [
+      "El JPG utiliza compresión con pérdida: cada vez que lo guardas vuelve a cuantizar bloques y acumula artefactos. Convertirlo a PNG congela esos píxeles en un formato sin pérdida, de modo que los siguientes cambios no añaden deterioro. Es útil cuando la foto va a pasar por varias herramientas de diseño.",
+      "PNG también admite canal alfa, aunque un JPG de origen no trae transparencia: el fondo seguirá siendo opaco. Si necesitas recortar un objeto y dejar el resto transparente, tendrás que hacerlo después en un editor. A cambio, el archivo puede pesar bastante más que el JPG original."
+    ],
+    "useCases": [
+      { "title": "Editar sin nuevas pérdidas", "body": "Abre la foto en un editor, aplica ajustes y guarda varias versiones sin que cada guardado vuelva a comprimirla." },
+      { "title": "Capturas y documentación", "body": "Convierte fotos de pantallas o diapositivas para insertarlas en manuales donde el texto debe mantenerse nítido." },
+      { "title": "Archivo de trabajo", "body": "Guarda una copia PNG antes de recortar o montar la imagen en una web, y conserva el JPG original si ocupa menos." }
+    ],
+    "mistakes": [
+      { "title": "Esperar más nitidez", "body": "El PNG no inventa detalle. Si el JPG ya tenía artefactos, seguirán ahí; solo se evita añadir otros nuevos." },
+      { "title": "Usar PNG para publicar fotos", "body": "Una foto PNG puede pesar cinco o diez veces más que el JPG. Para web suele ser mejor conservar JPG o pasar a WebP." },
+      { "title": "Suponer que el fondo será transparente", "body": "Un JPG no tiene canal alfa. El PNG resultante conserva el fondo blanco o del color que tuviera la foto." }
+    ],
+    "faq": [
+      { "q": "¿Convertir JPG a PNG mejora la calidad?", "a": "No. Mantiene la calidad actual y evita pérdidas futuras, pero no recupera información descartada por el JPG." },
+      { "q": "¿El PNG resultante tendrá transparencia?", "a": "No, salvo que el JPG original ya tuviera zonas transparentes, algo poco habitual. El fondo se mantiene opaco." },
+      { "q": "¿Por qué pesa tanto el PNG?", "a": "Porque guarda todos los píxeles sin pérdida. En fotografías con muchos tonos, DEFLATE no consigue reducir tanto como la compresión del JPG." },
+      { "q": "¿Se suben mis fotos al convertir?", "a": "No. Todo el proceso ocurre en tu navegador mediante un Web Worker y los archivos no salen de tu dispositivo." }
+    ],
+    "related": ["png-a-jpg", "jpg-a-webp", "jpg-a-avif"],
+    "keywords": ["convertir jpg a png", "jpg a png online", "convertidor jpg png sin subir", "pasar jpg a png", "jpg a png gratis"],
+    "updated": "2026-10-21"
+  },
+  {
+    "slug": "png-a-jpg",
+    "from": "png",
+    "to": "jpg",
+    "processorId": "image-convert",
+    "title": "Convertir PNG a JPG online y reducir el peso | ConvertiLocal",
+    "h1": "Convertir PNG a JPG",
+    "description": "Convierte PNG a JPG en tu dispositivo y reduce el peso de fotos y capturas. Elige calidad y fondo sin subir nada a un servidor.",
+    "intro": "El PNG es ideal para gráficos nítidos y transparencias, pero en fotos puede ocupar muchísimo. Pasarlo a JPG reduce el tamaño de forma drástica a cambio de una compresión con pérdida y de perder el canal alfa.",
+    "why": [
+      "JPG descarta información visual que el ojo nota poco: matices finos, ruido y cambios de color suaves. En una fotografía, bajar de un PNG de 8 MB a un JPG de 1 MB suele ser posible sin una diferencia evidente en pantalla. Para enviar por correo o publicar en una web, el ahorro merece la pena.",
+      "La contrapartida es que el fondo transparente se rellena con un color sólido. ConvertiLocal usa blanco por defecto y permite cambiarlo antes de procesar. Si el PNG tiene texto pequeño o líneas muy finas, la compresión puede suavizar los bordes; en ese caso conviene subir la calidad o mantener PNG."
+    ],
+    "useCases": [
+      { "title": "Fotos para web", "body": "Reduce el peso de imágenes que no necesitan transparencia y acelera la carga de una galería o un blog." },
+      { "title": "Enviar por correo", "body": "Comprime capturas y fotos para que quepan en un adjunto sin superar el límite del buzón." },
+      { "title": "Subir a formularios", "body": "Muchos portales aceptan JPG pero no PNG o limitan el tamaño por archivo." }
+    ],
+    "mistakes": [
+      { "title": "Aplanar la transparencia con el color equivocado", "body": "Un logo PNG con fondo transparente puede acabar con un rectángulo blanco sobre una web oscura. Elige el fondo adecuado o conserva PNG/WebP." },
+      { "title": "Comprimir demasiado una captura", "body": "El texto pequeño genera halos y bloques. Usa calidad alta (90–95) o mantén el PNG si la legibilidad es crítica." },
+      { "title": "Recomprimir el mismo JPG varias veces", "body": "Cada guardado añade pérdidas. Conserva el PNG original para editar y genera el JPG una sola vez al final." }
+    ],
+    "faq": [
+      { "q": "¿Qué pasa con la transparencia al pasar a JPG?", "a": "Desaparece. Las zonas transparentes se rellenan con el color de fondo que elijas, blanco por defecto." },
+      { "q": "¿Qué calidad de JPG debo usar?", "a": "Para fotos web, 80–85 suele bastar. Para texto o imágenes con detalle fino, prueba 90–95 y compara el peso." },
+      { "q": "¿Se nota mucho la pérdida?", "a": "En una fotografía normal, a calidad 80–90 la diferencia en pantalla suele ser mínima. En gráficos planos o texto, puede ser visible." },
+      { "q": "¿Puedo convertir varios PNG a la vez?", "a": "Sí. Puedes arrastrar hasta 20 archivos y descargar todos los JPG en un ZIP generado en tu dispositivo." }
+    ],
+    "related": ["jpg-a-png", "png-a-webp", "webp-a-jpg"],
+    "keywords": ["convertir png a jpg", "png a jpg online", "reducir peso png", "pasar png a jpeg", "convertidor png jpg gratis"],
+    "updated": "2026-10-21"
+  },
+  {
+    "slug": "webp-a-png",
+    "from": "webp",
+    "to": "png",
+    "processorId": "image-convert",
+    "title": "Convertir WebP a PNG online, sin perder transparencia | ConvertiLocal",
+    "h1": "Convertir WebP a PNG",
+    "description": "Pasa imágenes WebP a PNG en tu navegador. Conserva la transparencia y obtén un archivo editable compatible con más programas.",
+    "intro": "WebP es excelente para la web, pero no todos los editores, visores o aplicaciones lo aceptan. Convertirlo a PNG te da un archivo sin pérdida adicional y con canal alfa, listo para editar o abrir en programas tradicionales.",
+    "why": [
+      "PNG conserva exactamente los píxeles decodificados del WebP, incluida la transparencia. Si el WebP original tenía compresión con pérdida, esa pérdida ya está ahí y no se recupera, pero el PNG evita añadir más al guardar. Es la opción lógica cuando necesitas editar o archivar una imagen web.",
+      "El precio es el tamaño: un PNG puede multiplicar por varias veces el peso del WebP. Para publicar de nuevo en una web, quizá no necesites este paso; para abrir la imagen en Photoshop, PowerPoint o una imprenta, sí suele ser la vía más segura."
+    ],
+    "useCases": [
+      { "title": "Abrir en editores clásicos", "body": "Trabaja con la imagen en programas que todavía no importan WebP o que lo hacen con poca fidelidad." },
+      { "title": "Conservar transparencia", "body": "Mantén el canal alfa de logos y capturas al pasar de WebP a un formato ampliamente aceptado." },
+      { "title": "Documentos y presentaciones", "body": "Inserta imágenes en ofimática o documentación técnica que espera PNG o JPG." }
+    ],
+    "mistakes": [
+      { "title": "Convertir un WebP animado y perder los fotogramas", "body": "Muchos conversores extraen solo la primera imagen. Si la animación importa, comprueba el resultado o busca una herramienta específica." },
+      { "title": "Usar PNG para volver a publicar una foto", "body": "Si el destino es web, el PNG pesará mucho más. Considera JPG o mantener WebP." },
+      { "title": "Creer que se recupera calidad", "body": "Si el WebP tenía pérdida, el PNG no la elimina. Solo conserva lo que ya había." }
+    ],
+    "faq": [
+      { "q": "¿Se conserva la transparencia?", "a": "Sí. PNG admite canal alfa y mantiene las zonas transparentes del WebP." },
+      { "q": "¿El PNG se verá mejor que el WebP?", "a": "No necesariamente. Se verá igual, pero sin nuevas pérdidas y con mayor compatibilidad." },
+      { "q": "¿Qué pasa con la animación?", "a": "El PNG estándar es estático. Si el WebP es animado, se convierte el primer fotograma." },
+      { "q": "¿Puedo convertir sin conexión?", "a": "Sí, una vez cargada la página. El procesamiento es local y no depende de un servidor." }
+    ],
+    "related": ["webp-a-jpg", "png-a-jpg", "webp-a-ico"],
+    "keywords": ["convertir webp a png", "webp a png online", "pasar webp a png", "webp png transparencia", "convertidor webp gratis"],
+    "updated": "2026-10-21"
+  },
+  {
+    "slug": "webp-a-jpg",
+    "from": "webp",
+    "to": "jpg",
+    "processorId": "image-convert",
+    "title": "Convertir WebP a JPG online para compartir | ConvertiLocal",
+    "h1": "Convertir WebP a JPG",
+    "description": "Convierte WebP a JPG en local para enviar, publicar o abrir en cualquier dispositivo. Elige la calidad y el fondo en segundos.",
+    "intro": "El JPG sigue siendo el formato que todo el mundo abre. Si tienes una imagen WebP y necesitas enviarla por correo, subirla a un portal antiguo o compartirla con alguien que no usa navegador, convertirla a JPG elimina barreras.",
+    "why": [
+      "JPG es universal y funciona en cualquier sistema, aplicación y servicio. La conversión decodifica el WebP y vuelve a comprimir en JPG, por lo que hay una pérdida adicional pequeña si eliges una calidad alta. A cambio, el archivo se abre en todas partes y suele mantener un peso razonable.",
+      "Si el WebP tenía transparencia, el JPG la sustituye por un fondo sólido. Para logotipos o capturas con alfa, quizá prefieras PNG. Para fotografías y capturas opacas, JPG es la opción más práctica."
+    ],
+    "useCases": [
+      { "title": "Compartir por correo o mensajería", "body": "Adjunta la imagen sin preocuparte por si la otra persona puede abrir WebP." },
+      { "title": "Portales y formularios", "body": "Sube la foto a servicios que solo aceptan JPG, PNG o GIF." },
+      { "title": "Presentaciones y documentos", "body": "Inserta la imagen en herramientas de oficina que no importan WebP correctamente." }
+    ],
+    "mistakes": [
+      { "title": "Elegir calidad 50 para todo", "body": "El archivo pesa menos, pero aparecen bloques y halos. Para compartir, 80–90 suele ser un buen equilibrio." },
+      { "title": "Convertir un logo transparente", "body": "El fondo se vuelve sólido. Si necesitas alfa, usa PNG en lugar de JPG." },
+      { "title": "Olvidar que el WebP podía ser animado", "body": "La conversión a JPG solo conserva un fotograma. Para animaciones, usa WebP o GIF." }
+    ],
+    "faq": [
+      { "q": "¿Se pierde calidad al convertir WebP a JPG?", "a": "Sí, JPG vuelve a comprimir con pérdida. Con calidad 85–90 la diferencia suele ser difícil de ver en una foto." },
+      { "q": "¿Qué ocurre con el fondo transparente?", "a": "Se rellena con el color elegido, blanco por defecto. JPG no admite transparencia." },
+      { "q": "¿El JPG será más pesado que el WebP?", "a": "A menudo sí, porque WebP es más eficiente. Aun así, seguirá siendo un archivo manejable para compartir." },
+      { "q": "¿Puedo cambiar el fondo antes de convertir?", "a": "Sí. En las opciones de la herramienta puedes elegir el color que sustituirá las zonas transparentes." }
+    ],
+    "related": ["webp-a-png", "jpg-a-webp", "png-a-jpg"],
+    "keywords": ["convertir webp a jpg", "webp a jpg online", "pasar webp a jpeg", "webp jpg sin subir", "convertidor webp jpg"],
+    "updated": "2026-10-21"
+  },
+  {
+    "slug": "jpg-a-webp",
+    "from": "jpg",
+    "to": "webp",
+    "processorId": "image-convert",
+    "title": "Convertir JPG a WebP online y aligerar tu web | ConvertiLocal",
+    "h1": "Convertir JPG a WebP",
+    "description": "Convierte JPG a WebP en tu navegador y reduce el peso de tus fotos sin subirlas. Controla la calidad y compara el resultado.",
+    "intro": "WebP suele ofrecer archivos más ligeros que JPG con una calidad visual similar. Si estás optimizando un blog, una tienda o una galería, convertir las fotos a WebP es una de las mejoras más sencillas para la velocidad de carga.",
+    "why": [
+      "WebP con pérdida utiliza predicción de bloques y transformadas más modernas que JPG. En fotografías, el ahorro habitual ronda el 20–35%, aunque depende mucho de la imagen. En imágenes ya muy optimizadas o con mucho ruido, la diferencia puede ser menor o incluso desaparecer.",
+      "El formato es compatible con Chrome, Firefox, Safari 14+ y Edge. Para navegadores muy antiguos puedes mantener una copia JPG o usar <picture> con respaldo. Convertir no mejora la calidad: solo cambia el códec, así que parte siempre del JPG original de mayor calidad disponible."
+    ],
+    "useCases": [
+      { "title": "Acelerar un blog o tienda", "body": "Sustituye fotos pesadas por WebP y mejora el tiempo de carga, sobre todo en móvil." },
+      { "title": "Galerías de imágenes", "body": "Reduce el consumo de datos de los visitantes manteniendo una calidad visual alta." },
+      { "title": "Correo y formularios modernos", "body": "Usa WebP en servicios que ya lo admiten y ahorra espacio de almacenamiento." }
+    ],
+    "mistakes": [
+      { "title": "Publicar WebP sin respaldo", "body": "Aunque el soporte es amplio, conviene ofrecer JPG mediante <picture> para clientes antiguos o lectores de redes sociales." },
+      { "title": "Bajar la calidad por defecto al 40%", "body": "El ahorro extra no compensa los artefactos. Prueba 75–85 y compara visualmente antes de publicar." },
+      { "title": "Convertir texto fino o capturas", "body": "La compresión con pérdida puede emborronar letras pequeñas. Para esos casos, usa WebP sin pérdida o PNG." }
+    ],
+    "faq": [
+      { "q": "¿WebP siempre pesa menos que JPG?", "a": "No siempre, pero en la mayoría de fotografías el ahorro es notable. Comprueba el resultado concreto." },
+      { "q": "¿Se nota la pérdida de calidad?", "a": "A calidad 75–85, en pantalla suele ser difícil de apreciar. En imágenes con texto o degradados suaves puede notarse más." },
+      { "q": "¿Safari admite WebP?", "a": "Safari 14 y posteriores sí. Para versiones anteriores necesitarás una alternativa JPG." },
+      { "q": "¿Puedo convertir muchas fotos a la vez?", "a": "Sí, hasta 20 archivos por lote, con descarga conjunta en ZIP." }
+    ],
+    "related": ["jpg-a-avif", "webp-a-jpg", "png-a-webp"],
+    "keywords": ["convertir jpg a webp", "jpg a webp online", "optimizar fotos webp", "pasar jpg a webp", "convertidor jpg webp"],
+    "updated": "2026-10-21"
+  },
+  {
+    "slug": "png-a-webp",
+    "from": "png",
+    "to": "webp",
+    "processorId": "image-convert",
+    "title": "Convertir PNG a WebP conservando la transparencia | ConvertiLocal",
+    "h1": "Convertir PNG a WebP",
+    "description": "Pasa PNG a WebP en local, conserva el canal alfa y reduce el peso de logos, capturas e ilustraciones para tu web.",
+    "intro": "PNG es perfecto para gráficos con transparencia, pero a menudo pesa más de lo necesario. WebP admite alfa y puede reducir el tamaño de forma considerable, especialmente en ilustraciones, iconos y capturas.",
+    "why": [
+      "WebP ofrece un modo sin pérdida y otro con pérdida. Para logotipos e interfaces con bordes nítidos, el modo sin pérdida o una calidad alta conserva la definición. Para capturas con muchos tonos, la compresión con pérdida puede reducir bastante el archivo con una diferencia mínima.",
+      "La transparencia se mantiene, algo que JPG no puede ofrecer. Eso lo hace muy útil para imágenes de producto, iconos y elementos de interfaz. Eso sí, algunos programas de escritorio y clientes de correo todavía no lo abren; si el archivo va fuera de la web, valora PNG."
+    ],
+    "useCases": [
+      { "title": "Logos y elementos de interfaz", "body": "Publica gráficos con fondo transparente sin cargar PNG de varios megabytes." },
+      { "title": "Capturas para documentación web", "body": "Reduce el peso de imágenes de pantalla manteniendo el texto legible si usas calidad alta." },
+      { "title": "Tiendas online", "body": "Sirve fotos de producto con alfa y mejora la velocidad de las fichas." }
+    ],
+    "mistakes": [
+      { "title": "Usar compresión agresiva en texto", "body": "Las letras pequeñas pierden definición. Sube la calidad o elige el modo sin pérdida." },
+      { "title": "Asumir que todos los programas lo abren", "body": "Fuera del navegador, WebP aún tiene limitaciones. Guarda una copia PNG para edición." },
+      { "title": "Convertir una animación PNG inexistente", "body": "PNG no anima. Si necesitas movimiento, parte de un GIF o WebP animado y revisa los fotogramas." }
+    ],
+    "faq": [
+      { "q": "¿WebP mantiene la transparencia del PNG?", "a": "Sí, tanto en modo con pérdida como sin pérdida. Es una de sus principales ventajas frente a JPG." },
+      { "q": "¿Cuánto peso puedo ahorrar?", "a": "Depende de la imagen. En gráficos planos el ahorro puede superar el 50%; en imágenes complejas suele ser menor." },
+      { "q": "¿Es mejor WebP sin pérdida o con pérdida?", "a": "Para logos y texto, sin pérdida o calidad muy alta. Para fotos y capturas, con pérdida suele ser suficiente." },
+      { "q": "¿Puedo volver a PNG después?", "a": "Sí, pero si el WebP tenía pérdida, el PNG no recuperará la información descartada." }
+    ],
+    "related": ["png-a-jpg", "jpg-a-webp", "webp-a-png"],
+    "keywords": ["convertir png a webp", "png a webp transparencia", "pasar png a webp", "optimizar png webp", "convertidor png webp"],
+    "updated": "2026-10-21"
+  },
+  {
+    "slug": "heic-a-jpg",
+    "from": "heic",
+    "to": "jpg",
+    "processorId": "heic-convert",
+    "title": "Convertir HEIC a JPG online sin subir fotos | ConvertiLocal",
+    "h1": "Convertir HEIC a JPG",
+    "description": "Convierte fotos HEIC de iPhone a JPG en tu dispositivo. Compatibles con Windows, Android, correo y formularios, sin subirlas.",
+    "intro": "Las fotos del iPhone se guardan en HEIC para ocupar menos, pero muchos ordenadores, webs y aplicaciones no las abren. Convertirlas a JPG resuelve el problema de compatibilidad sin renunciar a una calidad visual excelente.",
+    "why": [
+      "JPG se abre en cualquier dispositivo y servicio. La conversión decodifica el HEIC y genera un JPG con la orientación corregida, listo para compartir, imprimir o subir a un formulario. Es la forma más directa de usar tus fotos fuera del ecosistema Apple.",
+      "El JPG vuelve a comprimir con pérdida, así que no es una copia exacta. Para la mayoría de usos (redes, correo, recuerdos) la diferencia es invisible. Si necesitas editar o conservar la máxima calidad, convierte a PNG; si solo quieres compartir, JPG es más práctico y ligero."
+    ],
+    "useCases": [
+      { "title": "Abrir fotos en Windows", "body": "Visualiza y edita fotos de iPhone en un PC sin instalar códecs adicionales." },
+      { "title": "Enviar por correo o WhatsApp", "body": "Comparte imágenes que cualquier persona pueda abrir en su móvil u ordenador." },
+      { "title": "Subir a portales y formularios", "body": "Usa sitios que solo aceptan JPG, PNG o PDF y rechazan HEIC." }
+    ],
+    "mistakes": [
+      { "title": "Renombrar .heic a .jpg", "body": "Cambiar la extensión no convierte el archivo. El contenido sigue siendo HEIC y muchos programas fallarán." },
+      { "title": "Convertir una Live Photo y esperar el vídeo", "body": "La conversión extrae la imagen principal. El vídeo asociado no forma parte del JPG resultante." },
+      { "title": "Publicar HEIC directamente", "body": "Safari puede verlo, pero Chrome, Firefox y la mayoría de servicios no. Convierte antes de publicar." }
+    ],
+    "faq": [
+      { "q": "¿Se pierde calidad al convertir HEIC a JPG?", "a": "Hay una compresión adicional con pérdida, pero con calidad alta la diferencia visual suele ser mínima." },
+      { "q": "¿Se conservan los metadatos y la ubicación?", "a": "La conversión estándar puede conservar o eliminar metadatos según el proceso. Si te preocupa el GPS, usa además la herramienta de limpieza EXIF." },
+      { "q": "¿Puedo convertir varias fotos de iPhone a la vez?", "a": "Sí, hasta 20 archivos por lote. El decodificador HEIC se descarga la primera vez y luego se reutiliza." },
+      { "q": "¿Funciona sin conexión?", "a": "El procesamiento es local, pero la primera carga de la página y del decodificador HEIC necesita conexión. Después puedes trabajar sin subir archivos." }
+    ],
+    "related": ["heic-a-png", "jpg-a-png", "jpg-a-webp"],
+    "keywords": ["convertir heic a jpg", "heic a jpg online", "fotos iphone jpg", "pasar heic a jpeg", "convertidor heic gratis"],
+    "updated": "2026-10-21"
+  },
+  {
+    "slug": "heic-a-png",
+    "from": "heic",
+    "to": "png",
+    "processorId": "heic-convert",
+    "title": "Convertir HEIC a PNG sin pérdida adicional | ConvertiLocal",
+    "h1": "Convertir HEIC a PNG",
+    "description": "Pasa fotos HEIC a PNG en tu navegador para editar o archivar. Sin subir nada y con la máxima compatibilidad de edición.",
+    "intro": "Si necesitas editar una foto de iPhone o guardar una copia que no vuelva a comprimirse, PNG es una buena elección. El archivo pesará más que el HEIC, pero conservará los píxeles decodificados sin una nueva pérdida.",
+    "why": [
+      "El HEIC original ya aplicó compresión HEVC, así que PNG no recupera información perdida. Lo que sí evita es una segunda compresión con pérdida al guardar o editar. Para flujos de diseño, retoque o archivo, eso puede importar.",
+      "PNG es universal y admite transparencia, aunque las fotos de iPhone normalmente son opacas. El precio es el tamaño: una foto de 12 MP puede ocupar entre 20 y 40 MB. Si el destino es la web o un correo, probablemente JPG sea más adecuado."
+    ],
+    "useCases": [
+      { "title": "Edición y retoque", "body": "Abre la foto en un editor y guarda varias versiones sin acumular pérdidas de JPG." },
+      { "title": "Archivo de máxima calidad", "body": "Conserva una copia PNG de fotos importantes antes de recortar o imprimir." },
+      { "title": "Compatibilidad de edición", "body": "Trabaja en programas que no admiten HEIC pero sí PNG." }
+    ],
+    "mistakes": [
+      { "title": "Usar PNG para enviar por correo", "body": "El archivo puede superar el límite de adjuntos. Para compartir, JPG es más práctico." },
+      { "title": "Esperar que el PNG pese menos", "body": "Casi siempre pesará bastante más que el HEIC original. Es el precio de no volver a comprimir." },
+      { "title": "Ignorar la orientación", "body": "Algunas fotos dependen de la orientación EXIF. La herramienta la corrige al decodificar, pero revisa el resultado." }
+    ],
+    "faq": [
+      { "q": "¿PNG conserva mejor la calidad que JPG?", "a": "Evita una nueva compresión con pérdida, pero no recupera lo que el HEIC ya descartó. Para editar, es más seguro." },
+      { "q": "¿Cuánto pesa una foto HEIC convertida a PNG?", "a": "Puede multiplicar por 5–10 el tamaño original. Una foto de 12 MP suele quedar entre 20 y 40 MB." },
+      { "q": "¿Se mantiene la transparencia?", "a": "Sí, si el HEIC la tenía. La mayoría de fotos de cámara son opacas." },
+      { "q": "¿Puedo convertir HEIC a PNG en el móvil?", "a": "Sí. El proceso ocurre en el navegador y funciona en iPhone y Android modernos, aunque en móviles antiguos puede tardar." }
+    ],
+    "related": ["heic-a-jpg", "png-a-jpg", "png-a-webp"],
+    "keywords": ["convertir heic a png", "heic a png online", "foto iphone png", "pasar heic a png", "heic png sin perdida"],
+    "updated": "2026-10-21"
+  },
+  {
+    "slug": "avif-a-jpg",
+    "from": "avif",
+    "to": "jpg",
+    "processorId": "image-convert",
+    "title": "Convertir AVIF a JPG online para máxima compatibilidad | ConvertiLocal",
+    "h1": "Convertir AVIF a JPG",
+    "description": "Convierte AVIF a JPG en tu dispositivo para abrirlo en cualquier programa, enviarlo o publicarlo. Sin subir archivos.",
+    "intro": "AVIF es muy eficiente, pero todavía hay programas, sistemas y servicios que no lo abren. Convertirlo a JPG elimina esa barrera y mantiene un peso razonable, a costa de una pequeña pérdida adicional.",
+    "why": [
+      "JPG funciona en todas partes. La conversión decodifica el AVIF y genera un JPG con calidad ajustable. Para fotos, calidad 85–90 suele conservar el aspecto visual con un archivo manejable. Es la opción práctica cuando el destino no controla qué navegador o aplicación usará el receptor.",
+      "Si el AVIF tenía transparencia, el JPG la rellena con un color sólido. Para gráficos con alfa, PNG es mejor. Tampoco se conservan animaciones ni HDR: el JPG resultante es una imagen estática de rango estándar."
+    ],
+    "useCases": [
+      { "title": "Abrir en programas antiguos", "body": "Usa la imagen en editores, visores o suites de oficina que aún no importan AVIF." },
+      { "title": "Compartir por correo", "body": "Envía un archivo que cualquier persona pueda abrir sin instalar nada." },
+      { "title": "Publicar en redes o CMS", "body": "Sube la imagen a plataformas que aceptan JPG pero no AVIF." }
+    ],
+    "mistakes": [
+      { "title": "Convertir una imagen con transparencia", "body": "El fondo se vuelve sólido. Si necesitas alfa, convierte a PNG o WebP." },
+      { "title": "Usar calidad baja por miedo al peso", "body": "El AVIF ya era eficiente; recomprimir a calidad 50 puede introducir artefactos innecesarios. Prueba 80–90." },
+      { "title": "Esperar conservar HDR o animación", "body": "JPG no admite HDR ni animación. El resultado es una imagen estática estándar." }
+    ],
+    "faq": [
+      { "q": "¿Se pierde mucha calidad?", "a": "Con calidad 85–90 la diferencia en pantalla suele ser mínima. Siempre hay una recompresión, pero parte de un AVIF ya decodificado." },
+      { "q": "¿Qué pasa con el canal alfa?", "a": "Se rellena con el color de fondo elegido. JPG no admite transparencia." },
+      { "q": "¿El JPG pesará más que el AVIF?", "a": "Normalmente sí, porque AVIF es más eficiente. Aun así, suele ser un tamaño razonable para compartir." },
+      { "q": "¿Puedo convertir AVIF sin conexión?", "a": "Sí, una vez cargada la página. El procesamiento es local; no se sube nada." }
+    ],
+    "related": ["avif-a-png", "jpg-a-avif", "webp-a-jpg"],
+    "keywords": ["convertir avif a jpg", "avif a jpg online", "pasar avif a jpeg", "avif compatible jpg", "convertidor avif"],
+    "updated": "2026-10-21"
+  },
+  {
+    "slug": "avif-a-png",
+    "from": "avif",
+    "to": "png",
+    "processorId": "image-convert",
+    "title": "Convertir AVIF a PNG sin pérdida adicional | ConvertiLocal",
+    "h1": "Convertir AVIF a PNG",
+    "description": "Pasa AVIF a PNG en local para editar, conservar transparencia o abrir en programas compatibles. Sin subir tus imágenes.",
+    "intro": "PNG es la opción más segura cuando necesitas editar un AVIF o abrirlo en software que aún no lo admite. Mantiene la transparencia y evita una nueva compresión con pérdida, aunque el archivo crecerá bastante.",
+    "why": [
+      "El AVIF ya puede tener pérdida, así que PNG no mejora la calidad. Lo que hace es conservar exactamente los píxeles decodificados y permitir ediciones posteriores sin añadir deterioro. Es útil para gráficos, capturas o cualquier imagen que vaya a pasar por varias herramientas.",
+      "El coste es el tamaño. Un AVIF de 200 KB puede convertirse en un PNG de varios megabytes. Si el objetivo es publicar en web, quizá no necesites este paso; si es editar, imprimir o archivar, PNG ofrece tranquilidad."
+    ],
+    "useCases": [
+      { "title": "Editar en programas compatibles", "body": "Abre la imagen en editores que no admiten AVIF pero sí PNG." },
+      { "title": "Conservar transparencia", "body": "Mantén el canal alfa en logos, capturas y gráficos." },
+      { "title": "Archivo de trabajo", "body": "Guarda una copia sin pérdida adicional antes de recortar o componer." }
+    ],
+    "mistakes": [
+      { "title": "Publicar el PNG en lugar del AVIF", "body": "Perderás la ventaja de peso. Para web, mantén AVIF o usa WebP con respaldo." },
+      { "title": "Convertir una animación", "body": "PNG no anima. Solo se conserva un fotograma." },
+      { "title": "Suponer que se recupera HDR", "body": "PNG estándar no reproduce el HDR del AVIF. El resultado es una imagen de rango estándar." }
+    ],
+    "faq": [
+      { "q": "¿PNG conserva la transparencia del AVIF?", "a": "Sí, el canal alfa se mantiene en el PNG resultante." },
+      { "q": "¿Se recupera la calidad original?", "a": "No. Si el AVIF tenía pérdida, esa información ya no está. PNG solo evita perder más." },
+      { "q": "¿Por qué el PNG pesa tanto?", "a": "Porque guarda todos los píxeles sin pérdida. Es normal que multiplique el tamaño del AVIF." },
+      { "q": "¿Puedo convertir AVIF a PNG en el móvil?", "a": "Sí, en navegadores modernos. La decodificación se hace en el dispositivo y puede consumir batería en móviles antiguos." }
+    ],
+    "related": ["avif-a-jpg", "png-a-avif", "png-a-jpg"],
+    "keywords": ["convertir avif a png", "avif a png online", "pasar avif a png", "avif png transparencia", "convertidor avif png"],
+    "updated": "2026-10-21"
+  },
+  {
+    "slug": "jpg-a-avif",
+    "from": "jpg",
+    "to": "avif",
+    "processorId": "image-convert",
+    "title": "Convertir JPG a AVIF online y optimizar imágenes | ConvertiLocal",
+    "h1": "Convertir JPG a AVIF",
+    "description": "Convierte JPG a AVIF en tu navegador para reducir el peso de tus fotos. Sin subir archivos y con calidad ajustable.",
+    "intro": "AVIF puede ofrecer archivos notablemente más ligeros que JPG manteniendo una buena calidad visual. Si controlas el soporte del navegador y quieres mejorar la velocidad de tu web, es una opción muy a tener en cuenta.",
+    "why": [
+      "AVIF utiliza el códec AV1, más eficiente que el JPEG. En fotografías grandes, el ahorro puede ser del 40–60% frente a un JPG de calidad equivalente, aunque varía según la imagen. Para héroes, galerías y páginas con muchas fotos, puede marcar diferencia en Core Web Vitals.",
+      "La codificación es más lenta y consume CPU, especialmente en móviles. Además, AVIF no está disponible en navegadores muy antiguos, así que conviene servir una alternativa WebP o JPG. Convertir desde el JPG original evita partir de una copia ya recompimida."
+    ],
+    "useCases": [
+      { "title": "Imágenes principales de una web", "body": "Reduce el peso de héroes y banners sin perder calidad visual." },
+      { "title": "Galerías y portfolios", "body": "Sirve fotos grandes con menos datos y mejora la experiencia en móvil." },
+      { "title": "Tiendas online", "body": "Aligera fichas de producto y acelera la carga de categorías." }
+    ],
+    "mistakes": [
+      { "title": "Publicar AVIF sin respaldo", "body": "Usa <picture> con WebP o JPG para navegadores y servicios que no lo admiten." },
+      { "title": "Elegir calidad 30 para ahorrar más", "body": "Pueden aparecer artefactos y pérdida de detalle. Prueba 50–65 y compara." },
+      { "title": "Convertir texto fino", "body": "Las letras pequeñas pueden suavizarse. Para capturas o gráficos con texto, usa PNG o WebP sin pérdida." }
+    ],
+    "faq": [
+      { "q": "¿Cuánto peso ahorra AVIF frente a JPG?", "a": "En fotos suele estar entre el 30% y el 60%, pero depende de la imagen y de la calidad elegida." },
+      { "q": "¿Por qué tarda más la conversión?", "a": "La codificación AV1 es más compleja y se ejecuta en tu dispositivo. En móviles antiguos puede tardar varios segundos." },
+      { "q": "¿AVIF funciona en todos los navegadores?", "a": "Chrome 85+, Firefox 93+, Safari 16.4+ y Edge moderno. Para versiones anteriores necesitas una alternativa." },
+      { "q": "¿Se conserva la transparencia de un JPG?", "a": "El JPG no tiene transparencia. Si conviertes un PNG a AVIF, el canal alfa sí se mantiene." }
+    ],
+    "related": ["avif-a-jpg", "jpg-a-webp", "png-a-avif"],
+    "keywords": ["convertir jpg a avif", "jpg a avif online", "optimizar jpg avif", "pasar jpg a avif", "convertidor jpg avif"],
+    "updated": "2026-10-21"
+  },
+  {
+    "slug": "png-a-avif",
+    "from": "png",
+    "to": "avif",
+    "processorId": "image-convert",
+    "title": "Convertir PNG a AVIF con transparencia | ConvertiLocal",
+    "h1": "Convertir PNG a AVIF",
+    "description": "Pasa PNG a AVIF en local y reduce el peso de logos y gráficos con transparencia. Sin subir archivos y con calidad ajustable.",
+    "intro": "AVIF no solo sirve para fotos: también admite canal alfa y puede aligerar gráficos que hoy publicas como PNG. Es una alternativa interesante para logos, ilustraciones y elementos de interfaz en sitios modernos.",
+    "why": [
+      "Un PNG con transparencia puede pesar mucho, sobre todo si tiene degradados o muchos colores. AVIF conserva el alfa y suele reducir el tamaño, aunque el resultado depende del contenido. En gráficos planos, WebP sin pérdida o SVG pueden ser aún mejores; en ilustraciones complejas, AVIF tiene ventaja.",
+      "La compatibilidad es menor que PNG: Safari 16.4+ y navegadores modernos lo admiten, pero software antiguo no. Para una web con respaldo WebP o PNG, es una opción válida. Para enviar un logo por correo o abrirlo en un editor clásico, probablemente no."
+    ],
+    "useCases": [
+      { "title": "Logos e iconos web", "body": "Publica gráficos con alfa más ligeros en sitios que ya sirven AVIF." },
+      { "title": "Ilustraciones con degradados", "body": "Reduce el peso de imágenes complejas que no funcionan bien como SVG." },
+      { "title": "Elementos de interfaz", "body": "Sirve capturas y piezas gráficas con transparencia sin cargar PNG grandes." }
+    ],
+    "mistakes": [
+      { "title": "Usar AVIF para un logo simple", "body": "Un SVG o un PNG pequeño puede ser más práctico y compatible. AVIF brilla en imágenes complejas." },
+      { "title": "Publicar sin alternativa", "body": "Ofrece WebP o PNG mediante <picture> para navegadores antiguos." },
+      { "title": "Comprimir texto fino", "body": "Los bordes de letras pueden suavizarse. Revisa el resultado a tamaño real." }
+    ],
+    "faq": [
+      { "q": "¿AVIF admite transparencia?", "a": "Sí, el canal alfa forma parte del formato y se conserva al convertir desde PNG." },
+      { "q": "¿Es mejor que WebP para gráficos?", "a": "No siempre. WebP sin pérdida puede ser mejor para logos planos; AVIF suele destacar en imágenes complejas." },
+      { "q": "¿Qué navegadores lo admiten?", "a": "Chrome 85+, Firefox 93+, Safari 16.4+ y Edge moderno. Los antiguos necesitan respaldo." },
+      { "q": "¿Puedo convertir varios PNG a AVIF?", "a": "Sí, hasta 20 por lote. La codificación AV1 puede tardar más que JPG o WebP." }
+    ],
+    "related": ["png-a-webp", "avif-a-png", "jpg-a-avif"],
+    "keywords": ["convertir png a avif", "png a avif transparencia", "pasar png a avif", "optimizar png avif", "convertidor png avif"],
+    "updated": "2026-10-21"
+  },
+  {
+    "slug": "bmp-a-png",
+    "from": "bmp",
+    "to": "png",
+    "processorId": "image-convert",
+    "title": "Convertir BMP a PNG sin pérdida y sin subir archivos | ConvertiLocal",
+    "h1": "Convertir BMP a PNG",
+    "description": "Pasa BMP a PNG en tu navegador y reduce el peso sin perder calidad. Ideal para capturas, texturas y archivos antiguos de Windows.",
+    "intro": "BMP guarda los píxeles sin comprimir y suele ocupar muchísimo. PNG conserva la misma información sin pérdida, pero con compresión, por lo que es la forma más directa de aligerar un BMP sin renunciar a la calidad.",
+    "why": [
+      "La conversión de BMP a PNG es prácticamente una traducción: los píxeles se mantienen y el tamaño baja gracias a DEFLATE. En imágenes con grandes áreas de color, el ahorro puede ser enorme; en fotos complejas, más moderado. No hay pérdida adicional, así que es segura para archivo y edición.",
+      "PNG también admite transparencia, pero el BMP de 24 bits no la tiene. Si el BMP era opaco, el PNG seguirá siéndolo. Para publicar una foto en web, quizá JPG o WebP sean aún más ligeros, pero PNG es la opción sin pérdida."
+    ],
+    "useCases": [
+      { "title": "Capturas antiguas de Windows", "body": "Moderniza capturas BMP para adjuntarlas, publicarlas o abrirlas en cualquier dispositivo." },
+      { "title": "Texturas y recursos", "body": "Convierte mapas de bits usados por herramientas antiguas a un formato editable y comprimido." },
+      { "title": "Archivo sin pérdida", "body": "Conserva la imagen exacta con un archivo más pequeño y compatible." }
+    ],
+    "mistakes": [
+      { "title": "Convertir a JPG creyendo que es sin pérdida", "body": "JPG recomprime y puede introducir artefactos. Si necesitas exactitud, PNG es la opción." },
+      { "title": "Esperar transparencia", "body": "El BMP clásico no tiene canal alfa. El PNG resultante será opaco." },
+      { "title": "Publicar PNG en lugar de JPG para una foto", "body": "El PNG puede pesar mucho más. Para web, compara con JPG o WebP." }
+    ],
+    "faq": [
+      { "q": "¿Convertir BMP a PNG pierde calidad?", "a": "No. PNG es sin pérdida y conserva los píxeles del BMP." },
+      { "q": "¿Cuánto se reduce el tamaño?", "a": "Depende de la imagen. En capturas y gráficos simples el ahorro puede ser muy alto; en fotos, menor." },
+      { "q": "¿Se conserva la transparencia?", "a": "Solo si el BMP original la tenía, algo poco habitual. El BMP de 24 bits es opaco." },
+      { "q": "¿Puedo convertir BMP a PNG sin conexión?", "a": "Sí, una vez cargada la página. El proceso es local." }
+    ],
+    "related": ["bmp-a-jpg", "png-a-jpg", "png-a-webp"],
+    "keywords": ["convertir bmp a png", "bmp a png online", "pasar bmp a png", "bmp png sin perdida", "convertidor bmp"],
+    "updated": "2026-10-21"
+  },
+  {
+    "slug": "bmp-a-jpg",
+    "from": "bmp",
+    "to": "jpg",
+    "processorId": "image-convert",
+    "title": "Convertir BMP a JPG online y reducir el peso | ConvertiLocal",
+    "h1": "Convertir BMP a JPG",
+    "description": "Convierte BMP a JPG en tu dispositivo para enviar o publicar imágenes antiguas sin ocupar megabytes. Calidad ajustable.",
+    "intro": "Los BMP pueden ocupar decenas de megabytes porque guardan cada píxel sin comprimir. Si solo necesitas compartir o publicar la imagen, JPG reduce el tamaño drásticamente con una pérdida visual que suele ser aceptable.",
+    "why": [
+      "JPG es ideal para fotografías y capturas opacas. La conversión de BMP a JPG aplica compresión con pérdida, así que el archivo deja de ser una copia exacta. A calidad 80–90, la diferencia en pantalla suele ser mínima y el ahorro de peso, enorme.",
+      "Si el BMP contiene texto pequeño, líneas técnicas o colores planos, el JPG puede introducir halos. En esos casos, PNG conserva mejor la definición. Para enviar por correo o subir a una web, JPG suele ser la opción más práctica."
+    ],
+    "useCases": [
+      { "title": "Enviar fotos antiguas", "body": "Convierte BMP de cámaras o escáneres en adjuntos manejables." },
+      { "title": "Publicar en web", "body": "Reduce el peso de imágenes que hoy ocupan demasiado y ralentizan la página." },
+      { "title": "Subir a formularios", "body": "Adapta el archivo a portales que limitan el tamaño o solo aceptan JPG." }
+    ],
+    "mistakes": [
+      { "title": "Comprimir en exceso", "body": "Calidad 40 puede arruinar detalles y crear bloques. Usa 80–90 para un buen equilibrio." },
+      { "title": "Convertir capturas con texto", "body": "El texto puede volverse borroso. Para documentación, PNG es más seguro." },
+      { "title": "Tirar el BMP original", "body": "Si es tu única copia sin pérdida, guárdala antes de generar el JPG." }
+    ],
+    "faq": [
+      { "q": "¿Cuánto peso se ahorra?", "a": "Mucho. Un BMP sin comprimir puede reducirse a una décima parte o menos en JPG, según la imagen y la calidad." },
+      { "q": "¿Se pierde calidad?", "a": "Sí, JPG usa compresión con pérdida. A calidad alta la diferencia visual suele ser pequeña." },
+      { "q": "¿Qué pasa con la transparencia?", "a": "El BMP clásico no tiene. Si hubiera alfa, JPG lo rellenaría con un fondo sólido." },
+      { "q": "¿Puedo convertir varios BMP a la vez?", "a": "Sí, hasta 20 archivos, con descarga en ZIP." }
+    ],
+    "related": ["bmp-a-png", "jpg-a-webp", "png-a-jpg"],
+    "keywords": ["convertir bmp a jpg", "bmp a jpg online", "pasar bmp a jpeg", "reducir bmp", "convertidor bmp jpg"],
+    "updated": "2026-10-21"
+  },
+  {
+    "slug": "jpg-a-bmp",
+    "from": "jpg",
+    "to": "bmp",
+    "processorId": "image-convert",
+    "title": "Convertir JPG a BMP para programas antiguos | ConvertiLocal",
+    "h1": "Convertir JPG a BMP",
+    "description": "Genera un BMP a partir de tu JPG en local, para software antiguo o pruebas. Conversión rápida y sin subir archivos.",
+    "intro": "BMP ya casi no se usa en web, pero algunos programas industriales, controladores y herramientas de Windows siguen exigiéndolo. Convertir un JPG a BMP es sencillo, aunque el archivo resultante será mucho más pesado.",
+    "why": [
+      "El BMP resultante guarda los píxeles del JPG sin compresión adicional. No recupera la calidad perdida por el JPG, pero cumple el requisito de formato de la aplicación de destino. Es una conversión de compatibilidad, no de mejora.",
+      "Como el BMP no comprime, una foto de 4000×3000 puede ocupar decenas de megabytes. Úsalo solo cuando el programa lo requiera. Para web, correo o archivo a largo plazo, JPG, PNG o WebP son opciones mucho más razonables."
+    ],
+    "useCases": [
+      { "title": "Software industrial antiguo", "body": "Carga imágenes en programas que solo aceptan BMP de 24 bits." },
+      { "title": "Pruebas y entornos legacy", "body": "Genera archivos de prueba para sistemas que esperan mapas de bits sin comprimir." },
+      { "title": "Compatibilidad con Windows clásico", "body": "Prepara imágenes para utilidades que no importan JPG." }
+    ],
+    "mistakes": [
+      { "title": "Publicar BMP en una web", "body": "El peso es desproporcionado y ralentiza la carga. Usa JPG, WebP o AVIF." },
+      { "title": "Esperar transparencia", "body": "El BMP de 24 bits no tiene canal alfa. El fondo será sólido." },
+      { "title": "Convertir y borrar el JPG", "body": "El BMP es más pesado y no aporta calidad. Conserva el original." }
+    ],
+    "faq": [
+      { "q": "¿Convertir JPG a BMP mejora la calidad?", "a": "No. El BMP conserva los píxeles del JPG, pero no recupera lo que el JPG ya perdió." },
+      { "q": "¿Por qué el BMP pesa tanto?", "a": "Porque normalmente no comprime: guarda cada píxel, a menudo con 24 bits." },
+      { "q": "¿BMP admite transparencia?", "a": "El BMP clásico de 24 bits no. Hay variantes de 32 bits, pero no son universales." },
+      { "q": "¿Puedo convertir sin conexión?", "a": "Sí. La conversión se ejecuta en tu navegador y no sube el archivo." }
+    ],
+    "related": ["bmp-a-png", "bmp-a-jpg", "jpg-a-png"],
+    "keywords": ["convertir jpg a bmp", "jpg a bmp online", "pasar jpg a bmp", "generar bmp", "convertidor jpg bmp"],
+    "updated": "2026-10-21"
+  },
+  {
+    "slug": "png-a-bmp",
+    "from": "png",
+    "to": "bmp",
+    "processorId": "image-convert",
+    "title": "Convertir PNG a BMP para software compatible | ConvertiLocal",
+    "h1": "Convertir PNG a BMP",
+    "description": "Pasa PNG a BMP en tu navegador para usar la imagen en programas antiguos. Conversión local, sin subidas y sin instalar nada.",
+    "intro": "BMP es un formato sencillo que muchos programas antiguos entienden sin complicaciones. Si un PNG debe abrirse en una herramienta que solo acepta mapas de bits, convertirlo a BMP resuelve el problema, aunque el archivo crecerá.",
+    "why": [
+      "La conversión aplana la imagen en un BMP de 24 bits. Los píxeles se mantienen, pero el canal alfa se pierde y el fondo se rellena con el color elegido. No hay compresión con pérdida, así que la imagen no se degrada más de lo que ya estuviera.",
+      "El tamaño puede multiplicarse varias veces. Para un uso puntual en software legacy es aceptable; para web, correo o almacenamiento masivo, no. Si necesitas transparencia, conserva el PNG o usa un BMP de 32 bits solo si la aplicación lo admite."
+    ],
+    "useCases": [
+      { "title": "Programas que solo leen BMP", "body": "Abre la imagen en utilidades antiguas de Windows o software técnico." },
+      { "title": "Texturas para herramientas legacy", "body": "Genera mapas de bits para motores o editores que no importan PNG." },
+      { "title": "Pruebas de compatibilidad", "body": "Comprueba cómo se comporta una imagen sin compresión en un flujo antiguo." }
+    ],
+    "mistakes": [
+      { "title": "Perder la transparencia sin querer", "body": "El BMP de 24 bits no tiene alfa. Si el PNG tenía fondo transparente, se rellenará con un color." },
+      { "title": "Usar BMP para publicar", "body": "El peso es enorme. Para web, PNG o WebP son mejores." },
+      { "title": "Convertir una animación", "body": "BMP no admite animación. Solo se conserva un fotograma." }
+    ],
+    "faq": [
+      { "q": "¿Se pierde calidad al convertir PNG a BMP?", "a": "No hay compresión con pérdida, pero el canal alfa se pierde y el fondo se aplana." },
+      { "q": "¿Qué tamaño tendrá el BMP?", "a": "Depende de las dimensiones: aproximadamente 3 bytes por píxel más la cabecera. Una imagen de 3000×2000 ronda los 18 MB." },
+      { "q": "¿Puedo elegir el color de fondo?", "a": "Sí. En las opciones puedes indicar el color que sustituirá las zonas transparentes." },
+      { "q": "¿Funciona en el móvil?", "a": "Sí, aunque el peso del BMP puede ser alto. Para compartir, considera JPG o PNG." }
+    ],
+    "related": ["bmp-a-png", "jpg-a-bmp", "png-a-jpg"],
+    "keywords": ["convertir png a bmp", "png a bmp online", "pasar png a bmp", "png bmp sin perdida", "convertidor png bmp"],
+    "updated": "2026-10-21"
+  },
+  {
+    "slug": "png-a-ico",
+    "from": "png",
+    "to": "ico",
+    "processorId": "image-convert",
+    "title": "Convertir PNG a ICO y crear tu favicon | ConvertiLocal",
+    "h1": "Convertir PNG a ICO",
+    "description": "Crea un favicon ICO multi-resolución desde tu PNG en el navegador. Conserva la transparencia y descarga el archivo listo para tu web.",
+    "intro": "Un favicon ICO bien hecho incluye varios tamaños para verse nítido en pestañas, marcadores y pantallas de alta densidad. ConvertiLocal genera un ICO con las resoluciones habituales a partir de tu PNG, sin subir el logo a ningún servidor.",
+    "why": [
+      "El ICO no es una imagen única, sino un contenedor con varias versiones. La herramienta crea entradas de 16, 32, 48, 64, 128 y 256 píxeles, usando PNG internamente para conservar la transparencia y la calidad. Así el navegador elige la más adecuada en cada contexto.",
+      "Parte de un PNG cuadrado y con fondo transparente para obtener el mejor resultado. Si el logo tiene detalles finos, revisa cómo se ve a 16×16: a ese tamaño solo sobreviven las formas simples. También puedes generar un favicon moderno en SVG o PNG y usar el ICO como respaldo."
+    ],
+    "useCases": [
+      { "title": "Favicon de un sitio web", "body": "Crea el clásico favicon.ico con varios tamaños y súbelo a la raíz de tu web." },
+      { "title": "Acceso directo en Windows", "body": "Asigna un icono nítido a una aplicación, carpeta o acceso directo." },
+      { "title": "Icono de una PWA", "body": "Genera un ICO de respaldo para navegadores y sistemas que lo solicitan." }
+    ],
+    "mistakes": [
+      { "title": "Generar un solo tamaño", "body": "Un ICO de 16×16 se ve borroso en pantallas retina. Incluye al menos 16, 32, 48 y 256." },
+      { "title": "Usar una foto con mucho detalle", "body": "En 16×16 se convierte en una mancha. Los iconos necesitan formas simples y contraste." },
+      { "title": "Olvidar actualizar la caché", "body": "Los navegadores guardan el favicon. Prueba en una ventana privada o cambia la URL del archivo." }
+    ],
+    "faq": [
+      { "q": "¿Qué tamaños incluye el ICO generado?", "a": "16, 32, 48, 64, 128 y 256 píxeles, con transparencia." },
+      { "q": "¿Se conserva la transparencia del PNG?", "a": "Sí. El ICO moderno admite imágenes PNG con canal alfa." },
+      { "q": "¿Qué tamaño de PNG debo usar como origen?", "a": "Al menos 256×256, preferiblemente 512×512 o superior y cuadrado." },
+      { "q": "¿Dónde se coloca el favicon.ico?", "a": "En la raíz del sitio, accesible como /favicon.ico, y se referencia con <link rel=\"icon\">." }
+    ],
+    "related": ["jpg-a-ico", "webp-a-ico", "ico-a-png"],
+    "keywords": ["convertir png a ico", "png a ico online", "crear favicon ico", "pasar png a icono", "favicon multi resolucion"],
+    "updated": "2026-10-21"
+  },
+  {
+    "slug": "jpg-a-ico",
+    "from": "jpg",
+    "to": "ico",
+    "processorId": "image-convert",
+    "title": "Convertir JPG a ICO para favicon o Windows | ConvertiLocal",
+    "h1": "Convertir JPG a ICO",
+    "description": "Crea un icono ICO desde un JPG en tu navegador. Elige el fondo, conserva la nitidez y descarga un favicon listo para usar.",
+    "intro": "Los JPG no tienen transparencia, así que el ICO resultante llevará un fondo sólido. Aun así, es una forma rápida de crear un favicon o un icono de Windows a partir de una imagen que ya tienes, sin instalar programas.",
+    "why": [
+      "La herramienta recorta y centra la imagen en cada tamaño del ICO y genera entradas de 16 a 256 píxeles. Como el JPG no tiene alfa, el fondo se rellena con el color elegido. El resultado es un icono cuadrado y consistente en todos los contextos.",
+      "Para un favicon profesional, suele ser mejor partir de un logo PNG con fondo transparente. Usa JPG si la imagen ya tiene un fondo que quieres conservar o si buscas un icono con una fotografía. Evita detalles pequeños: a 16×16 se pierden."
+    ],
+    "useCases": [
+      { "title": "Favicon rápido", "body": "Convierte una imagen de marca existente en un ICO funcional para tu web." },
+      { "title": "Icono de acceso directo", "body": "Asigna una imagen JPG a una carpeta o aplicación en Windows." },
+      { "title": "Prototipos y pruebas", "body": "Genera iconos temporales sin abrir un editor gráfico." }
+    ],
+    "mistakes": [
+      { "title": "Usar una foto recargada", "body": "En tamaños pequeños se vuelve ilegible. Mejor un logo simple o un recorte claro." },
+      { "title": "No controlar el fondo", "body": "El JPG no tiene transparencia; el color de fondo forma parte del icono. Elige uno que contraste." },
+      { "title": "Generar solo 256×256", "body": "Aunque el navegador lo reduzca, un ICO con varios tamaños se ve mejor en pestañas y marcadores." }
+    ],
+    "faq": [
+      { "q": "¿El ICO tendrá fondo transparente?", "a": "No, salvo que el JPG ya lo tuviera. El fondo se rellena con el color elegido." },
+      { "q": "¿Qué dimensiones debe tener el JPG?", "a": "Al menos 256×256 y preferiblemente cuadrado. La herramienta lo adapta a cada tamaño." },
+      { "q": "¿Puedo usar una foto como favicon?", "a": "Sí, pero funcionará mejor si recortas la parte importante y evitas detalles finos." },
+      { "q": "¿Se sube la imagen?", "a": "No. El ICO se genera en tu navegador y el JPG no sale de tu dispositivo." }
+    ],
+    "related": ["png-a-ico", "ico-a-png", "webp-a-ico"],
+    "keywords": ["convertir jpg a ico", "jpg a ico online", "crear favicon desde jpg", "pasar jpg a icono", "icono windows jpg"],
+    "updated": "2026-10-21"
+  },
+  {
+    "slug": "webp-a-ico",
+    "from": "webp",
+    "to": "ico",
+    "processorId": "image-convert",
+    "title": "Convertir WebP a ICO conservando la transparencia | ConvertiLocal",
+    "h1": "Convertir WebP a ICO",
+    "description": "Pasa un WebP a ICO multi-resolución en local. Conserva el canal alfa y crea un favicon o icono de Windows sin subir archivos.",
+    "intro": "Si tu logo o icono está en WebP, convertirlo a ICO te permite usarlo como favicon o icono de Windows. La herramienta conserva la transparencia y genera varias resoluciones en un solo archivo.",
+    "why": [
+      "WebP y PNG comparten la ventaja de admitir canal alfa, así que el ICO resultante puede mantener el fondo transparente. La conversión dibuja la imagen en cada tamaño y la guarda como PNG dentro del contenedor ICO, lo que evita el aspecto pixelado de los iconos antiguos.",
+      "El ICO está pensado para tamaños pequeños. Si tu WebP es una fotografía grande, el resultado se verá simplificado en 16×16. Para iconos de aplicación modernos también puedes usar PNG o SVG; el ICO sigue siendo necesario para compatibilidad con Windows y favicons clásicos."
+    ],
+    "useCases": [
+      { "title": "Favicon desde un logo WebP", "body": "Convierte el logo de tu web en un ICO con transparencia y varios tamaños." },
+      { "title": "Icono para Windows", "body": "Asigna un icono a una aplicación o acceso directo." },
+      { "title": "Compatibilidad de PWA", "body": "Genera un ICO de respaldo además de los iconos PNG." }
+    ],
+    "mistakes": [
+      { "title": "Usar una imagen con demasiado detalle", "body": "El icono se vuelve ilegible a 16×16. Simplifica la forma antes de convertir." },
+      { "title": "Perder la transparencia por el camino", "body": "Comprueba el resultado si el WebP tenía alfa; algunos conversores lo aplanan." },
+      { "title": "No incluir 256×256", "body": "Las pantallas de alta densidad y los accesos directos agradecen una versión grande." }
+    ],
+    "faq": [
+      { "q": "¿Se conserva la transparencia del WebP?", "a": "Sí, el ICO generado incluye PNG con canal alfa en todos los tamaños." },
+      { "q": "¿Qué resoluciones incluye?", "a": "16, 32, 48, 64, 128 y 256 píxeles." },
+      { "q": "¿Es mejor usar PNG en lugar de WebP como origen?", "a": "Si tienes el PNG original, úsalo: evitas una decodificación intermedia. Si solo tienes WebP, la conversión es perfectamente válida." },
+      { "q": "¿Puedo usar el ICO en macOS?", "a": "macOS usa ICNS para iconos de aplicación. El ICO está orientado a Windows y favicons web." }
+    ],
+    "related": ["png-a-ico", "jpg-a-ico", "ico-a-png"],
+    "keywords": ["convertir webp a ico", "webp a ico online", "favicon webp", "pasar webp a icono", "ico transparencia"],
+    "updated": "2026-10-21"
+  },
+  {
+    "slug": "ico-a-png",
+    "from": "ico",
+    "to": "png",
+    "processorId": "image-convert",
+    "title": "Convertir ICO a PNG y extraer el favicon | ConvertiLocal",
+    "h1": "Convertir ICO a PNG",
+    "description": "Extrae la imagen de un ICO a PNG en tu navegador. Conserva la transparencia y obtén una versión editable del favicon o icono.",
+    "intro": "Un ICO puede contener varias resoluciones. Al convertirlo a PNG obtienes la imagen de mayor tamaño disponible, lista para editar, reutilizar en una web o inspeccionar con detalle.",
+    "why": [
+      "ConvertiLocal extrae la entrada de mayor resolución del ICO y la convierte a PNG sin pérdida. Si el icono incluye una imagen de 256×256, ese será el resultado; si solo tiene 16×16, el PNG será pequeño y no conviene ampliarlo. La transparencia se conserva.",
+      "Es útil para recuperar un logo antiguo, revisar un favicon o preparar una versión editable. Ten en cuenta que ampliar un icono pequeño no lo mejora: solo interpola píxeles. Si necesitas una imagen grande, busca el archivo original o recrea el diseño."
+    ],
+    "useCases": [
+      { "title": "Recuperar un logo", "body": "Extrae el icono de una aplicación o web antigua para reutilizarlo como PNG." },
+      { "title": "Editar un favicon", "body": "Abre el PNG en un editor y ajusta colores o formas antes de generar un nuevo ICO." },
+      { "title": "Revisar resoluciones", "body": "Comprueba qué tamaño máximo incluye un archivo ICO." }
+    ],
+    "mistakes": [
+      { "title": "Ampliar un ICO de 16×16", "body": "El resultado se verá borroso. Un PNG más grande no añade detalle que el icono no tenía." },
+      { "title": "Esperar todos los tamaños en un solo PNG", "body": "Un PNG es una sola imagen. La herramienta extrae la resolución mayor disponible." },
+      { "title": "Ignorar la transparencia", "body": "Algunos iconos antiguos tienen máscaras o fondos sólidos. Revisa el PNG antes de usarlo sobre fondos oscuros." }
+    ],
+    "faq": [
+      { "q": "¿Qué tamaño tendrá el PNG?", "a": "El de la entrada más grande incluida en el ICO, normalmente 256×256 en iconos modernos." },
+      { "q": "¿Se conserva la transparencia?", "a": "Sí, si el ICO la tenía y la entrada extraída usa canal alfa." },
+      { "q": "¿Puedo convertir un ICO con varias imágenes?", "a": "Sí, pero se extrae la de mayor resolución. Las demás no se exportan por separado." },
+      { "q": "¿Funciona con favicons antiguos?", "a": "Sí. Si el ICO solo contiene BMP de 16×16, el PNG será de ese tamaño." }
+    ],
+    "related": ["png-a-ico", "jpg-a-ico", "webp-a-ico"],
+    "keywords": ["convertir ico a png", "ico a png online", "extraer favicon png", "pasar ico a png", "convertidor ico"],
+    "updated": "2026-10-21"
+  }
+]

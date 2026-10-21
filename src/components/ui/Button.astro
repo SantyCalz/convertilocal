@@ -1,0 +1,76 @@
+---
+import type { IconName } from '@/types/icon';
+import Icon from './Icon.astro';
+
+interface Props {
+  href?: string;
+  type?: 'button' | 'submit' | 'reset';
+  variant?: 'primary' | 'secondary' | 'ghost' | 'dark';
+  size?: 'sm' | 'md' | 'lg';
+  block?: boolean;
+  class?: string;
+  icon?: IconName;
+  iconPosition?: 'left' | 'right';
+  disabled?: boolean;
+  ariaLabel?: string;
+  target?: string;
+  rel?: string;
+}
+
+const {
+  href,
+  type = 'button',
+  variant = 'primary',
+  size = 'md',
+  block = false,
+  class: className = '',
+  icon,
+  iconPosition = 'left',
+  disabled = false,
+  ariaLabel,
+  target,
+  rel,
+} = Astro.props;
+
+const Tag = href ? 'a' : 'button';
+
+const variants = {
+  primary:
+    'bg-brand-700 text-white shadow-sm shadow-brand-900/10 hover:bg-brand-800 active:bg-brand-900',
+  secondary:
+    'bg-white text-slate-800 ring-1 ring-inset ring-slate-300 hover:bg-slate-50 active:bg-slate-100',
+  ghost: 'text-slate-700 hover:bg-slate-100 active:bg-slate-200',
+  dark: 'bg-slate-900 text-white hover:bg-slate-800 active:bg-slate-950',
+};
+
+const sizes = {
+  sm: 'h-9 gap-1.5 px-3 text-sm',
+  md: 'h-11 gap-2 px-4 text-sm',
+  lg: 'h-12 gap-2 px-5 text-base',
+};
+
+const iconSize = size === 'sm' ? 16 : 18;
+---
+
+<Tag
+  href={href}
+  type={href ? undefined : type}
+  target={target}
+  rel={rel}
+  disabled={href ? undefined : disabled}
+  aria-disabled={disabled ? 'true' : undefined}
+  aria-label={ariaLabel}
+  class:list={[
+    'inline-flex select-none items-center justify-center rounded-xl font-semibold transition-colors',
+    'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-600 focus-visible:ring-offset-2',
+    variants[variant],
+    sizes[size],
+    block && 'w-full',
+    disabled && 'pointer-events-none opacity-50',
+    className,
+  ]}
+>
+  {icon && iconPosition === 'left' && <Icon name={icon} size={iconSize} />}
+  <slot />
+  {icon && iconPosition === 'right' && <Icon name={icon} size={iconSize} />}
+</Tag>

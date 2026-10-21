@@ -1,0 +1,66 @@
+---
+import ToolPageShell from '@/components/tools/ToolPageShell.astro';
+import Icon from '@/components/ui/Icon.astro';
+import type { ProcessorOption } from '@/types/processor';
+
+const path = '/imagenes/recortar';
+const site = (Astro.site ?? new URL('https://convertilocal.com')).href.replace(/\/$/, '');
+const faqs = [
+  { q: '¿Puedo recortar con coordenadas exactas?', a: 'Sí. Indica X, Y, ancho y alto en píxeles. Si dejas el ancho o el alto a 0, el recorte llega hasta el borde de la imagen.' },
+  { q: '¿Qué pasa si el recorte está fuera de la imagen?', a: 'Se muestra un error antes de procesar.' },
+  { q: '¿Se sube la imagen?', a: 'No. Todo se procesa en tu navegador.' },
+  { q: '¿Qué formatos puedo generar?', a: 'PNG, JPG, WebP, AVIF, BMP o ICO.' },
+];
+
+const faqSchema = { '@context': 'https://schema.org', '@type': 'FAQPage', mainEntity: faqs.map((item) => ({ '@type': 'Question', name: item.q, acceptedAnswer: { '@type': 'Answer', text: item.a } })) };
+const breadcrumbSchema = { '@context': 'https://schema.org', '@type': 'BreadcrumbList', itemListElement: [{ '@type': 'ListItem', position: 1, name: 'Inicio', item: `${site}/` }, { '@type': 'ListItem', position: 2, name: 'Convertir imágenes', item: `${site}/convertir` }, { '@type': 'ListItem', position: 3, name: 'Recortar imagen', item: `${site}${path}` }] };
+
+const options: ProcessorOption[] = [
+  { id: 'x', label: 'X', type: 'number', defaultValue: 0, min: 0, max: 16384, step: 1, unit: 'px' },
+  { id: 'y', label: 'Y', type: 'number', defaultValue: 0, min: 0, max: 16384, step: 1, unit: 'px' },
+  { id: 'width', label: 'Ancho', type: 'number', defaultValue: 0, min: 0, max: 16384, step: 1, unit: 'px', help: '0 = hasta el borde derecho de la imagen.' },
+  { id: 'height', label: 'Alto', type: 'number', defaultValue: 0, min: 0, max: 16384, step: 1, unit: 'px', help: '0 = hasta el borde inferior de la imagen.' },
+  { id: 'format', label: 'Formato de salida', type: 'select', defaultValue: 'png', choices: [{ value: 'png', label: 'PNG' }, { value: 'jpg', label: 'JPG' }, { value: 'webp', label: 'WebP' }, { value: 'avif', label: 'AVIF' }, { value: 'bmp', label: 'BMP' }, { value: 'ico', label: 'ICO' }] },
+  { id: 'quality', label: 'Calidad', type: 'range', defaultValue: 90, min: 1, max: 100, step: 1, unit: '%' },
+  { id: 'background', label: 'Color de fondo', type: 'select', defaultValue: '#ffffff', choices: [{ value: '#ffffff', label: 'Blanco' }, { value: '#000000', label: 'Negro' }, { value: '#f1f5f9', label: 'Gris claro' }] },
+];
+
+const webApplicationSchema = { '@context': 'https://schema.org', '@type': 'WebApplication', name: 'Recortar imagen', url: `${site}${path}`, description: 'Recorta una imagen con coordenadas exactas, sin subir archivos.', applicationCategory: 'UtilitiesApplication', operatingSystem: 'Any', inLanguage: 'es', isAccessibleForFree: true, offers: { '@type': 'Offer', price: '0', priceCurrency: 'EUR' } };
+---
+
+<ToolPageShell
+  title="Recortar imagen online sin subirla"
+  description="Recorta una imagen con coordenadas exactas y descarga el resultado. Todo en tu navegador."
+  h1="Recortar imagen"
+  intro="Selecciona la zona que quieres conservar indicando X, Y, ancho y alto en píxeles."
+  path={path}
+  processorId="image-crop"
+  accept=".png,.jpg,.jpeg,.webp,.avif,.bmp,.ico,image/png,image/jpeg,image/webp,image/avif,image/bmp,image/x-icon"
+  acceptLabel="JPG, PNG, WebP, AVIF, BMP o ICO"
+  actionLabel="Recortar"
+  baseName="imagen-recortada"
+  options={options}
+  resultNote="Si las coordenadas quedan fuera de la imagen, se muestra un error antes de procesar. Con ancho o alto en 0 el recorte llega hasta el borde."
+  schema={[webApplicationSchema, breadcrumbSchema, faqSchema]}
+  breadcrumbLabel="Recortar"
+  multiple
+  maxSizeMB={25}
+  maxFiles={20}
+  maxTotalMB={120}
+  previewMode="image-compare"
+>
+  <section aria-labelledby="faq-title">
+    <h2 id="faq-title" class="text-2xl font-bold tracking-tight text-slate-900">Preguntas frecuentes</h2>
+    <div class="mt-4 divide-y divide-slate-200 rounded-2xl border border-slate-200 bg-white">
+      {faqs.map((item) => (
+        <details class="group p-4">
+          <summary class="flex cursor-pointer list-none items-center justify-between gap-3 text-sm font-semibold text-slate-900">
+            {item.q}
+            <Icon name="chevron-down" size={16} class="shrink-0 text-slate-400 transition-transform group-open:rotate-180" />
+          </summary>
+          <p class="mt-2 text-sm leading-6 text-slate-600">{item.a}</p>
+        </details>
+      ))}
+    </div>
+  </section>
+</ToolPageShell>

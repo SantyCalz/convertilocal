@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+Disallow: /demo-file-processor
+
+Sitemap: https://convertilocal.com/sitemap-index.xml

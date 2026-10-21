@@ -1,0 +1,180 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    color-scheme: light;
+    --header-height: 3.5rem;
+  }
+
+  html {
+    -webkit-text-size-adjust: 100%;
+    scroll-behavior: smooth;
+    scroll-padding-top: calc(var(--header-height) + 1rem);
+  }
+
+  body {
+    @apply bg-slate-50 font-sans text-slate-600 antialiased;
+    min-width: 320px;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    @apply text-slate-900;
+    text-wrap: balance;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+
+  ::selection {
+    @apply bg-brand-200 text-brand-950;
+  }
+
+  :focus-visible {
+    @apply outline-none ring-2 ring-brand-600 ring-offset-2 ring-offset-white;
+  }
+
+  [hidden] {
+    display: none !important;
+  }
+
+  summary::-webkit-details-marker {
+    display: none;
+  }
+
+  summary {
+    list-style: none;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+}
+
+@layer components {
+  .container-page {
+    @apply mx-auto w-full max-w-6xl px-4 sm:px-6 lg:px-8;
+  }
+
+  .skip-link {
+    @apply fixed left-3 top-3 z-[100] -translate-y-24 rounded-lg bg-slate-900 px-4 py-3 text-sm font-semibold text-white transition-transform focus:translate-y-0;
+  }
+
+  .eyebrow {
+    @apply text-xs font-semibold uppercase tracking-[0.16em] text-brand-700;
+  }
+
+  .prose-legal {
+    @apply text-[0.9375rem] leading-7 text-slate-600;
+  }
+
+  .prose-legal h2 {
+    @apply mt-10 scroll-mt-24 text-xl font-semibold tracking-tight text-slate-900;
+  }
+
+  .prose-legal h3 {
+    @apply mt-6 text-base font-semibold text-slate-900;
+  }
+
+  .prose-legal p {
+    @apply my-4;
+  }
+
+  .prose-legal ul,
+  .prose-legal ol {
+    @apply my-4 space-y-2 pl-5;
+  }
+
+  .prose-legal ul {
+    @apply list-disc marker:text-brand-600;
+  }
+
+  .prose-legal ol {
+    @apply list-decimal marker:font-semibold marker:text-brand-700;
+  }
+
+  .prose-legal a {
+    @apply font-medium text-brand-700 underline decoration-brand-300 underline-offset-2 transition-colors hover:text-brand-800 hover:decoration-brand-500;
+  }
+
+  .prose-legal strong {
+    @apply font-semibold text-slate-900;
+  }
+
+  .prose-legal code {
+    @apply rounded bg-slate-100 px-1.5 py-0.5 font-mono text-[0.8125rem] text-slate-800;
+  }
+
+  .prose-legal table {
+    @apply my-6 w-full border-collapse overflow-hidden rounded-xl text-left text-sm;
+  }
+
+  .prose-legal th {
+    @apply border-b border-slate-200 bg-slate-50 px-3 py-2.5 font-semibold text-slate-900;
+  }
+
+  .prose-legal td {
+    @apply border-b border-slate-100 px-3 py-2.5 align-top;
+  }
+
+  .callout {
+    @apply my-6 rounded-2xl border border-brand-200 bg-brand-50 p-4 text-sm leading-6 text-brand-900;
+  }
+
+  .callout p {
+    @apply my-0;
+  }
+}
+
+@layer utilities {
+  .touch-target {
+    min-height: 2.75rem;
+    min-width: 2.75rem;
+  }
+
+  .safe-bottom {
+    padding-bottom: max(0.75rem, env(safe-area-inset-bottom));
+  }
+
+  .safe-top {
+    padding-top: max(0.75rem, env(safe-area-inset-top));
+  }
+
+  .no-scrollbar {
+    scrollbar-width: none;
+  }
+
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+
+  .bg-grid {
+    background-image:
+      linear-gradient(to right, rgba(15, 23, 42, 0.045) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(15, 23, 42, 0.045) 1px, transparent 1px);
+    background-size: 28px 28px;
+  }
+
+  .bg-radial-brand {
+    background-image: radial-gradient(
+      60% 60% at 50% 0%,
+      rgba(16, 185, 129, 0.14) 0%,
+      rgba(16, 185, 129, 0) 70%
+    );
+  }
+}

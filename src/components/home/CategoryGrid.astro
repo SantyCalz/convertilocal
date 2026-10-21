@@ -1,0 +1,59 @@
+---
+import Icon from '@/components/ui/Icon.astro';
+import SectionHeader from '@/components/ui/SectionHeader.astro';
+import { CATEGORIES } from '@/data/categories';
+import { countToolsByCategory } from '@/data/tools';
+---
+
+<section
+  id="categorias"
+  class="container-page scroll-mt-20 py-12 sm:py-16"
+  aria-labelledby="categorias-title"
+>
+  <SectionHeader
+    eyebrow="Categorías"
+    title="¿Qué necesitas convertir?"
+    description="Elige un tipo de archivo y descubre las herramientas disponibles. Todas funcionan en local, incluso sin conexión."
+    id="categorias-title"
+  />
+
+  <div class="mt-7 grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
+    {
+      CATEGORIES.map((category) => (
+        <button
+          type="button"
+          data-category-filter={category.id}
+          class:list={[
+            'group flex items-start gap-4 rounded-2xl border border-slate-200 bg-white p-4 text-left shadow-sm transition-all hover:-translate-y-0.5 hover:shadow-card',
+            category.accent.hover,
+          ]}
+        >
+          <span
+            class:list={[
+              'flex h-11 w-11 shrink-0 items-center justify-center rounded-xl ring-1 ring-inset',
+              category.accent.bg,
+              category.accent.text,
+              category.accent.ring,
+            ]}
+          >
+            <Icon name={category.icon} size={21} />
+          </span>
+
+          <span class="min-w-0 flex-1">
+            <span class="flex items-center justify-between gap-2">
+              <span class="font-semibold text-slate-900">{category.name}</span>
+              <span class="rounded-full bg-slate-100 px-2 py-0.5 text-[10px] font-medium text-slate-500">
+                {countToolsByCategory(category.id)} próx.
+              </span>
+            </span>
+            <span class="mt-1 block text-xs leading-5 text-slate-500">{category.description}</span>
+            <span class="mt-2 inline-flex items-center gap-1 text-[11px] font-semibold text-brand-700">
+              Filtrar herramientas
+              <Icon name="arrow-right" size={12} class="transition-transform group-hover:translate-x-0.5" />
+            </span>
+          </span>
+        </button>
+      ))
+    }
+  </div>
+</section>

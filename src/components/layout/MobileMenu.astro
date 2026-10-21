@@ -1,0 +1,105 @@
+---
+import { MAIN_NAV } from '@/data/nav';
+import { LEGAL_LINKS } from '@/data/site';
+import Icon from '@/components/ui/Icon.astro';
+import Logo from '@/components/ui/Logo.astro';
+---
+
+<dialog
+  id="mobile-menu"
+  data-mobile-menu
+  class="m-0 h-dvh max-h-none w-screen max-w-none bg-transparent p-0 backdrop:bg-slate-900/40 backdrop:backdrop-blur-sm"
+  aria-label="Menú de navegación"
+>
+  <div class="safe-top flex h-dvh w-full flex-col bg-white">
+    <div class="flex items-center justify-between border-b border-slate-100 px-4 pb-3">
+      <a href="/" data-menu-close class="rounded-lg py-1" aria-label="ConvertiLocal, ir al inicio">
+        <Logo />
+      </a>
+      <button
+        type="button"
+        data-menu-close
+        class="inline-flex h-11 w-11 items-center justify-center rounded-lg text-slate-600 transition-colors hover:bg-slate-100"
+        aria-label="Cerrar menú"
+      >
+        <Icon name="x" size={22} />
+      </button>
+    </div>
+
+    <div class="flex-1 overflow-y-auto overscroll-contain px-4 py-5">
+      <a
+        href="/#buscador"
+        data-menu-close
+        class="flex items-center gap-3 rounded-xl bg-slate-50 px-4 py-3.5 text-sm text-slate-500 ring-1 ring-inset ring-slate-200"
+      >
+        <Icon name="search" size={18} />
+        <span>Buscar herramientas</span>
+        <kbd
+          class="ml-auto rounded border border-slate-200 bg-white px-1.5 py-0.5 font-sans text-[10px] font-semibold text-slate-400"
+        >
+          /
+        </kbd>
+      </a>
+
+      <nav aria-label="Menú móvil" class="mt-7">
+        <p class="eyebrow px-1">Explorar</p>
+        <ul class="mt-2 divide-y divide-slate-100">
+          {
+            MAIN_NAV.map((item) => (
+              <li>
+                <a
+                  href={item.href}
+                  data-menu-close
+                  class="flex items-center justify-between py-3.5 text-base font-medium text-slate-800"
+                >
+                  {item.label}
+                  <Icon name="arrow-right" size={17} class="text-slate-300" />
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+      </nav>
+
+      <div class="mt-8">
+        <p class="eyebrow px-1">Legal</p>
+        <ul class="mt-2 grid grid-cols-2 gap-x-4">
+          {
+            LEGAL_LINKS.map((link) => (
+              <li>
+                <a
+                  href={link.href}
+                  data-menu-close
+                  class="block py-2 text-sm text-slate-600 hover:text-slate-900"
+                >
+                  {link.label}
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+
+      <div class="mt-8 rounded-2xl bg-brand-50 p-4 ring-1 ring-inset ring-brand-100">
+        <p class="flex items-center gap-2 text-sm font-semibold text-brand-900">
+          <Icon name="shield" size={18} />
+          100% en tu navegador
+        </p>
+        <p class="mt-1 text-xs leading-5 text-brand-800">
+          Ningún archivo se sube a un servidor. Puedes usarlo incluso sin conexión.
+        </p>
+      </div>
+    </div>
+
+    <div class="safe-bottom border-t border-slate-100 p-4">
+      <a
+        href="/#herramientas"
+        data-menu-close
+        class="flex h-12 items-center justify-center gap-2 rounded-xl bg-brand-700 text-sm font-semibold text-white transition-colors hover:bg-brand-800"
+      >
+        Ver herramientas
+        <Icon name="arrow-right" size={18} />
+      </a>
+    </div>
+  </div>
+</dialog>

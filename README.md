@@ -1,0 +1,139 @@
+# ConvertiLocal
+
+Suite de micro-herramientas de conversión y manipulación de archivos que funciona **100 % en el navegador**. Tus archivos nunca salen de tu dispositivo.
+
+> **Estado:** Suite completa hasta Fase 5. Incluye imagen, PDF, datos/texto y audio/video, con validacion estatica, presupuesto JS y preparacion de despliegue.
+
+## Stack
+
+- **Astro 5** con `output: 'static'` (SSG puro, sin SSR ni adapter).
+- **Tailwind CSS 3.4** con tokens en `tailwind.config.mjs`.
+- **TypeScript estricto** y JavaScript vanilla en módulos.
+- **Procesamiento de imagen:** Web Worker + `OffscreenCanvas`, con codificadores propios para BMP/ICO, Canvas para PNG/JPG/WebP, WASM para AVIF y `heic2any` para HEIC.
+
+## Comandos
+
+```bash
+npm install
+npm run dev              # servidor local
+npm run build            # build estático en dist/
+npm run preview          # sirve el build
+npm run check            # Astro + TypeScript
+npm run lint             # ESLint (TS + Astro)
+npm run format           # Prettier
+npm run sync:bg          # assets autoalojados de @imgly/background-removal
+npm run validate:content # coherencia de formats.json, conversions.json y tarjetas
+npm run validate:html    # JSON-LD parseable y enlaces internos (requiere build)
+npm run budget           # build + presupuesto de JS inicial (50 KB gzip por página)
+npm run validate         # check + lint + contenido + budget + HTML
+npm run test:e2e         # Playwright sobre el build
+npm run deploy:check     # validate + verificación de despliegue
+```
+
+## Rutas publicadas
+
+- `/` — inicio, buscador y catálogo.
+- `/convertir` — hub con las 20 conversiones y la guía de los 7 formatos.
+- `/convertir/[conversion]` — 20 páginas: JPG, PNG, WebP, HEIC, AVIF, BMP e ICO.
+- `/imagenes/reducir-foto-a-kb` — compresión por peso objetivo o calidad manual.
+- `/imagenes/quitar-exif-foto` — limpieza de EXIF/XMP/GPS en JPG, PNG y WebP.
+- `/imagenes/eliminar-fondo` — eliminación de fondo con modelo IS-Net autoalojado.
+- `/imagenes/redimensionar` — ancho, alto, proporción y ajuste configurable.
+- `/imagenes/recortar` — recorte por coordenadas exactas en píxeles.
+
+Conversiones: `jpg-a-png`, `png-a-jpg`, `webp-a-png`, `webp-a-jpg`, `jpg-a-webp`, `png-a-webp`, `heic-a-jpg`, `heic-a-png`, `avif-a-jpg`, `avif-a-png`, `jpg-a-avif`, `png-a-avif`, `bmp-a-png`, `bmp-a-jpg`, `jpg-a-bmp`, `png-a-bmp`, `png-a-ico`, `jpg-a-ico`, `webp-a-ico`, `ico-a-png`.
+
+## Estructura
+
+```text
+src/
+├─ components/
+│  ├─ FileProcessor.astro      UI de carga, opciones, progreso y resultados
+│  ├─ tools/ToolPageShell.astro
+│  ├─ home/                    Hero, buscador, categorías, recientes
+│  ├─ layout/                  Header, MobileMenu, Footer
+│  └─ ui/                      Icon, Logo, Badge, Button, AdSlot…
+├─ data/
+│  ├─ formats.json             Guía de 7 formatos
+│  ├─ conversions.json         20 páginas con contenido SEO único
+│  ├─ conversion-cards.json    Proyección ligera para el catálogo
+│  ├─ images.ts                Helpers tipados de contenido
+│  └─ tools.ts, nav.ts, site.ts, categories.ts
+├─ pages/
+│  ├─ convertir/index.astro
+│  ├─ convertir/[conversion].astro
+│  ├─ imagenes/reducir-foto-a-kb.astro
+│  ├─ imagenes/quitar-exif-foto.astro
+│  ├─ imagenes/eliminar-fondo.astro
+│  ├─ imagenes/redimensionar.astro
+│  ├─ imagenes/recortar.astro
+│  ├─ demo-file-processor.astro   (laboratorio interno, noindex)
+│  └─ legales y home
+├─ scripts/
+│  ├─ core/image/              sniff, canvas, bmp, ico, metadata, target-size…
+│  ├─ core/file-processor.ts   validación, opciones, previews y descargas
+│  ├─ core/download.ts         ZIP diferido con fflate
+│  ├─ processors/image/        converter, compressor, exif-cleaner, heic,
+│  │                           remove-background, resize, crop
+│  ├─ processors/registry.ts   carga diferida por id
+│  └─ workers/image.worker.ts  worker único de imagen
+├─ styles/global.css
+└─ types/                      processor, image, tool, icon
+```
+
+## Arquitectura de imagen
+
+- **Un worker por página:** `image.worker.ts` recibe `File` + opciones y devuelve `Blob` + metadatos. El cliente usa RPC con ids y progreso.
+- **Validación por magic bytes:** `sniff.ts` detecta PNG, JPG, WebP, AVIF, BMP, ICO y HEIC antes de procesar. La extensión y el MIME declarados no son suficientes.
+- **Límites:** 25 MB por archivo, 120 MB por lote, 20 archivos, 16 384 px por lado y 80 MP por imagen.
+- **Codificadores:** Canvas para PNG/JPG/WebP; BMP e ICO propios; AVIF con `@jsquash/avif` (WASM, carga diferida); HEIC con `heic2any` en el hilo principal y su propio worker interno.
+- **Compresión a peso:** búsqueda binaria de calidad y reducción progresiva de dimensiones si el objetivo no se alcanza. Salida JPG, WebP o AVIF.
+- **EXIF:** limpieza sin pérdida de JPG/PNG/WebP conservando ICC. Si la orientación EXIF es distinta de 1 y se decide corregir, se decodifica, rota y recodifica para evitar fotos giradas.
+- **Descargas:** un archivo usa Blob + `<a download>` o Web Share en iOS. Varios se empaquetan en ZIP local con `fflate` (máximo 200 MB); si falla, se descargan por separado.
+- **Presupuesto:** `scripts/check-js-budget.mjs` calcula el JS inicial por página (scripts + `modulepreload` + imports estáticos) y lo limita a 50 KB gzip. Los chunks de `import()` (HEIC, AVIF, fflate, procesadores) se reportan aparte y no cuentan.
+
+## Contenido y SEO
+
+`formats.json` contiene historia, compresión, usos, cuándo evitar, tres errores y FAQ de PNG, JPG, WebP, AVIF, BMP, ICO y HEIC. `conversions.json` contiene las 20 páginas con introducción, razones, casos de uso, errores, FAQ, keywords y enlaces relacionados.
+
+`npm run validate:content` comprueba:
+
+- 7 formatos y 20 conversiones, sin slugs duplicados.
+- Coherencia `from`/`to`, procesador correcto (HEIC usa `heic-convert`).
+- Longitud de metadescripción, número mínimo de FAQ/usos/errores.
+- Relaciones existentes y sin autorreferencia.
+- Sincronización de `conversion-cards.json` con `conversions.json`.
+
+Cada página genera JSON-LD de `BreadcrumbList`, `FAQPage` y `HowTo`; el hub añade su propio FAQ. El layout base mantiene `WebApplication` y permite esquemas adicionales.
+
+## Privacidad
+
+No hay backend, formularios con subida, analítica ni cuentas. El archivo se lee con JavaScript y se borra de la memoria al cerrar la pestaña. El historial reciente vive en `localStorage`. La única descarga externa es el código diferido de AVIF/HEIC y la página en sí.
+
+## Compatibilidad y límites conocidos
+
+- **Chrome/Edge:** ruta principal probada con Chrome headless en escritorio.
+- **Firefox:** sin QA automatizado; Canvas y WebWorker son estándar, pero conviene probar AVIF/HEIC y descargas.
+- **Safari/iOS:** sin QA automatizado en dispositivo real. La descarga usa Web Share cuando hay varios archivos. HEIC nativo de Apple puede decodificarse, pero la ruta usa `heic2any` para uniformidad.
+- **HEIC:** la primera conversión descarga el decodificador (incluido en el chunk diferido) y consume CPU. En móviles antiguos puede tardar.
+- **AVIF:** la codificación es más lenta que JPG/WebP y el WASM pesa ~3,5 MB. Solo se descarga al generar AVIF.
+- **GIF:** no se acepta como entrada en Fase 1; el detector de magic bytes no lo incluye.
+- **Navegadores muy antiguos:** no se soportan.
+
+## Antes de publicar
+
+1. **Dominio:** actualizar `site` en `astro.config.mjs`, `SITE.url`/`SITE.domain` en `src/data/site.ts` y `public/robots.txt`.
+2. **Datos legales:** completar `LEGAL_ENTITY` en `src/data/site.ts` (nombre, NIF, domicilio, hosting) y revisar los textos con asesoría.
+3. **AdSense:** definir `PUBLIC_ADSENSE_CLIENT`, IDs de bloque y CMP antes de activar anuncios personalizados.
+4. **OG image:** sustituir `public/assets/og-default.png` si cambia el branding.
+5. **Laboratorio:** eliminar `/demo-file-processor` y su entrada oculta del catálogo.
+6. **Licencias:** revisar `THIRD_PARTY_NOTICES.md`, en especial la LGPL de libheif incluida por `heic2any`.
+7. **QA real:** repetir las pruebas en Safari/iOS, Firefox y un Android de gama media; revisar HEIC/AVIF y descargas múltiples.
+
+## Hoja de ruta
+
+- Fase 2: audio (MP3/WAV/OGG) y extracción desde vídeo.
+- Fase 3: vídeo (MP4/WebM/GIF) con WebCodecs cuando esté disponible.
+- Fase 4: documentos y datos (PDF, CSV/JSON, OCR ligero).
+- Fase 5: más conversiones de imagen, incluida entrada GIF y procesamiento por lotes avanzado.
+

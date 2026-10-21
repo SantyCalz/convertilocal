@@ -1,0 +1,405 @@
+[
+  {
+    "slug": "csv-a-json",
+    "title": "Convertir CSV a JSON en tu navegador | ConvertiLocal",
+    "h1": "Convertir CSV a JSON",
+    "description": "Pasa un CSV a JSON estructurado sin subir archivos. Elige delimitador, cabecera y descarga el resultado en tu dispositivo.",
+    "intro": "Sube un CSV, decide si la primera fila es cabecera y obtén un JSON listo para usar en código, APIs o bases de datos. Todo se procesa en tu navegador.",
+    "why": [
+      "Detecta automáticamente comas, punto y coma, tabuladores o barras verticales.",
+      "Puedes convertir cada fila en objeto o mantener una matriz de arrays.",
+      "No se envía ningún dato a un servidor ni se crea una cuenta."
+    ],
+    "useCases": [
+      { "title": "Importar datos a una app", "body": "Convierte una exportación CSV en JSON para cargarla en una API, un script o una base de datos." },
+      { "title": "Limpiar hojas de cálculo", "body": "Transforma listados exportados desde Excel o Google Sheets en un formato más fácil de validar." },
+      { "title": "Compartir muestras", "body": "Genera JSON de ejemplo para documentación o pruebas sin exponer los datos originales en la nube." }
+    ],
+    "mistakes": [
+      { "title": "Asumir que todas las comas separan campos", "body": "Los campos entre comillas pueden contener comas. Esta herramienta respeta las comillas y los saltos de línea dentro de un campo." },
+      { "title": "Ignorar la codificación", "body": "Si el CSV tiene caracteres extraños, guárdalo como UTF-8 antes de convertirlo para no perder acentos ni símbolos." },
+      { "title": "No revisar la cabecera", "body": "Si la primera fila no es cabecera, desactiva esa opción para obtener una matriz de arrays en lugar de objetos." }
+    ],
+    "faq": [
+      { "q": "¿Puedo elegir el delimitador?", "a": "Sí. Puedes usar coma, punto y coma, tabulador o barra vertical, o dejar la detección automática." },
+      { "q": "¿Qué ocurre si el CSV tiene varias líneas en un campo?", "a": "Los campos entre comillas que contienen saltos de línea se conservan como un solo valor." },
+      { "q": "¿Se sube el archivo?", "a": "No. El archivo se lee y convierte en tu navegador." },
+      { "q": "¿Hay límite de tamaño?", "a": "Sí, 10 MB por archivo y 50 MB por lote para proteger la memoria del navegador." }
+    ],
+    "keywords": ["csv a json", "convertir csv json", "csv json online", "parser csv", "datos csv"],
+    "related": ["/convertir/json-a-csv", "/convertir/json-a-xlsx", "/convertir/csv-a-xlsx"],
+    "updated": "2026-10-21"
+  },
+  {
+    "slug": "json-a-csv",
+    "title": "Convertir JSON a CSV sin subir archivos | ConvertiLocal",
+    "h1": "Convertir JSON a CSV",
+    "description": "Aplana un array JSON y descárgalo como CSV listo para Excel. Configura delimitador y cabecera desde tu navegador.",
+    "intro": "Sube un JSON con objetos o arrays y genera un CSV compatible con Excel y otras hojas de cálculo, sin enviar datos a ningún servidor.",
+    "why": [
+      "Detecta automáticamente las claves de los objetos y las usa como cabecera.",
+      "Los objetos anidados se serializan como texto para no perder información.",
+      "Puedes elegir el delimitador más adecuado para tu región o herramienta."
+    ],
+    "useCases": [
+      { "title": "Exportar para Excel", "body": "Convierte respuestas de una API en CSV para analizarlas en una hoja de cálculo." },
+      { "title": "Migrar datos", "body": "Pasa datos JSON a un formato tabular para importarlos en sistemas que solo aceptan CSV." },
+      { "title": "Compartir listados", "body": "Genera un CSV legible para personas que no trabajan con JSON." }
+    ],
+    "mistakes": [
+      { "title": "Esperar filas perfectas con JSON anidado", "body": "Si el JSON tiene objetos dentro de objetos, esos valores se guardan como texto JSON dentro de la celda." },
+      { "title": "No revisar la cabecera", "body": "La cabecera se construye con las claves encontradas. Si los objetos tienen claves distintas, algunas celdas quedarán vacías." },
+      { "title": "Usar un delimitador incompatible", "body": "Si tu Excel espera punto y coma, elige ese delimitador para evitar que todo quede en una columna." }
+    ],
+    "faq": [
+      { "q": "¿Qué JSON admite?", "a": "Arrays de objetos, arrays de arrays y objetos simples. Los arrays de objetos son el caso más directo." },
+      { "q": "¿Puedo desactivar la cabecera?", "a": "Sí. Si desactivas la cabecera, se exportan solo los valores." },
+      { "q": "¿Se conservan los acentos?", "a": "Sí, siempre que el archivo original esté en UTF-8." },
+      { "q": "¿Funciona sin conexión?", "a": "Sí, una vez cargada la página." }
+    ],
+    "keywords": ["json a csv", "convertir json csv", "json csv online", "exportar json", "json excel"],
+    "related": ["/convertir/csv-a-json", "/convertir/json-a-xlsx", "/convertir/json-a-yaml"],
+    "updated": "2026-10-21"
+  },
+  {
+    "slug": "json-a-xlsx",
+    "title": "Convertir JSON a XLSX en tu navegador | ConvertiLocal",
+    "h1": "Convertir JSON a XLSX",
+    "description": "Genera un archivo Excel XLSX a partir de un JSON. Sin subidas, sin registro y con cabecera automática.",
+    "intro": "Sube un JSON con objetos o arrays y descarga un XLSX listo para abrir en Excel, LibreOffice o Google Sheets.",
+    "why": [
+      "Crea una hoja con cabecera a partir de las claves del JSON.",
+      "Los valores anidados se serializan como texto para no perder datos.",
+      "El archivo se genera en memoria y se descarga directamente."
+    ],
+    "useCases": [
+      { "title": "Entregar datos a un cliente", "body": "Convierte una respuesta JSON en un Excel fácil de revisar." },
+      { "title": "Análisis rápido", "body": "Abre datos JSON en Excel para filtrar, ordenar o crear tablas dinámicas." },
+      { "title": "Migraciones", "body": "Transforma datos estructurados en un formato aceptado por sistemas empresariales." }
+    ],
+    "mistakes": [
+      { "title": "Esperar varias hojas", "body": "Esta versión genera una sola hoja por archivo. Si necesitas varias, divide el JSON antes de convertirlo." },
+      { "title": "JSON con estructura muy anidada", "body": "Los objetos anidados se guardan como texto JSON en una celda para no perder información." },
+      { "title": "Archivos muy grandes", "body": "Los XLSX con cientos de miles de filas pueden consumir mucha memoria en el navegador." }
+    ],
+    "faq": [
+      { "q": "¿Qué estructura de JSON funciona mejor?", "a": "Un array de objetos con las mismas claves. También se admiten arrays de arrays." },
+      { "q": "¿Se conservan los números y fechas?", "a": "Los valores se escriben como texto o número según el tipo detectado por la librería XLSX." },
+      { "q": "¿Se sube el JSON?", "a": "No. La conversión ocurre en tu navegador." },
+      { "q": "¿Puedo convertir varios archivos?", "a": "Sí. Cada archivo genera su propio XLSX y, si hay varios, se descargan en un ZIP." }
+    ],
+    "keywords": ["json a xlsx", "json a excel", "convertir json excel", "json xlsx online", "json spreadsheet"],
+    "related": ["/convertir/xlsx-a-json", "/convertir/json-a-csv", "/convertir/csv-a-xlsx"],
+    "updated": "2026-10-21"
+  },
+  {
+    "slug": "xlsx-a-json",
+    "title": "Convertir XLSX a JSON en tu navegador | ConvertiLocal",
+    "h1": "Convertir XLSX a JSON",
+    "description": "Lee la primera hoja de un Excel y conviértela en JSON. Sin subidas y con control de cabecera.",
+    "intro": "Sube un XLSX, elige la hoja si hace falta y obtén un JSON con objetos o arrays, todo en tu dispositivo.",
+    "why": [
+      "Lee archivos Excel sin enviarlos a un servidor.",
+      "Puedes indicar el nombre o número de la hoja a convertir.",
+      "La cabecera se puede activar o desactivar."
+    ],
+    "useCases": [
+      { "title": "Importar hojas a una app", "body": "Convierte datos de Excel en JSON para una API o un script." },
+      { "title": "Validar datos", "body": "Inspecciona el contenido de una hoja en un formato fácil de revisar." },
+      { "title": "Automatizar informes", "body": "Transforma exportaciones Excel en JSON para procesarlas con herramientas de desarrollo." }
+    ],
+    "mistakes": [
+      { "title": "Esperar todas las hojas", "body": "Esta versión lee una hoja por conversión. Si el libro tiene varias, repite el proceso o indica la hoja deseada." },
+      { "title": "Fila de cabecera incorrecta", "body": "Si la primera fila no es cabecera, desactiva esa opción para obtener una matriz de arrays." },
+      { "title": "Celdas con fórmulas", "body": "Se leen los valores calculados cuando la librería puede obtenerlos; las fórmulas no se conservan como texto." }
+    ],
+    "faq": [
+      { "q": "¿Qué hoja se convierte?", "a": "Por defecto la primera. Puedes indicar otra por nombre o posición." },
+      { "q": "¿Se convierten fechas y números?", "a": "Se convierten como texto o valor según la representación disponible en el archivo." },
+      { "q": "¿Hay límite de filas?", "a": "Sí, 100.000 filas por archivo para evitar bloquear el navegador." },
+      { "q": "¿Funciona sin conexión?", "a": "Sí, una vez cargada la página." }
+    ],
+    "keywords": ["xlsx a json", "excel a json", "convertir xlsx json", "leer excel", "xlsx json online"],
+    "related": ["/convertir/json-a-xlsx", "/convertir/xlsx-a-csv", "/convertir/csv-a-json"],
+    "updated": "2026-10-21"
+  },
+  {
+    "slug": "csv-a-xlsx",
+    "title": "Convertir CSV a XLSX en tu navegador | ConvertiLocal",
+    "h1": "Convertir CSV a XLSX",
+    "description": "Transforma un CSV en un archivo Excel XLSX. Elige delimitador y cabecera sin subir el archivo.",
+    "intro": "Sube un CSV y descarga un XLSX listo para Excel, con detección de delimitador y cabecera configurable.",
+    "why": [
+      "Convierte listados tabulares en un libro Excel sin programas de escritorio.",
+      "Respeta campos entre comillas y saltos de línea.",
+      "Puedes procesar varios archivos a la vez."
+    ],
+    "useCases": [
+      { "title": "Preparar informes", "body": "Convierte exportaciones CSV en XLSX para compartirlos con equipos que usan Excel." },
+      { "title": "Migrar datos", "body": "Pasa datos tabulares a un formato más cómodo para revisión manual." },
+      { "title": "Automatizar tareas", "body": "Genera XLSX desde CSV exportados por sistemas o scripts." }
+    ],
+    "mistakes": [
+      { "title": "No elegir el delimitador correcto", "body": "Si el CSV usa punto y coma o tabulador, selecciona ese delimitador para no desplazar las columnas." },
+      { "title": "Olvidar la cabecera", "body": "Si la primera fila no es cabecera, desactiva esa opción para evitar crear una fila de títulos incorrecta." },
+      { "title": "Archivos con codificación antigua", "body": "Convierte el CSV a UTF-8 antes si ves caracteres extraños al abrir el XLSX." }
+    ],
+    "faq": [
+      { "q": "¿Se puede elegir la hoja de salida?", "a": "En esta versión se crea una hoja llamada Hoja1." },
+      { "q": "¿Se conservan los saltos de línea dentro de campos?", "a": "Sí, si el CSV los incluye correctamente entre comillas." },
+      { "q": "¿Hay límite de filas?", "a": "Sí, 100.000 filas por archivo." },
+      { "q": "¿Funciona sin conexión?", "a": "Sí, una vez cargada la página." }
+    ],
+    "keywords": ["csv a xlsx", "csv a excel", "convertir csv excel", "csv xlsx online", "hoja de cálculo"],
+    "related": ["/convertir/xlsx-a-csv", "/convertir/csv-a-json", "/convertir/json-a-xlsx"],
+    "updated": "2026-10-21"
+  },
+  {
+    "slug": "xlsx-a-csv",
+    "title": "Convertir XLSX a CSV en tu navegador | ConvertiLocal",
+    "h1": "Convertir XLSX a CSV",
+    "description": "Extrae la primera hoja de un Excel y conviértela en CSV. Sin subidas y con delimitador configurable.",
+    "intro": "Sube un XLSX, selecciona la hoja si hace falta y descarga un CSV listo para importar en bases de datos o scripts.",
+    "why": [
+      "Lee XLSX en el navegador sin enviar el archivo a un servidor.",
+      "Permite elegir el delimitador de salida.",
+      "Puedes procesar varios libros a la vez."
+    ],
+    "useCases": [
+      { "title": "Importar a una base de datos", "body": "Convierte hojas Excel en CSV para cargarlas en PostgreSQL, MySQL o SQLite." },
+      { "title": "Automatizar pipelines", "body": "Genera CSV desde exportaciones Excel para scripts o ETL." },
+      { "title": "Compartir datos simples", "body": "Reduce un libro Excel a un CSV fácil de abrir en cualquier editor." }
+    ],
+    "mistakes": [
+      { "title": "Esperar todas las hojas", "body": "Esta versión exporta una hoja por archivo. Indica la hoja deseada si no es la primera." },
+      { "title": "No revisar el delimitador", "body": "Elige el delimitador que espera el sistema de destino para evitar columnas mal separadas." },
+      { "title": "Celdas con fórmulas", "body": "Se exportan los valores disponibles; las fórmulas no se conservan como expresiones." }
+    ],
+    "faq": [
+      { "q": "¿Qué hoja se exporta?", "a": "Por defecto la primera. Puedes indicar otra por nombre o posición." },
+      { "q": "¿Se incluye la cabecera?", "a": "Sí, si la hoja tiene datos. Puedes desactivarla en las opciones." },
+      { "q": "¿Hay límite de filas?", "a": "Sí, 100.000 filas por archivo." },
+      { "q": "¿Funciona sin conexión?", "a": "Sí, una vez cargada la página." }
+    ],
+    "keywords": ["xlsx a csv", "excel a csv", "convertir xlsx csv", "exportar excel", "xlsx csv online"],
+    "related": ["/convertir/csv-a-xlsx", "/convertir/xlsx-a-json", "/convertir/csv-a-json"],
+    "updated": "2026-10-21"
+  },
+  {
+    "slug": "json-a-yaml",
+    "title": "Convertir JSON a YAML en tu navegador | ConvertiLocal",
+    "h1": "Convertir JSON a YAML",
+    "description": "Pasa JSON a YAML legible para configuraciones y documentación, sin subir archivos.",
+    "intro": "Sube un JSON y obtén YAML con indentación clara, listo para archivos de configuración o documentación.",
+    "why": [
+      "Genera YAML legible con indentación de dos espacios.",
+      "No se envía ningún dato a un servidor.",
+      "Puedes procesar varios archivos a la vez."
+    ],
+    "useCases": [
+      { "title": "Configuración de apps", "body": "Convierte configuración JSON en YAML para herramientas que lo prefieren." },
+      { "title": "Documentación", "body": "Genera ejemplos YAML a partir de datos JSON existentes." },
+      { "title": "Migración de formatos", "body": "Pasa datos entre sistemas que usan JSON y YAML." }
+    ],
+    "mistakes": [
+      { "title": "Esperar comentarios YAML", "body": "El YAML generado no incluye comentarios porque el JSON no los contiene." },
+      { "title": "Indentación manual posterior", "body": "Si editas el YAML después, mantén la indentación de dos espacios para evitar errores." },
+      { "title": "Tipos complejos", "body": "Los objetos y arrays se serializan con la estructura estándar de YAML." }
+    ],
+    "faq": [
+      { "q": "¿Se conservan todos los tipos?", "a": "Sí, números, booleanos, arrays y objetos se mantienen en YAML." },
+      { "q": "¿Puedo elegir la indentación?", "a": "En esta versión se usa indentación de dos espacios." },
+      { "q": "¿Se sube el JSON?", "a": "No. La conversión ocurre en tu navegador." },
+      { "q": "¿Funciona sin conexión?", "a": "Sí, una vez cargada la página." }
+    ],
+    "keywords": ["json a yaml", "convertir json yaml", "json yaml online", "configuracion yaml", "json a yaml"],
+    "related": ["/convertir/yaml-a-json", "/convertir/json-a-xml", "/convertir/json-a-csv"],
+    "updated": "2026-10-21"
+  },
+  {
+    "slug": "yaml-a-json",
+    "title": "Convertir YAML a JSON en tu navegador | ConvertiLocal",
+    "h1": "Convertir YAML a JSON",
+    "description": "Lee YAML y conviértelo en JSON válido, con indentación configurable y sin subidas.",
+    "intro": "Sube un archivo YAML y obtén JSON listo para código, APIs o validación, todo en tu dispositivo.",
+    "why": [
+      "Convierte configuración YAML en JSON estándar.",
+      "Permite salida compacta o con indentación.",
+      "No se envía ningún archivo a un servidor."
+    ],
+    "useCases": [
+      { "title": "Validar configuración", "body": "Convierte YAML en JSON para revisarlo con herramientas de desarrollo." },
+      { "title": "Integrar con APIs", "body": "Transforma archivos YAML en JSON para enviarlos a una API." },
+      { "title": "Migrar formato", "body": "Pasa configuración entre sistemas que usan YAML y JSON." }
+    ],
+    "mistakes": [
+      { "title": "YAML con tabs", "body": "YAML no admite tabuladores para indentación. Usa espacios antes de convertir." },
+      { "title": "Referencias YAML", "body": "Las referencias y anclas pueden no conservarse exactamente en JSON." },
+      { "title": "Archivos muy grandes", "body": "Los YAML enormes pueden tardar en parsearse en el navegador." }
+    ],
+    "faq": [
+      { "q": "¿Se valida el YAML?", "a": "Sí. Si el YAML es inválido, la herramienta mostrará un error antes de generar el JSON." },
+      { "q": "¿Puedo elegir la indentación del JSON?", "a": "Sí, puedes generar JSON compacto o con indentación." },
+      { "q": "¿Se sube el archivo?", "a": "No. La conversión ocurre en tu navegador." },
+      { "q": "¿Funciona sin conexión?", "a": "Sí, una vez cargada la página." }
+    ],
+    "keywords": ["yaml a json", "convertir yaml json", "yaml json online", "yaml parser", "configuracion json"],
+    "related": ["/convertir/json-a-yaml", "/convertir/json-a-xml", "/convertir/json-a-csv"],
+    "updated": "2026-10-21"
+  },
+  {
+    "slug": "json-a-xml",
+    "title": "Convertir JSON a XML en tu navegador | ConvertiLocal",
+    "h1": "Convertir JSON a XML",
+    "description": "Genera XML a partir de JSON con clave raíz configurable y sin subidas.",
+    "intro": "Sube un JSON y descarga un XML con estructura clara, listo para integraciones o sistemas legacy.",
+    "why": [
+      "Permite elegir la clave raíz del documento XML.",
+      "Serializa objetos y arrays de forma predecible.",
+      "No se envía ningún dato a un servidor."
+    ],
+    "useCases": [
+      { "title": "Integraciones legacy", "body": "Convierte datos JSON en XML para sistemas que lo requieren." },
+      { "title": "Exportar datos", "body": "Genera XML a partir de datos ya disponibles en JSON." },
+      { "title": "Pruebas", "body": "Crea muestras XML para validar parsers o APIs." }
+    ],
+    "mistakes": [
+      { "title": "Esperar atributos XML", "body": "En esta versión los objetos se serializan como elementos, no como atributos." },
+      { "title": "Clave raíz vacía", "body": "Si no indicas una clave raíz, se usará 'root'." },
+      { "title": "Estructuras muy profundas", "body": "El XML resultante puede ser verboso si el JSON tiene muchos niveles." }
+    ],
+    "faq": [
+      { "q": "¿Puedo elegir la etiqueta raíz?", "a": "Sí, con la opción de clave raíz." },
+      { "q": "¿Se conservan arrays?", "a": "Sí, cada elemento del array se repite con la misma etiqueta." },
+      { "q": "¿Se sube el JSON?", "a": "No. La conversión ocurre en tu navegador." },
+      { "q": "¿Funciona sin conexión?", "a": "Sí, una vez cargada la página." }
+    ],
+    "keywords": ["json a xml", "convertir json xml", "json xml online", "generar xml", "json a xml"],
+    "related": ["/convertir/xml-a-json", "/convertir/json-a-yaml", "/convertir/json-a-csv"],
+    "updated": "2026-10-21"
+  },
+  {
+    "slug": "xml-a-json",
+    "title": "Convertir XML a JSON en tu navegador | ConvertiLocal",
+    "h1": "Convertir XML a JSON",
+    "description": "Parsea XML y conviértelo en JSON, con atributos y texto, sin subir archivos.",
+    "intro": "Sube un XML y obtén un JSON representativo de su estructura, listo para código o validación.",
+    "why": [
+      "Convierte XML a JSON sin enviar el archivo a un servidor.",
+      "Conserva atributos con prefijo @ y texto con #text.",
+      "Detecta XML mal formado antes de generar el resultado."
+    ],
+    "useCases": [
+      { "title": "Leer configuración", "body": "Convierte XML de configuración en JSON para procesarlo con JavaScript." },
+      { "title": "Migrar datos", "body": "Pasa datos XML a JSON para APIs o bases de datos." },
+      { "title": "Depurar", "body": "Inspecciona la estructura de un XML en un formato más compacto." }
+    ],
+    "mistakes": [
+      { "title": "Esperar una conversión semántica perfecta", "body": "XML y JSON no son isomorfos; atributos y texto se representan con convenciones." },
+      { "title": "XML con namespaces complejos", "body": "Los namespaces se conservan como parte del nombre de la etiqueta." },
+      { "title": "Documentos enormes", "body": "Los XML muy grandes pueden consumir mucha memoria en el navegador." }
+    ],
+    "faq": [
+      { "q": "¿Cómo se representan los atributos?", "a": "Se añaden con el prefijo @, por ejemplo @id." },
+      { "q": "¿Cómo se representa el texto?", "a": "Se guarda en #text cuando coexiste con atributos o elementos hijo." },
+      { "q": "¿Se valida el XML?", "a": "Sí. Si está mal formado, se muestra un error." },
+      { "q": "¿Funciona sin conexión?", "a": "Sí, una vez cargada la página." }
+    ],
+    "keywords": ["xml a json", "convertir xml json", "xml json online", "parser xml", "xml a json"],
+    "related": ["/convertir/json-a-xml", "/convertir/json-a-yaml", "/convertir/csv-a-json"],
+    "updated": "2026-10-21"
+  },
+  {
+    "slug": "markdown-a-html",
+    "title": "Convertir Markdown a HTML en tu navegador | ConvertiLocal",
+    "h1": "Convertir Markdown a HTML",
+    "description": "Convierte Markdown a HTML limpio y sanitizado, sin subir archivos ni ejecutar código remoto.",
+    "intro": "Sube un archivo Markdown y obtén HTML listo para publicar, con opción GFM y sanitización automática.",
+    "why": [
+      "Genera HTML a partir de Markdown en el navegador.",
+      "Sanitiza el resultado para reducir riesgos de XSS.",
+      "Soporta tablas y listas de tareas con GFM."
+    ],
+    "useCases": [
+      { "title": "Publicar contenido", "body": "Convierte borradores Markdown en HTML para un CMS o una web estática." },
+      { "title": "Documentación", "body": "Transforma README o notas en HTML revisable." },
+      { "title": "Correo y newsletters", "body": "Genera HTML base a partir de texto Markdown." }
+    ],
+    "mistakes": [
+      { "title": "Esperar estilos CSS", "body": "El HTML generado es estructura; los estilos dependen de tu sitio o plantilla." },
+      { "title": "Desactivar la sanitización", "body": "Solo desactívala si confías completamente en el origen del Markdown." },
+      { "title": "Markdown muy grande", "body": "Los archivos enormes pueden tardar en renderizarse en el navegador." }
+    ],
+    "faq": [
+      { "q": "¿Se sanitiza el HTML?", "a": "Sí, por defecto se eliminan scripts y atributos peligrosos." },
+      { "q": "¿Qué es GFM?", "a": "GitHub Flavored Markdown: tablas, listas de tareas y otros elementos extendidos." },
+      { "q": "¿Se sube el archivo?", "a": "No. La conversión ocurre en tu navegador." },
+      { "q": "¿Funciona sin conexión?", "a": "Sí, una vez cargada la página." }
+    ],
+    "keywords": ["markdown a html", "convertir markdown html", "md a html", "markdown html online", "renderizar markdown"],
+    "related": ["/texto/html-a-markdown", "/texto/limpiar-texto", "/convertir/json-a-xml"],
+    "updated": "2026-10-21"
+  },
+  {
+    "slug": "html-a-markdown",
+    "title": "Convertir HTML a Markdown en tu navegador | ConvertiLocal",
+    "h1": "Convertir HTML a Markdown",
+    "description": "Pasa HTML a Markdown legible, ideal para documentación y migraciones, sin subir archivos.",
+    "intro": "Sube un archivo HTML y obtén Markdown con encabezados, listas y código en formato fenced.",
+    "why": [
+      "Convierte HTML en Markdown sin enviar el archivo a un servidor.",
+      "Usa encabezados ATX y bloques de código fenced.",
+      "Puedes procesar varios archivos a la vez."
+    ],
+    "useCases": [
+      { "title": "Migrar a Markdown", "body": "Convierte páginas HTML antiguas en Markdown para documentación." },
+      { "title": "Limpiar contenido", "body": "Reduce HTML complejo a un formato más fácil de editar." },
+      { "title": "Exportar notas", "body": "Transforma HTML exportado en Markdown para wikis o repositorios." }
+    ],
+    "mistakes": [
+      { "title": "Esperar CSS perfecto", "body": "El Markdown no conserva estilos CSS; solo la estructura semántica básica." },
+      { "title": "HTML con scripts", "body": "Los scripts se eliminan o ignoran durante la conversión." },
+      { "title": "Tablas complejas", "body": "Las tablas muy anidadas pueden simplificarse en Markdown." }
+    ],
+    "faq": [
+      { "q": "¿Se conservan los enlaces?", "a": "Sí, los enlaces se convierten a la sintaxis Markdown." },
+      { "q": "¿Se conservan las imágenes?", "a": "Sí, como imágenes Markdown con su URL." },
+      { "q": "¿Se sube el HTML?", "a": "No. La conversión ocurre en tu navegador." },
+      { "q": "¿Funciona sin conexión?", "a": "Sí, una vez cargada la página." }
+    ],
+    "keywords": ["html a markdown", "convertir html markdown", "html markdown online", "turndown", "migrar html"],
+    "related": ["/texto/markdown-a-html", "/texto/limpiar-texto", "/convertir/json-a-xml"],
+    "updated": "2026-10-21"
+  },
+  {
+    "slug": "limpiar-texto",
+    "title": "Limpiar texto y contar palabras online | ConvertiLocal",
+    "h1": "Limpiar texto",
+    "description": "Elimina espacios dobles, saltos extra y líneas vacías, cambia mayúsculas/minúsculas y cuenta palabras y caracteres.",
+    "intro": "Sube un archivo de texto y aplica limpieza de formato con opciones configurables. El resultado se descarga y las estadísticas se muestran en tu navegador.",
+    "why": [
+      "Elimina espacios dobles y saltos de línea excesivos.",
+      "Permite cambiar a minúsculas, mayúsculas, título o frase.",
+      "Muestra palabras, caracteres, líneas y párrafos."
+    ],
+    "useCases": [
+      { "title": "Preparar texto para publicar", "body": "Limpia artículos o notas antes de pegarlos en un CMS." },
+      { "title": "Normalizar datos", "body": "Elimina espacios accidentales en listados o textos importados." },
+      { "title": "Contar contenido", "body": "Obtén métricas rápidas de un texto sin subirlo a un servicio externo." }
+    ],
+    "mistakes": [
+      { "title": "Eliminar líneas vacías sin querer", "body": "La opción de quitar líneas vacías es opcional; actívala solo si no necesitas párrafos." },
+      { "title": "Cambiar mayúsculas en código", "body": "No apliques transformaciones de caso a código o identificadores." },
+      { "title": "Esperar corrección ortográfica", "body": "Esta herramienta limpia formato, no corrige ortografía ni gramática." }
+    ],
+    "faq": [
+      { "q": "¿Qué estadísticas muestra?", "a": "Palabras, caracteres, caracteres sin espacios, líneas y párrafos." },
+      { "q": "¿Puedo añadir las estadísticas al archivo?", "a": "Sí, con la opción de incluir estadísticas al final del archivo." },
+      { "q": "¿Se sube el texto?", "a": "No. La limpieza ocurre en tu navegador." },
+      { "q": "¿Funciona sin conexión?", "a": "Sí, una vez cargada la página." }
+    ],
+    "keywords": ["limpiar texto", "contador palabras", "eliminar espacios", "normalizar texto", "contador caracteres"],
+    "related": ["/texto/markdown-a-html", "/texto/html-a-markdown", "/convertir/csv-a-json"],
+    "updated": "2026-10-21"
+  }
+]

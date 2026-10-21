@@ -1,0 +1,143 @@
+---
+import '@/styles/global.css';
+import Footer from '@/components/layout/Footer.astro';
+import Header from '@/components/layout/Header.astro';
+import { SITE } from '@/data/site';
+
+interface Props {
+  /** Título de la página sin el sufijo de marca. */
+  title?: string;
+  description?: string;
+  /** Ruta canónica relativa. Por defecto, la ruta actual. */
+  path?: string;
+  image?: string;
+  noindex?: boolean;
+  ogType?: 'website' | 'article';
+  /** Esquemas adicionales (FAQPage, BreadcrumbList…). */
+  schema?: Record<string, unknown> | Record<string, unknown>[];
+}
+
+const {
+  title,
+  description = SITE.description,
+  path = Astro.url.pathname,
+  image = '/assets/og-default.png',
+  noindex = false,
+  ogType = 'website',
+  schema,
+} = Astro.props;
+
+const pageTitle = title ? `${title} · ${SITE.name}` : SITE.title;
+const siteUrl = Astro.site ?? new URL(SITE.url);
+const canonical = new URL(path, siteUrl);
+const ogImage = new URL(image, siteUrl);
+
+const webApplicationSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'WebApplication',
+  name: SITE.name,
+  url: canonical.href,
+  description: SITE.description,
+  applicationCategory: 'UtilitiesApplication',
+  operatingSystem: 'Any',
+  browserRequirements: 'Requiere un navegador moderno con JavaScript habilitado',
+  inLanguage: SITE.lang,
+  isAccessibleForFree: true,
+  offers: {
+    '@type': 'Offer',
+    price: '0',
+    priceCurrency: 'EUR',
+  },
+  featureList: [
+    'Conversión de archivos 100% en el navegador',
+    'Sin subir archivos a servidores',
+    'Funciona sin conexión',
+    'Sin registro ni cuentas',
+  ],
+  publisher: {
+    '@type': 'Organization',
+    name: SITE.name,
+    url: siteUrl.href,
+  },
+};
+
+const schemaItems = schema ? (Array.isArray(schema) ? schema : [schema]) : [];
+const includesWebApplication = schemaItems.some(
+  (item) => item['@type'] === 'WebApplication',
+);
+const serializedSchema = JSON.stringify(webApplicationSchema).replace(/</g, '\\u003c');
+const extraSchemas = schemaItems.map((item) =>
+  JSON.stringify(item).replace(/</g, '\\u003c'),
+);
+---
+
+<!doctype html>
+<html lang={SITE.lang}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>{pageTitle}</title>
+    <meta name="description" content={description} />
+    <meta name="author" content={SITE.name} />
+    <meta name="theme-color" content={SITE.themeColor} />
+    <meta name="color-scheme" content="light" />
+    <meta name="format-detection" content="telephone=no" />
+    <link rel="canonical" href={canonical.href} />
+    <link rel="alternate" hreflang="es" href={canonical.href} />
+    <link rel="alternate" hreflang="x-default" href={canonical.href} />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="apple-touch-icon" href="/favicon.svg" />
+
+    <meta
+      name="robots"
+      content={noindex ? 'noindex, nofollow' : 'index, follow, max-image-preview:large'}
+    />
+
+    <meta property="og:type" content={ogType} />
+    <meta property="og:site_name" content={SITE.name} />
+    <meta property="og:locale" content={SITE.locale} />
+    <meta property="og:title" content={pageTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical.href} />
+    <meta property="og:image" content={ogImage.href} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content={`${SITE.name} — ${SITE.tagline}`} />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={pageTitle} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImage.href} />
+
+    <meta name="generator" content={Astro.generator} />
+
+    {!includesWebApplication && <script type="application/ld+json" set:html={serializedSchema} />}
+    {extraSchemas.map((item) => <script type="application/ld+json" set:html={item} />)}
+
+    {
+      SITE.adsEnabled && SITE.adsenseClient && (
+        <>
+          <link rel="preconnect" href="https://pagead2.googlesyndication.com" crossorigin />
+          <script
+            is:inline
+            async
+            src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${SITE.adsenseClient}`}
+            crossorigin="anonymous"
+          />
+        </>
+      )
+    }
+
+    <slot name="head" />
+  </head>
+
+  <body class="flex min-h-dvh flex-col">
+    <a href="#contenido" class="skip-link">Saltar al contenido</a>
+    <Header />
+    <main id="contenido" tabindex="-1" class="flex-1 focus:outline-none">
+      <slot />
+    </main>
+    <Footer />
+    <slot name="scripts" />
+  </body>
+</html>

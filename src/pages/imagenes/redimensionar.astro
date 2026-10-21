@@ -1,0 +1,65 @@
+---
+import ToolPageShell from '@/components/tools/ToolPageShell.astro';
+import Icon from '@/components/ui/Icon.astro';
+import type { ProcessorOption } from '@/types/processor';
+
+const path = '/imagenes/redimensionar';
+const site = (Astro.site ?? new URL('https://convertilocal.com')).href.replace(/\/$/, '');
+const faqs = [
+  { q: '¿Puedo mantener la proporción?', a: 'Sí. Deja el alto a 0 y el alto se calcula a partir del ancho. Con «contain» la imagen mantiene su proporción y el fondo rellena el sobrante.' },
+  { q: '¿Qué formatos puedo generar?', a: 'PNG, JPG, WebP, AVIF, BMP o ICO.' },
+  { q: '¿Se sube la imagen?', a: 'No. Todo se procesa en tu navegador.' },
+  { q: '¿Hay límite de tamaño?', a: 'Sí, 25 MB por archivo y 120 MB por lote.' },
+];
+
+const faqSchema = { '@context': 'https://schema.org', '@type': 'FAQPage', mainEntity: faqs.map((item) => ({ '@type': 'Question', name: item.q, acceptedAnswer: { '@type': 'Answer', text: item.a } })) };
+const breadcrumbSchema = { '@context': 'https://schema.org', '@type': 'BreadcrumbList', itemListElement: [{ '@type': 'ListItem', position: 1, name: 'Inicio', item: `${site}/` }, { '@type': 'ListItem', position: 2, name: 'Convertir imágenes', item: `${site}/convertir` }, { '@type': 'ListItem', position: 3, name: 'Redimensionar imagen', item: `${site}${path}` }] };
+
+const options: ProcessorOption[] = [
+  { id: 'width', label: 'Ancho', type: 'number', defaultValue: 1280, min: 0, max: 16384, step: 1, unit: 'px', help: '0 = mantener el ancho original.' },
+  { id: 'height', label: 'Alto', type: 'number', defaultValue: 0, min: 0, max: 16384, step: 1, unit: 'px', help: '0 = calcular el alto por proporción.' },
+  { id: 'fit', label: 'Ajuste', type: 'select', defaultValue: 'contain', choices: [{ value: 'contain', label: 'Contain · mantener proporción' }, { value: 'cover', label: 'Cover · recortar para llenar' }, { value: 'stretch', label: 'Stretch · deformar' }] },
+  { id: 'format', label: 'Formato de salida', type: 'select', defaultValue: 'png', choices: [{ value: 'png', label: 'PNG' }, { value: 'jpg', label: 'JPG' }, { value: 'webp', label: 'WebP' }, { value: 'avif', label: 'AVIF' }, { value: 'bmp', label: 'BMP' }, { value: 'ico', label: 'ICO' }] },
+  { id: 'quality', label: 'Calidad', type: 'range', defaultValue: 90, min: 1, max: 100, step: 1, unit: '%' },
+  { id: 'background', label: 'Color de fondo', type: 'select', defaultValue: '#ffffff', choices: [{ value: '#ffffff', label: 'Blanco' }, { value: '#000000', label: 'Negro' }, { value: '#f1f5f9', label: 'Gris claro' }] },
+];
+
+const webApplicationSchema = { '@context': 'https://schema.org', '@type': 'WebApplication', name: 'Redimensionar imagen', url: `${site}${path}`, description: 'Redimensiona imágenes en tu navegador con ancho, alto y ajuste configurable.', applicationCategory: 'UtilitiesApplication', operatingSystem: 'Any', inLanguage: 'es', isAccessibleForFree: true, offers: { '@type': 'Offer', price: '0', priceCurrency: 'EUR' } };
+---
+
+<ToolPageShell
+  title="Redimensionar imagen online sin subirla"
+  description="Cambia el tamaño de una imagen con ancho, alto y ajuste configurable. Todo en tu navegador."
+  h1="Redimensionar imagen"
+  intro="Ajusta las dimensiones de tus imágenes para web, redes sociales o impresión, sin subirlas a ningún servidor."
+  path={path}
+  processorId="image-resize"
+  accept=".png,.jpg,.jpeg,.webp,.avif,.bmp,.ico,image/png,image/jpeg,image/webp,image/avif,image/bmp,image/x-icon"
+  acceptLabel="JPG, PNG, WebP, AVIF, BMP o ICO"
+  actionLabel="Redimensionar"
+  baseName="imagen-redimensionada"
+  options={options}
+  resultNote="El ajuste contain mantiene la proporción y añade fondo si hace falta. Redimensionar nunca amplía: si pides un tamaño mayor del original se conserva el de partida."
+  schema={[webApplicationSchema, breadcrumbSchema, faqSchema]}
+  breadcrumbLabel="Redimensionar"
+  multiple
+  maxSizeMB={25}
+  maxFiles={20}
+  maxTotalMB={120}
+  previewMode="image-compare"
+>
+  <section aria-labelledby="faq-title">
+    <h2 id="faq-title" class="text-2xl font-bold tracking-tight text-slate-900">Preguntas frecuentes</h2>
+    <div class="mt-4 divide-y divide-slate-200 rounded-2xl border border-slate-200 bg-white">
+      {faqs.map((item) => (
+        <details class="group p-4">
+          <summary class="flex cursor-pointer list-none items-center justify-between gap-3 text-sm font-semibold text-slate-900">
+            {item.q}
+            <Icon name="chevron-down" size={16} class="shrink-0 text-slate-400 transition-transform group-open:rotate-180" />
+          </summary>
+          <p class="mt-2 text-sm leading-6 text-slate-600">{item.a}</p>
+        </details>
+      ))}
+    </div>
+  </section>
+</ToolPageShell>
