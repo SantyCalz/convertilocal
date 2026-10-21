@@ -30,13 +30,26 @@ const { id = 'image-compare', title = 'Vista previa antes y después' } = Astro.
       decoding="async"
       class="pointer-events-none absolute inset-0 h-full w-full object-contain"
     />
-    <img
-      data-compare-after
-      alt="Imagen procesado"
-      decoding="async"
-      class="pointer-events-none absolute inset-0 h-full w-full object-contain"
-      style="clip-path: inset(0 50% 0 0);"
-    />
+
+    <!--
+      Capa del resultado: el recorte se aplica al contenedor para que el
+      entramado y la imagen se recorten siempre con la misma geometría.
+    -->
+    <div
+      data-compare-after-layer
+      class="pointer-events-none absolute inset-0"
+      style="clip-path: inset(0 0 0 50%);"
+    >
+      <!-- Entramado de transparencia: sizing en JS para encajar con la imagen. -->
+      <div data-compare-backdrop class="absolute opacity-0"></div>
+      <img
+        data-compare-after
+        alt="Imagen procesado"
+        decoding="async"
+        class="absolute inset-0 h-full w-full object-contain"
+      />
+    </div>
+
     <div
       data-compare-handle
       aria-hidden="true"
@@ -79,6 +92,24 @@ const { id = 'image-compare', title = 'Vista previa antes y después' } = Astro.
   </div>
 </section>
 
+<style>
+  /* Entramado clásico para apreciar el canal alfa de un PNG. */
+  [data-compare-backdrop] {
+    background-color: #f8fafc;
+    background-image:
+      linear-gradient(45deg, #cbd5e1 25%, transparent 25%),
+      linear-gradient(-45deg, #cbd5e1 25%, transparent 25%),
+      linear-gradient(45deg, transparent 75%, #cbd5e1 75%),
+      linear-gradient(-45deg, transparent 75%, #cbd5e1 75%);
+    background-size: 16px 16px;
+    background-position:
+      0 0,
+      0 8px,
+      8px -8px,
+      -8px 0;
+  }
+</style>
+
 <script>
   interface CompareDetail {
     beforeUrl?: string;
@@ -87,27 +118,65 @@ const { id = 'image-compare', title = 'Vista previa antes y después' } = Astro.
 
   const applyPosition = (root: HTMLElement, percent: number): void => {
     const clamped = Math.max(0, Math.min(100, percent));
-    const after = root.querySelector<HTMLElement>('[data-compare-after]');
+    const layer = root.querySelector<HTMLElement>('[data-compare-after-layer]');
     const handle = root.querySelector<HTMLElement>('[data-compare-handle]');
-    if (after) after.style.clipPath = `inset(0 ${100 - clamped}% 0 0)`;
+    // La imagen original queda a la izquierda y el resultado a la derecha.
+    if (layer) layer.style.clipPath = `inset(0 0 0 ${clamped}%)`;
     if (handle) handle.style.left = `${clamped}%`;
+  };
+
+  /** Encaja el entramado con el tamaño real del PNG dentro del escenario. */
+  const syncBackdrop = (root: HTMLElement): void => {
+    const backdrop = root.querySelector<HTMLElement>('[data-compare-backdrop]');
+    const layer = root.querySelector<HTMLElement>('[data-compare-after-layer]');
+    const after = root.querySelector<HTMLImageElement>('[data-compare-after]');
+    if (!backdrop || !layer || !after) return;
+
+    const naturalWidth = after.naturalWidth;
+    const naturalHeight = after.naturalHeight;
+    if (!naturalWidth || !naturalHeight) {
+      backdrop.style.opacity = '0';
+      return;
+    }
+
+    const box = layer.getBoundingClientRect();
+    if (box.width === 0 || box.height === 0) return;
+
+    const scale = Math.min(box.width / naturalWidth, box.height / naturalHeight);
+    const width = naturalWidth * scale;
+    const height = naturalHeight * scale;
+
+    backdrop.style.width = `${width}px`;
+    backdrop.style.height = `${height}px`;
+    backdrop.style.left = `${(box.width - width) / 2}px`;
+    backdrop.style.top = `${(box.height - height) / 2}px`;
+    backdrop.style.opacity = '1';
   };
 
   const setupCompare = (root: HTMLElement): void => {
     if (root.dataset.compareReady === 'true') return;
     root.dataset.compareReady = 'true';
 
-    const before = root.querySelector<HTMLImageElement>('[data-compare-before]');
     const after = root.querySelector<HTMLImageElement>('[data-compare-after]');
     const slider = root.querySelector<HTMLInputElement>('[data-compare-slider]');
     const stage = root.querySelector<HTMLElement>('[data-compare-stage]');
-    if (!before || !after || !slider || !stage) return;
+    const layer = root.querySelector<HTMLElement>('[data-compare-after-layer]');
+    if (!after || !slider || !stage || !layer) return;
 
     applyPosition(root, Number(slider.value));
 
     slider.addEventListener('input', () => {
       applyPosition(root, Number(slider.value));
     });
+
+    after.addEventListener('load', () => syncBackdrop(root));
+    if (after.complete && after.naturalWidth > 0) syncBackdrop(root);
+
+    if (typeof ResizeObserver !== 'undefined') {
+      new ResizeObserver(() => syncBackdrop(root)).observe(layer);
+    } else {
+      window.addEventListener('resize', () => syncBackdrop(root));
+    }
 
     // Arrastrar sobre la imagen mueve el deslizador.
     let dragging = false;

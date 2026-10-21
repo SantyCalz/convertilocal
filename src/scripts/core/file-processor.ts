@@ -41,6 +41,57 @@ function extensionLabel(name: string): string {
   return (extension || 'FILE').slice(0, 4).toUpperCase();
 }
 
+type WeightTone = 'savings' | 'growth' | 'neutral';
+
+interface WeightBadge {
+  text: string;
+  tone: WeightTone;
+}
+
+const WEIGHT_BADGE_CLASSES: Record<WeightTone, string> = {
+  savings:
+    'inline-flex items-center rounded-full bg-emerald-50 px-2 py-0.5 text-[11px] font-semibold text-emerald-700 ring-1 ring-inset ring-emerald-100',
+  growth:
+    'inline-flex items-center rounded-full bg-amber-50 px-2 py-0.5 text-[11px] font-semibold text-amber-700 ring-1 ring-inset ring-amber-100',
+  neutral:
+    'inline-flex items-center rounded-full bg-slate-100 px-2 py-0.5 text-[11px] font-semibold text-slate-600 ring-1 ring-inset ring-slate-200',
+};
+
+/**
+ * Decide cómo mostrar la diferencia de peso.
+ *
+ * El porcentaje solo informa cuando el resultado es más ligero. Quitar el
+ * fondo o convertir a PNG engordan el archivo por naturaleza, así que un
+ * «+655 % de peso» confunde en lugar de ayudar: en esos casos se muestra un
+ * distintivo neutro que explica el formato en lugar de la cifra.
+ */
+function weightBadge(
+  beforeBytes: number,
+  afterBytes: number,
+  outputType: string,
+  sourceType: string,
+  isCutout: boolean,
+): WeightBadge | null {
+  if (beforeBytes <= 0) return null;
+
+  const diff = beforeBytes - afterBytes;
+  const percent = Math.round((Math.abs(diff) / beforeBytes) * 100);
+
+  if (diff >= 0) {
+    return { text: `−${percent}% de peso`, tone: 'savings' };
+  }
+
+  if (isCutout) {
+    return { text: outputType === 'image/webp' ? 'WebP transparente' : 'PNG transparente', tone: 'neutral' };
+  }
+
+  if (outputType === 'image/png' && sourceType !== 'image/png') {
+    return { text: 'PNG sin pérdida', tone: 'neutral' };
+  }
+
+  return { text: `+${percent}% de peso`, tone: 'growth' };
+}
+
 function isAcceptedByExtension(file: File, accept: string): boolean {
   if (!accept || accept === '*') return true;
 
@@ -376,17 +427,20 @@ function setup(root: HTMLElement): void {
     const totalAfter = state.outputs.reduce((sum, output) => sum + output.size, 0);
 
     if (savingsBadge && totalBefore > 0) {
-      const diff = totalBefore - totalAfter;
-      const percent = Math.round((Math.abs(diff) / totalBefore) * 100);
-      savingsBadge.hidden = false;
-      if (diff >= 0) {
-        savingsBadge.textContent = `−${percent}% de peso`;
-        savingsBadge.className =
-          'inline-flex items-center rounded-full bg-emerald-50 px-2 py-0.5 text-[11px] font-semibold text-emerald-700 ring-1 ring-inset ring-emerald-100';
-      } else {
-        savingsBadge.textContent = `+${percent}% de peso`;
-        savingsBadge.className =
-          'inline-flex items-center rounded-full bg-amber-50 px-2 py-0.5 text-[11px] font-semibold text-amber-700 ring-1 ring-inset ring-amber-100';
+      const firstOutput = state.outputs[0];
+      const firstSource = state.files[0];
+      const badge = weightBadge(
+        totalBefore,
+        totalAfter,
+        firstOutput?.type ?? '',
+        firstSource?.type ?? '',
+        processorId === 'remove-background',
+      );
+
+      if (badge) {
+        savingsBadge.hidden = false;
+        savingsBadge.textContent = badge.text;
+        savingsBadge.className = WEIGHT_BADGE_CLASSES[badge.tone];
       }
     }
 
@@ -415,15 +469,25 @@ function setup(root: HTMLElement): void {
       meta.textContent = `${before} → ${formatBytes(output.size)}`;
 
       if (source && source.size > 0) {
-        const diff = source.size - output.size;
-        const percent = Math.round((Math.abs(diff) / source.size) * 100);
-        const badge = document.createElement('span');
-        badge.className =
-          diff >= 0
-            ? 'ml-1.5 font-semibold text-emerald-600'
-            : 'ml-1.5 font-semibold text-amber-600';
-        badge.textContent = diff >= 0 ? `−${percent}%` : `+${percent}%`;
-        meta.append(badge);
+        const badge = weightBadge(
+          source.size,
+          output.size,
+          output.type ?? '',
+          source.type ?? '',
+          processorId === 'remove-background',
+        );
+
+        if (badge) {
+          const span = document.createElement('span');
+          span.className =
+            badge.tone === 'savings'
+              ? 'ml-1.5 font-semibold text-emerald-600'
+              : badge.tone === 'growth'
+                ? 'ml-1.5 font-semibold text-amber-600'
+                : 'ml-1.5 font-semibold text-slate-500';
+          span.textContent = badge.text;
+          meta.append(span);
+        }
       }
 
       body.append(name, meta);
