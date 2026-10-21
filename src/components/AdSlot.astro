@@ -21,7 +21,9 @@ const {
   class: className = '',
 } = Astro.props;
 
-const hasAd = SITE.adsEnabled && Boolean(SITE.adsenseClient && slot);
+// Sin prop «slot» se usa el bloque configurado en PUBLIC_ADSENSE_SLOT.
+const slotId = slot || SITE.adsenseSlot;
+const hasAd = SITE.adsEnabled && Boolean(SITE.adsenseClient && slotId);
 const showPlaceholder = import.meta.env.DEV;
 const show = hasAd || showPlaceholder;
 ---
@@ -33,7 +35,7 @@ const show = hasAd || showPlaceholder;
       style={`--ad-mobile:${minHeightMobile}px;--ad-desktop:${minHeightDesktop}px;contain:layout;`}
       role="complementary"
       aria-label="Publicidad"
-      data-ad-slot={slot || 'placeholder'}
+      data-ad-slot={slotId || 'placeholder'}
     >
       {hasAd ? (
         <>
@@ -41,7 +43,7 @@ const show = hasAd || showPlaceholder;
             class="adsbygoogle block"
             style="display:block"
             data-ad-client={SITE.adsenseClient}
-            data-ad-slot={slot}
+            data-ad-slot={slotId}
             data-ad-format={format}
             data-full-width-responsive="true"
           />

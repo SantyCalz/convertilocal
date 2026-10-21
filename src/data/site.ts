@@ -20,8 +20,14 @@ export const SITE = {
   lang: 'es',
   themeColor: '#047857',
   email: 'hola@convertilocal.com',
-  /** Si está vacío, no se carga AdSense ni se renderizan anuncios reales. */
-  adsenseClient: (import.meta.env.PUBLIC_ADSENSE_CLIENT ?? '').trim(),
+  /**
+   * Si está vacío, no se carga AdSense ni se renderizan anuncios reales.
+   * El valor por defecto es el ID de editor de la cuenta; definir
+   * PUBLIC_ADSENSE_CLIENT como cadena vacía lo desactiva sin tocar código.
+   */
+  adsenseClient: (import.meta.env.PUBLIC_ADSENSE_CLIENT ?? 'ca-pub-3640204756657627').trim(),
+  /** ID del bloque de anuncios. Sin él se reserva el hueco pero no se muestra un anuncio. */
+  adsenseSlot: (import.meta.env.PUBLIC_ADSENSE_SLOT ?? '').trim(),
   /** Permite desactivar AdSense y sus scripts sin tocar el código. */
   adsEnabled: (import.meta.env.PUBLIC_ENABLE_ADS ?? 'true').toLowerCase() === 'true',
 } as const;
