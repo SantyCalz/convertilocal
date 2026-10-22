@@ -1,0 +1,129 @@
+---
+/**
+ * src/components/tools/GsPreparePanel.astro
+ * Copyright (C) 2026 ConvertiLocal contributors
+ * SPDX-License-Identifier: AGPL-3.0-only
+ *
+ * Panel de preparación de Ghostscript. No instancia el binario en el hilo
+ * principal: descarga `gs.wasm` y el perfil ICC para dejarlos en la caché
+ * HTTP y marca el FileProcessor como listo. El worker carga su propia
+ * instancia desde esa caché al primer uso.
+ */
+import Icon from '@/components/ui/Icon.astro';
+
+interface Props {
+  class?: string;
+}
+
+const { class: className = '' } = Astro.props;
+---
+
+<div class:list={['mt-4 rounded-2xl border border-amber-200 bg-amber-50/60 p-4', className]} data-gs-prepare>
+  <div class="flex items-start gap-2.5">
+    <span
+      class="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-amber-100 text-amber-800 ring-1 ring-inset ring-amber-200"
+    >
+      <Icon name="zap" size={16} />
+    </span>
+    <div class="min-w-0">
+      <p class="text-sm font-semibold text-amber-900">Preparar conversor (≈16 MB)</p>
+      <p class="mt-1 text-xs leading-5 text-amber-800/80">
+        La primera vez se descargan los binarios de Ghostscript (≈16 MB) y un perfil ICC.
+        Después quedan en la caché del navegador y no se vuelven a bajar.
+      </p>
+    </div>
+  </div>
+
+  <button
+    type="button"
+    data-gs-button
+    class="mt-3 inline-flex h-10 items-center gap-1.5 rounded-xl bg-amber-700 px-4 text-sm font-semibold text-white shadow-sm transition-colors hover:bg-amber-800 disabled:cursor-not-allowed disabled:bg-slate-200 disabled:text-slate-500"
+  >
+    Preparar conversor (≈16 MB)
+  </button>
+
+  <div data-gs-progress hidden class="mt-3">
+    <div class="h-1.5 overflow-hidden rounded-full bg-amber-200">
+      <div data-gs-progress-bar class="h-full w-0 rounded-full bg-amber-700 transition-[width] duration-200"></div>
+    </div>
+    <p data-gs-progress-label class="mt-1 text-[11px] text-amber-800">0%</p>
+  </div>
+
+  <p data-gs-status class="mt-2 text-xs text-amber-900" role="status" aria-live="polite"></p>
+</div>
+
+<script>
+  const root = document.querySelector<HTMLElement>('[data-file-processor]');
+  const button = document.querySelector<HTMLButtonElement>('[data-gs-button]');
+  const progress = document.querySelector<HTMLElement>('[data-gs-progress]');
+  const progressBar = document.querySelector<HTMLElement>('[data-gs-progress-bar]');
+  const progressLabel = document.querySelector<HTMLElement>('[data-gs-progress-label]');
+  const status = document.querySelector<HTMLElement>('[data-gs-status]');
+
+  const markReady = (): void => {
+    root?.setAttribute('data-gs-ready', 'true');
+    root?.dispatchEvent(new CustomEvent('gs-ready'));
+  };
+
+  const updateProgress = (percent: number): void => {
+    if (!progressBar || !progressLabel || !progress) return;
+    progress.hidden = false;
+    progressBar.style.width = `${Math.max(0, Math.min(100, percent))}%`;
+    progressLabel.textContent = `${Math.round(percent)}%`;
+  };
+
+  /**
+   * Descarga un recurso reportando el progreso real cuando el servidor envía
+   * Content-Length. Si no lo envía, el progreso se queda en el valor inicial.
+   */
+  const downloadWithProgress = async (url: string, label: string): Promise<void> => {
+    const response = await fetch(url);
+    if (!response.ok || !response.body) {
+      throw new Error(`HTTP ${response.status} al descargar ${label}`);
+    }
+
+    const total = Number(response.headers.get('content-length') ?? 0);
+    const reader = response.body.getReader();
+    let received = 0;
+
+    for (;;) {
+      const { done, value } = await reader.read();
+      if (done) break;
+      received += value?.byteLength ?? 0;
+      if (total > 0) {
+        updateProgress(Math.round((received / total) * 100));
+      }
+    }
+  };
+
+  button?.addEventListener('click', async () => {
+    if (root?.dataset.gsReady === 'true') {
+      if (status) status.textContent = 'El conversor ya está preparado.';
+      return;
+    }
+
+    button.disabled = true;
+    button.textContent = 'Preparando…';
+    if (progress) progress.hidden = false;
+    if (status) status.textContent = 'Descargando el conversor (≈16 MB)…';
+
+    try {
+      await downloadWithProgress('/assets/gs/gs.wasm', 'Ghostscript');
+      updateProgress(95);
+      await downloadWithProgress('/assets/gs/srgb.icc', 'el perfil ICC');
+      updateProgress(100);
+
+      if (status) status.textContent = 'Conversor preparado. Ya puedes convertir.';
+      button.textContent = '✓ Conversor preparado';
+      markReady();
+    } catch (error) {
+      if (status) {
+        status.textContent = `No se pudo preparar el conversor: ${
+          error instanceof Error ? error.message : String(error)
+        }`;
+      }
+      button.disabled = false;
+      button.textContent = 'Preparar conversor (≈16 MB)';
+    }
+  });
+</script>

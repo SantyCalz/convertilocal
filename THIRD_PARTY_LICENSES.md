@@ -10,15 +10,16 @@ texto canónico está en [`LICENSE`](LICENSE) y la auditoría completa en
 
 ## Resumen
 
-- Paquetes instalados en `node_modules`: **666**.
-- Dependencias directas de producción: **26**.
+- Paquetes instalados en `node_modules`: **667**.
+- Dependencias directas de producción: **27**.
 - Dependencias de desarrollo: **12**.
-- Componentes con copyleft o copyleft limitado: **4**.
+- Componentes con copyleft o copyleft limitado: **5**.
 
 - MIT: 28
 - Apache-2.0: 5
 - GPL-2.0-or-later: 1
 - AGPL-3.0-only: 1
+- AGPL-3.0: 1
 - (MPL-2.0 OR Apache-2.0): 1
 - GPL-3.0-or-later: 1
 - BSD-2-Clause: 1
@@ -27,6 +28,7 @@ texto canónico está en [`LICENSE`](LICENSE) y la auditoría completa en
 
 - `@ffmpeg/core` 0.12.10 — GPL-2.0-or-later
 - `@imgly/background-removal` 1.7.0 — AGPL-3.0-only
+- `@jspawn/ghostscript-wasm` 0.0.2 — AGPL-3.0
 - `dompurify` 3.4.17 — (MPL-2.0 OR Apache-2.0)
 - `ffmpeg-static` 5.3.0 — GPL-3.0-or-later
 
@@ -45,6 +47,7 @@ aviso de red de la AGPL §13) está en [`/licencias`](https://convertilocal.verc
 | `@ffmpeg/ffmpeg` | 0.12.15 | MIT | Sí | git+https://github.com/ffmpegwasm/ffmpeg.wasm.git |
 | `@ffmpeg/util` | 0.12.2 | MIT | Sí | git+https://github.com/ffmpegwasm/ffmpeg.wasm.git |
 | `@imgly/background-removal` | 1.7.0 | AGPL-3.0-only | Sí | git+https://github.com/imgly/background-removal-js.git |
+| `@jspawn/ghostscript-wasm` | 0.0.2 | AGPL-3.0 | Sí | https://github.com/jsscheller/ghostscript-wasm.git |
 | `@jsquash/avif` | 2.1.1 | Apache-2.0 | Sí | jamsinclair/jSquash |
 | `@playwright/test` | 1.64.1 | Apache-2.0 | No | git+https://github.com/microsoft/playwright.git |
 | `astro` | 5.18.2 | MIT | No | git+https://github.com/withastro/astro.git |

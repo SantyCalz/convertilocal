@@ -1,6 +1,6 @@
 {
-  "release": "corresponding-source-v1.0.0",
-  "subject": "Código fuente correspondiente de ffmpeg-core.wasm (FFmpeg 5.1.4, build GPL)",
+  "release": "corresponding-source-v1.1.0",
+  "subject": "Código fuente correspondiente de ffmpeg-core.wasm (FFmpeg 5.1.4, build GPL) y gs.wasm (Ghostscript 9.56.0)",
   "binary": {
     "file": "public/assets/wasm/ffmpeg-core.wasm",
     "version": "@ffmpeg/core 0.12.10",
@@ -9,6 +9,24 @@
     "license": "GPL-2.0-or-later",
     "modified": false
   },
+  "binaries": [
+    {
+      "file": "public/assets/wasm/ffmpeg-core.wasm",
+      "version": "@ffmpeg/core 0.12.10",
+      "bytes": 32232419,
+      "sha256": "9f57947a5bd530d8f00c5b3f2cb2a3492faa7e5d823315342d6a8656d0a6b7b7",
+      "license": "GPL-2.0-or-later",
+      "modified": false
+    },
+    {
+      "file": "public/assets/gs/gs.wasm",
+      "version": "@jspawn/ghostscript-wasm 0.0.2 (Ghostscript 9.56.0)",
+      "bytes": 16177271,
+      "sha256": "4dceaac93a7586722d76c48cf8632fdac8407db4400bdb9772eebf61758d4161",
+      "license": "AGPL-3.0-only",
+      "modified": false
+    }
+  ],
   "configuration": "configuration: --target-os=none --arch=x86_32 --enable-cross-compile --disable-asm --disable-stripping --disable-programs --disable-doc --disable-debug --disable-runtime-cpudetect --disable-autodetect --nm=emnm --ar=emar --ranlib=emranlib --cc=emcc --cxx=em++ --objcc=emcc --dep-cc=emcc --extra-cflags='-I/opt/include -O3 -msimd128' --extra-cxxflags='-I/opt/include -O3 -msimd128' --disable-pthreads --disable-w32threads --disable-os2threads --enable-gpl --enable-libx264 --enable-libx265 --enable-libvpx --enable-libmp3lame --enable-libtheora --enable-libvorbis --enable-libopus --enable-zlib --enable-libwebp --enable-libfreetype --enable-libfribidi --enable-libass --enable-libzimg",
   "files": [
     {
@@ -40,10 +58,10 @@
     },
     {
       "file": "BUILD.md",
-      "bytes": 3315,
-      "sha256": "e5656fb5d1d96df8a059ede8d604529ee0e3493d28ed785ac4ee5925db869ebc",
+      "bytes": 4075,
+      "sha256": "d01f1891d4a9bd4ddbf8520ae417c6e59e8a31a4f90c615dd227a22c349ca1a2",
       "id": "build",
-      "version": "corresponding-source-v1.0.0",
+      "version": "corresponding-source-v1.1.0",
       "license": "—",
       "url": "—"
     },
@@ -75,6 +93,16 @@
       "license": "MIT (wrapper) — compila FFmpeg y sus forks bajo GPL/LGPL",
       "expectedSha256": "3f1c3f94143d11e3bbb322bd8a1a3189965f31162cf7e889fd3b7e21a928d1ea",
       "url": "https://github.com/ffmpegwasm/ffmpeg.wasm/archive/refs/tags/v0.12.10.tar.gz"
+    },
+    {
+      "file": "ghostscript-9.56.0.tar.xz",
+      "bytes": 61737268,
+      "sha256": "ea0d80ed315c55c605e37153697e55033e181c5bd511cca7c27ddcb94954408b",
+      "id": "ghostscript",
+      "version": "9.56.0",
+      "license": "AGPL-3.0-only",
+      "expectedSha512": "42233045041bdfaddead8b5ddc34cedda3148f150c9e906776a216cdb81b0cac3c52ce7b86e207c3eb9a00aeefa42e8bf83129f4112e01156638a96bcbc54d27",
+      "url": "https://github.com/ArtifexSoftware/ghostpdl-downloads/releases/download/gs9560/ghostscript-9.56.0.tar.xz"
     },
     {
       "file": "GPL-2.0.txt",

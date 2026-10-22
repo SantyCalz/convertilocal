@@ -28,11 +28,20 @@ const STAGING = argStaging
   ? join(ROOT, argStaging)
   : join(ROOT, 'release-staging');
 
-const RELEASE_VERSION = '1.0.0';
+const RELEASE_VERSION = '1.1.0';
 const RELEASE_TAG = `corresponding-source-v${RELEASE_VERSION}`;
 
 /** Fuentes exactas de las que se compone el binario distribuido. */
 const SOURCES = [
+  {
+    id: 'ghostscript',
+    version: '9.56.0',
+    license: 'AGPL-3.0-only',
+    file: 'ghostscript-9.56.0.tar.xz',
+    expectedSha512:
+      '42233045041bdfaddead8b5ddc34cedda3148f150c9e906776a216cdb81b0cac3c52ce7b86e207c3eb9a00aeefa42e8bf83129f4112e01156638a96bcbc54d27',
+    url: 'https://github.com/ArtifexSoftware/ghostpdl-downloads/releases/download/gs9560/ghostscript-9.56.0.tar.xz',
+  },
   {
     id: 'ffmpeg',
     version: 'n5.1.4',
@@ -80,6 +89,7 @@ const LICENSES = [
 ];
 
 const sha256 = (buffer) => createHash('sha256').update(buffer).digest('hex');
+const sha512 = (buffer) => createHash('sha512').update(buffer).digest('hex');
 
 function walk(dir, out = []) {
   if (!existsSync(dir)) return out;
@@ -112,14 +122,21 @@ for (const source of SOURCES) {
     let buffer = null;
     if (existsSync(target)) {
       const existing = readFileSync(target);
-      if (sha256(existing) === source.expectedSha256) buffer = existing;
+      if (source.expectedSha256 && sha256(existing) === source.expectedSha256) buffer = existing;
+      if (source.expectedSha512 && sha512(existing) === source.expectedSha512) buffer = existing;
     }
     if (!buffer) buffer = await download(source.url);
 
     const actual = sha256(buffer);
     if (source.expectedSha256 && actual !== source.expectedSha256) {
       throw new Error(
-        `hash inesperado: ${actual} (se esperaba ${source.expectedSha256}). ` +
+        `hash SHA-256 inesperado: ${actual} (se esperaba ${source.expectedSha256}). ` +
+          'El origen remoto ha cambiado el contenido.',
+      );
+    }
+    if (source.expectedSha512 && sha512(buffer) !== source.expectedSha512) {
+      throw new Error(
+        `hash SHA-512 inesperado: ${sha512(buffer)} (se esperaba ${source.expectedSha512}). ` +
           'El origen remoto ha cambiado el contenido.',
       );
     }
@@ -166,6 +183,24 @@ described.set('ffmpeg-core.wasm', {
   sha256: sha256(wasm),
 });
 
+/* El binario de Ghostscript que usa el conversor PDF/A. */
+const gsWasmPath = join(ROOT, 'public', 'assets', 'gs', 'gs.wasm');
+if (!existsSync(gsWasmPath)) {
+  console.error('No existe public/assets/gs/gs.wasm. Ejecuta "npm run sync:gs".');
+  process.exit(1);
+}
+
+const gsWasm = readFileSync(gsWasmPath);
+described.set('gs.wasm', {
+  id: 'gs.wasm',
+  version: '@jspawn/ghostscript-wasm 0.0.2 (Ghostscript 9.56.0)',
+  license: 'AGPL-3.0-only',
+  file: 'gs.wasm',
+  url: 'https://www.npmjs.com/package/@jspawn/ghostscript-wasm',
+  bytes: gsWasm.length,
+  sha256: sha256(gsWasm),
+});
+
 let current = '';
 let configuration = null;
 for (const byte of wasm) {
@@ -194,26 +229,40 @@ described.set('CONFIGURATION.txt', {
 });
 
 /* BUILD.md */
-const buildMd = `# Código fuente correspondiente — ffmpeg-core.wasm
+const buildMd = `# Código fuente correspondiente — ffmpeg-core.wasm y gs.wasm
 
-Este directorio acompaña al binario \`ffmpeg-core.wasm\` que sirve ConvertiLocal.
-Cumple la GPL-2.0-or-later: el binario no ha sido modificado, y aquí está el
-código fuente exacto con el que se compiló, junto con los scripts de
-compilación y los hashes de verificación.
+Este directorio acompaña a los binarios \`ffmpeg-core.wasm\` y \`gs.wasm\` que
+sirve ConvertiLocal. Cumple la GPL-2.0-or-later y la AGPL-3.0-only: los
+binarios no han sido modificados, y aquí está el código fuente exacto con el
+que se compilaron, junto con los scripts de compilación y los hashes de
+verificación.
 
-## Binario distribuido
+## Binarios distribuidos
 
-| Campo | Valor |
-| --- | --- |
-| Fichero | \`public/assets/wasm/ffmpeg-core.wasm\` |
-| Paquete | \`@ffmpeg/core@0.12.10\` |
-| Versión de FFmpeg | n5.1.4 |
-| Compilador | Emscripten 3.1.40 (\`emscripten/emsdk:3.1.40\`) |
-| Licencia | GPL-2.0-or-later (build **GPL**) |
-| Modificado | **No** — se copia sin cambios desde el paquete npm |
+| Campo | ffmpeg-core.wasm | gs.wasm |
+| --- | --- | --- |
+| Fichero | \`public/assets/wasm/ffmpeg-core.wasm\` | \`public/assets/gs/gs.wasm\` |
+| Paquete | \`@ffmpeg/core@0.12.10\` | \`@jspawn/ghostscript-wasm@0.0.2\` |
+| Versión upstream | FFmpeg n5.1.4 | Ghostscript 9.56.0 |
+| Compilador | Emscripten 3.1.40 | Emscripten (build del paquete) |
+| Licencia | GPL-2.0-or-later (build **GPL**) | AGPL-3.0-only |
+| Modificado | **No** — se copia sin cambios desde el paquete npm | **No** — se copia sin cambios desde el paquete npm |
 
-El hash SHA-256 del binario está en \`LICENSES/SOURCES.json\` (\`binary.sha256\`)
-y en \`public/licencias/ffmpeg-fuente.txt\`.
+El hash SHA-256 de cada binario está en \`SOURCES.json\` (\`binaries\`) y en
+\`public/licencias/ffmpeg-fuente.txt\`.
+
+## Ghostscript (gs.wasm)
+
+El binario \`gs.wasm\` procede de \`@jspawn/ghostscript-wasm@0.0.2\`, que
+empaqueta Ghostscript 9.56.0 compilado con Emscripten. El código fuente
+correspondiente es el tarball oficial \`ghostscript-9.56.0.tar.xz\` publicado
+por Artifex en la release \`gs9560\`:
+
+- Origen: \`https://github.com/ArtifexSoftware/ghostpdl-downloads/releases/tag/gs9560\`
+- SHA-512: fijado en \`SOURCES.json\` y verificado en cada descarga.
+- Licencia: AGPL-3.0-only (ver \`LICENSES/AGPL-3.0.txt\`).
+
+## FFmpeg (ffmpeg-core.wasm)
 
 ## Configuración de compilación
 
@@ -297,7 +346,8 @@ for (const absolute of walk(STAGING)) {
 
 const manifest = {
   release: RELEASE_TAG,
-  subject: 'Código fuente correspondiente de ffmpeg-core.wasm (FFmpeg 5.1.4, build GPL)',
+  subject:
+    'Código fuente correspondiente de ffmpeg-core.wasm (FFmpeg 5.1.4, build GPL) y gs.wasm (Ghostscript 9.56.0)',
   binary: {
     file: 'public/assets/wasm/ffmpeg-core.wasm',
     version: '@ffmpeg/core 0.12.10',
@@ -306,6 +356,24 @@ const manifest = {
     license: 'GPL-2.0-or-later',
     modified: false,
   },
+  binaries: [
+    {
+      file: 'public/assets/wasm/ffmpeg-core.wasm',
+      version: '@ffmpeg/core 0.12.10',
+      bytes: wasm.length,
+      sha256: sha256(wasm),
+      license: 'GPL-2.0-or-later',
+      modified: false,
+    },
+    {
+      file: 'public/assets/gs/gs.wasm',
+      version: '@jspawn/ghostscript-wasm 0.0.2 (Ghostscript 9.56.0)',
+      bytes: gsWasm.length,
+      sha256: sha256(gsWasm),
+      license: 'AGPL-3.0-only',
+      modified: false,
+    },
+  ],
   configuration,
   files: files.sort((a, b) => a.file.localeCompare(b.file)),
 };

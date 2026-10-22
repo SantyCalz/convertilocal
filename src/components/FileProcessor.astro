@@ -34,6 +34,8 @@ interface Props {
   resultNote?: string;
   /** Vista previa específica para herramientas PDF. */
   previewMode?: 'none' | 'pdf-merge' | 'pdf-pages' | 'pdf-organize' | 'media' | 'image-compare';
+  /** La herramienta necesita que Ghostscript esté preparado antes de procesar. */
+  gsRequired?: boolean;
   class?: string;
 }
 
@@ -55,6 +57,7 @@ const {
   baseName = 'convertilocal',
   resultNote = '',
   previewMode = 'none',
+  gsRequired = false,
   class: className = '',
 } = Astro.props;
 
@@ -76,6 +79,7 @@ const hasCustomOptions = Astro.slots.has('options');
   data-action-label={actionLabel}
   data-base-name={baseName}
   data-preview-mode={previewMode}
+  data-gs-required={gsRequired ? 'true' : undefined}
   aria-labelledby={`${id}-title`}
 >
   <div class="border-b border-slate-100 px-4 py-4 sm:px-5">

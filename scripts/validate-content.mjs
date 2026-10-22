@@ -96,8 +96,7 @@ const expectedDocumentSlugs = new Set([
   'html-a-pdf',
   'word-a-pdf',
   'excel-a-pdf',
-  'word-a-pdf',
-  'excel-a-pdf',
+  'pdf-a-pdfa',
 ]);
 
 const expectedPdfSlugs = new Set([

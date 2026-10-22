@@ -528,6 +528,54 @@ sirva un índice de recursos distinto junto con sus fragmentos.
 | 5 | `LEGAL_ENTITY` con «NIF» | Ahora `Identificación fiscal`, con `name` y `email` obligatorios y validación en build. |
 | 6 | El repositorio «contiene el modelo de 126 MB» | ⚠ No lo contiene: son **159,7 MB** y **no están versionados** (se descargan en `prebuild` y se verifican con `assets-integrity.json`). El modelo de segmentación en sí son ~126 MB; el resto es el runtime de ONNX para CPU y WebGPU. |
 | 7 | «sin binarios de sharp» | ✅ Confirmado. |
-| 8 | — | ⚠ **Nuevo:** el dominio `convertilocal.com` no resuelve (NXDOMAIN). El origen público pasó a ser configurable con `PUBLIC_SITE_URL`, cuyo valor por defecto es el subdominio de Vercel: ese sí responde y puede validarse en Search Console. Queda pendiente apuntar el dominio. |
+| 8 | — | ⚠ **Nuevo:** el dominio `convertilocal.com` no resuelve (NXDOMAIN). El origen público pasó a ser configurable con `PUBLIC_SITE_URL`, cuyo valor por defecto es el subdominio de Vercel: ese sí responde y puede validarse en Search Console. Queda pendiente apuntar el dominio. |\n\n## 12. Fase 4: Ghostscript WASM para PDF/A (2026-10-22)
 
+La conversión PDF → PDF/A-2b añade una segunda dependencia con copyleft que se
+distribuye al navegador: **`@jspawn/ghostscript-wasm@0.0.2`**, licencia
+**AGPL-3.0-only**, que empaqueta Ghostscript 9.56.0 compilado a WebAssembly.
 
+### 12.1 Qué se sirve
+
+| Fichero | Origen | Licencia | Tamaño |
+| --- | --- | --- | --- |
+| `public/assets/gs/gs.wasm` | `@jspawn/ghostscript-wasm@0.0.2` | AGPL-3.0-only | 15,8 MB |
+| `public/assets/gs/gs.js` | idem | AGPL-3.0-only | 104 KB |
+| `public/assets/gs/gs.mjs` | idem | AGPL-3.0-only | 0,7 KB |
+| `public/assets/gs/PDFA_def.ps` | ghostpdl 9.56.0 | AGPL-3.0-only | 3,0 KB |
+| `public/assets/gs/srgb.icc` | ghostpdl 9.56.0 | AGPL-3.0-only | 2,5 KB |
+
+Los cinco ficheros están fijados en `assets-integrity.json` y se verifican en
+`npm run sync:gs` (que corre en `prebuild`). Ninguno se sirve desde un CDN: el
+worker los carga de `/assets/gs/` en el propio dominio.
+
+### 12.2 Desviación consciente: SAFER + inyección con pdf-lib
+
+La build WASM de Ghostscript 9.56.0 **no admite `--permit-file-read`**, así que
+en modo `-dSAFER` no puede leer el perfil ICC desde el sistema de ficheros
+virtual y `-dPDFA=2` se ignora silenciosamente. Con `-dNOSAFER` sí funciona,
+pero desactiva el aislamiento del intérprete PostScript.
+
+Decisión adoptada: **mantener `-dSAFER`** y limitar Ghostscript a la
+optimización del PDF (reescritura, eliminación de objetos no usados,
+incrustación de fuentes). El `OutputIntent` con el perfil ICC sRGB y los
+metadatos XMP `pdfaid:part=2` / `pdfaid:conformance=B` se inyectan después con
+**pdf-lib** (MIT) sobre la salida optimizada. El resultado se etiqueta como
+**«PDF/A-2b (mejor esfuerzo, preservación digital no certificada)»**: no se
+afirma conformidad certificada.
+
+### 12.3 Obligaciones AGPL-3.0 adicionales
+
+- El código fuente de `gs.wasm` se publica en el release
+  **`corresponding-source-v1.1.0`** (tarball oficial `ghostscript-9.56.0.tar.xz`
+  de Artifex, SHA-512 fijado y verificado).
+- `@jspawn/ghostscript-wasm` aparece en `THIRD_PARTY_LICENSES.md` y en
+  `/licencias` (generados por `scripts/generate-third-party.mjs`).
+- El sitio sigue sirviendo el código fuente de la versión desplegada desde un
+  repositorio público (AGPL-3.0 §13).
+
+### 12.4 Presupuesto de JS
+
+`gs.wasm` (15,8 MB) es un binario diferido: se descarga solo tras pulsar
+**«Preparar conversor (≈16 MB)»** y queda en la caché HTTP. `check-js-budget.mjs`
+excluye los `.wasm` del límite de chunks diferidos (igual que AVIF y ONNX) y
+documenta la excepción; el código JS propio sigue sujeto al presupuesto.

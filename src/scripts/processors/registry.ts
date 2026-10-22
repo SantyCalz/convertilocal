@@ -33,6 +33,8 @@ const loaders: Record<string, () => Promise<Processor>> = {
     import('./documents/word-to-pdf').then((module) => module.wordToPdfProcessor),
   'excel-to-pdf': () =>
     import('./documents/excel-to-pdf').then((module) => module.excelToPdfProcessor),
+  'pdf-to-pdfa': () =>
+    import('./documents/pdf-to-pdfa').then((module) => module.pdfToPdfaProcessor),
   'pdf-merge': () => import('./pdf/merge').then((module) => module.pdfMergeProcessor),
   'pdf-split': () => import('./pdf/split').then((module) => module.pdfSplitProcessor),
   'pdf-organize': () =>

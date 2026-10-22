@@ -1,47 +1,52 @@
 {
-  "$comment": "Hashes de los assets de @imgly/background-removal servidos desde public/assets/imgly/. Los verifica scripts/sync-bg-assets.mjs durante el prebuild. Regenerar con: node scripts/write-assets-integrity.mjs",
-  "source": "https://staticimgly.com/@imgly/background-removal-data/1.7.0/dist/",
-  "package": "@imgly/background-removal@1.7.0",
-  "resources": {
-    "file": "resources.json",
-    "bytes": 22759,
-    "sha256": "4e2a359d0436f1e55cb0e4e29a1c943f5d86d639ba4f4b5ea874a699b1f742d3"
-  },
-  "resourcesIndex": {
-    "/onnxruntime-web/ort-wasm-simd-threaded.jsep.wasm": {
-      "bytes": 23013109,
-      "mime": "application/wasm",
-      "chunks": 6
+  "$comment": "Hashes de los assets autoalojados que se sirven al navegador. Los verifica scripts/sync-bg-assets.mjs y scripts/sync-gs-assets.mjs durante el prebuild. Regenerar con: node scripts/write-assets-integrity.mjs",
+  "directories": {
+    "public/assets/imgly": {
+      "package": "@imgly/background-removal@1.7.0",
+      "files": 45,
+      "resources": "resources.json",
+      "resourcesIndex": {
+        "/onnxruntime-web/ort-wasm-simd-threaded.jsep.wasm": {
+          "bytes": 23013109,
+          "mime": "application/wasm",
+          "chunks": 6
+        },
+        "/onnxruntime-web/ort-wasm-simd-threaded.wasm": {
+          "bytes": 11819815,
+          "mime": "application/wasm",
+          "chunks": 3
+        },
+        "/onnxruntime-web/ort-wasm-simd-threaded.jsep.mjs": {
+          "bytes": 49241,
+          "mime": "text/javascript",
+          "chunks": 1
+        },
+        "/onnxruntime-web/ort-wasm-simd-threaded.mjs": {
+          "bytes": 25539,
+          "mime": "text/javascript",
+          "chunks": 1
+        },
+        "/models/isnet_quint8": {
+          "bytes": 44348940,
+          "mime": "application/octet-steam",
+          "chunks": 11
+        },
+        "/models/isnet_fp16": {
+          "bytes": 88152708,
+          "mime": "application/octet-steam",
+          "chunks": 22
+        },
+        "/models/isnet": {
+          "bytes": 176149806,
+          "mime": "application/octet-steam",
+          "chunks": 42
+        }
+      }
     },
-    "/onnxruntime-web/ort-wasm-simd-threaded.wasm": {
-      "bytes": 11819815,
-      "mime": "application/wasm",
-      "chunks": 3
-    },
-    "/onnxruntime-web/ort-wasm-simd-threaded.jsep.mjs": {
-      "bytes": 49241,
-      "mime": "text/javascript",
-      "chunks": 1
-    },
-    "/onnxruntime-web/ort-wasm-simd-threaded.mjs": {
-      "bytes": 25539,
-      "mime": "text/javascript",
-      "chunks": 1
-    },
-    "/models/isnet_quint8": {
-      "bytes": 44348940,
-      "mime": "application/octet-steam",
-      "chunks": 11
-    },
-    "/models/isnet_fp16": {
-      "bytes": 88152708,
-      "mime": "application/octet-steam",
-      "chunks": 22
-    },
-    "/models/isnet": {
-      "bytes": 176149806,
-      "mime": "application/octet-steam",
-      "chunks": 42
+    "public/assets/gs": {
+      "package": "@jspawn/ghostscript-wasm@0.0.2",
+      "files": 5,
+      "resources": null
     }
   },
   "files": {
@@ -220,6 +225,30 @@
     "ff8e86f29887739d249494309ca84dff33bef456c0346c2bbfcd21e3b388d87a": {
       "bytes": 4194304,
       "sha256": "ff8e86f29887739d249494309ca84dff33bef456c0346c2bbfcd21e3b388d87a"
+    },
+    "resources.json": {
+      "bytes": 22759,
+      "sha256": "4e2a359d0436f1e55cb0e4e29a1c943f5d86d639ba4f4b5ea874a699b1f742d3"
+    },
+    "gs/gs.js": {
+      "bytes": 106725,
+      "sha256": "a42012ee915fff68dda2a13daee367f2af681d616a2af012e7520beea1086ad7"
+    },
+    "gs/gs.mjs": {
+      "bytes": 698,
+      "sha256": "b2727de21fbfabfe95c5ba604e6683d204ed999412708e186e9d88f61aeaf30e"
+    },
+    "gs/gs.wasm": {
+      "bytes": 16177271,
+      "sha256": "4dceaac93a7586722d76c48cf8632fdac8407db4400bdb9772eebf61758d4161"
+    },
+    "gs/PDFA_def.ps": {
+      "bytes": 3055,
+      "sha256": "a3e6e056aa8b4228ec1154a702d5212e7bcbe9e2daae53f3b1f549dba933f662"
+    },
+    "gs/srgb.icc": {
+      "bytes": 2576,
+      "sha256": "eddaf344b5edea13269e0d20055f335610e5e0b6e33e6e536f2701bc18c5f7d5"
     }
   }
 }

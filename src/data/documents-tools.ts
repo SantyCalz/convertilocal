@@ -102,6 +102,21 @@ const CONFIG: Record<string, DocumentToolConfig> = {
     resultNote:
       'Conversión aproximada: las columnas complejas y los cuadros de texto pueden simplificarse. Solo se aceptan .docx.',
   },
+  'pdf-a-pdfa': {
+    processorId: 'pdf-to-pdfa',
+    accept: '.pdf,application/pdf',
+    acceptLabel: 'PDF',
+    actionLabel: 'Convertir a PDF/A',
+    baseName: 'documento-pdfa',
+    multiple: false,
+    maxSizeMB: 30,
+    maxFiles: 1,
+    maxTotalMB: 30,
+    previewMode: 'none',
+    options: DOCUMENT_OPTIONS.pdfToPdfa,
+    resultNote:
+      'El PDF se optimiza y se le añade un OutputIntent sRGB y los metadatos PDF/A-2b. No certifica conformidad PDF/A.',
+  },
   'excel-a-pdf': {
     processorId: 'excel-to-pdf',
     accept: '.xlsx,.xls,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/vnd.ms-excel',

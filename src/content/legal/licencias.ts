@@ -17,8 +17,8 @@ export const LICENCIAS: LegalDocument = {
   title: 'Licencias y atribuciones',
   shortTitle: 'Licencias',
   description:
-    'Licencia del sitio (AGPL-3.0), componentes con copyleft como FFmpeg y @imgly/background-removal, código fuente correspondiente y tabla completa de atribuciones.',
-  updated: '2026-10-21',
+    'Licencia del sitio (AGPL-3.0), componentes con copyleft como FFmpeg, Ghostscript y @imgly/background-removal, código fuente correspondiente y tabla completa de atribuciones.',
+  updated: '2026-10-22',
   intro:
     'ConvertiLocal se publica bajo software libre. Este documento explica qué licencia se aplica al ' +
     'sitio, qué componentes de terceros incluye, qué obligaciones tienen sus licencias y dónde ' +
@@ -76,7 +76,7 @@ export const LICENCIAS: LegalDocument = {
         {
           type: 'paragraph',
           content:
-            'Dos componentes que el sitio distribuye al navegador tienen copyleft y condicionan la ' +
+            'Tres componentes que el sitio distribuye al navegador tienen copyleft y condicionan la ' +
             'licencia del conjunto:',
         },
         {
@@ -91,6 +91,11 @@ export const LICENCIAS: LegalDocument = {
               '@ffmpeg/core 0.12.10 (ffmpeg.wasm)',
               'GPL-2.0-or-later. Se usa en las herramientas de audio y vídeo. El binario servido es ' +
                 'una build GPL (véase el apartado 4).',
+            ],
+            [
+              '@jspawn/ghostscript-wasm 0.0.2 (Ghostscript 9.56.0)',
+              'AGPL-3.0-only. Se usa en la herramienta «PDF a PDF/A». El binario gs.wasm y sus ' +
+                'recursos (perfil ICC y PostScript) se sirven desde este mismo dominio.',
             ],
           ],
         },

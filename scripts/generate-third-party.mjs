@@ -158,6 +158,7 @@ const CLIENT_PACKAGES = new Set([
   '@ffmpeg/ffmpeg',
   '@ffmpeg/util',
   '@imgly/background-removal',
+  '@jspawn/ghostscript-wasm',
   '@jsquash/avif',
   'dompurify',
   'fflate',

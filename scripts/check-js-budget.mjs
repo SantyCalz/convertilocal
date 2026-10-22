@@ -131,6 +131,14 @@ pageRows.sort((a, b) => b.gzip - a.gzip);
 const allJs = allFiles.filter((file) => file.endsWith('.js') || file.endsWith('.mjs'));
 const lazy = allJs.filter((file) => !allInitial.has(file));
 
+/**
+ * Los binarios `.wasm` quedan fuera del presupuesto de chunks diferidos:
+ * AVIF (1,1 MB), ONNX (5,4 MB) y Ghostscript (15,8 MB) se descargan bajo
+ * demanda y su tamaño depende del códec, no del código que escribimos.
+ * La excepción para Ghostscript está documentada en docs/LICENSE_AUDIT.md.
+ */
+const lazyJs = lazy.filter((file) => !file.endsWith('.wasm'));
+
 const kb = (bytes) => `${(bytes / 1024).toFixed(1)} KB`;
 console.log('\nPresupuesto de JavaScript inicial (por página)\n');
 console.log(`  ${'Página'.padEnd(52)} ${'Inicial'.padStart(10)} ${'Chunks'.padStart(7)}`);
@@ -149,7 +157,7 @@ if (!max) {
 console.log(`\n  Página más pesada: ${max.page}`);
 console.log(`  JS inicial: ${kb(max.raw)} → ${kb(max.gzip)} gzip`);
 console.log(`  Límite: ${LIMIT_KB} KB gzip`);
-console.log(`  Chunks diferidos (no cuentan): ${lazy.length}`);
+console.log(`  Chunks diferidos (no cuentan): ${lazy.length} (${lazyJs.length} JS, ${lazy.length - lazyJs.length} WASM)`);
 
 if (max.gzip > LIMIT_BYTES) {
   console.error(`\n✗ Presupuesto inicial superado por ${kb(max.gzip - LIMIT_BYTES)}.\n`);
@@ -158,7 +166,7 @@ if (max.gzip > LIMIT_BYTES) {
 }
 
 /* Presupuesto por chunk lazy. */
-const lazyRows = lazy
+const lazyRows = lazyJs
   .map((file) => ({ file: relative(DIST, file).replaceAll('\\', '/'), gzip: gzipSize(file) }))
   .sort((a, b) => b.gzip - a.gzip);
 

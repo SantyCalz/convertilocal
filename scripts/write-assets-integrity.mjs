@@ -1,6 +1,7 @@
 /**
- * Genera `assets-integrity.json`: los hashes SHA-256 de los assets de
- * @imgly/background-removal que el sitio descarga en `prebuild`.
+ * Genera `assets-integrity.json`: los hashes SHA-256 de los assets
+ * autoalojados que el sitio descarga en `prebuild` (@imgly/background-removal
+ * y Ghostscript WASM).
  *
  * Fijar los hashes permite que el build detecte cualquier cambio en los
  * hosts externos y garantiza que el material servido es exactamente el que
@@ -18,64 +19,89 @@ import { existsSync, readFileSync, readdirSync, statSync, writeFileSync } from '
 import { join } from 'node:path';
 
 const ROOT = process.cwd();
-const ASSETS = join(ROOT, 'public', 'assets', 'imgly');
 const TARGET = join(ROOT, 'assets-integrity.json');
-const RESOURCES = 'resources.json';
 
-if (!existsSync(join(ASSETS, RESOURCES))) {
-  console.error('No existen los assets en public/assets/imgly/. Ejecuta "npm run sync:bg" primero.');
-  process.exit(1);
-}
-
-const resourcesBuffer = readFileSync(join(ASSETS, RESOURCES));
-const resources = JSON.parse(resourcesBuffer.toString('utf8'));
+/**
+ * Directorios autoalojados que se sirven al navegador y cuyos hashes fijamos.
+ * Cada uno se identifica por el prefijo que llevan en el manifiesto.
+ */
+const DIRECTORIES = [
+  { dir: 'public/assets/imgly', prefix: '', resourcesFile: 'resources.json', package: '@imgly/background-removal@1.7.0' },
+  { dir: 'public/assets/gs', prefix: 'gs/', package: '@jspawn/ghostscript-wasm@0.0.2' },
+];
 
 const files = {};
 let totalBytes = 0;
 let count = 0;
+const directories = {};
 
-for (const entry of readdirSync(ASSETS)) {
-  const path = join(ASSETS, entry);
-  if (!statSync(path).isFile()) continue;
-  if (entry === RESOURCES) continue;
+for (const { dir, prefix, resourcesFile, package: packageName } of DIRECTORIES) {
+  const fullDir = join(ROOT, dir);
+  if (!existsSync(fullDir)) continue;
 
-  const buffer = readFileSync(path);
-  files[entry] = {
-    bytes: buffer.length,
-    sha256: createHash('sha256').update(buffer).digest('hex'),
+  let resourcesBuffer = null;
+  let resources = null;
+
+  if (resourcesFile && existsSync(join(fullDir, resourcesFile))) {
+    resourcesBuffer = readFileSync(join(fullDir, resourcesFile));
+    resources = JSON.parse(resourcesBuffer.toString('utf8'));
+  }
+
+  const entries = readdirSync(fullDir).filter((name) => {
+    const path = join(fullDir, name);
+    return statSync(path).isFile();
+  });
+
+  for (const entry of entries) {
+    const path = join(fullDir, entry);
+    const buffer = readFileSync(path);
+    const manifestName = `${prefix}${entry}`;
+
+    files[manifestName] = {
+      bytes: buffer.length,
+      sha256: createHash('sha256').update(buffer).digest('hex'),
+    };
+    totalBytes += buffer.length;
+    count += 1;
+  }
+
+  directories[dir] = {
+    package: packageName,
+    files: entries.length,
+    resources: resourcesFile ? `${prefix}${resourcesFile}` : null,
   };
-  totalBytes += buffer.length;
-  count += 1;
+
+  if (resourcesBuffer && resourcesFile) {
+    directories[dir].resourcesIndex = Object.fromEntries(
+      Object.entries(resources).map(([key, entry]) => [
+        key,
+        {
+          bytes: entry.size ?? null,
+          mime: entry.mime ?? null,
+          chunks: (entry.chunks ?? []).length,
+        },
+      ]),
+    );
+  }
+}
+
+if (count === 0) {
+  console.error('No hay assets para fijar. Ejecuta los scripts de sincronización primero.');
+  process.exit(1);
 }
 
 const manifest = {
   $comment:
-    'Hashes de los assets de @imgly/background-removal servidos desde public/assets/imgly/. ' +
-    'Los verifica scripts/sync-bg-assets.mjs durante el prebuild. ' +
+    'Hashes de los assets autoalojados que se sirven al navegador. ' +
+    'Los verifica scripts/sync-bg-assets.mjs y scripts/sync-gs-assets.mjs durante el prebuild. ' +
     'Regenerar con: node scripts/write-assets-integrity.mjs',
-  source: 'https://staticimgly.com/@imgly/background-removal-data/1.7.0/dist/',
-  package: '@imgly/background-removal@1.7.0',
-  resources: {
-    file: RESOURCES,
-    bytes: resourcesBuffer.length,
-    sha256: createHash('sha256').update(resourcesBuffer).digest('hex'),
-  },
-  resourcesIndex: Object.fromEntries(
-    Object.entries(resources).map(([key, entry]) => [
-      key,
-      {
-        bytes: entry.size ?? null,
-        mime: entry.mime ?? null,
-        chunks: (entry.chunks ?? []).length,
-      },
-    ]),
-  ),
+  directories,
   files,
 };
 
 writeFileSync(TARGET, `${JSON.stringify(manifest, null, 2)}\n`, 'utf8');
 
 console.log(
-  `✓ assets-integrity.json generado: ${count} fragmentos (${(totalBytes / 1048576).toFixed(1)} MB) ` +
-    `+ ${RESOURCES} fijados en ${(manifest.resources.bytes / 1024).toFixed(1)} KB.`,
+  `✓ assets-integrity.json generado: ${count} ficheros ` +
+    `(${(totalBytes / 1048576).toFixed(1)} MB).`,
 );

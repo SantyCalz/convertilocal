@@ -7,6 +7,7 @@
 import ToolPageShell from '@/components/tools/ToolPageShell.astro';
 import ConversionLimits from '@/components/ConversionLimits.astro';
 import HtmlPastePanel from '@/components/tools/HtmlPastePanel.astro';
+import GsPreparePanel from '@/components/tools/GsPreparePanel.astro';
 import Icon from '@/components/ui/Icon.astro';
 import { DOCUMENT_TOOLS } from '@/data/documents-tools';
 import { PDF_TOOLS } from '@/data/pdf-tools';
@@ -147,18 +148,26 @@ const limitations = [
   maxFiles={tool.maxFiles}
   maxTotalMB={tool.maxTotalMB}
   previewMode="none"
+  gsRequired={tool.slug === 'pdf-a-pdfa'}
 >
   <Fragment slot="intro-extra">
     <ConversionLimits class="mt-6" does={tool.does} doesNot={tool.doesNot} />
+    {
+      tool.slug === 'pdf-a-pdfa' && (
+        <>
+          <p class="mt-4 inline-flex items-center gap-2 rounded-full border border-amber-300 bg-amber-50 px-3 py-1.5 text-xs font-semibold text-amber-900">
+            <span aria-hidden="true">⚠</span>
+            PDF/A-2b (Mejor esfuerzo, preservación digital no certificada)
+          </p>
+          <GsPreparePanel class="mt-4" />
+        </>
+      )
+    }
   </Fragment>
 
-  {
-    tool.slug === 'html-a-pdf' && (
-      <Fragment slot="tools-extra">
-        <HtmlPastePanel />
-      </Fragment>
-    )
-  }
+  <Fragment slot="tools-extra">
+    {tool.slug === 'html-a-pdf' && <HtmlPastePanel />}
+  </Fragment>
 
   <section aria-labelledby="porque-title">
     <h2 id="porque-title" class="text-2xl font-bold tracking-tight text-slate-900">

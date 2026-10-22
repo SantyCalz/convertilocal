@@ -1,23 +1,37 @@
-# Código fuente correspondiente — ffmpeg-core.wasm
+# Código fuente correspondiente — ffmpeg-core.wasm y gs.wasm
 
-Este directorio acompaña al binario `ffmpeg-core.wasm` que sirve ConvertiLocal.
-Cumple la GPL-2.0-or-later: el binario no ha sido modificado, y aquí está el
-código fuente exacto con el que se compiló, junto con los scripts de
-compilación y los hashes de verificación.
+Este directorio acompaña a los binarios `ffmpeg-core.wasm` y `gs.wasm` que
+sirve ConvertiLocal. Cumple la GPL-2.0-or-later y la AGPL-3.0-only: los
+binarios no han sido modificados, y aquí está el código fuente exacto con el
+que se compilaron, junto con los scripts de compilación y los hashes de
+verificación.
 
-## Binario distribuido
+## Binarios distribuidos
 
-| Campo | Valor |
-| --- | --- |
-| Fichero | `public/assets/wasm/ffmpeg-core.wasm` |
-| Paquete | `@ffmpeg/core@0.12.10` |
-| Versión de FFmpeg | n5.1.4 |
-| Compilador | Emscripten 3.1.40 (`emscripten/emsdk:3.1.40`) |
-| Licencia | GPL-2.0-or-later (build **GPL**) |
-| Modificado | **No** — se copia sin cambios desde el paquete npm |
+| Campo | ffmpeg-core.wasm | gs.wasm |
+| --- | --- | --- |
+| Fichero | `public/assets/wasm/ffmpeg-core.wasm` | `public/assets/gs/gs.wasm` |
+| Paquete | `@ffmpeg/core@0.12.10` | `@jspawn/ghostscript-wasm@0.0.2` |
+| Versión upstream | FFmpeg n5.1.4 | Ghostscript 9.56.0 |
+| Compilador | Emscripten 3.1.40 | Emscripten (build del paquete) |
+| Licencia | GPL-2.0-or-later (build **GPL**) | AGPL-3.0-only |
+| Modificado | **No** — se copia sin cambios desde el paquete npm | **No** — se copia sin cambios desde el paquete npm |
 
-El hash SHA-256 del binario está en `LICENSES/SOURCES.json` (`binary.sha256`)
-y en `public/licencias/ffmpeg-fuente.txt`.
+El hash SHA-256 de cada binario está en `SOURCES.json` (`binaries`) y en
+`public/licencias/ffmpeg-fuente.txt`.
+
+## Ghostscript (gs.wasm)
+
+El binario `gs.wasm` procede de `@jspawn/ghostscript-wasm@0.0.2`, que
+empaqueta Ghostscript 9.56.0 compilado con Emscripten. El código fuente
+correspondiente es el tarball oficial `ghostscript-9.56.0.tar.xz` publicado
+por Artifex en la release `gs9560`:
+
+- Origen: `https://github.com/ArtifexSoftware/ghostpdl-downloads/releases/tag/gs9560`
+- SHA-512: fijado en `SOURCES.json` y verificado en cada descarga.
+- Licencia: AGPL-3.0-only (ver `LICENSES/AGPL-3.0.txt`).
+
+## FFmpeg (ffmpeg-core.wasm)
 
 ## Configuración de compilación
 

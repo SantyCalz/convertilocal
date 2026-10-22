@@ -32,6 +32,8 @@ interface Props {
   maxFiles?: number;
   maxTotalMB?: number;
   previewMode?: 'none' | 'pdf-merge' | 'pdf-pages' | 'pdf-organize' | 'media' | 'image-compare';
+  /** La herramienta necesita que Ghostscript esté preparado antes de procesar. */
+  gsRequired?: boolean;
 }
 
 const {
@@ -56,8 +58,8 @@ const {
   maxFiles = 20,
   maxTotalMB = 120,
   previewMode = 'none',
-} = Astro.props;
----
+  gsRequired = false,
+} = Astro.props;---
 
 <BaseLayout title={title} description={description} path={path} schema={schema}>
   <div class="border-b border-slate-200 bg-white">
@@ -123,6 +125,7 @@ const {
             baseName={baseName}
             resultNote={resultNote}
             previewMode={previewMode}
+            gsRequired={gsRequired}
           />
           <slot name="tools-extra" />
         </div>

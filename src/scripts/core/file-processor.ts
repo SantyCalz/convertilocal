@@ -187,8 +187,8 @@ function setup(root: HTMLElement): void {
   const actionLabel = root.dataset.actionLabel ?? 'Procesar archivo';
   const baseName = root.dataset.baseName ?? 'convertilocal';
   const previewMode = root.dataset.previewMode ?? 'none';
+  const gsRequired = root.dataset.gsRequired === 'true';
   const validatesImages = isImageAccept(accept);
-  console.log('VALIDATES for', accept, 'images=', validatesImages, 'pdfs=', isPdfAccept(accept), 'data=', isDataAccept(accept), 'media=', isMediaAccept(accept));
   const validatesPdfs = isPdfAccept(accept);
   const validatesData = isDataAccept(accept);
   const validatesMedia = isMediaAccept(accept);
@@ -313,7 +313,24 @@ function setup(root: HTMLElement): void {
     });
   };
 
+  const gsReady = (): boolean => root.dataset.gsReady === 'true';
+
   const syncAction = (): void => {
+    // Con Ghostscript diferido, el botón principal hace de disparador de la
+    // descarga. Se mantiene activo (aunque no haya archivos) para que el
+    // usuario pueda preparar el conversor desde aquí o desde el panel.
+    if (gsRequired && !gsReady()) {
+      action.disabled = state.busy || state.validating;
+      action.textContent = 'Preparar conversor (≈16 MB)';
+      if (actionBar) actionBar.hidden = false;
+      root.querySelectorAll<HTMLInputElement | HTMLSelectElement>('[data-fp-option]').forEach((field) => {
+        field.disabled = true;
+      });
+      if (reset) reset.hidden = true;
+      if (clearButton) clearButton.hidden = true;
+      return;
+    }
+
     action.disabled = state.busy || state.validating || state.files.length === 0;
     if (actionBar) actionBar.hidden = state.files.length === 0;
 
@@ -938,7 +955,47 @@ function setup(root: HTMLElement): void {
   syncVisibility();
   initFileReorder(root);
 
+  /**
+   * Descarga los binarios de Ghostscript y el perfil ICC para calentar la
+   * caché HTTP. La instancia real se crea en el worker al primer uso.
+   */
+  const prepareGhostscript = async (): Promise<void> => {
+    action.disabled = true;
+    action.textContent = 'Preparando…';
+    setStatus('Descargando el conversor (≈16 MB)…', 'working');
+
+    try {
+      for (const url of ['/assets/gs/gs.wasm', '/assets/gs/srgb.icc']) {
+        const response = await fetch(url);
+        if (!response.ok) throw new Error(`HTTP ${response.status} al descargar ${url}`);
+        await response.arrayBuffer();
+      }
+      root.dataset.gsReady = 'true';
+      root.dispatchEvent(new CustomEvent('gs-ready'));
+      setStatus('Conversor preparado. Ya puedes convertir.', 'success');
+    } catch (error) {
+      setStatus(
+        `No se pudo preparar el conversor: ${
+          error instanceof Error ? error.message : String(error)
+        }`,
+        'error',
+      );
+    } finally {
+      syncAction();
+    }
+  };
+
+  root.addEventListener('gs-ready', () => {
+    setStatus('Conversor preparado. Ya puedes convertir.', 'success');
+    syncAction();
+  });
+
   action.addEventListener('click', async () => {
+    if (gsRequired && !gsReady()) {
+      await prepareGhostscript();
+      return;
+    }
+
     if (state.busy || state.validating || state.files.length === 0) return;
 
     if (state.done && state.outputs.length > 0) {

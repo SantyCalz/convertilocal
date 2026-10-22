@@ -30,6 +30,9 @@ public/assets/pdf/
 # generated background-removal assets (npm run sync:bg)
 public/assets/imgly/
 
+# generated Ghostscript assets (npm run sync:gs)
+public/assets/gs/
+
 # staging del release de código fuente (npm run build-corresponding-source)
 release-staging/
 

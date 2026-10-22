@@ -1,6 +1,6 @@
 {
   "generated": "2026-10-22",
-  "totalInstalled": 666,
+  "totalInstalled": 667,
   "rows": [
     {
       "name": "@astrojs/check",
@@ -65,6 +65,14 @@
       "client": true,
       "kind": "directa",
       "repository": "git+https://github.com/imgly/background-removal-js.git"
+    },
+    {
+      "name": "@jspawn/ghostscript-wasm",
+      "version": "0.0.2",
+      "license": "AGPL-3.0",
+      "client": true,
+      "kind": "directa",
+      "repository": "https://github.com/jsscheller/ghostscript-wasm.git"
     },
     {
       "name": "@jsquash/avif",

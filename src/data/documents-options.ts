@@ -250,4 +250,5 @@ export const DOCUMENT_OPTIONS = {
       ],
     },
   ] satisfies ProcessorOption[],
+  pdfToPdfa: [],
 };

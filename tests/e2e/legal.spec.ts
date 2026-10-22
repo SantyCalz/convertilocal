@@ -17,6 +17,9 @@ const HOSTS_PERMITIDOS = [
   'googlesyndication.com',
   'doubleclick.net',
   'google.com',
+  // Telemetría de AdSense (CSI). La carga el propio anuncio de Google.
+  'csi.gstatic.com',
+  'gstatic.com',
 ];
 
 const PAGINAS_LEGALES = [
@@ -71,27 +74,34 @@ test('las páginas legales enlazan con la licencia y el código fuente', async (
   expect(await manifiesto.text()).toContain('ffmpegwasm/ffmpeg.wasm');
 });
 
-test('/licencias enlaza con el release del código fuente de FFmpeg', async ({ page }) => {
+test('/licencias enlaza con el release del código fuente de FFmpeg y Ghostscript', async ({
+  page,
+}) => {
   await page.goto('/licencias');
 
   const enlace = page.locator('a[href*="/releases/tag/corresponding-source-"]').first();
   await expect(enlace).toBeVisible();
 
   const url = await enlace.getAttribute('href');
-  expect(url).toMatch(/^https:\/\/github\.com\/SantyCalz\/convertilocal\/releases\/tag\/corresponding-source-/);
+  expect(url).toMatch(
+    /^https:\/\/github\.com\/SantyCalz\/convertilocal\/releases\/tag\/corresponding-source-/,
+  );
 
   // El release y sus tarball deben ser accesibles sin autenticación.
   const release = await page.request.get(url!);
   expect(release.status()).toBe(200);
 
-  const base = url!.replace(/\/tag\/.*$/, '');
+  const base = url!.replace(/\/tag\/(.*)$/, '');
+  const tag = url!.match(/\/tag\/(.*)$/)![1];
+
   for (const asset of [
     'SOURCES.json',
     'ffmpeg-n5.1.4.tar.gz',
     'x264-4-cores.tar.gz',
     'x265-3.4.tar.gz',
+    'ghostscript-9.56.0.tar.xz',
   ]) {
-    const respuesta = await page.request.get(`${base}/download/corresponding-source-v1.0.0/${asset}`);
+    const respuesta = await page.request.head(`${base}/download/${tag}/${asset}`);
     expect(respuesta.status(), `${asset} debe ser descargable`).toBe(200);
   }
 });

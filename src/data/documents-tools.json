@@ -526,6 +526,90 @@
     ]
   },
   {
+    "slug": "pdf-a-pdfa",
+    "title": "Convertir PDF a PDF/A en tu navegador | ConvertiLocal",
+    "h1": "Convertir PDF a PDF/A",
+    "description": "Convierte un PDF a PDF/A-2b con Ghostscript WASM y pdf-lib. OutputIntent sRGB y metadatos XMP inyectados localmente.",
+    "intro": "Los PDF/A son la variante del PDF pensada para la preservación digital a largo plazo. Convertir un PDF a PDF/A-2b añade un perfil de color sRGB como OutputIntent y los metadatos de conformidad XMP.",
+    "why": [
+      "Optimiza el PDF con Ghostscript: elimina objetos no usados y reduce el tamaño.",
+      "Inyecta un OutputIntent sRGB (ICC) y los metadatos XMP pdfaid:part=2 / conformance=B.",
+      "Funciona sin subir nada: el binario de Ghostscript se descarga una vez y queda en la caché.",
+      "Etiqueta el resultado como «PDF/A-2b (mejor esfuerzo, no certificado)»."
+    ],
+    "useCases": [
+      {
+        "title": "Archivar un expediente",
+        "body": "Convierte los PDF de trabajo a PDF/A para que se conserven sin depender del software original."
+      },
+      {
+        "title": "Cumplir un requisito de formato",
+        "body": "Algunos sistemas de archivo exigen PDF/A. Esta herramienta lo genera localmente."
+      },
+      {
+        "title": "Reducir el tamaño",
+        "body": "Ghostscript optimiza el PDF mientras añade los metadatos de conformidad."
+      }
+    ],
+    "mistakes": [
+      {
+        "title": "Esperar certificación",
+        "body": "El PDF resultante se etiqueta como «mejor esfuerzo, no certificado». Puede que un validador estricto lo rechace."
+      },
+      {
+        "title": "PDF muy grandes",
+        "body": "Archivos de más de 30 MB pueden tardar o quedarse sin memoria. Divide el PDF antes si hace falta."
+      },
+      {
+        "title": "Fuentes no incrustadas",
+        "body": "Si el PDF original no tiene las fuentes incrustadas, Ghostscript las sustituye por equivalentes disponibles."
+      }
+    ],
+    "faq": [
+      {
+        "q": "¿Qué es PDF/A?",
+        "a": "Es una variante del PDF pensada para la preservación a largo plazo: exige fuentes incrustadas, un perfil de color y metadatos XMP."
+      },
+      {
+        "q": "¿Es certificado?",
+        "a": "No. El resultado se etiqueta como «PDF/A-2b (mejor esfuerzo, no certificado)». Para conformidad estricta usa un validador dedicado."
+      },
+      {
+        "q": "¿Qué nivel de conformidad?",
+        "a": "Se etiqueta como PDF/A-2b: parte 2 (PDF 1.7), nivel B (visual)."
+      },
+      {
+        "q": "¿Se procesa en mi dispositivo?",
+        "a": "Sí. Ghostscript se descarga una vez (≈16 MB) y se ejecuta en tu navegador. Nada sale de tu equipo."
+      }
+    ],
+    "keywords": [
+      "pdf a pdfa",
+      "convertir pdf a pdfa",
+      "pdfa-2b",
+      "preservacion digital pdf",
+      "pdf a pdfa en navegador"
+    ],
+    "related": [
+      "/convertir/pdf-a-jpg",
+      "/convertir/pdf-a-png",
+      "/convertir/html-a-pdf"
+    ],
+    "updated": "2026-10-22",
+    "does": [
+      "Optimiza el PDF con Ghostscript (elimina objetos no usados).",
+      "Añade un OutputIntent sRGB (perfil ICC) al PDF.",
+      "Añade los metadatos XMP pdfaid:part=2 y pdfaid:conformance=B.",
+      "Genera el PDF en tu dispositivo, sin subir nada."
+    ],
+    "doesNot": [
+      "No certifica conformidad PDF/A (es «mejor esfuerzo»).",
+      "No garantiza que un validador estricto acepte el resultado.",
+      "No incrusta fuentes que el PDF original no incluyera.",
+      "No convierte PDF/A-1 ni PDF/A-3: solo se etiqueta como PDF/A-2b."
+    ]
+  },
+  {
     "slug": "excel-a-pdf",
     "title": "Convertir Excel a PDF en tu navegador | ConvertiLocal",
     "h1": "Convertir Excel a PDF",
