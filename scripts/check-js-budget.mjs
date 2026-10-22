@@ -21,6 +21,16 @@ const arg = process.argv.find((value) => value.startsWith('--kb='));
 const LIMIT_KB = Number(arg?.split('=')[1] ?? process.env.JS_BUDGET_KB ?? 50);
 const LIMIT_BYTES = LIMIT_KB * 1024;
 
+/**
+ * Límite por chunk lazy (carga diferida con import()).
+ *
+ * Los binarios `.wasm` quedan fuera: los decodificadores AVIF, HEIC, ONNX y
+ * Ghostscript se descargan por separado y su tamaño depende del códec, no del
+ * código que escribimos. Los `.js` y `.mjs` sí se miden.
+ */
+const LAZY_LIMIT_KB = Number(process.env.LAZY_CHUNK_BUDGET_KB ?? 400);
+const LAZY_LIMIT_BYTES = LAZY_LIMIT_KB * 1024;
+
 if (!Number.isFinite(LIMIT_KB) || LIMIT_KB <= 0) {
   console.error('Presupuesto inválido. Usa --kb=50');
   process.exit(1);
@@ -147,4 +157,29 @@ if (max.gzip > LIMIT_BYTES) {
   process.exit(1);
 }
 
-console.log(`\n✓ Dentro del presupuesto (${kb(LIMIT_BYTES - max.gzip)} de margen).\n`);
+/* Presupuesto por chunk lazy. */
+const lazyRows = lazy
+  .map((file) => ({ file: relative(DIST, file).replaceAll('\\', '/'), gzip: gzipSize(file) }))
+  .sort((a, b) => b.gzip - a.gzip);
+
+const lazyTooBig = lazyRows.filter((row) => row.gzip > LAZY_LIMIT_BYTES);
+
+console.log(`\nPresupuesto de chunks diferidos (por chunk)\n`);
+console.log(`  ${'Chunk'.padEnd(52)} ${'gzip'.padStart(10)}`);
+for (const row of lazyRows.slice(0, 6)) {
+  console.log(`  ${row.file.padEnd(52)} ${kb(row.gzip).padStart(10)}`);
+}
+console.log(`  Límite por chunk: ${LAZY_LIMIT_KB} KB gzip`);
+
+if (lazyTooBig.length > 0) {
+  console.error(`\n✗ ${lazyTooBig.length} chunk(s) diferido(s) superan el presupuesto:\n`);
+  for (const row of lazyTooBig) {
+    console.error(`  · ${row.file}: ${kb(row.gzip)} (excede en ${kb(row.gzip - LAZY_LIMIT_BYTES)})`);
+  }
+  process.exit(1);
+}
+
+console.log(
+  `\n✓ Dentro del presupuesto (${kb(LIMIT_BYTES - max.gzip)} de margen inicial, ` +
+    `${lazyRows.length} chunks diferidos dentro de ${LAZY_LIMIT_KB} KB).\n`,
+);

@@ -9,6 +9,16 @@
       "source": "/terminos-y-condiciones",
       "destination": "/terminos",
       "permanent": true
+    },
+    {
+      "source": "/pdf/pdf-a-jpg",
+      "destination": "/convertir/pdf-a-jpg",
+      "permanent": true
+    },
+    {
+      "source": "/pdf/pdf-a-png",
+      "destination": "/convertir/pdf-a-png",
+      "permanent": true
     }
   ],
   "headers": [

@@ -152,6 +152,21 @@
     min-width: 2.75rem;
   }
 
+  /* Reordenación por arrastre de la lista de archivos. */
+  [data-fp-file-list][data-reordering='true'] [data-fp-file-item] {
+    transition: transform 120ms ease;
+  }
+
+  [data-fp-reorder-handle][aria-grabbed='true'] {
+    cursor: grabbing;
+    color: #047857;
+  }
+
+  [data-fp-reorder-handle]:focus-visible {
+    outline: 2px solid #047857;
+    outline-offset: 2px;
+  }
+
   .safe-bottom {
     padding-bottom: max(0.75rem, env(safe-area-inset-bottom));
   }

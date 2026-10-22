@@ -1,0 +1,57 @@
+---
+/**
+ * src/components/ConversionLimits.astro
+ * Copyright (C) 2026 ConvertiLocal contributors
+ * SPDX-License-Identifier: AGPL-3.0-only
+ */
+import Icon from '@/components/ui/Icon.astro';
+
+interface Props {
+  /** Qué hace la herramienta de verdad. */
+  does: string[];
+  /** Qué no hace, para no crear expectativas falsas. */
+  doesNot: string[];
+  title?: string;
+  class?: string;
+}
+
+const { does, doesNot, title = 'Qué hace y qué no hace', class: className = '' } = Astro.props;
+---
+
+<section
+  aria-label={title}
+  class:list={[
+    'grid gap-4 rounded-2xl border border-slate-200 bg-white p-4 sm:grid-cols-2 sm:p-5',
+    className,
+  ]}
+>
+  <div>
+    <h2 class="flex items-center gap-1.5 text-xs font-semibold uppercase tracking-[0.12em] text-emerald-700">
+      <Icon name="check" size={14} />
+      Qué hace
+    </h2>
+    <ul class="mt-2.5 space-y-1.5 text-sm leading-6 text-slate-600">
+      {does.map((item) => (
+        <li class="flex gap-2">
+          <Icon name="check" size={14} class="mt-1 shrink-0 text-emerald-600" />
+          <span>{item}</span>
+        </li>
+      ))}
+    </ul>
+  </div>
+
+  <div>
+    <h2 class="flex items-center gap-1.5 text-xs font-semibold uppercase tracking-[0.12em] text-amber-700">
+      <Icon name="x" size={14} />
+      Qué no hace
+    </h2>
+    <ul class="mt-2.5 space-y-1.5 text-sm leading-6 text-slate-600">
+      {doesNot.map((item) => (
+        <li class="flex gap-2">
+          <Icon name="x" size={14} class="mt-1 shrink-0 text-amber-600" />
+          <span>{item}</span>
+        </li>
+      ))}
+    </ul>
+  </div>
+</section>

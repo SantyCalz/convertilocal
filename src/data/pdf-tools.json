@@ -60,8 +60,18 @@
         "a": "No. Los PDF cifrados o protegidos con contraseña no se pueden abrir en esta fase. Quita la protección con la aplicación que los creó antes de unirlos."
       }
     ],
-    "keywords": ["unir pdf", "combinar pdf", "juntar pdf", "unir documentos", "pdf online"],
-    "related": ["/pdf/dividir-pdf", "/pdf/reordenar-pdf", "/pdf/comprimir-pdf"],
+    "keywords": [
+      "unir pdf",
+      "combinar pdf",
+      "juntar pdf",
+      "unir documentos",
+      "pdf online"
+    ],
+    "related": [
+      "/pdf/dividir-pdf",
+      "/pdf/reordenar-pdf",
+      "/pdf/comprimir-pdf"
+    ],
     "updated": "2026-10-21"
   },
   {
@@ -125,8 +135,18 @@
         "a": "El PDF de entrada puede tener hasta 300 páginas y ocupar como máximo 30 MB. Si es más grande, divídelo primero con otra copia o reduce su resolución."
       }
     ],
-    "keywords": ["dividir pdf", "separar pdf", "extraer páginas pdf", "cortar pdf", "pdf por páginas"],
-    "related": ["/pdf/unir-pdf", "/pdf/reordenar-pdf", "/pdf/pdf-a-jpg"],
+    "keywords": [
+      "dividir pdf",
+      "separar pdf",
+      "extraer páginas pdf",
+      "cortar pdf",
+      "pdf por páginas"
+    ],
+    "related": [
+      "/pdf/unir-pdf",
+      "/pdf/reordenar-pdf",
+      "/convertir/pdf-a-jpg"
+    ],
     "updated": "2026-10-21"
   },
   {
@@ -190,8 +210,18 @@
         "a": "Hasta 300 páginas y 30 MB por archivo. Para documentos más grandes, divídelos primero en partes más pequeñas."
       }
     ],
-    "keywords": ["rotar pdf", "girar pdf", "orientación pdf", "pdf de lado", "corregir escaneo"],
-    "related": ["/pdf/reordenar-pdf", "/pdf/dividir-pdf", "/pdf/unir-pdf"],
+    "keywords": [
+      "rotar pdf",
+      "girar pdf",
+      "orientación pdf",
+      "pdf de lado",
+      "corregir escaneo"
+    ],
+    "related": [
+      "/pdf/reordenar-pdf",
+      "/pdf/dividir-pdf",
+      "/pdf/unir-pdf"
+    ],
     "updated": "2026-10-21"
   },
   {
@@ -255,8 +285,18 @@
         "a": "Sí, 300 páginas y 30 MB por archivo. Para documentos mayores, divídelos y reordena cada parte."
       }
     ],
-    "keywords": ["reordenar pdf", "ordenar páginas pdf", "mover páginas pdf", "cambiar orden pdf", "ordenar pdf"],
-    "related": ["/pdf/rotar-pdf", "/pdf/unir-pdf", "/pdf/dividir-pdf"],
+    "keywords": [
+      "reordenar pdf",
+      "ordenar páginas pdf",
+      "mover páginas pdf",
+      "cambiar orden pdf",
+      "ordenar pdf"
+    ],
+    "related": [
+      "/pdf/rotar-pdf",
+      "/pdf/unir-pdf",
+      "/pdf/dividir-pdf"
+    ],
     "updated": "2026-10-21"
   },
   {
@@ -320,138 +360,18 @@
         "a": "Hasta 20 imágenes, 25 MB por archivo y 100 MB en total. Para lotes mayores, crea varios PDF y únelos después."
       }
     ],
-    "keywords": ["imagen a pdf", "fotos a pdf", "jpg a pdf", "png a pdf", "convertir imágenes"],
-    "related": ["/pdf/unir-pdf", "/pdf/comprimir-pdf", "/pdf/dividir-pdf"],
-    "updated": "2026-10-21"
-  },
-  {
-    "slug": "pdf-a-jpg",
-    "title": "Convertir PDF a JPG por página | ConvertiLocal",
-    "h1": "Convertir PDF a JPG",
-    "description": "Convierte cada página de un PDF en una imagen JPG con la resolución que elijas. Descarga las imágenes por separado o en un ZIP, sin subir el documento.",
-    "intro": "Elige la resolución, convierte las páginas a JPG y descarga las imágenes. El PDF se procesa con PDF.js dentro de tu navegador y no se envía a ningún servidor.",
-    "why": [
-      "Cada página se convierte en un JPG independiente con un nombre numerado.",
-      "Puedes elegir 72, 150 o 300 ppp según el uso: pantalla, web o impresión.",
-      "Si hay varias páginas, las imágenes se agrupan en un ZIP generado localmente."
+    "keywords": [
+      "imagen a pdf",
+      "fotos a pdf",
+      "jpg a pdf",
+      "png a pdf",
+      "convertir imágenes"
     ],
-    "useCases": [
-      {
-        "title": "Miniaturas para una web",
-        "body": "Convierte las páginas de un catálogo o una revista en imágenes JPG para una galería o una entrada de blog."
-      },
-      {
-        "title": "Publicar en redes sociales",
-        "body": "Exporta una página concreta como JPG para compartirla como imagen sin que el destinatario tenga que abrir un PDF."
-      },
-      {
-        "title": "Presentaciones rápidas",
-        "body": "Convierte diapositivas en imágenes para insertarlas en una presentación o en un documento de texto."
-      }
+    "related": [
+      "/pdf/unir-pdf",
+      "/pdf/comprimir-pdf",
+      "/pdf/dividir-pdf"
     ],
-    "mistakes": [
-      {
-        "title": "Elegir 300 ppp para todo",
-        "body": "300 ppp produce imágenes grandes y lentas de procesar. Para pantalla suele bastar con 150 ppp; usa 300 solo si vas a imprimir."
-      },
-      {
-        "title": "Esperar fondo transparente",
-        "body": "Las páginas PDF se dibujan sobre fondo blanco y el JPG no admite transparencia. Si necesitas transparencia, usa la herramienta PDF a PNG."
-      },
-      {
-        "title": "Convertir un PDF de más de 100 páginas",
-        "body": "El límite es de 100 páginas por documento. Divide el PDF en partes más pequeñas para evitar quedarte sin memoria en el móvil."
-      }
-    ],
-    "faq": [
-      {
-        "q": "¿Se convierte todo el PDF o puedo elegir páginas?",
-        "a": "Esta herramienta convierte todas las páginas del documento. Si solo necesitas algunas, usa primero Dividir PDF y después convierte el archivo resultante."
-      },
-      {
-        "q": "¿Cómo se descargan varias imágenes?",
-        "a": "Si el PDF tiene más de una página, las imágenes se empaquetan en un ZIP generado en tu dispositivo. También puedes descargar el ZIP y extraerlo con cualquier herramienta del sistema."
-      },
-      {
-        "q": "¿Qué resolución elijo?",
-        "a": "72 ppp para vistas rápidas, 150 ppp para web y presentaciones, y 300 ppp para impresión. A mayor resolución, más peso y más tiempo de proceso."
-      },
-      {
-        "q": "¿El texto seguirá siendo seleccionable?",
-        "a": "No. El resultado es una imagen JPG por página. Conserva el PDF original si necesitas copiar texto o buscar dentro del documento."
-      },
-      {
-        "q": "¿Funciona con PDF protegidos?",
-        "a": "No. Los documentos cifrados o con contraseña no se pueden abrir en esta fase. Quita la protección desde la aplicación original."
-      }
-    ],
-    "keywords": ["pdf a jpg", "pdf a imagen", "convertir pdf a jpg", "extraer imágenes pdf", "pdf a foto"],
-    "related": ["/pdf/pdf-a-png", "/pdf/dividir-pdf", "/pdf/comprimir-pdf"],
-    "updated": "2026-10-21"
-  },
-  {
-    "slug": "pdf-a-png",
-    "title": "Convertir PDF a PNG sin pérdida | ConvertiLocal",
-    "h1": "Convertir PDF a PNG",
-    "description": "Exporta las páginas de un PDF como imágenes PNG nítidas y sin pérdida. Elige la resolución y descarga cada página o un ZIP, todo en tu navegador.",
-    "intro": "Convierte las páginas de tu PDF en PNG, un formato sin pérdida que mantiene nítidos los textos, los gráficos y las líneas. El archivo no se sube a ningún servidor.",
-    "why": [
-      "PNG evita los artefactos de compresión que aparecen en JPG alrededor del texto.",
-      "Puedes elegir 72, 150 o 300 ppp según el tamaño y el destino de la imagen.",
-      "Las páginas se exportan como archivos independientes, listos para descargar."
-    ],
-    "useCases": [
-      {
-        "title": "Capturas de gráficos",
-        "body": "Extrae diagramas, planos o infografías de un PDF sin perder definición en los bordes."
-      },
-      {
-        "title": "Firmas y sellos",
-        "body": "Obtén una imagen PNG de una página con una firma o un sello para reutilizarla en otros documentos."
-      },
-      {
-        "title": "Material para edición",
-        "body": "Exporta páginas como PNG para recortarlas, anotarlas o incorporarlas a un editor de imágenes."
-      }
-    ],
-    "mistakes": [
-      {
-        "title": "Esperar archivos más ligeros que el PDF",
-        "body": "PNG es un formato sin pérdida y suele generar archivos más grandes que JPEG. Si el objetivo es reducir peso, usa JPG o comprime el PDF original."
-      },
-      {
-        "title": "Usar 300 ppp sin necesidad",
-        "body": "Una página A4 a 300 ppp ocupa muchos píxeles y puede consumir bastante memoria. Para pantalla, 150 ppp suele ser suficiente."
-      },
-      {
-        "title": "Convertir un PDF con transparencias complejas",
-        "body": "El renderizado aplana el contenido sobre fondo blanco. Las transparencias del PDF no se conservan como canal alfa en el PNG resultante."
-      }
-    ],
-    "faq": [
-      {
-        "q": "¿PNG conserva mejor la calidad que JPG?",
-        "a": "Para texto y gráficos con bordes definidos, sí. PNG usa compresión sin pérdida, mientras que JPG descarta información para reducir el tamaño. Para fotografías, JPG suele ser más eficiente."
-      },
-      {
-        "q": "¿Puedo elegir solo una página?",
-        "a": "Esta herramienta exporta todas las páginas. Si necesitas una sola, divide primero el PDF y convierte el archivo que contiene esa página."
-      },
-      {
-        "q": "¿Las imágenes tendrán fondo transparente?",
-        "a": "No. Cada página se dibuja sobre blanco para que el resultado sea legible, así que el PNG no incluye transparencia de fondo."
-      },
-      {
-        "q": "¿Cuántas páginas puedo convertir?",
-        "a": "Hasta 100 páginas y 30 MB por PDF. Si el documento es más grande, divídelo en partes y conviértelas por separado."
-      },
-      {
-        "q": "¿Se sube el PDF a un servidor?",
-        "a": "No. PDF.js y el canvas del navegador hacen todo el trabajo en tu dispositivo. Puedes comprobarlo desconectando la red después de cargar la página."
-      }
-    ],
-    "keywords": ["pdf a png", "convertir pdf a png", "pdf a imagen sin pérdida", "exportar páginas pdf", "pdf a png sin pérdida"],
-    "related": ["/pdf/pdf-a-jpg", "/pdf/dividir-pdf", "/pdf/comprimir-pdf"],
     "updated": "2026-10-21"
   },
   {
@@ -515,8 +435,18 @@
         "a": "No. Los documentos cifrados o con contraseña no se pueden modificar en esta fase."
       }
     ],
-    "keywords": ["marca de agua pdf", "poner marca de agua", "watermark pdf", "pdf confidencial", "marca de agua documento"],
-    "related": ["/pdf/numerar-paginas-pdf", "/pdf/comprimir-pdf", "/pdf/unir-pdf"],
+    "keywords": [
+      "marca de agua pdf",
+      "poner marca de agua",
+      "watermark pdf",
+      "pdf confidencial",
+      "marca de agua documento"
+    ],
+    "related": [
+      "/pdf/numerar-paginas-pdf",
+      "/pdf/comprimir-pdf",
+      "/pdf/unir-pdf"
+    ],
     "updated": "2026-10-21"
   },
   {
@@ -580,8 +510,18 @@
         "a": "Sí, excepto la primera si activas la opción de saltarla. El documento puede tener hasta 300 páginas y 30 MB."
       }
     ],
-    "keywords": ["numerar páginas pdf", "números de página pdf", "paginar pdf", "añadir numeración", "numeración pdf"],
-    "related": ["/pdf/marca-de-agua-pdf", "/pdf/rotar-pdf", "/pdf/comprimir-pdf"],
+    "keywords": [
+      "numerar páginas pdf",
+      "números de página pdf",
+      "paginar pdf",
+      "añadir numeración",
+      "numeración pdf"
+    ],
+    "related": [
+      "/pdf/marca-de-agua-pdf",
+      "/pdf/rotar-pdf",
+      "/pdf/comprimir-pdf"
+    ],
     "updated": "2026-10-21"
   },
   {
@@ -645,8 +585,18 @@
         "a": "30 MB y 300 páginas para optimizar; 30 MB y 100 páginas para rasterizar. Los límites protegen la memoria del navegador, especialmente en móviles."
       }
     ],
-    "keywords": ["comprimir pdf", "reducir pdf", "optimizar pdf", "pdf más ligero", "comprimir pdf sin subir"],
-    "related": ["/pdf/unir-pdf", "/pdf/pdf-a-jpg", "/pdf/dividir-pdf"],
+    "keywords": [
+      "comprimir pdf",
+      "reducir pdf",
+      "optimizar pdf",
+      "pdf más ligero",
+      "comprimir pdf sin subir"
+    ],
+    "related": [
+      "/pdf/unir-pdf",
+      "/convertir/pdf-a-jpg",
+      "/pdf/dividir-pdf"
+    ],
     "updated": "2026-10-21"
   }
 ]

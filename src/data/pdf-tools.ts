@@ -87,38 +87,6 @@ const CONFIG: Record<string, PdfToolConfig> = {
     resultNote:
       'Las imágenes se adaptan a la página con márgenes. Los PNG conservan su transparencia; los JPEG usan la calidad elegida.',
   },
-  'pdf-a-jpg': {
-    processorId: 'pdf-to-image',
-    accept: '.pdf,application/pdf',
-    acceptLabel: 'PDF',
-    actionLabel: 'Convertir a JPG',
-    baseName: 'pdf-a-jpg',
-    multiple: false,
-    maxSizeMB: 30,
-    maxFiles: 1,
-    maxTotalMB: 30,
-    previewMode: 'pages',
-    options: PDF_OPTIONS.pdfToImage,
-    fixedOptions: { format: 'jpg' },
-    resultNote:
-      'Cada página se convierte en un JPG. Si hay varias, se descargan juntas en un ZIP generado localmente.',
-  },
-  'pdf-a-png': {
-    processorId: 'pdf-to-image',
-    accept: '.pdf,application/pdf',
-    acceptLabel: 'PDF',
-    actionLabel: 'Convertir a PNG',
-    baseName: 'pdf-a-png',
-    multiple: false,
-    maxSizeMB: 30,
-    maxFiles: 1,
-    maxTotalMB: 30,
-    previewMode: 'pages',
-    options: PDF_OPTIONS.pdfToPng,
-    fixedOptions: { format: 'png' },
-    resultNote:
-      'PNG conserva la nitidez del texto y los gráficos, a cambio de archivos más pesados. El fondo se aplana en blanco.',
-  },
   'marca-de-agua-pdf': {
     processorId: 'pdf-watermark',
     accept: '.pdf,application/pdf',

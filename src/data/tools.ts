@@ -6,6 +6,7 @@
 import type { Tool } from '@/types/tool';
 import cardsData from '@/data/conversion-cards.json';
 import { PDF_TOOLS } from '@/data/pdf-tools';
+import { DOCUMENT_TOOLS } from '@/data/documents-tools';
 import { DATA_TOOLS, TEXT_TOOL_SLUGS } from '@/data/data-tools';
 import { MEDIA_TOOLS, MEDIA_SLUGS } from '@/data/media-tools';
 
@@ -158,6 +159,23 @@ const imagePhaseTools: Tool[] = [
   },
 ];
 
+/** Conversiones entre documentos e imágenes que viven bajo /convertir/. */
+const documentConversionTools: Tool[] = DOCUMENT_TOOLS.map((tool) => ({
+  id: tool.slug,
+  name: tool.h1,
+  description: tool.description,
+  category: 'documentos',
+  accepts: tool.accept
+    .split(',')
+    .map((item) => item.trim())
+    .filter(Boolean),
+  outputs: [tool.slug.startsWith('pdf-a-') ? `.${tool.slug.slice(6)}` : '.pdf'],
+  status: 'stable',
+  icon: tool.slug.includes('pdf') ? 'file-text' : 'image',
+  keywords: tool.keywords,
+  href: `/convertir/${tool.slug}`,
+}));
+
 const plannedTools: Tool[] = [
   {
     id: 'pdf-a-texto',
@@ -187,6 +205,7 @@ export const TOOLS: Tool[] = [
   ...imageTools,
   ...imagePhaseTools,
   ...documentTools,
+  ...documentConversionTools,
   ...dataTools,
   ...textTools,
   ...mediaTools,

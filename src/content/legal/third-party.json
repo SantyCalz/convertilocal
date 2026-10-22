@@ -1,10 +1,10 @@
 {
   "generated": "2026-10-21",
-  "totalInstalled": 757,
+  "totalInstalled": 676,
   "rows": [
     {
       "name": "@astrojs/check",
-      "version": "0.9.11",
+      "version": "0.9.12",
       "license": "MIT",
       "client": false,
       "kind": "dev",

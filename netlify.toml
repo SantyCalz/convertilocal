@@ -14,6 +14,17 @@
   to = "/terminos"
   status = 301
 
+# Las conversiones de PDF a imagen se sirven ahora bajo /convertir/.
+[[redirects]]
+  from = "/pdf/pdf-a-jpg"
+  to = "/convertir/pdf-a-jpg"
+  status = 301
+
+[[redirects]]
+  from = "/pdf/pdf-a-png"
+  to = "/convertir/pdf-a-png"
+  status = 301
+
 [[headers]]
   for = "/assets/wasm/*"
   [headers.values]

@@ -1,0 +1,258 @@
+---
+/**
+ * src/components/tools/DocumentToolPage.astro
+ * Copyright (C) 2026 ConvertiLocal contributors
+ * SPDX-License-Identifier: AGPL-3.0-only
+ */
+import ToolPageShell from '@/components/tools/ToolPageShell.astro';
+import ConversionLimits from '@/components/ConversionLimits.astro';
+import Icon from '@/components/ui/Icon.astro';
+import { DOCUMENT_TOOLS } from '@/data/documents-tools';
+import { PDF_TOOLS } from '@/data/pdf-tools';
+import { TOOLS } from '@/data/tools';
+import { SITE_URL } from '@/data/site';
+
+interface Props {
+  slug: string;
+}
+
+const { slug } = Astro.props;
+const tool = DOCUMENT_TOOLS.find((item) => item.slug === slug);
+
+if (!tool) {
+  throw new Error(`Herramienta de documentos no encontrada: ${slug}`);
+}
+
+const path = `/convertir/${slug}`;
+const site = SITE_URL;
+const absolute = `${site}${path}`;
+const pageTitle = tool.title.split(' | ')[0] ?? tool.h1;
+
+const webApplicationSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'WebApplication',
+  name: tool.h1,
+  url: absolute,
+  description: tool.description,
+  applicationCategory: 'UtilitiesApplication',
+  operatingSystem: 'Any',
+  browserRequirements: 'Requiere un navegador moderno con JavaScript habilitado',
+  inLanguage: 'es',
+  isAccessibleForFree: true,
+  offers: { '@type': 'Offer', price: '0', priceCurrency: 'EUR' },
+  featureList: tool.why,
+  publisher: { '@type': 'Organization', name: 'ConvertiLocal', url: site },
+};
+
+const breadcrumbSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Inicio', item: `${site}/` },
+    { '@type': 'ListItem', position: 2, name: 'Convertir', item: `${site}/convertir` },
+    { '@type': 'ListItem', position: 3, name: tool.h1, item: absolute },
+  ],
+};
+
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: tool.faq.map((item) => ({
+    '@type': 'Question',
+    name: item.q,
+    acceptedAnswer: { '@type': 'Answer', text: item.a },
+  })),
+};
+
+const howToSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'HowTo',
+  name: tool.h1,
+  description: tool.description,
+  totalTime: 'PT1M',
+  tool: [{ '@type': 'HowToTool', name: 'ConvertiLocal' }],
+  step: [
+    {
+      '@type': 'HowToStep',
+      position: 1,
+      name: 'Añade el archivo',
+      text: 'Selecciona o arrastra un archivo compatible. También puedes pegarlo con Ctrl/Cmd+V.',
+    },
+    {
+      '@type': 'HowToStep',
+      position: 2,
+      name: 'Ajusta las opciones',
+      text: 'Elige tamaño de página, márgenes, resolución o páginas antes de procesar.',
+    },
+    {
+      '@type': 'HowToStep',
+      position: 3,
+      name: 'Descarga el resultado',
+      text: 'Pulsa procesar y descarga el archivo. Si hay varios, se empaquetan en un ZIP local.',
+    },
+  ],
+};
+
+/** Resuelve una ruta relacionada a su título y descripción. */
+function resolveRelated(href: string): { href: string; label: string; description: string } | null {
+  const document = DOCUMENT_TOOLS.find((item) => `/convertir/${item.slug}` === href);
+  if (document) {
+    return { href, label: document.h1, description: document.description };
+  }
+
+  const pdf = PDF_TOOLS.find((item) => `/pdf/${item.slug}` === href);
+  if (pdf) {
+    return { href, label: pdf.h1, description: pdf.description };
+  }
+
+  const other = TOOLS.find((item) => item.href === href);
+  if (other) {
+    return { href, label: other.name, description: other.description };
+  }
+
+  return null;
+}
+
+const related = tool.related
+  .map((href) => resolveRelated(href))
+  .filter((item): item is { href: string; label: string; description: string } => Boolean(item));
+
+const limitations = [
+  `Máximo ${tool.maxSizeMB} MB por archivo y ${tool.maxTotalMB} MB por lote.`,
+  'Los archivos se procesan en tu navegador y no se suben a ningún servidor.',
+  'El resultado se genera en tu dispositivo: nada queda guardado en nuestros servidores.',
+];
+---
+
+<ToolPageShell
+  title={pageTitle}
+  description={tool.description}
+  h1={tool.h1}
+  intro={tool.intro}
+  path={path}
+  processorId={tool.processorId}
+  accept={tool.accept}
+  acceptLabel={tool.acceptLabel}
+  actionLabel={tool.actionLabel}
+  baseName={tool.baseName}
+  fixedOptions={tool.fixedOptions}
+  options={tool.options}
+  resultNote={tool.resultNote}
+  schema={[webApplicationSchema, breadcrumbSchema, faqSchema, howToSchema]}
+  breadcrumbLabel={tool.h1}
+  breadcrumbParent={{ href: '/convertir', label: 'Convertir' }}
+  multiple={tool.multiple}
+  maxSizeMB={tool.maxSizeMB}
+  maxFiles={tool.maxFiles}
+  maxTotalMB={tool.maxTotalMB}
+  previewMode="none"
+>
+  <Fragment slot="intro-extra">
+    <ConversionLimits class="mt-6" does={tool.does} doesNot={tool.doesNot} />
+  </Fragment>
+
+  <section aria-labelledby="porque-title">
+    <h2 id="porque-title" class="text-2xl font-bold tracking-tight text-slate-900">
+      Por qué resolverlo en el navegador
+    </h2>
+    <div class="mt-4 space-y-4 text-sm leading-7 text-slate-600 sm:text-base">
+      {tool.why.map((paragraph) => <p>{paragraph}</p>)}
+    </div>
+  </section>
+
+  <section class="mt-10" aria-labelledby="usos-title">
+    <h2 id="usos-title" class="text-2xl font-bold tracking-tight text-slate-900">
+      Cuándo te resultará útil
+    </h2>
+    <div class="mt-4 grid gap-3 sm:grid-cols-3">
+      {tool.useCases.map((useCase) => (
+        <div class="rounded-2xl border border-slate-200 bg-white p-4">
+          <h3 class="text-sm font-semibold text-slate-900">{useCase.title}</h3>
+          <p class="mt-1 text-xs leading-5 text-slate-500">{useCase.body}</p>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <section class="mt-10" aria-labelledby="errores-title">
+    <h2 id="errores-title" class="text-2xl font-bold tracking-tight text-slate-900">
+      Tres errores que conviene evitar
+    </h2>
+    <ol class="mt-4 space-y-3">
+      {tool.mistakes.map((mistake, index) => (
+        <li class="flex gap-3 rounded-2xl border border-slate-200 bg-slate-50/60 p-4">
+          <span class="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-white text-xs font-bold text-slate-500 ring-1 ring-slate-200">
+            {index + 1}
+          </span>
+          <div>
+            <h3 class="text-sm font-semibold text-slate-900">{mistake.title}</h3>
+            <p class="mt-1 text-xs leading-5 text-slate-500">{mistake.body}</p>
+          </div>
+        </li>
+      ))}
+    </ol>
+  </section>
+
+  <section class="mt-10" aria-labelledby="faq-title">
+    <h2 id="faq-title" class="text-2xl font-bold tracking-tight text-slate-900">
+      Preguntas frecuentes
+    </h2>
+    <div class="mt-4 divide-y divide-slate-200 rounded-2xl border border-slate-200 bg-white">
+      {tool.faq.map((item) => (
+        <details class="group p-4">
+          <summary class="flex cursor-pointer list-none items-center justify-between gap-3 text-sm font-semibold text-slate-900">
+            {item.q}
+            <Icon name="chevron-down" size={16} class="shrink-0 text-slate-400 transition-transform group-open:rotate-180" />
+          </summary>
+          <p class="mt-2 text-sm leading-6 text-slate-600">{item.a}</p>
+        </details>
+      ))}
+    </div>
+  </section>
+
+  {related.length > 0 && (
+    <section class="mt-10" aria-labelledby="relacionadas-title">
+      <h2 id="relacionadas-title" class="text-2xl font-bold tracking-tight text-slate-900">
+        Herramientas relacionadas
+      </h2>
+      <div class="mt-4 grid gap-3 sm:grid-cols-3">
+        {related.map((item) => (
+          <a
+            href={item.href}
+            class="group rounded-2xl border border-slate-200 bg-white p-4 transition-all hover:-translate-y-0.5 hover:border-slate-300 hover:shadow-card"
+          >
+            <p class="text-[10px] font-semibold uppercase tracking-wide text-slate-400">Relacionada</p>
+            <p class="mt-1.5 text-sm font-semibold text-slate-900 group-hover:text-brand-800">
+              {item.label}
+            </p>
+            <p class="mt-1 line-clamp-2 text-xs leading-5 text-slate-500">{item.description}</p>
+          </a>
+        ))}
+      </div>
+    </section>
+  )}
+
+  <p class="mt-8 text-[11px] text-slate-400">Contenido revisado el {tool.updated}.</p>
+
+  <Fragment slot="aside">
+    <div class="mt-4 rounded-2xl border border-slate-200 bg-white p-5">
+      <h2 class="text-sm font-semibold text-slate-900">Límites de esta herramienta</h2>
+      <ul class="mt-2 space-y-2 text-xs leading-5 text-slate-500">
+        {limitations.map((item) => <li>· {item}</li>)}
+      </ul>
+    </div>
+    <div class="mt-4 rounded-2xl border border-brand-200 bg-brand-50/60 p-5">
+      <h2 class="text-sm font-semibold text-brand-900">Más herramientas</h2>
+      <p class="mt-1 text-xs leading-5 text-brand-800/80">
+        Convierte imágenes y documentos sin subirlos a ningún servidor.
+      </p>
+      <a
+        href="/convertir"
+        class="mt-3 inline-flex items-center gap-1.5 text-xs font-semibold text-brand-800 hover:text-brand-900"
+      >
+        Ver la colección
+        <Icon name="arrow-right" size={13} />
+      </a>
+    </div>
+  </Fragment>
+</ToolPageShell>

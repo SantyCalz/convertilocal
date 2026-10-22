@@ -17,6 +17,7 @@ import {
 import { isPdfAccept, sniffPdf } from './pdf/sniff';
 import { isDataAccept, sniffData } from './data/sniff';
 import { isMediaAccept, sniffMedia } from './media/sniff';
+import { initFileReorder } from './file-reorder';
 
 type StatusTone = 'idle' | 'ready' | 'working' | 'success' | 'error';
 
@@ -190,6 +191,9 @@ function setup(root: HTMLElement): void {
   const validatesPdfs = isPdfAccept(accept);
   const validatesData = isDataAccept(accept);
   const validatesMedia = isMediaAccept(accept);
+  // El reordenamiento por arrastre solo tiene sentido cuando hay varios
+  // archivos y la vista previa no trae ya su propio reordenador.
+  const canReorder = multiple && previewMode === 'none';
 
   const state: InstanceState = {
     files: [],
@@ -527,6 +531,20 @@ function setup(root: HTMLElement): void {
     state.files.forEach((file, index) => {
       const item = document.createElement('li');
       item.className = 'flex items-center gap-3 py-2.5';
+      item.dataset.fpFileItem = String(index);
+
+      if (canReorder) {
+        const handle = document.createElement('button');
+        handle.type = 'button';
+        handle.dataset.fpReorderHandle = '';
+        handle.dataset.fpReorderIndex = String(index);
+        handle.className =
+          'touch-target flex shrink-0 cursor-grab items-center justify-center rounded-lg px-1 text-slate-400 transition-colors hover:bg-slate-100 hover:text-slate-600 active:cursor-grabbing';
+        handle.setAttribute('aria-label', `Reordenar ${file.name}. Usa las flechas arriba y abajo.`);
+        handle.setAttribute('title', 'Arrastra para reordenar');
+        handle.textContent = '⠿';
+        item.append(handle);
+      }
 
       const badge = document.createElement('span');
       badge.className =
@@ -908,6 +926,7 @@ function setup(root: HTMLElement): void {
   });
 
   syncVisibility();
+  initFileReorder(root);
 
   action.addEventListener('click', async () => {
     if (state.busy || state.validating || state.files.length === 0) return;

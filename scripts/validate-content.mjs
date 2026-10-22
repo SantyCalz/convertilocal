@@ -14,6 +14,7 @@ const formats = read('src/data/formats.json');
 const conversions = read('src/data/conversions.json');
 const cards = read('src/data/conversion-cards.json');
 const pdfTools = read('src/data/pdf-tools.json');
+const documentTools = read('src/data/documents-tools.json');
 const dataTools = read('src/data/data-tools.json');
 const mediaTools = read('src/data/media-tools.json');
 
@@ -86,14 +87,20 @@ for (const conversion of conversions) {
 
 if (conversions.length !== 20) fail(`Se esperaban 20 conversiones, hay ${conversions.length}`);
 
+/* Herramientas de documentos: viven bajo /convertir/. */
+const expectedDocumentSlugs = new Set([
+  'jpg-a-pdf',
+  'png-a-pdf',
+  'pdf-a-jpg',
+  'pdf-a-png',
+]);
+
 const expectedPdfSlugs = new Set([
   'unir-pdf',
   'dividir-pdf',
   'rotar-pdf',
   'reordenar-pdf',
   'imagen-a-pdf',
-  'pdf-a-jpg',
-  'pdf-a-png',
   'marca-de-agua-pdf',
   'numerar-paginas-pdf',
   'comprimir-pdf',
@@ -138,15 +145,72 @@ for (const tool of pdfTools) {
   for (const faq of tool.faq ?? []) {
     if (!faq.q || !faq.a) fail(`${slug}: FAQ incompleta`);
   }
+  // Una herramienta PDF puede enlazar con otra PDF o con una de documentos.
+  const validRelations = new Set([
+    ...[...expectedPdfSlugs].map((related) => `/pdf/${related}`),
+    ...[...expectedDocumentSlugs].map((related) => `/convertir/${related}`),
+  ]);
+
   for (const related of tool.related ?? []) {
-    const relatedSlug = related.replace(/^\/pdf\//, '');
     if (related === `/pdf/${slug}`) fail(`${slug}: se enlaza a sí misma`);
-    if (!expectedPdfSlugs.has(relatedSlug)) fail(`${slug}: relación inexistente ${related}`);
+    if (!validRelations.has(related)) fail(`${slug}: relación inexistente ${related}`);
   }
 }
 
 for (const slug of expectedPdfSlugs) {
   if (!pdfSlugs.has(slug)) fail(`Falta la herramienta PDF: ${slug}`);
+}
+
+/* Herramientas de documentos: viven bajo /convertir/. */
+const documentSlugs = new Set();
+const documentDescriptions = new Set();
+const documentIntros = new Set();
+
+if (documentTools.length !== expectedDocumentSlugs.size) {
+  fail(
+    `Se esperaban ${expectedDocumentSlugs.size} herramientas de documentos, hay ${documentTools.length}.`,
+  );
+}
+
+for (const tool of documentTools) {
+  const { slug } = tool;
+  if (!slug || documentSlugs.has(slug)) fail(`Herramienta de documentos duplicada o vacía: ${slug}`);
+  documentSlugs.add(slug);
+  if (!expectedDocumentSlugs.has(slug)) fail(`Herramienta de documentos no esperada: ${slug}`);
+
+  for (const field of ['title', 'h1', 'description', 'intro']) {
+    if (!tool[field] || typeof tool[field] !== 'string') fail(`${slug}: falta ${field}`);
+  }
+  if (tool.title.length > 70) fail(`${slug}: title demasiado largo (${tool.title.length})`);
+  if (tool.description.length > 180) fail(`${slug}: description demasiado larga (${tool.description.length})`);
+
+  if (documentDescriptions.has(tool.description)) fail(`${slug}: description duplicada`);
+  if (documentIntros.has(tool.intro)) fail(`${slug}: intro duplicada`);
+  documentDescriptions.add(tool.description);
+  documentIntros.add(tool.intro);
+
+  if (!Array.isArray(tool.why) || tool.why.length < 3) fail(`${slug}: se esperan 3 párrafos en why`);
+  if (!Array.isArray(tool.useCases) || tool.useCases.length < 3) fail(`${slug}: se esperan 3 usos`);
+  if (!Array.isArray(tool.mistakes) || tool.mistakes.length < 3) fail(`${slug}: se esperan 3 errores`);
+  if (!Array.isArray(tool.faq) || tool.faq.length < 4) fail(`${slug}: se esperan 4 FAQ`);
+  if (!Array.isArray(tool.keywords) || tool.keywords.length < 5) fail(`${slug}: se esperan 5 keywords`);
+  if (!Array.isArray(tool.related) || tool.related.length < 3) fail(`${slug}: se esperan 3 relacionadas`);
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(tool.updated ?? '')) fail(`${slug}: updated no es una fecha ISO`);
+
+  // El bloque «qué hace / qué no hace» va arriba del pliegue.
+  if (!Array.isArray(tool.does) || tool.does.length < 3) fail(`${slug}: se esperan 3 puntos en does`);
+  if (!Array.isArray(tool.doesNot) || tool.doesNot.length < 3) fail(`${slug}: se esperan 3 puntos en doesNot`);
+
+  for (const faq of tool.faq ?? []) {
+    if (!faq.q || !faq.a) fail(`${slug}: FAQ incompleta`);
+  }
+  for (const related of tool.related ?? []) {
+    if (related === `/convertir/${slug}`) fail(`${slug}: se enlaza a sí misma`);
+  }
+}
+
+for (const slug of expectedDocumentSlugs) {
+  if (!documentSlugs.has(slug)) fail(`Falta la herramienta de documentos: ${slug}`);
 }
 
 const expectedDataSlugs = new Set([
@@ -298,6 +362,6 @@ if (errors.length > 0) {
 }
 
 console.log(
-  `\n✓ Contenido válido: ${formats.length} formatos, ${conversions.length} conversiones, ${cards.length} tarjetas, ${pdfTools.length} herramientas PDF, ${dataTools.length} herramientas de datos/texto y ${mediaTools.length} herramientas multimedia.\n`,
+  `\n✓ Contenido válido: ${formats.length} formatos, ${conversions.length} conversiones, ${cards.length} tarjetas, ${pdfTools.length} herramientas PDF, ${documentTools.length} herramientas de documentos, ${dataTools.length} herramientas de datos/texto y ${mediaTools.length} herramientas multimedia.\n`,
 );
 

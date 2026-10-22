@@ -7,7 +7,7 @@ import type { PDFDocument, PDFObject, PDFRef } from 'pdf-lib';
 import { PdfProcessingError } from '@/types/pdf';
 import type { PdfJobRequest, PdfOutput, PdfRasterPage, PdfWorkerMessage } from '@/types/pdf';
 import type { ProcessorOptions } from '@/types/processor';
-import { fitImage, pageDimensions, parseHexColor, textPosition } from '@/scripts/core/pdf/geometry';
+import { fitImage, marginToPoints, pageDimensions, parseHexColor, textPosition } from '@/scripts/core/pdf/geometry';
 import { flattenPageRanges, parsePageRanges } from '@/scripts/core/pdf/ranges';
 
 const scope = self as unknown as {
@@ -56,6 +56,41 @@ function numberOption(options: ProcessorOptions, key: string, fallback: number):
 function booleanOption(options: ProcessorOptions, key: string, fallback: boolean): boolean {
   const value = options[key];
   return typeof value === 'boolean' ? value : fallback;
+}
+
+/**
+ * Reordena los archivos según la opción `order`.
+ *
+ * El valor es una lista de índices separados por comas (0 = primer archivo).
+ * La interfaz ya entrega los archivos en el orden elegido; esta opción permite
+ * además que el motor sea determinista por sí mismo.
+ */
+function applyOrder(files: File[], order: unknown): File[] {
+  const raw = typeof order === 'string' ? order : '';
+  if (!raw.trim()) return files;
+
+  const indices = raw
+    .split(',')
+    .map((token) => Number(token.trim()))
+    .filter((index) => Number.isInteger(index) && index >= 0 && index < files.length);
+
+  if (indices.length === 0) return files;
+
+  const used = new Set<number>();
+  const result: File[] = [];
+  for (const index of indices) {
+    if (used.has(index)) continue;
+    used.add(index);
+    const file = files[index];
+    if (file) result.push(file);
+  }
+
+  // Los que no aparecen en la lista se conservan al final, en su orden.
+  for (const [index, file] of files.entries()) {
+    if (!used.has(index)) result.push(file);
+  }
+
+  return result;
 }
 
 function baseName(name: string, fallback = 'documento'): string {
@@ -407,6 +442,7 @@ async function imageToPdf(
     throw new PdfProcessingError('NO_PAGES', 'Añade al menos una imagen.');
   }
 
+  const ordered = applyOrder(files, options.order);
   const { PDFDocument, rgb } = await import('pdf-lib');
   const document = await PDFDocument.create();
   const pageSize = stringOption(options, 'pageSize', 'a4') as 'a4' | 'letter' | 'auto';
@@ -414,15 +450,17 @@ async function imageToPdf(
     | 'auto'
     | 'portrait'
     | 'landscape';
-  const margin = Math.max(0, numberOption(options, 'margin', 24));
+  const margin = marginToPoints(options);
   const rawQuality = numberOption(options, 'quality', 0.88);
   const quality = Math.max(0.3, Math.min(1, rawQuality > 1 ? rawQuality / 100 : rawQuality));
   const background = parseHexColor(stringOption(options, 'background', '#ffffff'));
 
-  for (let index = 0; index < files.length; index += 1) {
-    const file = files[index]!;
+  for (let index = 0; index < ordered.length; index += 1) {
+    const file = ordered[index]!;
     let bitmap: ImageBitmap;
     try {
+      // `imageOrientation: 'from-image'` aplica la rotación EXIF: la imagen
+      // entra ya orientada y no sale torcida en el PDF.
       bitmap = await createImageBitmap(file, { imageOrientation: 'from-image' });
     } catch {
       throw new PdfProcessingError(
@@ -432,8 +470,10 @@ async function imageToPdf(
     }
 
     try {
-      const format =
-        file.type === 'image/jpeg' ? 'image/jpeg' : file.type === 'image/png' ? 'image/png' : 'image/png';
+      // Solo el JPEG incrusta calidad con pérdida; el resto se recodifica a
+      // PNG para conservar el canal alfa. WebP, AVIF, BMP y GIF ya han sido
+      // decodificados por el navegador a un mapa de bits.
+      const format = file.type === 'image/jpeg' ? 'image/jpeg' : 'image/png';
       const blob = await createCanvasBlob(bitmap, format, quality);
       const bytes = new Uint8Array(await blob.arrayBuffer());
       const embedded =
@@ -464,7 +504,7 @@ async function imageToPdf(
       bitmap.close();
     }
 
-    report(((index + 1) / files.length) * 95);
+    report(((index + 1) / ordered.length) * 95);
   }
 
   const bytes = await saveDocument(document);

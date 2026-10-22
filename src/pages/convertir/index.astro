@@ -8,6 +8,7 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
 import Badge from '@/components/ui/Badge.astro';
 import Icon from '@/components/ui/Icon.astro';
 import { CONVERSIONS, FORMATS, conversionPath, conversionsFrom, getFormat } from '@/data/images';
+import { DOCUMENT_TOOLS } from '@/data/documents-tools';
 import type { ImageFormatId } from '@/types/image';
 import { SITE_URL } from '@/data/site';
 
@@ -156,6 +157,35 @@ const breadcrumbSchema = {
           );
         })
       }
+    </div>
+  </section>
+
+  <section id="documentos" class="scroll-mt-20 bg-white py-10 sm:py-14" aria-labelledby="documentos-title">
+    <div class="container-page">
+      <p class="text-[10px] font-bold uppercase tracking-[0.16em] text-brand-700">Documentos</p>
+      <h2 id="documentos-title" class="mt-1 text-2xl font-bold tracking-tight text-slate-900 sm:text-3xl">
+        Imágenes y PDF, en ambas direcciones
+      </h2>
+      <p class="mt-3 max-w-2xl text-sm leading-6 text-slate-600">
+        Las conversiones entre imágenes y PDF también se hacen en tu navegador: ni el archivo ni
+        el documento se suben a ningún servidor.
+      </p>
+      <div class="mt-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+        {
+          DOCUMENT_TOOLS.map((tool) => (
+            <a
+              href={`/convertir/${tool.slug}`}
+              class="group rounded-2xl border border-slate-200 bg-white p-4 transition-all hover:-translate-y-0.5 hover:border-slate-300 hover:shadow-card"
+            >
+              <p class="flex items-center gap-1.5 text-sm font-semibold text-slate-900 group-hover:text-brand-800">
+                {tool.h1}
+                <Icon name="arrow-right" size={13} class="text-slate-400" />
+              </p>
+              <p class="mt-1.5 line-clamp-3 text-xs leading-5 text-slate-500">{tool.description}</p>
+            </a>
+          ))
+        }
+      </div>
     </div>
   </section>
 

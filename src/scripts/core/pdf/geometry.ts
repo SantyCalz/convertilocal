@@ -18,6 +18,27 @@ export type PdfOrientation = 'auto' | 'portrait' | 'landscape';
 export const A4 = { width: 595.28, height: 841.89 };
 export const LETTER = { width: 612, height: 792 };
 
+/** Puntos por milímetro: 1 pulgada son 25,4 mm y 72 puntos. */
+export const PT_PER_MM = 72 / 25.4;
+
+/** Convierte milímetros a puntos PDF. */
+export function mmToPoints(mm: number): number {
+  return Math.round(mm * PT_PER_MM * 100) / 100;
+}
+
+/**
+ * Margen de página en puntos.
+ *
+ * `marginMm` tiene prioridad porque es lo que ve la persona; `margin` se
+ * mantiene en puntos para las herramientas que ya lo usaban.
+ */
+export function marginToPoints(options: { marginMm?: unknown; margin?: unknown }): number {
+  const mm = Number(options.marginMm);
+  if (Number.isFinite(mm)) return Math.max(0, mmToPoints(mm));
+  const points = Number(options.margin);
+  return Number.isFinite(points) ? Math.max(0, points) : 0;
+}
+
 export function parseHexColor(value: string): { r: number; g: number; b: number } {
   const match = /^#?([0-9a-f]{6})$/i.exec(value.trim());
   if (!match) return { r: 0.2, g: 0.2, b: 0.2 };

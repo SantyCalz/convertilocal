@@ -10,7 +10,7 @@ texto canónico está en [`LICENSE`](LICENSE) y la auditoría completa en
 
 ## Resumen
 
-- Paquetes instalados en `node_modules`: **757**.
+- Paquetes instalados en `node_modules`: **676**.
 - Dependencias directas de producción: **22**.
 - Dependencias de desarrollo: **12**.
 - Componentes con copyleft o copyleft limitado: **4**.
@@ -36,7 +36,7 @@ aviso de red de la AGPL §13) está en [`/licencias`](https://convertilocal.verc
 
 | Componente | Versión | Licencia | ¿Se distribuye? | Origen |
 | --- | --- | --- | --- | --- |
-| `@astrojs/check` | 0.9.11 | MIT | No | git+https://github.com/withastro/astro.git |
+| `@astrojs/check` | 0.9.12 | MIT | No | git+https://github.com/withastro/astro.git |
 | `@astrojs/sitemap` | 3.7.4 | MIT | No | git+https://github.com/withastro/astro.git |
 | `@astrojs/tailwind` | 6.0.2 | MIT | No | git+https://github.com/withastro/astro.git |
 | `@eslint/js` | 9.39.5 | MIT | No | https://github.com/eslint/eslint.git |

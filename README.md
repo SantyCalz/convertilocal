@@ -119,6 +119,8 @@ npm run sync:bg -- --only=/models/isnet_quint8
 - `/imagenes/eliminar-fondo` — eliminación de fondo con modelo IS-Net autoalojado.
 - `/imagenes/redimensionar` — ancho, alto, proporción y ajuste configurable.
 - `/imagenes/recortar` — recorte por coordenadas exactas en píxeles.
+- `/convertir/jpg-a-pdf`, `/convertir/png-a-pdf` — imágenes a PDF con márgenes en mm.
+- `/convertir/pdf-a-jpg`, `/convertir/pdf-a-png` — PDF a imagen con rango de páginas y DPI.
 - `/licencias` — licencias y atribuciones (AGPL, FFmpeg GPL, terceros).
 - `/terminos` — términos de uso.
 - `/privacidad` — política de privacidad.
@@ -133,6 +135,7 @@ src/
 │  ├─ FileProcessor.astro      UI de carga, opciones, progreso y resultados
 │  ├─ tools/ToolPageShell.astro
 │  ├─ legal/                   LegalDocument, ThirdPartyTable, SourceLinks, avisos
+│  ├─ ConversionLimits.astro   «Qué hace / Qué no hace» de cada herramienta
 │  ├─ home/                    Hero, buscador, categorías, recientes
 │  ├─ layout/                  Header, MobileMenu, Footer
 │  └─ ui/                      Icon, Logo, Badge, Button, AdSlot…
@@ -141,11 +144,13 @@ src/
 │  ├─ formats.json             Guía de 7 formatos
 │  ├─ conversions.json         20 páginas con contenido SEO único
 │  ├─ conversion-cards.json    Proyección ligera para el catálogo
+│  ├─ documents-tools.json     Conversiones de documentos (imagen ↔ PDF)
 │  ├─ images.ts                Helpers tipados de contenido
 │  └─ tools.ts, nav.ts, site.ts, categories.ts
 ├─ pages/
 │  ├─ convertir/index.astro
 │  ├─ convertir/[conversion].astro
+│  ├─ convertir/{jpg-a-pdf,png-a-pdf,pdf-a-jpg,pdf-a-png}.astro
 │  ├─ imagenes/reducir-foto-a-kb.astro
 │  ├─ imagenes/quitar-exif-foto.astro
 │  ├─ imagenes/eliminar-fondo.astro
@@ -157,6 +162,7 @@ src/
 ├─ scripts/
 │  ├─ core/image/              sniff, canvas, bmp, ico, metadata, target-size…
 │  ├─ core/file-processor.ts   validación, opciones, previews y descargas
+│  ├─ core/file-reorder.ts     reordenación por arrastre de la lista de archivos
 │  ├─ core/download.ts         ZIP diferido con fflate
 │  ├─ processors/image/        converter, compressor, exif-cleaner, heic,
 │  │                           remove-background, resize, crop

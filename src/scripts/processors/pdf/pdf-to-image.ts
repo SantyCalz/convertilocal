@@ -5,6 +5,7 @@
  */
 import type { Processor } from '@/types/processor';
 import { openPdf, closePdf, renderPageToBlob } from '@/scripts/core/pdf/pdfjs';
+import { flattenPageRanges, parsePageRanges } from '@/scripts/core/pdf/ranges';
 import { PdfProcessingError } from '@/types/pdf';
 import { fileFromPdfOutput, notifyWarning } from './shared';
 
@@ -48,8 +49,12 @@ export const pdfToImageProcessor: Processor = {
         );
       }
 
+      // Rango de páginas elegido por la persona. Vacío = todas.
+      const range = typeof options.pages === 'string' ? options.pages : '';
+      const pages = flattenPageRanges(parsePageRanges(range, total));
+
       const outputs = [];
-      for (let pageNumber = 1; pageNumber <= total; pageNumber += 1) {
+      for (const [position, pageNumber] of pages.entries()) {
         const page = await document.getPage(pageNumber);
         try {
           const rendered = await renderPageToBlob(page, {
@@ -68,14 +73,14 @@ export const pdfToImageProcessor: Processor = {
         } finally {
           page.cleanup();
         }
-        onProgress?.(2 + ((pageNumber / total) * 96));
+        onProgress?.(2 + ((position + 1) / pages.length) * 96);
       }
 
       if (outputs.length === 0) {
         throw new PdfProcessingError('NO_PAGES', 'El PDF no contiene páginas.');
       }
 
-      if (total > 1) {
+      if (outputs.length > 1) {
         notifyWarning(
           options,
           'Las páginas se descargan juntas en un ZIP generado en tu dispositivo.',

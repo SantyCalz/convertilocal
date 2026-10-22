@@ -1,0 +1,330 @@
+[
+  {
+    "slug": "jpg-a-pdf",
+    "title": "Convertir JPG a PDF en tu navegador | ConvertiLocal",
+    "h1": "Convertir JPG a PDF",
+    "description": "Une una o varias imágenes JPG en un PDF con tamaño de página, márgenes en milímetros y orientación configurables. Sin subir nada.",
+    "intro": "El formato JPG es el que sale de casi todas las cámaras. Cuando lo que necesitas es un documento que pueda enviarse, imprimirse o archivarse, convertirlo a PDF es el paso natural. Todo ocurre en tu navegador: los archivos no se suben a ningún servidor.",
+    "why": [
+      "Une varias imágenes JPG en un único PDF, en el orden que tú decidas.",
+      "Elige entre A4, Carta o el tamaño exacto de la imagen.",
+      "Los márgenes se ajustan en milímetros, con valores que ya sabes de memoria.",
+      "La orientación EXIF se corrige sola: las fotos verticales de móvil no salen torcidas.",
+      "El archivo se genera en tu dispositivo y se descarga directamente."
+    ],
+    "useCases": [
+      {
+        "title": "Enviar fotos en un solo correo",
+        "body": "Un PDF con todas las imágenes del encargo se adjunta una sola vez y se abre igual en cualquier dispositivo."
+      },
+      {
+        "title": "Imprimir a tamaño A4",
+        "body": "Cada imagen ocupa una página A4 con márgenes de 10 mm, lista para la impresora de casa o la copistería."
+      },
+      {
+        "title": "Archivar un carrete",
+        "body": "Guarda las fotos del móvil en un PDF con el tamaño de página que quieras, sin pasar por un servicio de nube."
+      }
+    ],
+    "mistakes": [
+      {
+        "title": "Esperar que el PDF pese menos que las fotos",
+        "body": "Un PDF con imágenes JPEG incrustadas suele pesar lo mismo o más que las fotos sueltas. Para aligerar, exporta a PDF/A o reduce la resolución antes."
+      },
+      {
+        "title": "Confundir el orden de las páginas",
+        "body": "Las páginas siguen el orden de la lista. Puedes reordenarlas arrastrando el asa de cada imagen antes de convertir."
+      },
+      {
+        "title": "Perder la transparencia",
+        "body": "El JPG no tiene canal alfa: las zonas transparentes se rellenan con el color de fondo que elijas."
+      }
+    ],
+    "faq": [
+      {
+        "q": "¿Puedo convertir varias imágenes JPG a la vez?",
+        "a": "Sí. Se unen en un único PDF en el orden de la lista, y puedes reordenarlas arrastrando antes de procesarlas."
+      },
+      {
+        "q": "¿El PDF conserva la calidad de la foto?",
+        "a": "Sí. La imagen se incrusta sin recomprimir, salvo que elijas convertirla a PNG para conservar el canal alfa."
+      },
+      {
+        "q": "¿Los archivos se suben a algún servidor?",
+        "a": "No. La conversión se ejecuta con JavaScript en tu navegador y el PDF se genera en tu memoria."
+      },
+      {
+        "q": "¿Cómo se eligen los márgenes?",
+        "a": "En milímetros: 0, 10 o 20 mm. 0 deja la imagen pegada al borde de la página."
+      }
+    ],
+    "keywords": [
+      "jpg a pdf",
+      "convertir jpg a pdf",
+      "imagen jpg a pdf",
+      "jpg a pdf online",
+      "unir fotos en pdf",
+      "fotos a pdf"
+    ],
+    "related": ["/convertir/png-a-pdf", "/convertir/pdf-a-jpg", "/pdf/imagen-a-pdf", "/imagenes/reducir-foto-a-kb"],
+    "updated": "2026-10-22",
+    "does": [
+      "Une una o varias imágenes JPG en un solo PDF, en el orden que elijas.",
+      "Elige A4, Carta o el tamaño exacto de la imagen.",
+      "Ajusta los márgenes en milímetros y la orientación de cada página.",
+      "Corrige la orientación EXIF de las fotos de móvil.",
+      "Genera el PDF en tu dispositivo, sin subir nada."
+    ],
+    "doesNot": [
+      "No reconoce el contenido de una foto: no lee texto ni objetos.",
+      "No comprime las imágenes: el PDF pesa lo que pesan las fotos.",
+      "No convierte archivos HEIC; pasa antes por la herramienta de HEIC a JPG.",
+      "No crea PDF con texto seleccionable: las páginas son imágenes."
+    ]
+  },
+  {
+    "slug": "png-a-pdf",
+    "title": "Convertir PNG a PDF en tu navegador | ConvertiLocal",
+    "h1": "Convertir PNG a PDF",
+    "description": "Convierte capturas, gráficos e imágenes PNG a PDF con márgenes en milímetros. El canal alfa se conserva. Sin subir nada.",
+    "intro": "Las capturas de pantalla, los gráficos de un informe y las imágenes con fondo transparente casi siempre están en PNG. Al pasarlas a PDF puedes reunirlas en un documento sin perder el canal alfa, que es justo lo que las hace útiles.",
+    "why": [
+      "Conserva la transparencia: el fondo de la página se ve detrás de la imagen.",
+      "Une varias capturas en un único PDF con el tamaño de página que elijas.",
+      "Los márgenes se ajustan en milímetros, con valores que ya sabes de memoria.",
+      "El archivo se genera en tu dispositivo y se descarga directamente."
+    ],
+    "useCases": [
+      {
+        "title": "Documentar una incidencia",
+        "body": "Las capturas de los pasos del problema quedan juntas en un PDF con un pie de página."
+      },
+      {
+        "title": "Enviar maquetas o pantallazos",
+        "body": "Un PDF con las imágenes mantiene el fondo transparente y se lee igual en cualquier visor."
+      },
+      {
+        "title": "Archivar gráficos con canal alfa",
+        "body": "Los iconos y diagramas en PNG mantienen su transparencia dentro del PDF."
+      }
+    ],
+    "mistakes": [
+      {
+        "title": "Esperar que el PNG pese poco en el PDF",
+        "body": "PNG es sin pérdida: una captura de 4K incrustada pesa más que su JPG equivalente. Si pesa demasiado, exporta a JPG con fondo blanco."
+      },
+      {
+        "title": "Perder el fondo transparente",
+        "body": "La transparencia se respeta, pero el color de fondo de la página sí se ve detrás. Usa blanco si lo que quieres es que no se note."
+      },
+      {
+        "title": "Mezclar capturas de distinto tamaño",
+        "body": "Cada imagen se centra en su página. Si necesitas el mismo tamaño para todas, usa A4 y ajusta los márgenes."
+      }
+    ],
+    "faq": [
+      {
+        "q": "¿El PNG conserva la transparencia dentro del PDF?",
+        "a": "Sí. La imagen se incrusta sin perder el canal alfa, así que se ve el color de fondo de la página detrás."
+      },
+      {
+        "q": "¿Puedo unir varias capturas en un PDF?",
+        "a": "Sí. Se unen en el orden de la lista y puedes reordenarlas arrastrando el asa de cada archivo."
+      },
+      {
+        "q": "¿Por qué mi PDF pesa mucho?",
+        "a": "Porque PNG no tiene pérdida. Si solo te interesa el contenido y no la transparencia, convierte antes a JPG."
+      },
+      {
+        "q": "¿Los archivos se suben a algún servidor?",
+        "a": "No. La conversión se ejecuta con JavaScript en tu navegador y el PDF se genera en tu memoria."
+      }
+    ],
+    "keywords": [
+      "png a pdf",
+      "convertir png a pdf",
+      "captura a pdf",
+      "png a pdf online",
+      "imagen png a pdf"
+    ],
+    "related": ["/convertir/jpg-a-pdf", "/convertir/pdf-a-png", "/pdf/imagen-a-pdf", "/imagenes/quitar-exif-foto"],
+    "updated": "2026-10-22",
+    "does": [
+      "Convierte una o varias imágenes PNG en un único PDF.",
+      "Conserva el canal alfa: la transparencia se ve detrás de la imagen.",
+      "Elige A4, Carta o el tamaño exacto de la imagen.",
+      "Ajusta los márgenes en milímetros y la orientación de cada página.",
+      "Genera el PDF en tu dispositivo, sin subir nada."
+    ],
+    "doesNot": [
+      "No comprime las imágenes: un PNG grande produce un PDF grande.",
+      "No lee el texto de las capturas: no hay capa de texto.",
+      "No convierte archivos HEIC; pasa antes por la herramienta de HEIC a JPG.",
+      "No genera PDF con otros formatos dentro."
+    ]
+  },
+  {
+    "slug": "pdf-a-jpg",
+    "title": "Convertir PDF a JPG en tu navegador | ConvertiLocal",
+    "h1": "Convertir PDF a JPG",
+    "description": "Convierte las páginas de un PDF en imágenes JPG con la resolución que elijas. Elige qué páginas y descarga un ZIP si hay varias.",
+    "intro": "A veces lo que necesitas de un PDF no es el documento, sino sus páginas como imágenes: para subirlas a un formulario, meterlas en una presentación o revisarlas en el móvil. La conversión se hace en tu navegador, sin enviar el documento a ninguna parte.",
+    "why": [
+      "Elige la resolución: 72 ppp para pantalla, 150 ppp equilibrada o 300 ppp para imprimir.",
+      "Selecciona qué páginas convertir con rangos como 1-3, 5, 8-10.",
+      "Si hay varias páginas, se descargan juntas en un ZIP generado en tu dispositivo.",
+      "El texto se rasteriza: el JPG no conserva texto seleccionable.",
+      "El archivo se procesa en tu dispositivo, sin subir nada."
+    ],
+    "useCases": [
+      {
+        "title": "Subir páginas a un formulario",
+        "body": "Muchos formularios piden imágenes de menos peso: cada página a 72 ppp cabe de sobra."
+      },
+      {
+        "title": "Revisar un documento en el móvil",
+        "body": "Las páginas a 150 ppp se ven nítidas en cualquier pantalla sin ocupar apenas."
+      },
+      {
+        "title": "Extraer las páginas de un informe",
+        "body": "El rango «3-7» genera solo esas páginas, en un ZIP o en archivos sueltos."
+      }
+    ],
+    "mistakes": [
+      {
+        "title": "Esperar conservar el texto",
+        "body": "El JPG es una imagen: el texto deja de ser seleccionable y no se puede buscar."
+      },
+      {
+        "title": "Subir mucho la resolución sin necesidad",
+        "body": "300 ppp multiplica el peso por cuatro frente a 72 ppp. Para pantalla basta con 150."
+      },
+      {
+        "title": "Ignorar los colores transparentes",
+        "body": "Las zonas transparentes del PDF se aplanan en blanco, como en un papel."
+      }
+    ],
+    "faq": [
+      {
+        "q": "¿Puedo convertir solo algunas páginas?",
+        "a": "Sí. Escribe rangos como 1-3, 5, 8-10 en el campo de páginas. Los números empiezan en 1."
+      },
+      {
+        "q": "¿Qué resolución me conviene?",
+        "a": "72 ppp para verlas en pantalla, 150 ppp para un equilibrio razonable y 300 ppp solo si van a imprimirse."
+      },
+      {
+        "q": "¿El PDF conserva el texto?",
+        "a": "No. Cada página se convierte en una imagen JPG, así que el texto deja de ser seleccionable."
+      },
+      {
+        "q": "¿Cuántas páginas puedo convertir?",
+        "a": "Hasta 100. Si el documento tiene más, divídelo antes con la herramienta de dividir PDF."
+      }
+    ],
+    "keywords": [
+      "pdf a jpg",
+      "convertir pdf a jpg",
+      "pdf a imagen jpg",
+      "extraer páginas pdf como imagen",
+      "pdf a jpg online"
+    ],
+    "related": ["/convertir/pdf-a-png", "/convertir/jpg-a-pdf", "/pdf/pdf-a-jpg", "/pdf/dividir-pdf"],
+    "updated": "2026-10-22",
+    "does": [
+      "Convierte cada página de un PDF en una imagen JPG.",
+      "Permite elegir la resolución: 72, 150 o 300 ppp.",
+      "Permite seleccionar qué páginas convertir con rangos.",
+      "Descarga todas las páginas juntas en un ZIP cuando hay varias.",
+      "Procesa el documento en tu dispositivo, sin subir nada."
+    ],
+    "doesNot": [
+      "No conserva el texto seleccionable: el JPG es una imagen.",
+      "No mantiene los enlaces, formularios ni capas del PDF.",
+      "No lee documentos escaneados: no hace OCR.",
+      "No convierte documentos de más de 100 páginas."
+    ]
+  },
+  {
+    "slug": "pdf-a-png",
+    "title": "Convertir PDF a PNG en tu navegador | ConvertiLocal",
+    "h1": "Convertir PDF a PNG",
+    "description": "Convierte las páginas de un PDF en imágenes PNG sin pérdida, eligiendo páginas y resolución. Todo se procesa en tu navegador.",
+    "intro": "El PNG es el formato que no degrada los gráficos: diagramas, capturas y páginas con tipografía fina. Convertir un PDF a PNG conserva ese detalle sin comprimir, a cambio de archivos más pesados.",
+    "why": [
+      "Elige la resolución: 72 ppp para pantalla, 150 ppp equilibrada o 300 ppp para imprimir.",
+      "Selecciona qué páginas convertir con rangos como 1-3, 5, 8-10.",
+      "Si hay varias páginas, se descargan juntas en un ZIP generado en tu dispositivo.",
+      "El PNG no pierde detalle, pero los archivos pesan bastante más que los JPG.",
+      "El archivo se procesa en tu dispositivo, sin subir nada."
+    ],
+    "useCases": [
+      {
+        "title": "Llevar un gráfico a una presentación",
+        "body": "Los diagramas exportados a PNG se ven nítidos a cualquier tamaño en la diapositiva."
+      },
+      {
+        "title": "Comprobar cómo queda una página",
+        "body": "Exporta a 150 ppp para revisar la maqueta antes de mandarla a imprimir."
+      },
+      {
+        "title": "Publicar páginas en la web",
+        "body": "El PNG es el formato que mejor conserva los detalles de un texto pequeño."
+      }
+    ],
+    "mistakes": [
+      {
+        "title": "Esperar un archivo ligero",
+        "body": "El PNG no comprime: una página a 300 ppp puede pesar varios megabytes. Para compartir, el JPG es mejor opción."
+      },
+      {
+        "title": "Perder el fondo transparente",
+        "body": "Las zonas transparentes del PDF se aplanan en blanco, como en un papel."
+      },
+      {
+        "title": "Convertir un PDF enorme de una vez",
+        "body": "Cada página se rasteriza en memoria. Para documentos largos, selecciona rangos o divide antes."
+      }
+    ],
+    "faq": [
+      {
+        "q": "¿PNG o JPG?",
+        "a": "PNG conserva el detalle y no degrada el texto fino, pero pesa mucho más. JPG es mejor para compartir."
+      },
+      {
+        "q": "¿Puedo convertir solo algunas páginas?",
+        "a": "Sí. Escribe rangos como 1-3, 5, 8-10 en el campo de páginas. Los números empiezan en 1."
+      },
+      {
+        "q": "¿El PDF conserva el texto?",
+        "a": "No. Cada página se convierte en una imagen PNG, así que el texto deja de ser seleccionable."
+      },
+      {
+        "q": "¿Cuántas páginas puedo convertir?",
+        "a": "Hasta 100. Si el documento tiene más, divídelo antes con la herramienta de dividir PDF."
+      }
+    ],
+    "keywords": [
+      "pdf a png",
+      "convertir pdf a png",
+      "pdf a imagen png",
+      "extraer páginas pdf como png",
+      "pdf a png online"
+    ],
+    "related": ["/convertir/pdf-a-jpg", "/convertir/png-a-pdf", "/pdf/pdf-a-png", "/pdf/dividir-pdf"],
+    "updated": "2026-10-22",
+    "does": [
+      "Convierte cada página de un PDF en una imagen PNG sin pérdida.",
+      "Permite elegir la resolución: 72, 150 o 300 ppp.",
+      "Permite seleccionar qué páginas convertir con rangos.",
+      "Descarga todas las páginas juntas en un ZIP cuando hay varias.",
+      "Procesa el documento en tu dispositivo, sin subir nada."
+    ],
+    "doesNot": [
+      "No conserva el texto seleccionable: el PNG es una imagen.",
+      "No comprime: los archivos resultantes son pesados.",
+      "No mantiene los enlaces, formularios ni capas del PDF.",
+      "No lee documentos escaneados: no hace OCR."
+    ]
+  }
+]
