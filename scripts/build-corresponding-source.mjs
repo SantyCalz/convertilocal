@@ -32,28 +32,32 @@ const SOURCES = [
     id: 'ffmpeg',
     version: 'n5.1.4',
     license: 'LGPL-2.1-or-later / GPL-2.0-or-later (build con --enable-gpl)',
-    file: 'source/ffmpeg-n5.1.4.tar.gz',
+    file: 'ffmpeg-n5.1.4.tar.gz',
+    expectedSha256: '6ed8ba17d513955cd9a03d0d87195b8eac3d148dcb61ef30ebddf1a3cd718de8',
     url: 'https://github.com/FFmpeg/FFmpeg/archive/refs/tags/n5.1.4.tar.gz',
   },
   {
     id: 'x264',
     version: 'rama 4-cores (fork ffmpegwasm/x264)',
     license: 'GPL-2.0-or-later',
-    file: 'source/x264-4-cores.tar.gz',
+    file: 'x264-4-cores.tar.gz',
+    expectedSha256: 'cc64a8972d47d835c9f7626b735bf270b81c9a8197c250e75dfe0dfdc7835b10',
     url: 'https://github.com/ffmpegwasm/x264/archive/refs/heads/4-cores.tar.gz',
   },
   {
     id: 'x265',
     version: 'tag 3.4 (fork ffmpegwasm/x265)',
     license: 'GPL-2.0-or-later',
-    file: 'source/x265-3.4.tar.gz',
+    file: 'x265-3.4.tar.gz',
+    expectedSha256: 'abd37f4ab99570fcf2272c47239653204b0854ea5ef19df3729112aaa1f6f311',
     url: 'https://github.com/ffmpegwasm/x265/archive/refs/tags/3.4.tar.gz',
   },
   {
     id: 'ffmpeg-wasm-build-scripts',
     version: 'v0.12.10 (commit c3a763857c5e615ae8674715ad5e4f63ff469e9d)',
     license: 'MIT (wrapper) — compila FFmpeg y sus forks bajo GPL/LGPL',
-    file: 'source/ffmpegwasm-v0.12.10-build-scripts.tar.gz',
+    file: 'ffmpegwasm-v0.12.10-build-scripts.tar.gz',
+    expectedSha256: '3f1c3f94143d11e3bbb322bd8a1a3189965f31162cf7e889fd3b7e21a928d1ea',
     url: 'https://github.com/ffmpegwasm/ffmpeg.wasm/archive/refs/tags/v0.12.10.tar.gz',
   },
 ];
@@ -91,8 +95,7 @@ async function download(url) {
   return Buffer.from(await response.arrayBuffer());
 }
 
-mkdirSync(join(STAGING, 'source'), { recursive: true });
-mkdirSync(join(STAGING, 'LICENSES'), { recursive: true });
+mkdirSync(STAGING, { recursive: true });
 
 const described = new Map();
 
@@ -100,9 +103,24 @@ for (const source of SOURCES) {
   const target = join(STAGING, source.file);
   process.stdout.write(`Descargando ${source.id}… `);
   try {
-    const buffer = await download(source.url);
+    // Si ya está descargado y su hash cuadra, no se vuelve a bajar.
+    let buffer = null;
+    if (existsSync(target)) {
+      const existing = readFileSync(target);
+      if (sha256(existing) === source.expectedSha256) buffer = existing;
+    }
+    if (!buffer) buffer = await download(source.url);
+
+    const actual = sha256(buffer);
+    if (source.expectedSha256 && actual !== source.expectedSha256) {
+      throw new Error(
+        `hash inesperado: ${actual} (se esperaba ${source.expectedSha256}). ` +
+          'El origen remoto ha cambiado el contenido.',
+      );
+    }
+
     writeFileSync(target, buffer);
-    described.set(source.file, { ...source, bytes: buffer.length, sha256: sha256(buffer) });
+    described.set(source.file, { ...source, bytes: buffer.length, sha256: actual });
     console.log(`${(buffer.length / 1048576).toFixed(1)} MB`);
   } catch (error) {
     console.log(`ERROR ${error.message}`);
@@ -113,12 +131,12 @@ for (const source of SOURCES) {
 for (const [name, origin] of LICENSES) {
   if (!existsSync(join(ROOT, origin))) continue;
   const buffer = readFileSync(join(ROOT, origin));
-  writeFileSync(join(STAGING, 'LICENSES', name), buffer);
-  described.set(`LICENSES/${name}`, {
+  writeFileSync(join(STAGING, name), buffer);
+  described.set(name, {
     id: `license/${name}`,
     version: name,
     license: 'texto oficial de la licencia',
-    file: `LICENSES/${name}`,
+    file: name,
     url: 'fuente oficial (gnu.org, apache.org u OSI)',
     bytes: buffer.length,
     sha256: sha256(buffer),
@@ -262,7 +280,7 @@ described.set('BUILD.md', {
 const files = [];
 for (const absolute of walk(STAGING)) {
   const rel = relative(STAGING, absolute).replace(/\\/g, '/');
-  if (rel === 'LICENSES/SOURCES.json') continue;
+  if (rel === 'SOURCES.json') continue;
   const buffer = readFileSync(absolute);
   files.push({
     file: rel,
@@ -288,13 +306,13 @@ const manifest = {
 };
 
 writeFileSync(
-  join(STAGING, 'LICENSES', 'SOURCES.json'),
+  join(STAGING, 'SOURCES.json'),
   `${JSON.stringify(manifest, null, 2)}\n`,
   'utf8',
 );
 
 /* Verificación: releer el manifiesto y comprobar cada hash. */
-const check = JSON.parse(readFileSync(join(STAGING, 'LICENSES', 'SOURCES.json'), 'utf8'));
+const check = JSON.parse(readFileSync(join(STAGING, 'SOURCES.json'), 'utf8'));
 let bad = 0;
 for (const entry of check.files) {
   const buffer = readFileSync(join(STAGING, entry.file));
@@ -311,11 +329,11 @@ if (bad > 0) {
 
 /* Copia versionada del manifiesto (sin los tarball pesados). */
 const versioned = join(ROOT, 'release', 'corresponding-source');
-mkdirSync(join(versioned, 'LICENSES'), { recursive: true });
+mkdirSync(versioned, { recursive: true });
 writeFileSync(join(versioned, 'BUILD.md'), buildMd, 'utf8');
 writeFileSync(join(versioned, 'CONFIGURATION.txt'), `${configuration}\n`, 'utf8');
 writeFileSync(
-  join(versioned, 'LICENSES', 'SOURCES.json'),
+  join(versioned, 'SOURCES.json'),
   `${JSON.stringify(manifest, null, 2)}\n`,
   'utf8',
 );

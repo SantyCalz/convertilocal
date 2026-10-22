@@ -73,6 +73,12 @@ if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(LEGAL_ENTITY.email)) {
   );
 }
 
+/** Enlace al código fuente correspondiente del binario de FFmpeg (GitHub Release). */
+export const SOURCE_RELEASE_URL = (
+  import.meta.env.PUBLIC_SOURCE_RELEASE_URL ??
+  'https://github.com/SantyCalz/convertilocal/releases/tag/corresponding-source-v1.0.0'
+).trim();
+
 export const SITE = {
   name: 'ConvertiLocal',
   shortName: 'ConvertiLocal',

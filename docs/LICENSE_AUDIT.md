@@ -408,18 +408,26 @@ coinciden con lo que se afirmaba** antes del despliegue se marcan con ⚠.
 
 | Comprobación | Resultado |
 | --- | --- |
-| `git ls-remote` anónimo | ❌ **Falla**: `Authentication failed`. El repositorio es **privado** (`isPrivate: true`). |
-| `https://github.com/SantyCalz/convertilocal` sin sesión | **HTTP 404** (GitHub no revela repositorios privados). |
-| Commit desplegado en producción | ✅ `3d0a7803d436e2da4330677b22bc78ca34deb35b` presente en `SOURCE_URL` de `/`, `/licencias`, `/terminos`, `/privacidad` y `/imagenes/eliminar-fondo`. Sin valores `undefined` ni vacíos. |
-| GitHub Release `corresponding-source-*` | ❌ **No existe**. No hay ningún release ni ninguna tag en el repositorio. |
-| Preparación del release | ✅ Creado `scripts/build-corresponding-source.mjs` y `release/corresponding-source/`. Los 14 ficheros del release están generados y sus hashes verificados. **Falta subirlos.** |
+| `git ls-remote` anónimo | ✅ **Accesible sin autenticación** (el repositorio pasó a `visibility: PUBLIC`). |
+| `https://github.com/SantyCalz/convertilocal` sin sesión | ✅ **HTTP 200**. |
+| Commit desplegado en producción | ✅ `3d0a7803…` → `4db9eec5…` conforme se publicaba; `SOURCE_URL` contiene el SHA real en `/`, `/licencias`, `/terminos`, `/privacidad` y `/imagenes/eliminar-fondo`. Sin `undefined` ni vacíos. |
+| GitHub Release `corresponding-source-v1.0.0` | ✅ **Existe** (publicado el 2026-10-21, tag en `4db9eec`). |
+| Assets del release | ✅ 15 assets descargables **sin autenticación** (HTTP 200 en todos). |
+| Hashes del release | ✅ **14/14 verificados** tras descarga anónima (SOURCES.json no se verifica contra sí mismo). |
 
-> ⚠ **Hallazgo crítico:** la AGPL-3.0 §13 exige que *toda persona* que interactúe con el
-> servicio por red pueda obtener el código fuente correspondiente. Con el repositorio en
-> **privado**, el enlace «Código fuente» del pie de página lleva a un muro de inicio de sesión
-> y **la obligación no queda satisfecha**. Es un requisito de publicación, no una preferencia:
-> hace falta un repositorio público (o una copia pública tipo `git clone` anonymously) con el
-> código de la versión desplegada.
+El release contiene el tarball de FFmpeg n5.1.4, x264 (`4-cores`), x265 (tag `3.4`), los scripts
+de compilación de ffmpeg.wasm (`v0.12.10`), la línea `configuration:` completa, `BUILD.md` y los
+textos de licencia, con `SOURCES.json` como manifiesto de hashes.
+
+> Nota: la primera versión del manifiesto usaba rutas con subcarpeta (`source/…`, `LICENSES/…`)
+> mientras que GitHub guarda los assets en plano. Se corrigió y se volvió a subir el manifiesto.
+
+> ⚠ **Pendiente de publicación:** el dominio canónico **`convertilocal.com` no tiene DNS**
+> (`NXDOMAIN`). El sitio solo responde en `https://convertilocal.vercel.app`. Esto afecta a:
+> las URL canónicas y `og:url` de las 74 páginas, la metaetiqueta de verificación de Google
+> Search Console y el `ads.txt` que AdSense exige servir **desde el dominio registrado**.
+> `scripts/check-legal.mjs` lo avisa en cada `deploy:check` mientras siga así.
+
 
 ### 11.2 Redirecciones
 
@@ -486,15 +494,35 @@ y cero coincidencias con `sharp`, `libvips` o `vips`. Los únicos binarios servi
 Verificado: vaciar `name`, vaciar `email` o poner un email inválido hace **fallar el build**; al
 restaurar los valores, vuelve a compilar.
 
-### 11.7 Diferencias respecto al informe original
+### 11.7 Integridad de los assets descargados
+
+Los 159,7 MB de assets de @imgly se descargan en `prebuild` desde `staticimgly.com`. Para que
+el material servido sea exactamente el auditado y no dependa de lo que sirvan los hosts externos,
+sus hashes SHA-256 están fijados en **`assets-integrity.json`** (versionado en el repositorio).
+
+| Comprobación | Resultado |
+| --- | --- |
+| Fragmentos fijados | 44 (159,7 MB) + `resources.json` (22,2 KB) |
+| `npm run sync:bg` | Verifica el hash de **cada** fragmento, también de los que ya estaban en caché. |
+| `npm run sync:bg -- --check` | Comprueba presencia **y** hash de los 45 ficheros. |
+| Manipulación de un byte | ✅ **Detectada**: `resources.json no coincide con el hash fijado` y el build falla con código 1. |
+| `assets-integrity.json` ausente | El build falla indicando cómo regenerarlo. |
+
+Los nombres de los fragmentos **son** su propio SHA-256, así que el manifiesto es coherente por
+construcción. El hash fijado de `resources.json` es lo que impide que un host externo cambiado
+sirva un índice de recursos distinto junto con sus fragmentos.
+
+### 11.8 Diferencias respecto al informe original
 
 | # | Lo que decía el informe | Lo que se encontró |
 | --- | --- | --- |
-| 1 | «el repositorio es público» (suposición de la tarea) | ⚠ Es **privado**. La AGPL §13 no queda satisfecha mientras tanto. |
-| 2 | «existe el Release `corresponding-source-*`» | ⚠ **No existe**. No se había creado. Preparado, pendiente de subir. |
+| 1 | «el repositorio es público» (suposición de la tarea) | ⚠ Era **privado**. Ya corregido: `visibility: PUBLIC` y `git ls-remote` anónimo funciona. |
+| 2 | «existe el Release `corresponding-source-*`» | ⚠ **No existía**. Publicado el 2026-10-21 con 15 assets, 14/14 hashes verificados. |
 | 3 | Las redirecciones «301/308 reales» | Eran **meta-refresh con HTTP 200**. Corregido en `vercel.json` (308) y `netlify.toml` (301). |
 | 4 | IS-Net con licencia propia «distinta de la del paquete principal» | ⚠ Cierto, pero **más complejo** de lo indicado: hay **tres** regímenes (código Apache-2.0, pesos declarados MIT, dataset con términos propios), no dos. |
 | 5 | `LEGAL_ENTITY` con «NIF» | Ahora `Identificación fiscal`, con `name` y `email` obligatorios y validación en build. |
-| 6 | El repositorio «contiene el modelo de 126 MB» | ⚠ No lo contiene: son **159,7 MB** y **no están versionados** (se descargan en `prebuild`). El modelo de segmentación en sí son ~126 MB; el resto es el runtime de ONNX para CPU y WebGPU. |
+| 6 | El repositorio «contiene el modelo de 126 MB» | ⚠ No lo contiene: son **159,7 MB** y **no están versionados** (se descargan en `prebuild` y se verifican con `assets-integrity.json`). El modelo de segmentación en sí son ~126 MB; el resto es el runtime de ONNX para CPU y WebGPU. |
 | 7 | «sin binarios de sharp» | ✅ Confirmado. |
+| 8 | — | ⚠ **Nuevo:** el dominio `convertilocal.com` no resuelve (NXDOMAIN). El sitio solo está en `convertilocal.vercel.app`. Bloquea las URL canónicas, la verificación de Search Console y el `ads.txt` de AdSense. |
+
 

@@ -4,7 +4,7 @@
  * Copyright (C) 2026 ConvertiLocal contributors
  * SPDX-License-Identifier: AGPL-3.0-only
  */
-import { LEGAL_ENTITY } from '@/data/site';
+import { LEGAL_ENTITY, SOURCE_RELEASE_URL } from '@/data/site';
 import type { AstroComponentFactory } from 'astro/runtime/server/index.js';
 import type { LegalBlock, LegalDocument } from '@/content/legal/types';
 
@@ -19,12 +19,17 @@ interface Props {
 
 const { document, extras = {} } = Astro.props;
 
-/** Sustituye las referencias a los datos del titular por sus valores reales. */
+/**
+ * Sustituye las referencias a datos externos por sus valores reales:
+ * `LEGAL_ENTITY.<campo>` y `RELEASE_URL`.
+ */
 const resolve = (value: string): string =>
-  value.replace(/LEGAL_ENTITY\.(\w+)/g, (_, key: string) => {
-    const found = (LEGAL_ENTITY as Record<string, string>)[key];
-    return found ?? '';
-  });
+  value
+    .replace(/LEGAL_ENTITY\.(\w+)/g, (_, key: string) => {
+      const found = (LEGAL_ENTITY as Record<string, string>)[key];
+      return found ?? '';
+    })
+    .replace(/RELEASE_URL/g, SOURCE_RELEASE_URL);
 
 const renderList = (items: string[]): string[] => items.map((item) => resolve(item));
 

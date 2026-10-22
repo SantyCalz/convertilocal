@@ -131,7 +131,7 @@ export const LICENCIAS: LegalDocument = {
             ['Binario', 'public/assets/wasm/ffmpeg-core.wasm (30,74 MB)'],
             ['Versión de FFmpeg', 'n5.1.4'],
             ['Código fuente de FFmpeg', 'https://github.com/FFmpeg/FFmpeg/tree/n5.1.4'],
-            ['Scripts de compilación', 'https://github.com/ffmpegwasm/ffmpeg.wasm/tree/v0.12.10'],
+            ['Release con el código fuente', 'RELEASE_URL'],
             ['Licencia aplicable', 'GPL-2.0-or-later (texto completo en /licencias/gpl-2.0.txt)'],
           ],
         },

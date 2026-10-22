@@ -4,7 +4,7 @@
  * Copyright (C) 2026 ConvertiLocal contributors
  * SPDX-License-Identifier: AGPL-3.0-only
  */
-import { REPO_URL, SOURCE_URL } from '@/data/site';
+import { REPO_URL, SOURCE_RELEASE_URL, SOURCE_URL } from '@/data/site';
 ---
 
 <div class="mt-4 rounded-xl border border-slate-200 bg-slate-50/70 p-4 text-sm leading-6 text-slate-600">
@@ -26,10 +26,10 @@ import { REPO_URL, SOURCE_URL } from '@/data/site';
     </a>
     {' y '}
     <a
-      href="/licencias/ffmpeg-fuente.txt"
+      href={SOURCE_RELEASE_URL}
       class="text-brand-700 underline decoration-brand-300 underline-offset-2 hover:text-brand-800"
     >
-      manifiesto del código fuente de FFmpeg
+      release con el código fuente de FFmpeg
     </a>
     .
   </p>

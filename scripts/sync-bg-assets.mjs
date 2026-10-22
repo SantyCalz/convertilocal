@@ -7,6 +7,11 @@
  * fragmento y no dentro de una carpeta por recurso: cualquier otra ruta
  * devolvería un 404 y el modelo nunca llegaría a cargarse.
  *
+ * Los hashes SHA-256 de todo lo descargado están fijados en
+ * `assets-integrity.json` y se verifican en cada descarga. Así el material
+ * servido es exactamente el auditado y un cambio en los hosts externos hace
+ * fallar el build en lugar de desplegar algo distinto de lo revisado.
+ *
  * Uso:
  *   node scripts/sync-bg-assets.mjs                # descarga los recursos por defecto
  *   node scripts/sync-bg-assets.mjs --check        # solo verifica, no descarga
@@ -18,6 +23,7 @@
  * Copyright (C) 2026 ConvertiLocal contributors
  * SPDX-License-Identifier: AGPL-3.0-only
  */
+import { createHash } from 'node:crypto';
 import {
   existsSync,
   mkdirSync,
@@ -34,6 +40,7 @@ import https from 'node:https';
 const root = process.cwd();
 const assetTarget = join(root, 'public', 'assets', 'imgly');
 const legacyModelTarget = join(root, 'public', 'models');
+const integrityPath = join(root, 'assets-integrity.json');
 const version = '1.7.0';
 const baseUrl = `https://staticimgly.com/@imgly/background-removal-data/${version}/dist/`;
 
@@ -99,11 +106,65 @@ function humanBytes(bytes) {
   return `${bytes} B`;
 }
 
+const sha256 = (buffer) => createHash('sha256').update(buffer).digest('hex');
+
+/**
+ * Hashes fijados de todo lo que se sirve desde `public/assets/imgly/`.
+ * Sin este fichero el build no puede garantizar que lo descargado es lo
+ * auditado, así que se falla en lugar de continuar a ciegas.
+ */
+const integrity = existsSync(integrityPath)
+  ? JSON.parse(readFileSync(integrityPath, 'utf8'))
+  : null;
+
+if (!integrity) {
+  console.error(
+    '✗ No existe assets-integrity.json con los hashes de los assets de @imgly.\n' +
+      '  Genera el manifiesto con "node scripts/write-assets-integrity.mjs" y versiona el resultado.',
+  );
+  process.exit(1);
+}
+
+/** Comprueba un fichero contra el hash fijado y lanza si no coincide. */
+function assertIntegrity(name, buffer, expectedBytes) {
+  const expected = integrity.files?.[name];
+  const expectedResources = name === 'resources.json' ? integrity.resources : null;
+  const reference = expected ?? expectedResources;
+
+  if (!reference) {
+    throw new Error(
+      `${name} no está fijado en assets-integrity.json. Si es un recurso nuevo, ` +
+        'regenera el manifiesto con "node scripts/write-assets-integrity.mjs".',
+    );
+  }
+
+  if (expectedBytes !== undefined && buffer.length !== expectedBytes) {
+    throw new Error(
+      `${name} mide ${buffer.length} bytes y se esperaban ${expectedBytes}.`,
+    );
+  }
+
+  const actual = sha256(buffer);
+  if (actual !== reference.sha256) {
+    throw new Error(
+      `${name} no coincide con el hash fijado.\n` +
+        `  esperado: ${reference.sha256}\n` +
+        `  obtenido: ${actual}\n` +
+        '  El host externo ha cambiado el contenido o se ha alterado el fichero. ' +
+        'Revisa el cambio antes de regenerar el manifiesto.',
+    );
+  }
+}
+
 /** Descarga un fragmento y lo deja en `target` solo si el tamaño es correcto. */
 async function syncChunk(chunk, target) {
   const expected = chunk.offsets[1] - chunk.offsets[0];
 
-  if (!force && existsSync(target) && statSync(target).size === expected) return 'cached';
+  if (!force && existsSync(target) && statSync(target).size === expected) {
+    // Ya está en caché: aun así se comprueba el hash, que es lo que fija.
+    assertIntegrity(chunk.name, readFileSync(target), expected);
+    return 'cached';
+  }
 
   const url = new URL(chunk.name, baseUrl).toString();
   const buffer = await fetchBuffer(url);
@@ -113,6 +174,8 @@ async function syncChunk(chunk, target) {
       `El fragmento ${chunk.name} mide ${buffer.length} bytes y se esperaban ${expected}.`,
     );
   }
+
+  assertIntegrity(chunk.name, buffer, expected);
 
   const partial = `${target}.part`;
   writeFileSync(partial, buffer);
@@ -126,9 +189,12 @@ const resourcesPath = join(assetTarget, 'resources.json');
 let resources;
 
 if (!force && existsSync(resourcesPath)) {
-  resources = JSON.parse(readFileSync(resourcesPath, 'utf8'));
+  const buffer = readFileSync(resourcesPath);
+  assertIntegrity('resources.json', buffer);
+  resources = JSON.parse(buffer.toString('utf8'));
 } else {
   const buffer = await fetchBuffer(new URL('resources.json', baseUrl).toString());
+  assertIntegrity('resources.json', buffer);
   resources = JSON.parse(buffer.toString('utf8'));
   writeFileSync(resourcesPath, buffer);
 }
@@ -212,7 +278,26 @@ if (checkOnly) {
     console.error('  Ejecuta "npm run sync:bg" para descargarlos.');
     process.exit(1);
   }
-  console.log(`✓ Assets de background-removal completos (${expectedFiles.size} ficheros).`);
+
+  // Comprobar el hash de todo lo presente, no solo que exista.
+  let corrupt = 0;
+  for (const name of expectedFiles) {
+    try {
+      assertIntegrity(name, readFileSync(join(assetTarget, name)));
+    } catch (error) {
+      corrupt += 1;
+      console.error(`  · ${error.message}`);
+    }
+  }
+  if (corrupt > 0) {
+    console.error(`✗ ${corrupt} asset(s) no coinciden con assets-integrity.json.`);
+    process.exit(1);
+  }
+
+  console.log(
+    `✓ Assets de background-removal completos y verificados ` +
+      `(${expectedFiles.size} ficheros, hashes de assets-integrity.json correctos).`,
+  );
   process.exit(0);
 }
 

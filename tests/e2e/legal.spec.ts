@@ -63,6 +63,31 @@ test('las páginas legales enlazan con la licencia y el código fuente', async (
   expect(await manifiesto.text()).toContain('ffmpegwasm/ffmpeg.wasm');
 });
 
+test('/licencias enlaza con el release del código fuente de FFmpeg', async ({ page }) => {
+  await page.goto('/licencias');
+
+  const enlace = page.locator('a[href*="/releases/tag/corresponding-source-"]').first();
+  await expect(enlace).toBeVisible();
+
+  const url = await enlace.getAttribute('href');
+  expect(url).toMatch(/^https:\/\/github\.com\/SantyCalz\/convertilocal\/releases\/tag\/corresponding-source-/);
+
+  // El release y sus tarball deben ser accesibles sin autenticación.
+  const release = await page.request.get(url!);
+  expect(release.status()).toBe(200);
+
+  const base = url!.replace(/\/tag\/.*$/, '');
+  for (const asset of [
+    'SOURCES.json',
+    'ffmpeg-n5.1.4.tar.gz',
+    'x264-4-cores.tar.gz',
+    'x265-3.4.tar.gz',
+  ]) {
+    const respuesta = await page.request.get(`${base}/download/corresponding-source-v1.0.0/${asset}`);
+    expect(respuesta.status(), `${asset} debe ser descargable`).toBe(200);
+  }
+});
+
 test('el pie de página legal aparece en todas las páginas', async ({ page }) => {
   await page.goto('/');
 

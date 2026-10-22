@@ -83,8 +83,23 @@ npm run build      # prebuild descarga 159,7 MB la primera vez
 
 Los scripts de sincronización son **idempotentes**: `npm run sync:bg` no vuelve a
 descargar lo que ya está, y `npm run sync:bg -- --check` verifica que todos los
-fragmentos están presentes sin descargar nada. Si la red falla pero los assets ya
-están en `public/`, el build continúa con un aviso; si faltan, el build falla.
+fragmentos están presentes **y que sus hashes coinciden** sin descargar nada.
+
+### Integridad de los assets descargados
+
+Los 159,7 MB que vienen de `staticimgly.com` tienen sus hashes SHA-256 fijados en
+[`assets-integrity.json`](assets-integrity.json), versionado en el repositorio. El
+build los verifica uno a uno, así que el material que se sirve es exactamente el
+auditado y un cambio en el host externo hace **fallar el build** en lugar de
+desplegar algo distinto de lo revisado.
+
+```bash
+npm run sync:bg -- --check                     # verifica presencia y hashes
+node scripts/write-assets-integrity.mjs        # regenera el manifiesto (a propósito)
+```
+
+Si el manifiesto no existe, `npm run sync:bg` falla indicando cómo generarlo: sin
+él no se puede garantizar qué se está sirviendo.
 
 El modelo de segmentación son 159,7 MB porque incluye los tres pesos (isnet,
 isnet_fp16 e isnet_quint8) y el runtime de ONNX para CPU y WebGPU. Para una

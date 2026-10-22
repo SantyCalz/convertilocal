@@ -58,9 +58,10 @@ El texto canónico está en `LICENSE` y la auditoría completa en `docs/LICENSE_
    - queda algún marcador de plantilla (`[[...]]`, `TODO`, `OWNER_NAME`, `[Algo entre corchetes]`) en el HTML;
    - algún bundle pide a un host externo no autorizado.
 3. **Ningún componente con copyleft puede pasar a CDN.** `@imgly` se sirve desde `/assets/imgly/` y FFmpeg desde `/assets/wasm/`. El test `tests/e2e/legal.spec.ts` verifica en runtime que no hay peticiones fuera del propio dominio (salvo AdSense).
-4. **Los textos legales viven en `src/content/legal/`**, no dentro de las plantillas. `src/content/legal/third-party.json` se **genera** en el build: no editarlo a mano.
-5. **Los textos de licencia se copian literalmente** desde sus fuentes oficiales (gnu.org, apache.org) a `public/licencias/`.
-6. **La marca «ConvertiLocal» queda fuera de la AGPL.** No cambiar la redacción de los avisos de marca sin revisar.
+4. **Los assets descargados tienen los hashes fijados.** `assets-integrity.json` contiene el SHA-256 de los 44 fragmentos y de `resources.json`; `npm run sync:bg` los verifica en cada descarga y falla si algo no cuadra. **Nunca** se regenera ese fichero sin revisar antes el cambio en el origen: `node scripts/write-assets-integrity.mjs` es una operación deliberada.
+5. **Los textos legales viven en `src/content/legal/`**, no dentro de las plantillas. `src/content/legal/third-party.json` se **genera** en el build: no editarlo a mano.
+6. **Los textos de licencia se copian literalmente** desde sus fuentes oficiales (gnu.org, apache.org) a `public/licencias/`.
+7. **La marca «ConvertiLocal» queda fuera de la AGPL.** No cambiar la redacción de los avisos de marca sin revisar.
 
 ### Regenerar los artefactos legales
 
@@ -72,10 +73,9 @@ npm run sync:bg    # assets de @imgly/background-removal (los descarga, no se ve
 ### Requisitos que bloquean la publicación
 
 1. **El repositorio debe ser público.** La AGPL-3.0 §13 obliga a que *cualquier persona* que
-   interactúe con el sitio por red pueda obtener el código fuente de la versión desplegada. Con
-   el repositorio en privado, el enlace «Código fuente» del pie lleva a un muro de inicio de
-   sesión y la obligación **no** queda satisfecha. `REPO_URL` debe apuntar a un repositorio
-   accesible sin autenticación.
+   interactúe con el sitio por red pueda obtener el código fuente de la versión desplegada.
+   `REPO_URL` debe apuntar a un repositorio accesible sin autenticación. `npm run deploy:check`
+   lo comprueba contra el sitio publicado.
 2. **El release `corresponding-source-*` debe existir.** Es la parte de GPL-2.0: el código fuente
    del binario `ffmpeg-core.wasm`. Se prepara con:
 
@@ -85,8 +85,11 @@ npm run sync:bg    # assets de @imgly/background-removal (los descarga, no se ve
    ```
 
    Las instrucciones exactas están en `release/corresponding-source/README.md`. El manifiesto
-   `release/corresponding-source/LICENSES/SOURCES.json` contiene el SHA-256 de cada fichero del
+   `release/corresponding-source/SOURCES.json` contiene el SHA-256 de cada fichero del
    release y se verifica al generarlo.
+3. **El dominio canónico debe resolver.** `convertilocal.com` no tiene DNS: el sitio solo
+   responde en `convertilocal.vercel.app`. Sin el dominio no hay URL canónica válida, ni
+   verificación de Search Console, ni `ads.txt` en el dominio registrado por AdSense.
 
 ### Redirecciones
 

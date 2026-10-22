@@ -229,6 +229,144 @@ for (const file of htmlFiles) {
 }
 
 /* ------------------------------------------------------------------ *
+ * 5. Verificación de producción: el código fuente debe ser público.
+ *
+ *    La AGPL-3.0 §13 obliga a que quien interactúe con el sitio por red
+ *    pueda obtener el código fuente. Con el repositorio en privado, o con
+ *    el release de la GPL-2.0 ausente, la obligación no queda satisfecha.
+ * ------------------------------------------------------------------ */
+
+const SKIP_PRODUCTION = /^(1|true|yes)$/i.test(process.env.SKIP_PRODUCTION_CHECK ?? '');
+const PRODUCTION_URL = (process.env.PUBLIC_SITE_URL ?? 'https://convertilocal.com').replace(/\/$/, '');
+const REPO_URL = (
+  process.env.PUBLIC_REPO_URL ?? 'https://github.com/SantyCalz/convertilocal'
+).replace(/\/$/, '');
+const RELEASE_URL = (
+  process.env.PUBLIC_SOURCE_RELEASE_URL ??
+  'https://github.com/SantyCalz/convertilocal/releases/tag/corresponding-source-v1.0.0'
+).replace(/\/$/, '');
+
+/**
+ * Hosts donde puede estar publicado el sitio. El primero es el dominio
+ * canónico; los demás son el despliegue de Vercel, útil mientras el dominio
+ * definitivo todavía no resuelve.
+ */
+const PRODUCTION_CANDIDATES = [
+  PRODUCTION_URL,
+  'https://convertilocal.vercel.app',
+].filter((url, index, list) => url && list.indexOf(url) === index);
+
+/** Petición HEAD sin autenticación, con un tiempo de espera razonable. */
+async function probe(url) {
+  try {
+    const controller = new AbortController();
+    const timer = setTimeout(() => controller.abort(), 20000);
+    const response = await fetch(url, {
+      method: 'HEAD',
+      redirect: 'follow',
+      signal: controller.signal,
+      headers: { 'User-Agent': 'convertilocal-deploy-check' },
+    });
+    clearTimeout(timer);
+    return { ok: response.ok, status: response.status, error: null };
+  } catch (error) {
+    return { ok: false, status: 0, error: error instanceof Error ? error.message : String(error) };
+  }
+}
+
+if (SKIP_PRODUCTION) {
+  console.log('  · Verificación de producción omitida (SKIP_PRODUCTION_CHECK).');
+} else {
+  console.log('\n  Verificando que el código fuente es accesible sin autenticación…');
+
+  // El SHA desplegado se lee del propio sitio publicado.
+  let deployedSha = '';
+  let deployedHost = '';
+
+  for (const candidate of PRODUCTION_CANDIDATES) {
+    try {
+      const controller = new AbortController();
+      const timer = setTimeout(() => controller.abort(), 20000);
+      const response = await fetch(`${candidate}/licencias`, {
+        signal: controller.signal,
+        headers: { 'User-Agent': 'convertilocal-deploy-check' },
+      });
+      clearTimeout(timer);
+      if (!response.ok) continue;
+      const html = await response.text();
+      deployedSha = /github\.com\/[^/]+\/[^/]+\/tree\/([0-9a-f]{7,40})/.exec(html)?.[1] ?? '';
+      deployedHost = candidate;
+      break;
+    } catch {
+      // Se prueba el siguiente candidato.
+    }
+  }
+
+  if (!deployedHost) {
+    warn(
+      `No se pudo leer /licencias en ninguno de los hosts de producción ` +
+        `(${PRODUCTION_CANDIDATES.join(', ')}). No se comprueba el SHA desplegado.`,
+    );
+  } else if (!deployedSha) {
+    warn(`${deployedHost}/licencias no enlaza a ningún commit: el enlace al código fuente falta.`);
+  } else if (deployedHost !== PRODUCTION_URL) {
+    warn(
+      `El dominio canónico ${PRODUCTION_URL} no responde; la verificación se ha hecho ` +
+        `contra ${deployedHost}. Revisa el DNS antes de publicar.`,
+    );
+  }
+
+  const targets = [
+    { name: 'repositorio del código fuente', url: REPO_URL },
+    {
+      name: 'código fuente de la versión desplegada',
+      url: deployedSha ? `${REPO_URL}/tree/${deployedSha}` : '',
+    },
+    { name: 'release con el código fuente de FFmpeg', url: RELEASE_URL },
+  ].filter((target) => target.url);
+
+  for (const target of targets) {
+    const result = await probe(target.url);
+
+    if (result.error) {
+      warn(`No se pudo comprobar «${target.name}» (${target.url}): ${result.error}`);
+      continue;
+    }
+
+    if (!result.ok) {
+      fail(
+        `«${target.name}» no es accesible sin autenticación: HTTP ${result.status} en ${target.url}. ` +
+          'La AGPL-3.0 §13 exige que el código fuente esté disponible para cualquiera.',
+      );
+    }
+  }
+
+  // Los tarball del release deben poder descargarse.
+  if (await probe(RELEASE_URL)) {
+    const releaseAssets = [
+      `${RELEASE_URL.replace(/\/tag\/.*$/, '')}/download/corresponding-source-v1.0.0/SOURCES.json`,
+      `${RELEASE_URL.replace(/\/tag\/.*$/, '')}/download/corresponding-source-v1.0.0/ffmpeg-n5.1.4.tar.gz`,
+      `${RELEASE_URL.replace(/\/tag\/.*$/, '')}/download/corresponding-source-v1.0.0/x264-4-cores.tar.gz`,
+      `${RELEASE_URL.replace(/\/tag\/.*$/, '')}/download/corresponding-source-v1.0.0/x265-3.4.tar.gz`,
+    ];
+
+    for (const url of releaseAssets) {
+      const result = await probe(url);
+      const name = url.split('/').pop();
+      if (result.error) {
+        warn(`No se pudo comprobar el asset «${name}»: ${result.error}`);
+      } else if (!result.ok) {
+        fail(`El asset «${name}» del release no se puede descargar: HTTP ${result.status}.`);
+      }
+    }
+  }
+
+  if (deployedSha) {
+    console.log(`  · SHA desplegado: ${deployedSha}`);
+  }
+}
+
+/* ------------------------------------------------------------------ *
  * Resultado
  * ------------------------------------------------------------------ */
 
