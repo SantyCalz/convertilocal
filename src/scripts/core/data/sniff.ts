@@ -22,19 +22,21 @@ export async function sniffData(file: File): Promise<boolean> {
     }
   }
 
-  if (name.endsWith('.xml') || file.type.includes('xml')) {
+  // El XLSX debe comprobarse antes del XML: su MIME (openxmlformats) contiene
+  // la cadena "xml" y, si no, se intenta parsear el ZIP como XML y falla.
+  if (name.endsWith('.xlsx') || name.endsWith('.xls')) {
+    const buffer = await file.slice(0, 8).arrayBuffer();
+    const bytes = new Uint8Array(buffer);
+    return bytes[0] === 0x50 && bytes[1] === 0x4b;
+  }
+
+  if (name.endsWith('.xml') || file.type === 'application/xml' || file.type === 'text/xml') {
     try {
       const document = new DOMParser().parseFromString(await file.text(), 'application/xml');
       return !document.querySelector('parsererror');
     } catch {
       return false;
     }
-  }
-
-  if (name.endsWith('.xlsx') || name.endsWith('.xls')) {
-    const buffer = await file.slice(0, 8).arrayBuffer();
-    const bytes = new Uint8Array(buffer);
-    return bytes[0] === 0x50 && bytes[1] === 0x4b;
   }
 
   return true;

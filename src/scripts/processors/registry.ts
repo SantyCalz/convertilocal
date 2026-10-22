@@ -29,6 +29,10 @@ const loaders: Record<string, () => Promise<Processor>> = {
   'image-crop': () => import('./image/crop').then((module) => module.imageCropProcessor),
   'html-to-pdf': () =>
     import('./documents/html-to-pdf').then((module) => module.htmlToPdfProcessor),
+  'word-to-pdf': () =>
+    import('./documents/word-to-pdf').then((module) => module.wordToPdfProcessor),
+  'excel-to-pdf': () =>
+    import('./documents/excel-to-pdf').then((module) => module.excelToPdfProcessor),
   'pdf-merge': () => import('./pdf/merge').then((module) => module.pdfMergeProcessor),
   'pdf-split': () => import('./pdf/split').then((module) => module.pdfSplitProcessor),
   'pdf-organize': () =>

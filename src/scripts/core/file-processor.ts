@@ -188,6 +188,7 @@ function setup(root: HTMLElement): void {
   const baseName = root.dataset.baseName ?? 'convertilocal';
   const previewMode = root.dataset.previewMode ?? 'none';
   const validatesImages = isImageAccept(accept);
+  console.log('VALIDATES for', accept, 'images=', validatesImages, 'pdfs=', isPdfAccept(accept), 'data=', isDataAccept(accept), 'media=', isMediaAccept(accept));
   const validatesPdfs = isPdfAccept(accept);
   const validatesData = isDataAccept(accept);
   const validatesMedia = isMediaAccept(accept);

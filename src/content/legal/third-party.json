@@ -1,10 +1,10 @@
 {
   "generated": "2026-10-22",
-  "totalInstalled": 676,
+  "totalInstalled": 666,
   "rows": [
     {
       "name": "@astrojs/check",
-      "version": "0.9.12",
+      "version": "0.9.11",
       "license": "MIT",
       "client": false,
       "kind": "dev",
@@ -89,6 +89,14 @@
       "client": false,
       "kind": "directa",
       "repository": "git+https://github.com/withastro/astro.git"
+    },
+    {
+      "name": "docx",
+      "version": "9.13.0",
+      "license": "MIT",
+      "client": false,
+      "kind": "directa",
+      "repository": "git+https://github.com/dolanmiu/docx.git"
     },
     {
       "name": "dompurify",
@@ -185,6 +193,30 @@
       "client": true,
       "kind": "directa",
       "repository": "nodeca/js-yaml"
+    },
+    {
+      "name": "jspdf",
+      "version": "4.2.1",
+      "license": "MIT",
+      "client": false,
+      "kind": "directa",
+      "repository": "https://github.com/parallax/jsPDF.git"
+    },
+    {
+      "name": "jspdf-autotable",
+      "version": "5.0.9",
+      "license": "MIT",
+      "client": false,
+      "kind": "directa",
+      "repository": "https://github.com/simonbengtsson/jsPDF-AutoTable.git"
+    },
+    {
+      "name": "mammoth",
+      "version": "1.13.0",
+      "license": "BSD-2-Clause",
+      "client": false,
+      "kind": "directa",
+      "repository": "https://github.com/mwilliamson/mammoth.js.git"
     },
     {
       "name": "marked",

@@ -10,17 +10,18 @@ texto canónico está en [`LICENSE`](LICENSE) y la auditoría completa en
 
 ## Resumen
 
-- Paquetes instalados en `node_modules`: **676**.
-- Dependencias directas de producción: **22**.
+- Paquetes instalados en `node_modules`: **666**.
+- Dependencias directas de producción: **26**.
 - Dependencias de desarrollo: **12**.
 - Componentes con copyleft o copyleft limitado: **4**.
 
-- MIT: 25
+- MIT: 28
 - Apache-2.0: 5
 - GPL-2.0-or-later: 1
 - AGPL-3.0-only: 1
 - (MPL-2.0 OR Apache-2.0): 1
 - GPL-3.0-or-later: 1
+- BSD-2-Clause: 1
 
 ## Dependencias con copyleft
 
@@ -36,7 +37,7 @@ aviso de red de la AGPL §13) está en [`/licencias`](https://convertilocal.verc
 
 | Componente | Versión | Licencia | ¿Se distribuye? | Origen |
 | --- | --- | --- | --- | --- |
-| `@astrojs/check` | 0.9.12 | MIT | No | git+https://github.com/withastro/astro.git |
+| `@astrojs/check` | 0.9.11 | MIT | No | git+https://github.com/withastro/astro.git |
 | `@astrojs/sitemap` | 3.7.4 | MIT | No | git+https://github.com/withastro/astro.git |
 | `@astrojs/tailwind` | 6.0.2 | MIT | No | git+https://github.com/withastro/astro.git |
 | `@eslint/js` | 9.39.5 | MIT | No | https://github.com/eslint/eslint.git |
@@ -47,6 +48,7 @@ aviso de red de la AGPL §13) está en [`/licencias`](https://convertilocal.verc
 | `@jsquash/avif` | 2.1.1 | Apache-2.0 | Sí | jamsinclair/jSquash |
 | `@playwright/test` | 1.64.1 | Apache-2.0 | No | git+https://github.com/microsoft/playwright.git |
 | `astro` | 5.18.2 | MIT | No | git+https://github.com/withastro/astro.git |
+| `docx` | 9.13.0 | MIT | No | git+https://github.com/dolanmiu/docx.git |
 | `dompurify` | 3.4.17 | (MPL-2.0 OR Apache-2.0) | Sí | git://github.com/cure53/DOMPurify.git |
 | `eslint` | 9.39.5 | MIT | No | eslint/eslint |
 | `eslint-plugin-astro` | 1.7.0 | MIT | No | git+https://github.com/ota-meshi/eslint-plugin-astro.git |
@@ -59,6 +61,9 @@ aviso de red de la AGPL §13) está en [`/licencias`](https://convertilocal.verc
 | `js-yaml` | 4.3.2 | MIT | Sí | nodeca/js-yaml |
 | `js-yaml` | 4.3.2 | MIT | Sí | nodeca/js-yaml |
 | `js-yaml` | 5.5.0 | MIT | Sí | nodeca/js-yaml |
+| `jspdf` | 4.2.1 | MIT | No | https://github.com/parallax/jsPDF.git |
+| `jspdf-autotable` | 5.0.9 | MIT | No | https://github.com/simonbengtsson/jsPDF-AutoTable.git |
+| `mammoth` | 1.13.0 | BSD-2-Clause | No | https://github.com/mwilliamson/mammoth.js.git |
 | `marked` | 18.1.1 | MIT | Sí | git+https://github.com/markedjs/marked.git |
 | `onnxruntime-web` | 1.21.0 | MIT | Sí | https://github.com/Microsoft/onnxruntime.git |
 | `pdf-lib` | 1.17.1 | MIT | Sí | git+https://github.com/Hopding/pdf-lib.git |

@@ -87,6 +87,36 @@ const CONFIG: Record<string, DocumentToolConfig> = {
     resultNote:
       'En el modo vectorial se abre el diálogo de impresión: elige «Guardar como PDF». El HTML saneado también se descarga.',
   },
+  'word-a-pdf': {
+    processorId: 'word-to-pdf',
+    accept: '.docx,application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+    acceptLabel: 'DOCX',
+    actionLabel: 'Convertir a PDF',
+    baseName: 'word-a-pdf',
+    multiple: false,
+    maxSizeMB: 30,
+    maxFiles: 1,
+    maxTotalMB: 30,
+    previewMode: 'none',
+    options: DOCUMENT_OPTIONS.wordToPdf,
+    resultNote:
+      'Conversión aproximada: las columnas complejas y los cuadros de texto pueden simplificarse. Solo se aceptan .docx.',
+  },
+  'excel-a-pdf': {
+    processorId: 'excel-to-pdf',
+    accept: '.xlsx,.xls,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/vnd.ms-excel',
+    acceptLabel: 'XLSX o XLS',
+    actionLabel: 'Convertir a PDF',
+    baseName: 'excel-a-pdf',
+    multiple: false,
+    maxSizeMB: 30,
+    maxFiles: 1,
+    maxTotalMB: 30,
+    previewMode: 'none',
+    options: DOCUMENT_OPTIONS.excelToPdf,
+    resultNote:
+      'Extracción de datos en tablas. Gráficos, imágenes y formato condicional no se preservan en esta versión.',
+  },
 };
 
 export const DOCUMENT_TOOLS: DocumentTool[] = DOCUMENT_CONTENT.map((content) => {

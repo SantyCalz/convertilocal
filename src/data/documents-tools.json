@@ -438,5 +438,177 @@
       "No reproduce páginas que dependan de scripts para maquetarse.",
       "No incluye las fuentes incrustadas por el navegador en el PDF."
     ]
+  },
+  {
+    "slug": "word-a-pdf",
+    "title": "Convertir Word a PDF en tu navegador | ConvertiLocal",
+    "h1": "Convertir Word a PDF",
+    "description": "Convierte archivos .docx a PDF en tu navegador, con el texto seleccionable en el modo vectorial. Sin subir nada.",
+    "intro": "Los documentos de Word siguen siendo el formato habitual para informes, contratos y plantillas. Convertirlos a PDF en tu navegador te da un archivo que se ve igual en cualquier dispositivo y que no depende de que el otro tenga Word instalado, sin subir el documento a ningún servidor.",
+    "why": [
+      "Convierte .docx a PDF sin subir el documento a ningún servidor.",
+      "El modo vectorial conserva el texto seleccionable y los estilos básicos.",
+      "Las imágenes del documento se embeben en el PDF.",
+      "El modo de compatibilidad genera un PDF rasterizado como alternativa.",
+      "El archivo se procesa en tu dispositivo y se descarga directamente."
+    ],
+    "useCases": [
+      {
+        "title": "Enviar un contrato",
+        "body": "Un PDF no se puede editar por accidente y se abre igual en cualquier visor."
+      },
+      {
+        "title": "Archivar un informe",
+        "body": "Guarda la versión final como PDF para que no dependa de la versión de Word de cada uno."
+      },
+      {
+        "title": "Publicar una plantilla",
+        "body": "Los lectores ven el diseño que escribiste, sin que los estilos cambien."
+      }
+    ],
+    "mistakes": [
+      {
+        "title": "Esperar que se conserve todo",
+        "body": "Las columnas complejas, los cuadros de texto, las tablas anidadas y los encabezados flotantes pueden simplificarse. Se te avisa de lo que no se pudo convertir."
+      },
+      {
+        "title": "Subir un .doc antiguo",
+        "body": "Solo se aceptan .docx. Abre el .doc en Word o LibreOffice y guárdalo como .docx antes."
+      },
+      {
+        "title": "Esperar texto seleccionable en el modo de compatibilidad",
+        "body": "Ese modo captura la página como imagen: el texto deja de ser seleccionable. Usa el modo vectorial si lo necesitas."
+      }
+    ],
+    "faq": [
+      {
+        "q": "¿Qué formatos acepta?",
+        "a": "Solo .docx, el formato moderno de Word. Los .doc antiguos no se pueden leer en el navegador."
+      },
+      {
+        "q": "¿Se conservan las tablas?",
+        "a": "Las tablas sencillas se convierten. Las anidadas o con estilos complejos pueden perder estructura."
+      },
+      {
+        "q": "¿Las imágenes se conservan?",
+        "a": "Sí, se incrustan en el PDF. Las imágenes vinculadas a un servidor externo se pierden."
+      },
+      {
+        "q": "¿El texto será seleccionable?",
+        "a": "Sí en el modo vectorial. En el modo de compatibilidad el PDF es una imagen."
+      }
+    ],
+    "keywords": [
+      "word a pdf",
+      "convertir docx a pdf",
+      "docx a pdf online",
+      "word a pdf en navegador",
+      "convertir word a pdf"
+    ],
+    "related": [
+      "/convertir/excel-a-pdf",
+      "/convertir/html-a-pdf",
+      "/convertir/pdf-a-word",
+      "/pdf/comprimir-pdf"
+    ],
+    "updated": "2026-10-22",
+    "does": [
+      "Convierte archivos .docx a PDF con el texto seleccionable en el modo vectorial.",
+      "Embebe las imágenes que estén incluidas en el documento.",
+      "Genera el PDF en tu dispositivo, sin subir nada.",
+      "Avisa de los elementos que no se pudieron convertir."
+    ],
+    "doesNot": [
+      "No acepta el formato .doc antiguo: guárdalo antes como .docx.",
+      "No conserva columnas complejas, cuadros de texto ni estilos avanzados.",
+      "No hace OCR: si el documento es una imagen escaneada, el texto no se extrae.",
+      "No garantiza que el PDF sea idéntico al original."
+    ]
+  },
+  {
+    "slug": "excel-a-pdf",
+    "title": "Convertir Excel a PDF en tu navegador | ConvertiLocal",
+    "h1": "Convertir Excel a PDF",
+    "description": "Convierte las hojas de un .xlsx a PDF tabular con jsPDF. Una sección por hoja, orientación automática y tope de filas.",
+    "intro": "Los libros de Excel son la forma habitual de guardar tablas y listados. Exportarlos a PDF permite compartirlos sin que quien los recibe necesite tener Excel ni cambiar la visualización.",
+    "why": [
+      "Lee cada hoja del libro y la convierte en una tabla PDF.",
+      "La orientación se pone en apaisado si la hoja tiene más de 5 columnas.",
+      "El texto formateado de las celdas se conserva tal cual.",
+      "Una sección por hoja, con el nombre de la hoja como encabezado.",
+      "El archivo se procesa en tu dispositivo, sin subir nada."
+    ],
+    "useCases": [
+      {
+        "title": "Compartir un listado",
+        "body": "Envía una tabla de datos en PDF sin que nadie tenga que abrir Excel."
+      },
+      {
+        "title": "Imprimir un registro",
+        "body": "Las hojas grandes se ponen en apaisado para que quepan más columnas."
+      },
+      {
+        "title": "Archivar un libro",
+        "body": "Guarda la versión final como PDF para que no dependa del formato."
+      }
+    ],
+    "mistakes": [
+      {
+        "title": "Esperar que se conserven los gráficos",
+        "body": "Solo se extraen las tablas: los gráficos, las imágenes y el formato condicional no se preservan."
+      },
+      {
+        "title": "Libros muy grandes",
+        "body": "Cada hoja se limita a 5000 filas para no bloquear el navegador. Se avisa si se trunca."
+      },
+      {
+        "title": "Esperar estilos complejos",
+        "body": "Los colores, los bordes y las fórmulas se simplifican: solo se conserva el texto de las celdas."
+      }
+    ],
+    "faq": [
+      {
+        "q": "¿Qué formatos acepta?",
+        "a": "Archivos .xlsx y .xls. Los CSV conviértelos antes con la herramienta de CSV a XLSX."
+      },
+      {
+        "q": "¿Se conservan todos los datos?",
+        "a": "Sí, el texto de cada celda. Los gráficos, las imágenes y el formato condicional no."
+      },
+      {
+        "q": "¿Qué pasa con libros muy grandes?",
+        "a": "Cada hoja se limita a 5000 filas y se avisa si se trunca. Divide el libro antes si hace falta."
+      },
+      {
+        "q": "¿El texto será seleccionable?",
+        "a": "Sí. El PDF se genera con texto vectorial, así que se puede buscar y copiar."
+      }
+    ],
+    "keywords": [
+      "excel a pdf",
+      "convertir xlsx a pdf",
+      "xlsx a pdf online",
+      "excel a pdf en navegador",
+      "hoja de cálculo a pdf"
+    ],
+    "related": [
+      "/convertir/word-a-pdf",
+      "/convertir/html-a-pdf",
+      "/convertir/pdf-a-excel",
+      "/convertir/xlsx-a-csv"
+    ],
+    "updated": "2026-10-22",
+    "does": [
+      "Lee cada hoja del libro y la convierte en una tabla PDF.",
+      "Conserva el texto formateado de las celdas.",
+      "Pone las hojas anchas en apaisado automáticamente.",
+      "Genera el PDF en tu dispositivo, sin subir nada."
+    ],
+    "doesNot": [
+      "No conserva gráficos, imágenes ni formato condicional.",
+      "No conserva fórmulas: solo el valor calculado.",
+      "No lee archivos de más de 5000 filas por hoja.",
+      "No garantiza que el PDF sea idéntico a la hoja original."
+    ]
   }
 ]

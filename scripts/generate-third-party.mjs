@@ -10,6 +10,11 @@
  *
  * Uso: node scripts/generate-third-party.mjs [--check]
  */
+/**
+ * scripts/generate-third-party.mjs
+ * Copyright (C) 2026 ConvertiLocal contributors
+ * SPDX-License-Identifier: AGPL-3.0-only
+ */
 import { existsSync, mkdirSync, readFileSync, readdirSync, statSync, writeFileSync } from 'node:fs';
 import { createRequire } from 'node:module';
 import { join } from 'node:path';

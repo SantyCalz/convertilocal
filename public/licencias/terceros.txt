@@ -16,6 +16,7 @@ DEPENDENCIAS DIRECTAS
   @imgly/background-removal@1.7.0  AGPL-3.0-only  [se distribuye]
   @jsquash/avif@2.1.1  Apache-2.0  [se distribuye]
   astro@5.18.2  MIT
+  docx@9.13.0  MIT
   dompurify@3.4.17  (MPL-2.0 OR Apache-2.0)  [se distribuye]
   fflate@0.8.3  MIT  [se distribuye]
   heic2any@0.0.4  MIT  [se distribuye]
@@ -23,6 +24,9 @@ DEPENDENCIAS DIRECTAS
   js-yaml@4.3.2  MIT  [se distribuye]
   js-yaml@4.3.2  MIT  [se distribuye]
   js-yaml@5.5.0  MIT  [se distribuye]
+  jspdf@4.2.1  MIT
+  jspdf-autotable@5.0.9  MIT
+  mammoth@1.13.0  BSD-2-Clause
   marked@18.1.1  MIT  [se distribuye]
   onnxruntime-web@1.21.0  MIT  [se distribuye]
   pdf-lib@1.17.1  MIT  [se distribuye]

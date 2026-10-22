@@ -35,4 +35,32 @@ run(['-y', '-f', 'lavfi', '-i', 'color=c=red:s=64x64', '-frames:v', '1', '-updat
 run(['-y', '-f', 'lavfi', '-i', 'color=c=0x1d4ed8:s=80x60', '-frames:v', '1', '-update', '1', 'tests/fixtures/sample.jpg']);
 // Segundo JPG, de otro color y tamaño, para probar el reordenamiento.
 run(['-y', '-f', 'lavfi', '-i', 'color=c=0xdc2626:s=120x90', '-frames:v', '1', '-update', '1', 'tests/fixtures/sample2.jpg']);
+
+// Documento .docx mínimo con un párrafo y una imagen.
+const { Document, Packer, Paragraph, TextRun } = await import('docx');
+const wordDoc = new Document({
+  sections: [{
+    properties: {},
+    children: [
+      new Paragraph({ children: [new TextRun('Título de prueba'), new TextRun({ text: ' con negrita', bold: true })] }),
+      new Paragraph({ children: [new TextRun('Segundo párrafo del documento.')] }),
+    ],
+  }],
+});
+writeFileSync('tests/fixtures/sample.docx', await Packer.toBuffer(wordDoc));
+
+// Libro .xlsx con una hoja de 3 columnas y 5 filas.
+const XLSX = await import('xlsx');
+const wb = XLSX.utils.book_new();
+const rows = [
+  ['Nombre', 'Edad', 'Ciudad'],
+  ['Ana', 28, 'Madrid'],
+  ['Luis', 34, 'Barcelona'],
+  ['María', 22, 'Valencia'],
+  ['Pedro', 41, 'Sevilla'],
+];
+const ws = XLSX.utils.aoa_to_sheet(rows);
+XLSX.utils.book_append_sheet(wb, ws, 'Personas');
+writeFileSync('tests/fixtures/sample.xlsx', XLSX.write(wb, { type: 'buffer', bookType: 'xlsx' }));
+
 console.log('Fixtures de prueba generados.');

@@ -8,6 +8,11 @@
  *
  * Uso: node scripts/write-assets-integrity.mjs
  */
+/**
+ * scripts/write-assets-integrity.mjs
+ * Copyright (C) 2026 ConvertiLocal contributors
+ * SPDX-License-Identifier: AGPL-3.0-only
+ */
 import { createHash } from 'node:crypto';
 import { existsSync, readFileSync, readdirSync, statSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';

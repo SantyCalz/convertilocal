@@ -11,6 +11,11 @@
  *
  * Uso: node scripts/generate-ffmpeg-source.mjs [--check]
  */
+/**
+ * scripts/generate-ffmpeg-source.mjs
+ * Copyright (C) 2026 ConvertiLocal contributors
+ * SPDX-License-Identifier: AGPL-3.0-only
+ */
 import { createHash } from 'node:crypto';
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
