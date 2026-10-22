@@ -9,9 +9,10 @@ import Badge from '@/components/ui/Badge.astro';
 import Icon from '@/components/ui/Icon.astro';
 import { CONVERSIONS, FORMATS, conversionPath, conversionsFrom, getFormat } from '@/data/images';
 import type { ImageFormatId } from '@/types/image';
+import { SITE_URL } from '@/data/site';
 
 const sources: ImageFormatId[] = ['jpg', 'png', 'webp', 'heic', 'avif', 'bmp', 'ico'];
-const site = (Astro.site ?? new URL('https://convertilocal.com')).href.replace(/\/$/, '');
+const site = SITE_URL;
 
 const faqSchema = {
   '@context': 'https://schema.org',

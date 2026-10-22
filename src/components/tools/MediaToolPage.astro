@@ -9,6 +9,7 @@ import AttributionNotice from '@/components/legal/AttributionNotice.astro';
 import Icon from '@/components/ui/Icon.astro';
 import { MEDIA_TOOLS, MEDIA_SLUGS } from '@/data/media-tools';
 import type { MediaTool } from '@/types/media';
+import { SITE_URL } from '@/data/site';
 
 interface Props {
   slug: string;
@@ -23,7 +24,7 @@ if (!tool) {
 }
 
 const path = MEDIA_SLUG_SET.has(slug) ? `/media/${slug}` : `/convertir/${slug}`;
-const site = (Astro.site ?? new URL('https://convertilocal.com')).href.replace(/\/$/, '');
+const site = SITE_URL;
 const absolute = `${site}${path}`;
 const pageTitle = tool.title.split(' | ')[0] ?? tool.h1;
 

@@ -25,6 +25,14 @@ const PAGINAS_LEGALES = [
   { path: '/privacidad', titulo: 'Política de privacidad' },
 ];
 
+/**
+ * Origen público esperado. Lo define `PUBLIC_SITE_URL` y debe coincidir con
+ * las canónicas, el sitemap y `robots.txt`.
+ */
+const SITE_URL = (process.env.PUBLIC_SITE_URL ?? 'https://convertilocal.vercel.app')
+  .trim()
+  .replace(/\/$/, '');
+
 for (const pagina of PAGINAS_LEGALES) {
   test(`${pagina.path} responde 200 y es indexable`, async ({ page }) => {
     const response = await page.goto(pagina.path);
@@ -35,7 +43,7 @@ for (const pagina of PAGINAS_LEGALES) {
     // Indexable: sin noindex y con canonical propio.
     const html = await page.content();
     expect(html).not.toContain('noindex');
-    expect(html).toContain(`rel="canonical" href="https://convertilocal.com${pagina.path}"`);
+    expect(html).toContain(`rel="canonical" href="${SITE_URL}${pagina.path}"`);
 
     // Metadatos SEO presentes.
     await expect(page.locator('meta[name="description"]')).toHaveAttribute('content', /.{50,}/);

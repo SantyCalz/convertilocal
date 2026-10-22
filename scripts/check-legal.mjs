@@ -18,6 +18,14 @@ const DIST = join(ROOT, 'dist');
 const errors = [];
 const warnings = [];
 
+/**
+ * Origen público del sitio. Debe coincidir con el que usan las canónicas,
+ * el sitemap y `robots.txt` (variable `PUBLIC_SITE_URL`).
+ */
+const CANONICAL_ORIGIN = (process.env.PUBLIC_SITE_URL ?? 'https://convertilocal.vercel.app')
+  .trim()
+  .replace(/\/$/, '');
+
 const fail = (message) => errors.push(message);
 const warn = (message) => warnings.push(message);
 
@@ -204,7 +212,7 @@ for (const [host, files] of hostsFound) {
 }
 
 /* Subrecursos externos declarados en el HTML (scripts y hojas de estilo). */
-const OWN_HOSTS = new Set(['convertilocal.com', 'www.convertilocal.com']);
+const OWN_HOSTS = new Set([new URL(CANONICAL_ORIGIN).host, `www.${new URL(CANONICAL_ORIGIN).host}`]);
 
 for (const file of htmlFiles) {
   const html = readFileSync(file, 'utf8');
@@ -229,7 +237,48 @@ for (const file of htmlFiles) {
 }
 
 /* ------------------------------------------------------------------ *
- * 5. Verificación de producción: el código fuente debe ser público.
+ * 5. Origen canónico: todas las páginas deben usar PUBLIC_SITE_URL.
+ * ------------------------------------------------------------------ */
+
+let canonicalChecked = 0;
+const wrongOrigin = new Map();
+
+for (const file of htmlFiles) {
+  const html = readFileSync(file, 'utf8');
+  const relative = file.slice(DIST.length + 1).replace(/\\/g, '/');
+
+  // Las páginas de redirección ya se excluyeron del conteo anterior.
+  if (/http-equiv="refresh"/i.test(html)) continue;
+
+  canonicalChecked += 1;
+
+  // Todas las URL absolutas del documento deben pertenecer al origen público.
+  const absolutes = [
+    ...html.matchAll(/(?:rel="canonical"\s+href|property="og:(?:url|image)"\s+content)="(https?:\/\/[^"]+)"/g),
+  ].map((match) => match[1]);
+
+  for (const absolute of absolutes) {
+    let origin;
+    try {
+      origin = new URL(absolute).origin;
+    } catch {
+      continue;
+    }
+    if (origin === CANONICAL_ORIGIN) continue;
+    if (!wrongOrigin.has(origin)) wrongOrigin.set(origin, new Set());
+    wrongOrigin.get(origin).add(relative);
+  }
+}
+
+for (const [origin, files] of wrongOrigin) {
+  fail(
+    `Origen canónico distinto de PUBLIC_SITE_URL (${CANONICAL_ORIGIN}): ${origin} ` +
+      `(en ${[...files][0]}). Toda URL absoluta del sitio debe usar el mismo origen.`,
+  );
+}
+
+/* ------------------------------------------------------------------ *
+ * 6. Verificación de producción: el código fuente debe ser público.
  *
  *    La AGPL-3.0 §13 obliga a que quien interactúe con el sitio por red
  *    pueda obtener el código fuente. Con el repositorio en privado, o con
@@ -237,7 +286,7 @@ for (const file of htmlFiles) {
  * ------------------------------------------------------------------ */
 
 const SKIP_PRODUCTION = /^(1|true|yes)$/i.test(process.env.SKIP_PRODUCTION_CHECK ?? '');
-const PRODUCTION_URL = (process.env.PUBLIC_SITE_URL ?? 'https://convertilocal.com').replace(/\/$/, '');
+const PRODUCTION_URL = CANONICAL_ORIGIN;
 const REPO_URL = (
   process.env.PUBLIC_REPO_URL ?? 'https://github.com/SantyCalz/convertilocal'
 ).replace(/\/$/, '');
@@ -247,14 +296,19 @@ const RELEASE_URL = (
 ).replace(/\/$/, '');
 
 /**
- * Hosts donde puede estar publicado el sitio. El primero es el dominio
- * canónico; los demás son el despliegue de Vercel, útil mientras el dominio
- * definitivo todavía no resuelve.
+ * Hosts donde puede estar publicado el sitio. El primero es el origen
+ * público configurado; los demás son el despliegue de Vercel, útil si el
+ * dominio definitivo todavía no resuelve.
  */
 const PRODUCTION_CANDIDATES = [
   PRODUCTION_URL,
   'https://convertilocal.vercel.app',
 ].filter((url, index, list) => url && list.indexOf(url) === index);
+
+/** Un subdominio de despliegue no es un «dominio personalizado»: no exige DNS propio. */
+function isCustomDomain(host) {
+  return !/\.(vercel\.app|pages\.dev|netlify\.app)$/i.test(host);
+}
 
 /** Petición HEAD sin autenticación, con un tiempo de espera razonable. */
 async function probe(url) {
@@ -310,10 +364,20 @@ if (SKIP_PRODUCTION) {
   } else if (!deployedSha) {
     warn(`${deployedHost}/licencias no enlaza a ningún commit: el enlace al código fuente falta.`);
   } else if (deployedHost !== PRODUCTION_URL) {
-    warn(
-      `El dominio canónico ${PRODUCTION_URL} no responde; la verificación se ha hecho ` +
-        `contra ${deployedHost}. Revisa el DNS antes de publicar.`,
-    );
+    // Solo avisa si el origen configurado es un dominio propio: un
+    // subdominio de despliegue no depende de un DNS que el proyecto controle.
+    const configuredHost = new URL(PRODUCTION_URL).host;
+    if (isCustomDomain(configuredHost)) {
+      warn(
+        `El dominio configurado ${PRODUCTION_URL} no responde; la verificación se ha hecho ` +
+          `contra ${deployedHost}. Revisa el DNS antes de publicar.`,
+      );
+    } else {
+      warn(
+        `El origen configurado ${PRODUCTION_URL} no responde; la verificación se ha hecho ` +
+          `contra ${deployedHost}.`,
+      );
+    }
   }
 
   const targets = [
@@ -384,8 +448,8 @@ if (errors.length > 0) {
 console.log(
   `✓ Cumplimiento legal verificado: LICENSE AGPL-3.0 correcto, ` +
     `${checkedPages} páginas con pie legal y sin marcadores de plantilla ` +
-    `(${skippedPages} redirecciones excluidas) y ${bundlesScanned} bundles sin peticiones ` +
-    'a hosts externos no autorizados.',
+    `(${skippedPages} redirecciones excluidas), ${canonicalChecked} páginas con origen canónico ` +
+    `${CANONICAL_ORIGIN} y ${bundlesScanned} bundles sin peticiones a hosts externos no autorizados.`,
 );
 if (warnings.length > 0) {
   console.log('Avisos:');

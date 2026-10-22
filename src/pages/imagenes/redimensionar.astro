@@ -7,9 +7,10 @@
 import ToolPageShell from '@/components/tools/ToolPageShell.astro';
 import Icon from '@/components/ui/Icon.astro';
 import type { ProcessorOption } from '@/types/processor';
+import { SITE_URL } from '@/data/site';
 
 const path = '/imagenes/redimensionar';
-const site = (Astro.site ?? new URL('https://convertilocal.com')).href.replace(/\/$/, '');
+const site = SITE_URL;
 const faqs = [
   { q: '¿Puedo mantener la proporción?', a: 'Sí. Deja el alto a 0 y el alto se calcula a partir del ancho. Con «contain» la imagen mantiene su proporción y el fondo rellena el sobrante.' },
   { q: '¿Qué formatos puedo generar?', a: 'PNG, JPG, WebP, AVIF, BMP o ICO.' },

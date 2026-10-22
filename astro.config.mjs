@@ -3,12 +3,22 @@ import sitemap from '@astrojs/sitemap';
 import tailwind from '@astrojs/tailwind';
 import { defineConfig } from 'astro/config';
 import { fileURLToPath } from 'node:url';
+import { loadEnv } from 'vite';
 
 const srcDir = fileURLToPath(new URL('./src', import.meta.url));
 
-// Cambia `site` cuando el dominio definitivo esté configurado.
-// También debes actualizarlo en `src/data/site.ts`.
-const SITE_URL = 'https://convertilocal.com';
+/**
+ * Origen público del sitio.
+ *
+ * Se lee de `PUBLIC_SITE_URL` con el mismo valor por defecto que
+ * `src/data/site.ts`, para que el sitemap y las etiquetas canónicas nunca
+ * divergan. Mientras `convertilocal.com` no tenga DNS, el subdominio de
+ * Vercel es el que responde.
+ */
+const env = loadEnv(process.env.NODE_ENV ?? 'production', process.cwd(), '');
+const SITE_URL = (env.PUBLIC_SITE_URL ?? 'https://convertilocal.vercel.app')
+  .trim()
+  .replace(/\/$/, '');
 
 export default defineConfig({
   site: SITE_URL,

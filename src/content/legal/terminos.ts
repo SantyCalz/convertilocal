@@ -13,7 +13,7 @@ export const TERMINOS: LegalDocument = {
     'Condiciones de uso de ConvertiLocal: procesamiento 100 % local en el navegador, uso permitido, compatibilidad con la AGPL, límites de responsabilidad y exención de garantías.',
   updated: '2026-10-21',
   intro:
-    'Estas condiciones regulan el uso del sitio web convertilocal.com. Al navegar por él ' +
+    'Estas condiciones regulan el uso del sitio web SITE_URL. Al navegar por él ' +
     'aceptas estos términos.',
   sections: [
     {

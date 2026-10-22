@@ -7,9 +7,10 @@
 import ToolPageShell from '@/components/tools/ToolPageShell.astro';
 import Icon from '@/components/ui/Icon.astro';
 import type { ProcessorOption } from '@/types/processor';
+import { SITE_URL } from '@/data/site';
 
 const path = '/imagenes/reducir-foto-a-kb';
-const site = (Astro.site ?? new URL('https://convertilocal.com')).href.replace(/\/$/, '');
+const site = SITE_URL;
 const faqs = [
   {
     q: '¿Qué diferencia hay entre KB y KiB?',

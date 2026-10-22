@@ -88,8 +88,16 @@ npm run sync:bg    # assets de @imgly/background-removal (los descarga, no se ve
    `release/corresponding-source/SOURCES.json` contiene el SHA-256 de cada fichero del
    release y se verifica al generarlo.
 3. **El dominio canónico debe resolver.** `convertilocal.com` no tiene DNS: el sitio solo
-   responde en `convertilocal.vercel.app`. Sin el dominio no hay URL canónica válida, ni
-   verificación de Search Console, ni `ads.txt` en el dominio registrado por AdSense.
+   responde en `convertilocal.vercel.app`. El origen público se define en **`PUBLIC_SITE_URL`**,
+   que es la base de todas las URL absolutas (canónicas, `og:url`, `og:image`, los JSON-LD, el
+   sitemap y `robots.txt`). `src/data/site.ts`, `astro.config.mjs` y los scripts de verificación
+   leen la misma variable, así que no pueden divergir; `npm run deploy:check` falla si alguna
+   página compilada conserva un origen distinto.
+4. **Nunca se escribe un dominio dentro de un componente de `src/`.** Toda URL absoluta sale de
+   `SITE_URL` (`src/data/site.ts`). En los textos legales se usan los tokens `SITE_URL` y
+   `RELEASE_URL`, que `LegalDocument.astro` sustituye al renderizar.
+5. **`robots.txt` se genera en el build** (`src/pages/robots.txt.ts`), no es un fichero estático:
+   su directiva `Sitemap:` debe seguir siempre al origen público.
 
 ### Redirecciones
 

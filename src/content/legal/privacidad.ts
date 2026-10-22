@@ -107,7 +107,7 @@ export const PRIVACIDAD: LegalDocument = {
             'Gestión de cookies de terceros: https://policies.google.com/technologies/ads',
             'Preferencias de anuncios: https://adssettings.google.com/',
             'Política de privacidad de Google: https://policies.google.com/privacy',
-            'ads.txt del sitio: https://convertilocal.com/ads.txt',
+            'ads.txt del sitio: SITE_URL/ads.txt',
           ],
         },
         {

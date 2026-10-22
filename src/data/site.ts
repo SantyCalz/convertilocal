@@ -13,6 +13,24 @@ export interface LegalPage {
 }
 
 /**
+ * Origen público del sitio.
+ *
+ * Todo lo que requiere una URL absoluta —canónicas, `og:url`, `og:image`, los
+ * JSON-LD, el sitemap y `robots.txt`— se construye sobre este valor.
+ *
+ * Se define con `PUBLIC_SITE_URL` para poder cambiar de dominio sin tocar
+ * código: mientras `convertilocal.com` no tenga DNS, el valor por defecto es
+ * el subdominio de Vercel, que sí responde. `astro.config.mjs` lee la misma
+ * variable, de modo que el sitemap y las canónicas nunca divergen.
+ */
+export const SITE_URL = (import.meta.env.PUBLIC_SITE_URL ?? 'https://convertilocal.vercel.app')
+  .trim()
+  .replace(/\/$/, '');
+
+/** Host del origen público, sin protocolo ni barra final. */
+export const SITE_DOMAIN = new URL(SITE_URL).host;
+
+/**
  * Trazabilidad del código fuente (AGPL-3.0 §13).
  *
  * Vercel inyecta `VERCEL_GIT_COMMIT_SHA` en el entorno de build. Ese SHA se
@@ -82,8 +100,10 @@ export const SOURCE_RELEASE_URL = (
 export const SITE = {
   name: 'ConvertiLocal',
   shortName: 'ConvertiLocal',
-  url: 'https://convertilocal.com',
-  domain: 'convertilocal.com',
+  /** Todo lo que requiere una URL absoluta sale de aquí. */
+  url: SITE_URL,
+  /** Host público, sin protocolo. */
+  domain: SITE_DOMAIN,
   title: 'ConvertiLocal — Convierte imágenes sin subirlas',
   description:
     'Convierte, comprime y limpia imágenes directamente en tu navegador. Veinte conversiones entre JPG, PNG, WebP, HEIC, AVIF, BMP e ICO, sin subir archivos y sin registro.',

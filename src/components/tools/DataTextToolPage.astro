@@ -8,6 +8,7 @@ import ToolPageShell from '@/components/tools/ToolPageShell.astro';
 import Icon from '@/components/ui/Icon.astro';
 import { DATA_TOOLS } from '@/data/data-tools';
 import type { DataTool } from '@/types/data';
+import { SITE_URL } from '@/data/site';
 
 interface Props {
   slug: string;
@@ -22,7 +23,7 @@ if (!tool) {
 }
 
 const path = TEXT_SLUGS.has(slug) ? `/texto/${slug}` : `/convertir/${slug}`;
-const site = (Astro.site ?? new URL('https://convertilocal.com')).href.replace(/\/$/, '');
+const site = SITE_URL;
 const absolute = `${site}${path}`;
 const pageTitle = tool.title.split(' | ')[0] ?? tool.h1;
 

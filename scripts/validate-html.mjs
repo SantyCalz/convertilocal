@@ -15,6 +15,14 @@ const root = 'dist';
 const errors = [];
 const pages = [];
 
+/**
+ * Origen público del sitio. Debe coincidir con el que usan las canónicas,
+ * el sitemap y `robots.txt` (variable `PUBLIC_SITE_URL`).
+ */
+const SITE_URL = (process.env.PUBLIC_SITE_URL ?? 'https://convertilocal.vercel.app')
+  .trim()
+  .replace(/\/$/, '');
+
 function walk(directory) {
   for (const entry of readdirSync(directory, { withFileTypes: true })) {
     const full = join(directory, entry.name);
@@ -52,7 +60,8 @@ for (const page of pages) {
     if (/^(#|mailto:|tel:|data:|javascript:)/.test(url)) continue;
 
     if (/^https?:/.test(url)) {
-      if (!url.startsWith('https://convertilocal.com')) continue;
+      // Las URLs absolutas solo se comprueban si apuntan al propio sitio.
+      if (!url.startsWith(SITE_URL)) continue;
       url = new URL(url).pathname;
     }
 

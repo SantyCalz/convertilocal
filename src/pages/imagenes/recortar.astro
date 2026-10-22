@@ -7,9 +7,10 @@
 import ToolPageShell from '@/components/tools/ToolPageShell.astro';
 import Icon from '@/components/ui/Icon.astro';
 import type { ProcessorOption } from '@/types/processor';
+import { SITE_URL } from '@/data/site';
 
 const path = '/imagenes/recortar';
-const site = (Astro.site ?? new URL('https://convertilocal.com')).href.replace(/\/$/, '');
+const site = SITE_URL;
 const faqs = [
   { q: '¿Puedo recortar con coordenadas exactas?', a: 'Sí. Indica X, Y, ancho y alto en píxeles. Si dejas el ancho o el alto a 0, el recorte llega hasta el borde de la imagen.' },
   { q: '¿Qué pasa si el recorte está fuera de la imagen?', a: 'Se muestra un error antes de procesar.' },

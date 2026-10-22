@@ -7,10 +7,11 @@
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import Icon from '@/components/ui/Icon.astro';
 import { DATA_TOOLS, TEXT_TOOL_SLUGS } from '@/data/data-tools';
+import { SITE_URL } from '@/data/site';
 
 const dataTools = DATA_TOOLS.filter((tool) => !TEXT_TOOL_SLUGS.has(tool.slug));
 const path = '/convertir/datos';
-const site = (Astro.site ?? new URL('https://convertilocal.com')).href.replace(/\/$/, '');
+const site = SITE_URL;
 const absolute = `${site}${path}`;
 
 const webApplicationSchema = {

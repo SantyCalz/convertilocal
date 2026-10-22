@@ -30,7 +30,7 @@ texto canónico está en [`LICENSE`](LICENSE) y la auditoría completa en
 - `ffmpeg-static` 5.3.0 — GPL-3.0-or-later
 
 El detalle de las obligaciones que generan (copia de la licencia, código fuente correspondiente,
-aviso de red de la AGPL §13) está en [`/licencias`](https://convertilocal.com/licencias).
+aviso de red de la AGPL §13) está en [`/licencias`](https://convertilocal.vercel.app/licencias).
 
 ## Inventario
 

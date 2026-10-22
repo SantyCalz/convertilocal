@@ -150,10 +150,10 @@ export const LICENCIAS: LegalDocument = {
         {
           type: 'paragraph',
           content:
-            '«ConvertiLocal», el nombre del dominio convertilocal.com, el logotipo y el diseño ' +
-            'gráfico son marcas de sus respectivos titulares y NO están cubiertos por la ' +
-            'AGPL-3.0 ni por ninguna de las licencias de terceros listadas aquí. La licencia cubre ' +
-            'el código fuente del proyecto y sus textos legales, no la marca.',
+            '«ConvertiLocal», el logotipo y el diseño gráfico son marcas de sus respectivos ' +
+            'titulares y NO están cubiertos por la AGPL-3.0 ni por ninguna de las licencias de ' +
+            'terceros listadas aquí. La licencia cubre el código fuente del proyecto y sus textos ' +
+            'legales, no la marca.',
         },
         {
           type: 'paragraph',

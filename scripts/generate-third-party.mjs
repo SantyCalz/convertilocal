@@ -18,6 +18,14 @@ const ROOT = process.cwd();
 const CHECK_ONLY = process.argv.includes('--check');
 const require = createRequire(import.meta.url);
 
+/**
+ * Origen público del sitio, para los enlaces absolutos del documento.
+ * Debe coincidir con `src/data/site.ts` y con `astro.config.mjs`.
+ */
+const SITE_URL = (process.env.PUBLIC_SITE_URL ?? 'https://convertilocal.vercel.app')
+  .trim()
+  .replace(/\/$/, '');
+
 const pkg = JSON.parse(readFileSync(join(ROOT, 'package.json'), 'utf8'));
 
 /** Ficheros de licencia que se copian a `public/licencias/` y a la raíz. */
@@ -252,7 +260,7 @@ ${Object.entries(counts)
 ${copyleft.length === 0 ? '_Ninguna._' : copyleft.map((row) => `- \`${row.name}\` ${row.version} — ${row.license}`).join('\n')}
 
 El detalle de las obligaciones que generan (copia de la licencia, código fuente correspondiente,
-aviso de red de la AGPL §13) está en [\`/licencias\`](https://convertilocal.com/licencias).
+aviso de red de la AGPL §13) está en [\`/licencias\`](${SITE_URL}/licencias).
 
 ## Inventario
 

@@ -10,6 +10,7 @@ import Icon from '@/components/ui/Icon.astro';
 import { CONVERSIONS, acceptForFormat, conversionPath, getFormat } from '@/data/images';
 import type { ConversionEntry } from '@/types/image';
 import type { ProcessorOption } from '@/types/processor';
+import { SITE_URL } from '@/data/site';
 
 export const getStaticPaths = (() =>
   CONVERSIONS.map((conversion) => ({
@@ -25,7 +26,7 @@ const { conversion } = Astro.props;
 const from = getFormat(conversion.from);
 const to = getFormat(conversion.to);
 const path = conversionPath(conversion.slug);
-const site = (Astro.site ?? new URL('https://convertilocal.com')).href.replace(/\/$/, '');
+const site = SITE_URL;
 const absolute = `${site}${path}`;
 
 const accepts =

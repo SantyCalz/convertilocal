@@ -207,14 +207,29 @@ No hay backend, formularios con subida, analítica ni cuentas. El archivo se lee
 
 ## Antes de publicar
 
-1. **Dominio:** actualizar `site` en `astro.config.mjs`, `SITE.url`/`SITE.domain` en `src/data/site.ts` y `public/robots.txt`.
-2. **Datos legales:** completar `LEGAL_ENTITY` en `src/data/site.ts` (nombre, NIF, domicilio, hosting) y revisar los textos con asesoría.
-3. **AdSense:** definir `PUBLIC_ADSENSE_CLIENT`, IDs de bloque y CMP antes de activar anuncios personalizados.
+1. **Dominio:** el origen público se define en una sola variable, `PUBLIC_SITE_URL`
+   (ver `.env.example`). Es la base de todas las URL absolutas: canónicas, `og:url`,
+   `og:image`, los JSON-LD, el sitemap y la directiva `Sitemap:` de `robots.txt`.
+   `src/data/site.ts` y `astro.config.mjs` leen la misma variable, de modo que nunca
+   divergen. Mientras `convertilocal.com` no tenga DNS, el valor por defecto es
+   `https://convertilocal.vercel.app`, que sí responde y es el que Google Search
+   Console puede validar. Cuando apuntes el dominio, cambia **solo** la variable:
+
+   ```bash
+   PUBLIC_SITE_URL=https://convertilocal.com
+   ```
+
+   `npm run deploy:check` falla si alguna página compilada conserva un origen
+   canónico distinto del configurado.
+2. **Datos legales:** completar `LEGAL_ENTITY` en `src/data/site.ts` (identificación fiscal y
+   domicilio reales) y revisar los textos con asesoría. `name` y `email` son obligatorios: el
+   build falla si faltan.
+3. **AdSense:** definir `PUBLIC_ADSENSE_CLIENT`, IDs de bloque y CMP antes de activar anuncios
+   personalizados. El `ads.txt` debe servirse desde el dominio registrado por AdSense.
 4. **OG image:** sustituir `public/assets/og-default.png` si cambia el branding.
 5. **Laboratorio:** eliminar `/demo-file-processor` y su entrada oculta del catálogo.
 6. **Licencias:** el proyecto ya es AGPL-3.0-only (`LICENSE` en la raíz). Revisar `docs/LICENSE_AUDIT.md` y `THIRD_PARTY_LICENSES.md`. La LGPL de libheif incluida por `heic2any` sigue pendiente de revisión legal.
-7. **Datos del titular:** `LEGAL_ENTITY` en `src/data/site.ts` publica el nombre del proyecto y remite el NIF y el domicilio a petición por correo. Sustituir por los datos reales cuando se disponga de ellos.
-8. **QA real:** repetir las pruebas en Safari/iOS, Firefox y un Android de gama media; revisar HEIC/AVIF y descargas múltiples.
+7. **QA real:** repetir las pruebas en Safari/iOS, Firefox y un Android de gama media; revisar HEIC/AVIF y descargas múltiples.
 
 ## Hoja de ruta
 

@@ -9,6 +9,7 @@ import ToolPageShell from '@/components/tools/ToolPageShell.astro';
 import Icon from '@/components/ui/Icon.astro';
 import { PDF_TOOLS } from '@/data/pdf-tools';
 import type { PdfTool } from '@/types/pdf';
+import { SITE_URL } from '@/data/site';
 
 export const getStaticPaths = (() =>
   PDF_TOOLS.map((tool) => ({
@@ -22,7 +23,7 @@ interface Props {
 
 const { tool } = Astro.props;
 const path = `/pdf/${tool.slug}`;
-const site = (Astro.site ?? new URL('https://convertilocal.com')).href.replace(/\/$/, '');
+const site = SITE_URL;
 const absolute = `${site}${path}`;
 const pageTitle = tool.title.split(' | ')[0] ?? tool.h1;
 

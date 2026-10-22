@@ -423,10 +423,15 @@ textos de licencia, con `SOURCES.json` como manifiesto de hashes.
 > mientras que GitHub guarda los assets en plano. Se corrigió y se volvió a subir el manifiesto.
 
 > ⚠ **Pendiente de publicación:** el dominio canónico **`convertilocal.com` no tiene DNS**
-> (`NXDOMAIN`). El sitio solo responde en `https://convertilocal.vercel.app`. Esto afecta a:
-> las URL canónicas y `og:url` de las 74 páginas, la metaetiqueta de verificación de Google
-> Search Console y el `ads.txt` que AdSense exige servir **desde el dominio registrado**.
-> `scripts/check-legal.mjs` lo avisa en cada `deploy:check` mientras siga así.
+> (`NXDOMAIN`). El sitio solo responde en `https://convertilocal.vercel.app`. Como el origen
+> público ahora se define en `PUBLIC_SITE_URL` (con ese subdominio como valor por defecto), las
+> canónicas, `og:url`, los JSON-LD, el sitemap y `robots.txt` ya apuntan al host que responde,
+> y Google Search Console puede validarlo. Queda pendiente apuntar el dominio: cuando se haga,
+> basta cambiar `PUBLIC_SITE_URL` (afecta a `src/data/site.ts`, `astro.config.mjs` y los scripts
+> de verificación, que leen la misma variable).
+>
+> Mientras tanto, el `ads.txt` se sirve desde `convertilocal.vercel.app` y AdSense exige que
+> esté en el dominio registrado de la cuenta.
 
 
 ### 11.2 Redirecciones
@@ -523,6 +528,6 @@ sirva un índice de recursos distinto junto con sus fragmentos.
 | 5 | `LEGAL_ENTITY` con «NIF» | Ahora `Identificación fiscal`, con `name` y `email` obligatorios y validación en build. |
 | 6 | El repositorio «contiene el modelo de 126 MB» | ⚠ No lo contiene: son **159,7 MB** y **no están versionados** (se descargan en `prebuild` y se verifican con `assets-integrity.json`). El modelo de segmentación en sí son ~126 MB; el resto es el runtime de ONNX para CPU y WebGPU. |
 | 7 | «sin binarios de sharp» | ✅ Confirmado. |
-| 8 | — | ⚠ **Nuevo:** el dominio `convertilocal.com` no resuelve (NXDOMAIN). El sitio solo está en `convertilocal.vercel.app`. Bloquea las URL canónicas, la verificación de Search Console y el `ads.txt` de AdSense. |
+| 8 | — | ⚠ **Nuevo:** el dominio `convertilocal.com` no resuelve (NXDOMAIN). El origen público pasó a ser configurable con `PUBLIC_SITE_URL`, cuyo valor por defecto es el subdominio de Vercel: ese sí responde y puede validarse en Search Console. Queda pendiente apuntar el dominio. |
 
 
