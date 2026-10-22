@@ -66,7 +66,12 @@
       "unir fotos en pdf",
       "fotos a pdf"
     ],
-    "related": ["/convertir/png-a-pdf", "/convertir/pdf-a-jpg", "/pdf/imagen-a-pdf", "/imagenes/reducir-foto-a-kb"],
+    "related": [
+      "/convertir/png-a-pdf",
+      "/convertir/pdf-a-jpg",
+      "/pdf/imagen-a-pdf",
+      "/imagenes/reducir-foto-a-kb"
+    ],
     "updated": "2026-10-22",
     "does": [
       "Une una o varias imágenes JPG en un solo PDF, en el orden que elijas.",
@@ -147,7 +152,12 @@
       "png a pdf online",
       "imagen png a pdf"
     ],
-    "related": ["/convertir/jpg-a-pdf", "/convertir/pdf-a-png", "/pdf/imagen-a-pdf", "/imagenes/quitar-exif-foto"],
+    "related": [
+      "/convertir/jpg-a-pdf",
+      "/convertir/pdf-a-png",
+      "/pdf/imagen-a-pdf",
+      "/imagenes/quitar-exif-foto"
+    ],
     "updated": "2026-10-22",
     "does": [
       "Convierte una o varias imágenes PNG en un único PDF.",
@@ -229,7 +239,12 @@
       "extraer páginas pdf como imagen",
       "pdf a jpg online"
     ],
-    "related": ["/convertir/pdf-a-png", "/convertir/jpg-a-pdf", "/pdf/pdf-a-jpg", "/pdf/dividir-pdf"],
+    "related": [
+      "/convertir/pdf-a-png",
+      "/convertir/jpg-a-pdf",
+      "/pdf/pdf-a-jpg",
+      "/pdf/dividir-pdf"
+    ],
     "updated": "2026-10-22",
     "does": [
       "Convierte cada página de un PDF en una imagen JPG.",
@@ -311,7 +326,12 @@
       "extraer páginas pdf como png",
       "pdf a png online"
     ],
-    "related": ["/convertir/pdf-a-jpg", "/convertir/png-a-pdf", "/pdf/pdf-a-png", "/pdf/dividir-pdf"],
+    "related": [
+      "/convertir/pdf-a-jpg",
+      "/convertir/png-a-pdf",
+      "/pdf/pdf-a-png",
+      "/pdf/dividir-pdf"
+    ],
     "updated": "2026-10-22",
     "does": [
       "Convierte cada página de un PDF en una imagen PNG sin pérdida.",
@@ -325,6 +345,98 @@
       "No comprime: los archivos resultantes son pesados.",
       "No mantiene los enlaces, formularios ni capas del PDF.",
       "No lee documentos escaneados: no hace OCR."
+    ]
+  },
+  {
+    "slug": "html-a-pdf",
+    "title": "Convertir HTML a PDF en tu navegador | ConvertiLocal",
+    "h1": "Convertir HTML a PDF",
+    "description": "Pega tu código HTML o sube un archivo .html y obtén un PDF con el diseño intacto. Todo se procesa en tu navegador.",
+    "intro": "Si guardas una página como PDF desde el navegador, las imágenes externas desaparecen y el resultado pesa de más. Aquí el HTML se limpia de contenido activo, se renderiza en un documento aislado y se imprime con el motor del navegador: el texto sigue siendo seleccionable y no sale nada de tu dispositivo.",
+    "why": [
+      "Pega el código directamente o sube un archivo .html o .htm.",
+      "Los scripts, los marcos y los formularios se eliminan antes de generar nada.",
+      "Las direcciones externas se quitan: el PDF no depende de ningún otro sitio.",
+      "El modo vectorial conserva el texto seleccionable y los estilos que hayas escrito.",
+      "Si prefieres un archivo descargable, el modo de compatibilidad genera un PDF rasterizado."
+    ],
+    "useCases": [
+      {
+        "title": "Facturas y presupuestos",
+        "body": "Pega el HTML que generas con tu plantilla y obtén un PDF presentable sin maquetar nada."
+      },
+      {
+        "title": "Documentación interna",
+        "body": "Convierte una página con tablas y estilos a un PDF que se puede enviar por correo."
+      },
+      {
+        "title": "Informes con gráficos",
+        "body": "Las imágenes embebidas como data: se conservan; las que apuntan a otro sitio, no."
+      }
+    ],
+    "mistakes": [
+      {
+        "title": "Esperar que se conserven los scripts",
+        "body": "Por seguridad se eliminan todos los scripts: el PDF es el documento, no una aplicación."
+      },
+      {
+        "title": "Usar imágenes que están en otro servidor",
+        "body": "Los enlaces a otros sitios se quitan para no hacer peticiones durante la conversión. Usa imágenes embebidas en base64."
+      },
+      {
+        "title": "Confundir los dos modos",
+        "body": "El modo vectorial imprime el documento con el diálogo del navegador. El de compatibilidad descarga un PDF, pero sin texto seleccionable."
+      }
+    ],
+    "faq": [
+      {
+        "q": "¿Cómo obtengo el PDF?",
+        "a": "En el modo vectorial se abre el diálogo de impresión del navegador: elige «Guardar como PDF» como destino. En el modo de compatibilidad el PDF se descarga directamente."
+      },
+      {
+        "q": "¿El texto será seleccionable?",
+        "a": "Sí, en el modo vectorial. En el modo de compatibilidad el PDF es una imagen y el texto no se puede seleccionar ni buscar."
+      },
+      {
+        "q": "¿Se ejecuta el JavaScript del HTML?",
+        "a": "No. Los scripts se eliminan antes de renderizar, así que nada se ejecuta."
+      },
+      {
+        "q": "¿Qué pasa con las imágenes de otro sitio?",
+        "a": "Se quitan para que la conversión no dependa de ningún servidor externo ni haga peticiones a terceros."
+      },
+      {
+        "q": "¿Puedo usar estilos CSS?",
+        "a": "Sí, los estilos que escribas en el propio documento se conservan. Los que se importan desde otro sitio, no."
+      }
+    ],
+    "keywords": [
+      "html a pdf",
+      "convertir html a pdf",
+      "html a pdf online",
+      "pdf desde html",
+      "guardar html como pdf"
+    ],
+    "related": [
+      "/convertir/jpg-a-pdf",
+      "/convertir/png-a-pdf",
+      "/convertir/pdf-a-jpg",
+      "/convertir/pdf-a-png",
+      "/texto/html-a-markdown"
+    ],
+    "updated": "2026-10-22",
+    "does": [
+      "Acepta HTML pegado en el navegador o un archivo .html / .htm.",
+      "Elimina scripts, marcos, formularios y manejadores antes de renderizar.",
+      "Quita las direcciones externas para que no se haga ninguna petición a terceros.",
+      "Conserva los estilos escritos en el propio documento.",
+      "Genera el PDF con el motor de impresión del navegador: el texto es seleccionable."
+    ],
+    "doesNot": [
+      "No ejecuta JavaScript: el contenido activo se elimina.",
+      "No descarga imágenes alojadas en otros sitios.",
+      "No reproduce páginas que dependan de scripts para maquetarse.",
+      "No incluye las fuentes incrustadas por el navegador en el PDF."
     ]
   }
 ]

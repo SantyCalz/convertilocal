@@ -72,6 +72,21 @@ const CONFIG: Record<string, DocumentToolConfig> = {
     resultNote:
       'PNG conserva el detalle del texto y los gráficos, a cambio de archivos más pesados. El fondo se aplana en blanco.',
   },
+  'html-a-pdf': {
+    processorId: 'html-to-pdf',
+    accept: '.html,.htm,text/html',
+    acceptLabel: 'HTML',
+    actionLabel: 'Generar PDF',
+    baseName: 'documento-html',
+    multiple: false,
+    maxSizeMB: 5,
+    maxFiles: 1,
+    maxTotalMB: 5,
+    previewMode: 'none',
+    options: DOCUMENT_OPTIONS.htmlToPdf,
+    resultNote:
+      'En el modo vectorial se abre el diálogo de impresión: elige «Guardar como PDF». El HTML saneado también se descarga.',
+  },
 };
 
 export const DOCUMENT_TOOLS: DocumentTool[] = DOCUMENT_CONTENT.map((content) => {

@@ -58,6 +58,11 @@ export default defineConfig({
     build: {
       // El presupuesto de JS se comprueba en scripts/check-js-budget.mjs.
       assetsInlineLimit: 2048,
+      // Los códecs y las librerías de documento se cargan de forma diferida y
+      // pueden pasar de 500 KB sin comprimir (heic2any ocupa ~1,3 MB). El
+      // límite que importa (400 KB gzip por chunk diferido) lo vigila
+      // check-js-budget.mjs; aquí solo se evita el aviso por defecto de Vite.
+      chunkSizeWarningLimit: 1400,
     },
   },
 });

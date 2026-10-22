@@ -8,6 +8,7 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
 import Icon from '@/components/ui/Icon.astro';
 import { PDF_TOOLS } from '@/data/pdf-tools';
 import { SITE_URL } from '@/data/site';
+import AdSlot from '@/components/AdSlot.astro';
 
 const path = '/pdf';
 const site = SITE_URL;
@@ -258,5 +259,6 @@ const itemListSchema = {
       </aside>
     </div>
     <p class="mt-8 text-[11px] text-slate-400">Contenido revisado el 2026-10-21.</p>
+    <AdSlot class="mt-10" minHeightMobile={100} minHeightDesktop={250} />
   </section>
 </BaseLayout>

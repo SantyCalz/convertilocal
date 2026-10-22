@@ -6,6 +6,7 @@
  */
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import FileProcessor from '@/components/FileProcessor.astro';
+import AdSlot from '@/components/AdSlot.astro';
 import Icon from '@/components/ui/Icon.astro';
 import type { ProcessorOption } from '@/types/processor';
 
@@ -123,6 +124,7 @@ const {
             resultNote={resultNote}
             previewMode={previewMode}
           />
+          <slot name="tools-extra" />
         </div>
       </div>
     </div>
@@ -132,6 +134,13 @@ const {
     <div class="grid gap-10 lg:grid-cols-[minmax(0,1fr)_280px] lg:gap-12">
       <div class="min-w-0">
         <slot />
+
+        <!--
+          Publicidad en todas las herramientas. El hueco se reserva con
+          min-height (ver AdSlot.astro) para que la página no salte cuando
+          el anuncio cargue.
+        -->
+        <AdSlot class="mt-10" minHeightMobile={100} minHeightDesktop={250} />
       </div>
       <aside class="min-w-0">
         <div class="rounded-2xl border border-slate-200 bg-slate-50/70 p-5">

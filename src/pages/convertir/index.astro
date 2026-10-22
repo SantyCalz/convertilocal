@@ -11,6 +11,7 @@ import { CONVERSIONS, FORMATS, conversionPath, conversionsFrom, getFormat } from
 import { DOCUMENT_TOOLS } from '@/data/documents-tools';
 import type { ImageFormatId } from '@/types/image';
 import { SITE_URL } from '@/data/site';
+import AdSlot from '@/components/AdSlot.astro';
 
 const sources: ImageFormatId[] = ['jpg', 'png', 'webp', 'heic', 'avif', 'bmp', 'ico'];
 const site = SITE_URL;
@@ -296,5 +297,6 @@ const breadcrumbSchema = {
         <p class="mt-1 text-center text-[10px] text-slate-400">El modelo se ejecuta en tu dispositivo</p>
       </div>
     </div>
+    <AdSlot class="mt-10" minHeightMobile={100} minHeightDesktop={250} />
   </section>
 </BaseLayout>

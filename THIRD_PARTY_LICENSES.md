@@ -1,6 +1,6 @@
 # Licencias de terceros
 
-> Generado automáticamente por `scripts/generate-third-party.mjs` el 2026-10-21.
+> Generado automáticamente por `scripts/generate-third-party.mjs` el 2026-10-22.
 > No editar a mano: los cambios se pierden en el siguiente build.
 
 Este documento lista las dependencias del proyecto y sus licencias. El proyecto completo se

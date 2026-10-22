@@ -1,5 +1,5 @@
 LICENCIAS DE TERCEROS — CONVERTI LOCAL
-Generado por scripts/generate-third-party.mjs el 2026-10-21
+Generado por scripts/generate-third-party.mjs el 2026-10-22
 
 Este sitio se publica bajo la GNU Affero General Public License v3.0 unicamente (AGPL-3.0-only).
 El texto completo esta en /licencias y en la raiz del repositorio (LICENSE).

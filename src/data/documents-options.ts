@@ -90,6 +90,73 @@ const DPI: ProcessorOption = {
 
 export const DOCUMENT_OPTIONS = {
   imageToPdf: IMAGE_TO_PDF,
+  htmlToPdf: [
+    {
+      id: 'mode',
+      label: 'Cómo generar el PDF',
+      type: 'select',
+      defaultValue: 'vector',
+      choices: [
+        {
+          value: 'vector',
+          label: 'Vectorial y seleccionable (recomendado)',
+          description: 'Abre el diálogo de impresión del navegador: elige «Guardar como PDF».',
+        },
+        {
+          value: 'raster',
+          label: 'Modo de compatibilidad (descarga directa)',
+          description: 'Genera un PDF con la página capturada como imagen. El texto no será seleccionable.',
+        },
+      ],
+      help: 'En el modo vectorial eliges dónde guardarlo en el diálogo de impresión.',
+    },
+    {
+      id: 'pageSize',
+      label: 'Tamaño de página',
+      type: 'select',
+      defaultValue: 'a4',
+      choices: [
+        { value: 'a4', label: 'A4 (210 × 297 mm)' },
+        { value: 'letter', label: 'Carta (8,5 × 11 in)' },
+      ],
+    },
+    {
+      id: 'margin',
+      label: 'Margen de impresión',
+      type: 'select',
+      defaultValue: '12mm',
+      choices: [
+        { value: '0', label: 'Sin margen' },
+        { value: '12mm', label: 'Estándar (12 mm)' },
+        { value: '20mm', label: 'Amplio (20 mm)' },
+      ],
+    },
+    {
+      id: 'scale',
+      label: 'Resolución de la captura',
+      type: 'select',
+      defaultValue: '2',
+      choices: [
+        { value: '1', label: '1× · rápida' },
+        { value: '2', label: '2× · equilibrada' },
+        { value: '3', label: '3× · muy nítida' },
+      ],
+      help: 'Solo afecta al modo de compatibilidad.',
+      showWhen: { id: 'mode', equals: 'raster' },
+    },
+    {
+      id: 'quality',
+      label: 'Calidad JPEG',
+      type: 'range',
+      defaultValue: 92,
+      min: 50,
+      max: 100,
+      step: 1,
+      unit: '%',
+      help: 'Solo afecta al modo de compatibilidad.',
+      showWhen: { id: 'mode', equals: 'raster' },
+    },
+  ] satisfies ProcessorOption[],
   pdfToJpg: [DPI, PAGE_RANGE, {
     id: 'quality',
     label: 'Calidad JPEG',

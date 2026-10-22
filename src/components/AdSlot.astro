@@ -30,7 +30,10 @@ const {
 const slotId = slot || SITE.adsenseSlot;
 const hasAd = SITE.adsEnabled && Boolean(SITE.adsenseClient && slotId);
 const showPlaceholder = import.meta.env.DEV;
-const show = hasAd || showPlaceholder;
+// El hueco se reserva siempre: si el anuncio entra más tarde, la página no
+// salta. Sin bloque configurado se ve el espacio vacío, pero la altura ya
+// está reservada.
+const show = true;
 ---
 
 {
@@ -66,7 +69,9 @@ const show = hasAd || showPlaceholder;
             Publicidad
           </span>
           <span class="text-xs text-slate-400">
-            Espacio reservado {minHeightMobile}px / {minHeightDesktop}px · sin CLS
+            {showPlaceholder
+              ? `Espacio reservado ${minHeightMobile}px / ${minHeightDesktop}px · sin CLS`
+              : `Espacio reservado para publicidad · ${minHeightMobile}px / ${minHeightDesktop}px`}
           </span>
         </div>
       )}

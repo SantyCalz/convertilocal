@@ -887,11 +887,20 @@ function setup(root: HTMLElement): void {
     setStatus('Orden actualizado. Pulsa procesar para aplicar los cambios.', 'ready');
   });
 
+  /**
+   * Permite añadir archivos desde fuera del selector (por ejemplo, el HTML
+   * que se pega en el cuadro de texto de la herramienta HTML a PDF).
+   */
+  root.addEventListener('convertilocal:add-files', (event) => {
+    const detail = (event as CustomEvent<{ files?: File[] }>).detail;
+    const incoming = detail?.files;
+    if (!incoming || incoming.length === 0) return;
+    void addFiles(incoming);
+  });
+
   root.addEventListener('convertilocal:options-changed', () => {
-    if (state.busy || state.validating || !state.done) return;
     state.outputs = [];
-    state.done = false;
-    clearResults();
+    state.done = false;    clearResults();
     setProgress(null);
     setStatus('Vista previa actualizada. Vuelve a procesar para aplicar los cambios.', 'ready');
     syncAction();

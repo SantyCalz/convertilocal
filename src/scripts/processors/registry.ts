@@ -27,6 +27,8 @@ const loaders: Record<string, () => Promise<Processor>> = {
     import('./image/remove-background').then((module) => module.removeBackgroundProcessor),
   'image-resize': () => import('./image/resize').then((module) => module.imageResizeProcessor),
   'image-crop': () => import('./image/crop').then((module) => module.imageCropProcessor),
+  'html-to-pdf': () =>
+    import('./documents/html-to-pdf').then((module) => module.htmlToPdfProcessor),
   'pdf-merge': () => import('./pdf/merge').then((module) => module.pdfMergeProcessor),
   'pdf-split': () => import('./pdf/split').then((module) => module.pdfSplitProcessor),
   'pdf-organize': () =>

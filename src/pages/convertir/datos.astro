@@ -8,6 +8,7 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
 import Icon from '@/components/ui/Icon.astro';
 import { DATA_TOOLS, TEXT_TOOL_SLUGS } from '@/data/data-tools';
 import { SITE_URL } from '@/data/site';
+import AdSlot from '@/components/AdSlot.astro';
 
 const dataTools = DATA_TOOLS.filter((tool) => !TEXT_TOOL_SLUGS.has(tool.slug));
 const path = '/convertir/datos';
@@ -88,5 +89,6 @@ const faqSchema = {
         </a>
       ))}
     </div>
+    <AdSlot class="mt-10" minHeightMobile={100} minHeightDesktop={250} />
   </section>
 </BaseLayout>

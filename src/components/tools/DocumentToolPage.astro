@@ -6,6 +6,7 @@
  */
 import ToolPageShell from '@/components/tools/ToolPageShell.astro';
 import ConversionLimits from '@/components/ConversionLimits.astro';
+import HtmlPastePanel from '@/components/tools/HtmlPastePanel.astro';
 import Icon from '@/components/ui/Icon.astro';
 import { DOCUMENT_TOOLS } from '@/data/documents-tools';
 import { PDF_TOOLS } from '@/data/pdf-tools';
@@ -150,6 +151,14 @@ const limitations = [
   <Fragment slot="intro-extra">
     <ConversionLimits class="mt-6" does={tool.does} doesNot={tool.doesNot} />
   </Fragment>
+
+  {
+    tool.slug === 'html-a-pdf' && (
+      <Fragment slot="tools-extra">
+        <HtmlPastePanel />
+      </Fragment>
+    )
+  }
 
   <section aria-labelledby="porque-title">
     <h2 id="porque-title" class="text-2xl font-bold tracking-tight text-slate-900">

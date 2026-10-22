@@ -8,6 +8,7 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
 import Icon from '@/components/ui/Icon.astro';
 import { MEDIA_TOOLS, MEDIA_SLUGS } from '@/data/media-tools';
 import { SITE_URL } from '@/data/site';
+import AdSlot from '@/components/AdSlot.astro';
 
 const mediaTools = MEDIA_TOOLS;
 const path = '/media';
@@ -88,5 +89,6 @@ const faqSchema = {
         </a>
       ))}
     </div>
+    <AdSlot class="mt-10" minHeightMobile={100} minHeightDesktop={250} />
   </section>
 </BaseLayout>
